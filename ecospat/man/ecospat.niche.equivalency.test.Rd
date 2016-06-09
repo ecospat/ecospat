@@ -14,7 +14,11 @@
   \item{rep}{The number of replications to perform.}
 }
 
-\details{Compares the observed niche overlap between z1 and z2 to overlaps between random niches z1.sim and z2.sim, which are built from random reallocations of occurences of z1 and z2.}
+\details{Compares the observed niche overlap between z1 and z2 to overlaps between random niches z1.sim and z2.sim, which are built from random reallocations of occurences of z1 and z2.
+
+If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in http://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
+
+}
 
 \value{a list with $obs = observed overlaps, $sim = simulated overlaps, $p.D = p-value of the test on D, $p.I = p-value of the test on I.}
 
