@@ -29,10 +29,10 @@ NEW FEATURES
 * Added new function "ecospat.ESM.EnsembleProjection()" for projecting calibrated ESMs into new space or time.
 * Added new function "ecospat.SESAM.prr()" for predicting community composition using a 'probability ranking' rule.
 * Added new function "ecospat.cohen.kappa()" for calculating Cohen`s kappa and variance estimates.
-* Added new function "ecospat.max.kappa()" for calculating values for Cohen’s Kappa along different thresholds.
+* Added new function "ecospat.max.kappa()" for calculating values for Cohenâ€™s Kappa along different thresholds.
 * Added new function "ecospat.max.tss()" for calculating values for TSS along different thresholds.
 * Added new function "ecospat.meva.table()" for calculating values of a series of different evaluations metrics for a model.
-* Added new function "ecospat.plot.kappa()" for plotting the values for Cohen’s Kappa.
+* Added new function "ecospat.plot.kappa()" for plotting the values for Cohenâ€™s Kappa.
 * Added new function "ecospat.plot.tss()" for plotting the values for TSS.
 * Added new function "ecospat.mpa()" for calculating minimal predicted area.
 * Added new function "ecospat.cor.plot()" for plotting correlation of variables.
@@ -50,3 +50,13 @@ CHANGES
 FIXES
 
 * Corrected the function "ecospat.niche.dyn.index()", value of the intersection = 0.1.
+
+
+ecospat_2.0.1 (09.06.16)
+=============
+ 
+FIXES
+
+* Added details to the documentation files in the description section of the function "ecospat.niche.similarity.test()". 
+* Fixed spelling error in description of the package (*Collection).
+* Fixed bug in the ESM functions "ecospat.ESM.Modeling()", "ecospat.ESM.EnsembleModeling()" and "ecospat.ESM.EnsembleProjection()", when using raster files as input.
