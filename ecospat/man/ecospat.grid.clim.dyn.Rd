@@ -17,7 +17,9 @@
   \item{th.env}{The quantile of environmental densities at all study sites used as a threshold to exclude low environmental density values.}
 }
 
-\details{Using the scores of an ordination (or SDM prediction), create a grid z of RxR pixels (or a vector of R pixels when using scores of dimension 1 or SDM predictions) with occurrence densities. Only scores of one, or two dimensions can be used.}
+\details{Using the scores of an ordination (or SDM prediction), create a grid z of RxR pixels (or a vector of R pixels when using scores of dimension 1 or SDM predictions) with occurrence densities. Only scores of one, or two dimensions can be used.
+If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in http://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
+}
 
 \value{A grid z of RxR pixels (or a vector of R pixels) with z.uncor being the density of occurrence of the species, and z.cor the occupancy of the environment by the species (density of occurrences divided by the desinty of environment in the study area.}
 
