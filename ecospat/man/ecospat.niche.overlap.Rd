@@ -16,7 +16,10 @@ If you encounter a problem during your analyses, please first read the FAQ secti
   \item{cor}{Correct the occurrence densities of each species by the prevalence of the environments in their range (T = yes, F = no).}
 }
 
-\details{if cor=F, the z$uncor objects created by \code{ecospat.grid.clim} are used to calculate the overlap. if cor=T, the z$cor objects are used.}
+\details{if cor=F, the z$uncor objects created by \code{ecospat.grid.clim} are used to calculate the overlap. if cor=T, the z$cor objects are used.
+
+If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in http://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
+}
 
 \value{Overlap values D and I. D is Schoener`s overlap metric (Schoener 1970). I is a modified Hellinger metric(Warren et al. 2008)}
 
