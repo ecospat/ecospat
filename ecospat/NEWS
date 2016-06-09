@@ -1,0 +1,52 @@
+ecospat_1.1 (06.03.2015)
+===========
+FIXES
+
+* Fixed bug in "ecospat.grid.clim.dyn()" with the kernel.
+* Fixed error in "ecospat.boyce()" return Boyce index value: Spearman coeficient is the correct one.
+* Fixed bug in "ecospat.cons_Cscore()" p-value correction.
+* Fixed manual of the function "ecospat.calculate.pd()" where arguments definition was incomplete.
+* Fixed data set of species list, now matches the species in the tree dataset.
+* Fixed ouput of "ecospat.plot.mess()" function, now gives individual figures as result.
+
+CHANGES
+
+* Removed some dependencies of whole packages, and indicated individual functions from packages to be imported.
+
+
+
+ecospat_2.0 (25.05.16)
+===========
+
+NEW FEATURES
+
+* Added a new argument in the function "ecospat.niche.similarity.test()", to indicate if the niches are randomized.
+* Added function "ecospat.shift.centroids()", to replace "ecospat.fun.arrows()" for being more precise on the utility of the function.
+* Added two new datasets "ecospat.testNiche.nat" and "ecospat.testNiche.nat", to better exemplify the niche quantification analysis.
+* Added new function "ecospat.ESM.Modeling()" for calibrating simple bivariate models.
+* Added new function "ecospat.ESM.Projection()" for projecting simple bivariate models on new.env.
+* Added new function "ecospat.ESM.EnsembleModeling()" forevaluating and averaging simple bivariate models to ESMs.
+* Added new function "ecospat.ESM.EnsembleProjection()" for projecting calibrated ESMs into new space or time.
+* Added new function "ecospat.SESAM.prr()" for predicting community composition using a 'probability ranking' rule.
+* Added new function "ecospat.cohen.kappa()" for calculating Cohen`s kappa and variance estimates.
+* Added new function "ecospat.max.kappa()" for calculating values for Cohen’s Kappa along different thresholds.
+* Added new function "ecospat.max.tss()" for calculating values for TSS along different thresholds.
+* Added new function "ecospat.meva.table()" for calculating values of a series of different evaluations metrics for a model.
+* Added new function "ecospat.plot.kappa()" for plotting the values for Cohen’s Kappa.
+* Added new function "ecospat.plot.tss()" for plotting the values for TSS.
+* Added new function "ecospat.mpa()" for calculating minimal predicted area.
+* Added new function "ecospat.cor.plot()" for plotting correlation of variables.
+* Added function "ecospat.CommunityEval()", to replace "ecospat.SSDMeval()" for being more precise on the utility of the function.
+* Added new function "ecospat.adj.D2.glm()" for calculating an adjusted D2.
+* Added new function "ecospat.exdet()" to assess climate analogy between a projection extent and a reference extent.
+
+CHANGES
+
+* Updated NAMESPACE file, import("biomod2"), and dependencies.
+* Updated dependencies of the package.Removed the dependency on the package "gam." Removed the dependency of the function kasc2spixdf("adehabitatMA"). Added the package "gtools".
+* Removed window progress indicator for the function "ecospat.niche.similarity.test()" and "ecospat.niche.equivalency.test()", and added a progress bar in the command line for functions.
+* Removed the function "ecospat.cv.gam()" and the option to run the cv in the function 'ecospat.cv.example()'. 
+
+FIXES
+
+* Corrected the function "ecospat.niche.dyn.index()", value of the intersection = 0.1.
