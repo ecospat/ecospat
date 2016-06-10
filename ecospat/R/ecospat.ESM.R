@@ -423,15 +423,15 @@ models.<-NULL
             for(i in 1:NbRunEval){
               if(sum(is.na(z[,grep(paste("RUN",i,"_",model,sep=""),colnames(z))]))!=nrow(z)){
               if(length(models)>1){
-                if(packageVersion("ecospat")==1.0){
-                  x[rownames(x)==model,colnames(x)==paste("RUN",i,sep="")] <- ecospat.boyce(z[!calib.lines[,paste("_RUN",i,sep="")],grep(paste("RUN",i,"_",model,sep=""),colnames(z))], z[!calib.lines[,paste("_RUN",i,sep="")] & data@data.species==1, grep(paste("RUN",i,"_",model,sep=""),colnames(z))], PEplot = F)$Pearson.cor
-                }else{
+                # if(packageVersion("ecospat")==1.0){
+                #   x[rownames(x)==model,colnames(x)==paste("RUN",i,sep="")] <- ecospat.boyce(z[!calib.lines[,paste("_RUN",i,sep="")],grep(paste("RUN",i,"_",model,sep=""),colnames(z))], z[!calib.lines[,paste("_RUN",i,sep="")] & data@data.species==1, grep(paste("RUN",i,"_",model,sep=""),colnames(z))], PEplot = F)$Pearson.cor
+                # }else{
                   x[rownames(x)==model,colnames(x)==paste("RUN",i,sep="")] <- ecospat.boyce(z[!calib.lines[,paste("_RUN",i,sep="")],grep(paste("RUN",i,"_",model,sep=""),colnames(z))], z[!calib.lines[,paste("_RUN",i,sep="")] & data@data.species==1, grep(paste("RUN",i,"_",model,sep=""),colnames(z))], PEplot = F)$Spearman.cor
                 }           
               }else{ 
-                if(packageVersion("ecospat")==1.0){
-                  x[names(x)==paste("RUN",i,sep="")] <- ecospat.boyce(z[!calib.lines[,paste("_RUN",i,sep="")],grep(paste("RUN",i,"_",model,sep=""),colnames(z))], z[!calib.lines[,paste("_RUN",i,sep="")] & data@data.species==1, grep(paste("RUN",i,"_",model,sep=""),colnames(z))], PEplot = F)$Pearson.cor
-                }else{
+                # if(packageVersion("ecospat")==1.0){
+                #  x[names(x)==paste("RUN",i,sep="")] <- ecospat.boyce(z[!calib.lines[,paste("_RUN",i,sep="")],grep(paste("RUN",i,"_",model,sep=""),colnames(z))], z[!calib.lines[,paste("_RUN",i,sep="")] & data@data.species==1, grep(paste("RUN",i,"_",model,sep=""),colnames(z))], PEplot = F)$Pearson.cor
+                # }else{
                   x[names(x)==paste("RUN",i,sep="")] <- ecospat.boyce(z[!calib.lines[,paste("_RUN",i,sep="")],grep(paste("RUN",i,"_",model,sep=""),colnames(z))], z[!calib.lines[,paste("_RUN",i,sep="")] & data@data.species==1, grep(paste("RUN",i,"_",model,sep=""),colnames(z))], PEplot = F)$Spearman.cor
                 }
               }    
@@ -565,9 +565,9 @@ for(i in 1:NbRunEval){
   EVAL1$Boyce <- EVAL1$MPA <- NA
   for(n in 1:nrow(EVAL1)){
     EVAL1$MPA[EVAL1$model==EVAL1$model[n]] <- ecospat.mpa(DATA1[!calib.lines[,i] & DATA1[,2] ==1,EVAL1$model[n]])
-    if(packageVersion("ecospat")==1.0){
-      EVAL1$Boyce[EVAL1$model==EVAL1$model[n]] <- ecospat.boyce(DATA1[!calib.lines[,i],EVAL1$model[n]],DATA1[!calib.lines[,i]&DATA1[,2] ==1,EVAL1$model[n]],PEplot = F)$Pearson.cor
-    }else{
+    # if(packageVersion("ecospat")==1.0){
+    #  EVAL1$Boyce[EVAL1$model==EVAL1$model[n]] <- ecospat.boyce(DATA1[!calib.lines[,i],EVAL1$model[n]],DATA1[!calib.lines[,i]&DATA1[,2] ==1,EVAL1$model[n]],PEplot = F)$Pearson.cor
+    # }else{
       EVAL1$Boyce[EVAL1$model==EVAL1$model[n]] <- ecospat.boyce(DATA1[!calib.lines[,i],EVAL1$model[n]],DATA1[!calib.lines[,i]&DATA1[,2] ==1,EVAL1$model[n]],PEplot = F)$Spearman.cor
     }
   }
@@ -624,9 +624,9 @@ if(length(models)>1){ #there is no double-ensemble if only one technique is appl
     EVAL1$Boyce <- EVAL1$MPA <- NA
     for(n in 1:nrow(EVAL1)){
       EVAL1$MPA[EVAL1$model==EVAL1$model[n]] <- ecospat.mpa(DATA1[!calib.lines[,i] & DATA1[,2] ==1,EVAL1$model[n]])
-      if(packageVersion("ecospat")==1.0){
-        EVAL1$Boyce[EVAL1$model==EVAL1$model[n]] <- ecospat.boyce(DATA1[!calib.lines[,i],EVAL1$model[n]],DATA1[!calib.lines[,i]&DATA1[,2] ==1,EVAL1$model[n]],PEplot = F)$Pearson.cor
-      }else{
+      # if(packageVersion("ecospat")==1.0){
+      #  EVAL1$Boyce[EVAL1$model==EVAL1$model[n]] <- ecospat.boyce(DATA1[!calib.lines[,i],EVAL1$model[n]],DATA1[!calib.lines[,i]&DATA1[,2] ==1,EVAL1$model[n]],PEplot = F)$Pearson.cor
+      # }else{
         EVAL1$Boyce[EVAL1$model==EVAL1$model[n]] <- ecospat.boyce(DATA1[!calib.lines[,i],EVAL1$model[n]],DATA1[!calib.lines[,i]&DATA1[,2] ==1,EVAL1$model[n]],PEplot = F)$Spearman.cor
       }
     }
