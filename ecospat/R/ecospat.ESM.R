@@ -728,9 +728,9 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
         wm <- weights[grep(models[i],names(weights))][names(weights[grep(models[i],names(weights))]) %in% colnames( biva.st[,grep(models[i],colnames(biva.st))])]
         
         
-        pred.ESM[[i]] <- apply(biva.st[,grep(models[i],colnames(biva.st))],1,function(x)weighted.mean(x,wm,na.rm=T))
+        pred.ESM[[i]] <- apply(biva.st[,grep(models[i],colnames(biva.st))],1,function(x) stats::weighted.mean(x,wm,na.rm=T))
       }else{
-        pred.ESM[[i]] <- apply(biva.st[,grep(models[i],colnames(biva.st))],1,function(x)weighted.mean(x,wm,na.rm=T))      
+        pred.ESM[[i]] <- apply(biva.st[,grep(models[i],colnames(biva.st))],1,function(x) stats::weighted.mean(x,wm,na.rm=T))      
       }
     };rm(biva.st)
     pred.ESM <- as.data.frame(do.call(cbind, pred.ESM))
@@ -751,18 +751,18 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
 #            paste(names(weights.mod),"_",sep=""), invert=T)]
 	   
 	   weights.mod<-weights.mod[!names(weights.mod) %in% paste(models[i],".",unlist(strsplit(n,"_"))[((1:length(n))*4)-3],sep="")]	
-           assign(models[i], round(weighted.mean(get(models[i]), weights.mod,na.rm=T)) )
+           assign(models[i], round(raster::weighted.mean(get(models[i]), weights.mod,na.rm=T)) )
         }else{
-          assign(models[i], round(weighted.mean(get(models[i]), weights.mod,na.rm=T)) )
+          assign(models[i], round(raster::weighted.mean(get(models[i]), weights.mod,na.rm=T)) )
         }
       }else{
         if(length(n)>0){
           weights.mod<- weights[grep(
             paste(unlist(strsplit(n,"_"))[1],"_",sep=""),
             paste(names(weights),"_",sep=""), invert=T)]       
-          assign(models[i], round(weighted.mean(get(models[i]), weights.mod,na.rm=T)) )
+          assign(models[i], round(raster::weighted.mean(get(models[i]), weights.mod,na.rm=T)) )
         }else{
-          assign(models[i], round(weighted.mean(get(models[i]), weights, na.rm=T)) )        
+          assign(models[i], round(raster::weighted.mean(get(models[i]), weights, na.rm=T)) )        
         }
       }
       
@@ -775,14 +775,14 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   if(length(models)>1){
   if(new.env.raster)
   {    
-    ESM.EF  <- round(weighted.mean(pred.ESM[[names(pred.ESM)]], weights.EF[order(weights.EF[,1]),2],na.rm=T))
+    ESM.EF  <- round(raster::weighted.mean(pred.ESM[[names(pred.ESM)]], weights.EF[order(weights.EF[,1]),2],na.rm=T))
     pred.ESM <- stack(pred.ESM, ESM.EF)
     names(pred.ESM) <- c(names(pred.ESM)[1:(nlayers(pred.ESM)-1)],"EF") ; rm(ESM.EF)
   }
   
   if(!new.env.raster)
   { 
-    pred.ESM$EF <- apply(pred.ESM,1,function(x)weighted.mean(x,weights.EF[order(weights.EF[,1]),2],na.rm=T))
+    pred.ESM$EF <- apply(pred.ESM,1,function(x) stats::weighted.mean(x,weights.EF[order(weights.EF[,1]),2],na.rm=T))
   }
   
   
