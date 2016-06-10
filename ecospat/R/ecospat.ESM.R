@@ -110,7 +110,11 @@ ecospat.ESM.Modeling <- function(data, NbRunEval=NULL, DataSplit, DataSplitTable
   if(data@has.data.eval){stop("Evaluation with independant data is not supported yet!")}
   if("PA" %in% slotNames(data)){if(ncol(data@PA)>1){stop("It is not possible to use more than one Pseudo Absences dataset")}}
   
-    if(weighting.score =='AUC' | weighting.score =='SomersD'){
+  if ("MAXENT.Phillips" %in% models) {
+    if (!file.exists(paste(myBiomodOption@MAXENT.Phillips$path_to_maxent.jar,"maxent.jar",sep="/"))) {
+      stop("maxent.jar file not found!")}}
+  
+  if(weighting.score =='AUC' | weighting.score =='SomersD'){
   models.eval.meth <- 'ROC'}    
   if(weighting.score =='Kappa'){
   models.eval.meth <- 'KAPPA'}
