@@ -53,7 +53,7 @@
 
 ##################################################################################################
 
-ecospat.grid.clim.dyn<-function(glob,glob1,sp,R,th.sp=NULL,th.env=0){
+ecospat.grid.clim.dyn<-function(glob,glob1,sp,R,th.sp= 0,th.env= 0){
   
   l<-list()
   
