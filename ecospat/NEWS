@@ -61,4 +61,4 @@ FIXES
 * Fixed spelling error in description of the package (*Collection).
 * Fixed bug in the ESM functions "ecospat.ESM.Modeling()", "ecospat.ESM.EnsembleModeling()" and "ecospat.ESM.EnsembleProjection()", when using raster files as input.
 * Corrected definition of the argument "quant" of the function "ecospat.plot.niche.dyn()".
-* Updated definition of the arguments "th.sp"  and "th.env" of the function "ecospat.grid.clim.dyn()".
+* Updated the function "ecospat.grid.clim.dyn()" and thedefinition of its arguments "th.sp"  and "th.env". Also updated its details.
