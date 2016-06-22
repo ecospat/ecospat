@@ -13,11 +13,17 @@
   \item{glob1}{A two-column dataframe (or a vector) of the environmental values (in column) for the background pixels of the species (in row).}
   \item{sp}{A two-column dataframe (or a vector) of the environmental values (in column) for the occurrences of the species (in row).}
   \item{R}{The resolution of the grid.}
-  \item{th.sp}{The quantile of species densities at species occurences used as a threshold to exclude low species density values.}
-  \item{th.env}{The quantile of environmental densities at all study sites used as a threshold to exclude low environmental density values.}
+  \item{th.sp}{The quantile used to delimit a threshold to exclude low species density values.}
+  \item{th.env}{The quantile used to delimit a threshold to exclude low environmental density values of the study area.}
 }
 
 \details{Using the scores of an ordination (or SDM prediction), create a grid z of RxR pixels (or a vector of R pixels when using scores of dimension 1 or SDM predictions) with occurrence densities. Only scores of one, or two dimensions can be used.
+\code{th.sp}  is the quantile of the distribution of species density at occurrence sites. 
+For example, if \code{th.sp} is set to 0.05, the the species niche is drawn by including 95% of the species occurrences, removing the more marginal populations. 
+Similarly, \code{th.env} is the quantile of the distribution of the environmental density at all sites of the study area. 
+If \code{th.env} is set to 0.05, the delineation of the study area in the environmental space includes 95% of the study area, removing the more marginal sites of the study area. 
+By default, these thresholds are set to 0 but can be modified, depending on the importance of some marginal sites in the delineation of the species niche and/or the study area in the environmnental space. It is recommended to check if the shape of the delineated niche and study area corresponds to the shape of the plot of the PCA scores (or any other ordination techniques used to set the environmental space). 
+Visualisation of the gridded environmental space can be done through the functions \code{\link[ecospat]{ecospat.plot.niche}} or \code{\link[ecospat]{ecospat.plot.niche.dyn}}
 If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in http://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
 }
 
