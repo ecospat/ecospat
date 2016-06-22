@@ -19,9 +19,9 @@
 
 \details{Using the scores of an ordination (or SDM prediction), create a grid z of RxR pixels (or a vector of R pixels when using scores of dimension 1 or SDM predictions) with occurrence densities. Only scores of one, or two dimensions can be used.
 \code{th.sp}  is the quantile of the distribution of species density at occurrence sites. 
-For example, if \code{th.sp} is set to 0.05, the the species niche is drawn by including 95% of the species occurrences, removing the more marginal populations. 
+For example, if \code{th.sp} is set to 0.05, the the species niche is drawn by including 95 percent of the species occurrences, removing the more marginal populations. 
 Similarly, \code{th.env} is the quantile of the distribution of the environmental density at all sites of the study area. 
-If \code{th.env} is set to 0.05, the delineation of the study area in the environmental space includes 95% of the study area, removing the more marginal sites of the study area. 
+If \code{th.env} is set to 0.05, the delineation of the study area in the environmental space includes 95 percent of the study area, removing the more marginal sites of the study area. 
 By default, these thresholds are set to 0 but can be modified, depending on the importance of some marginal sites in the delineation of the species niche and/or the study area in the environmnental space. It is recommended to check if the shape of the delineated niche and study area corresponds to the shape of the plot of the PCA scores (or any other ordination techniques used to set the environmental space). 
 Visualisation of the gridded environmental space can be done through the functions \code{\link[ecospat]{ecospat.plot.niche}} or \code{\link[ecospat]{ecospat.plot.niche.dyn}}
 If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in http://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
