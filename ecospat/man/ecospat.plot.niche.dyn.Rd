@@ -13,7 +13,7 @@ colz1,colz2,colinter,colZ1,colZ2,name.axis1,name.axis2)}
 \arguments{
   \item{z1}{A gridclim object for the native distribution.}
   \item{z2}{A gridclim object for the invaded range.}
-  \item{quant}{The quantile of the environmental density used to remove marginal climates.}
+  \item{quant}{The quantile of the environmental density used to delimit marginal climates.}
   \item{title}{The title of the plot.}
   \item{interest}{Choose which density to plot: if \code{interest=1}, plot native density, if \code{interest=2}, plot invasive density.}
   \item{colz1}{The color used to depict unfilling area.}
