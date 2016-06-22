@@ -60,3 +60,4 @@ FIXES
 * Added details to the documentation files in the description section of the function "ecospat.niche.similarity.test()". 
 * Fixed spelling error in description of the package (*Collection).
 * Fixed bug in the ESM functions "ecospat.ESM.Modeling()", "ecospat.ESM.EnsembleModeling()" and "ecospat.ESM.EnsembleProjection()", when using raster files as input.
+* Corrected definition of the argument "quant" of the function "ecospat.plot.niche.dyn()".
