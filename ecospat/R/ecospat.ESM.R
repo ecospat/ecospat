@@ -148,15 +148,15 @@ ecospat.ESM.Modeling <- function(data, NbRunEval=NULL, DataSplit, DataSplitTable
   }else{calib.lines <- DataSplitTable}
   
 	if(is.null(NbRunEval)){
-		if(ncol(calib.lines>1)){
-			if(sum(!calib.lines[,ncol(calib.lines)])==0){
-				NbRunEval <-  ncol(calib.lines)-1
+		if(ncol(calib.lines)>1){
+			if(sum(!as.data.frame(calib.lines)[,ncol(calib.lines)])==0){ ### This is the full model, all samples are False in calib.lines (i.e., not used for evaluation)
+				NbRunEval <-  ncol(calib.lines)-1  ## the full model is no repeated evaluation, thus NbRunEval is ncol of calib.lines -1
 			}else{
 				NbRunEval <-  ncol(calib.lines)
 			}	
 		}else{
-			if(sum(!calib.lines)==0){
-				NbRunEval <-  ncol(calib.lines)-1
+			if(sum(!calib.lines)==0){ ### This is the full model, all samples are False in calib.lines (i.e., not used for evaluation)
+				NbRunEval <-  ncol(calib.lines)-1 ## the full model is no repeated evaluation, thus NbRunEval is ncol of calib.lines -1
 			}else{
 				NbRunEval <-  ncol(calib.lines)
 			}
