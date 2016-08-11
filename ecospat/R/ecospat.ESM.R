@@ -389,7 +389,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score,th
   models. <- ESM.modeling.output$models.
   NbRunEval <-  ESM.modeling.output$NbRunEval
   models <-  ESM.modeling.output$models
-  calib.lines <-  ESM.modeling.output$calib.lines
+  calib.lines <-  as.data.frame(ESM.modeling.output$calib.lines)
   ESM_Projection <- ESM.modeling.output$ESM_Projection
   new.env <-  ESM.modeling.output$new.env
   
@@ -519,7 +519,7 @@ models.<-NULL
   biva.st2<-do.call(cbind, test.pred)
 
   for(i in 1:length(models)){
-      for(run in 1:(NbRunEval+1)){
+      for(run in 1:ncol(calib.lines)){
         if(length(models)>1){
           test.ESM1 <- apply(biva.st2[, grep(paste("RUN",run,"_",models[i],sep=""),colnames(biva.st2))],1,function(x)weighted.mean(x, weights[grep(models[i],names(weights))],na.rm=T))          
         }else{
@@ -598,7 +598,7 @@ if(length(models)>1){ #there is no double-ensemble if only one technique is appl
     }
 
 
-  for(run in 1:(NbRunEval+1)){
+  for(run in 1:ncol(calib.lines)){
     test.ESM$EF <- apply(test.ESM[,grep(paste("RUN",run,"_",sep=""), colnames(test.ESM))],1,function(x)weighted.mean(x, weights.double[,2],na.rm=T))
     colnames(test.ESM)[ncol(test.ESM)] <- paste("RUN",run,"_EF",sep="")
   }
