@@ -446,18 +446,20 @@ models.<-NULL
         x<-get_evaluations(y)[,"Testing.data",,,]
         	if(length(models)>1){
         	  for(row in models){
-        	    if(is.na(x[row,NbRunEval+1])){
+        	   if(ncol(calib.lines)==NbRunEval){ ## otherwise error in the next if bracket when no full model was calibrated
+        	    if(is.na(x[row,NbRunEval+1])){   ## if NbRunEval+1 is na, the model using full data failed
         	      x[row,]<-NA
-        	    }
+        	    }}
         	  }             
           		x<-x[,colnames(x)!="Full" & colnames(x)!=paste("RUN",NbRunEval+1,sep="")] # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named: paste("RUN",NbRunEval+1,sep="") 
           	if(NbRunEval>1){
               x<-round(apply(x,1,mean,na.rm=T),4)
           	}
         	}else{
-        	  if(is.na(x[NbRunEval+1])){
+        	 if(ncol(calib.lines)==NbRunEval){ ## otherwise error in the next if bracket when no full model was calibrated
+        	  if(is.na(x[NbRunEval+1])){       ## if NbRunEval+1 is na, the model using full data failed
         	    x<-NA
-        	  }
+        	  }}
           x<-x[names(x)!="Full" & names(x)!=paste("RUN",NbRunEval+1,sep="")] 
           x<-round(mean(x,na.rm=T),4)        
         }
