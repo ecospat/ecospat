@@ -569,7 +569,7 @@ for(i in 1:NbRunEval){
     #  EVAL1$Boyce[EVAL1$model==EVAL1$model[n]] <- ecospat.boyce(DATA1[!calib.lines[,i],EVAL1$model[n]],DATA1[!calib.lines[,i]&DATA1[,2] ==1,EVAL1$model[n]],PEplot = F)$Pearson.cor
     # }else{
       EVAL1$Boyce[EVAL1$model==EVAL1$model[n]] <- ecospat.boyce(DATA1[!calib.lines[,i],EVAL1$model[n]],DATA1[!calib.lines[,i]&DATA1[,2] ==1,EVAL1$model[n]],PEplot = F)$Spearman.cor
-    }
+    #}
   }
   EVAL1$technique <- unlist(strsplit(EVAL1$model,split="_"))[seq(2, nrow(EVAL1)*2, 2)]
   EVAL1$RUN <- paste("RUN",i,sep="")
@@ -628,7 +628,7 @@ if(length(models)>1){ #there is no double-ensemble if only one technique is appl
       #  EVAL1$Boyce[EVAL1$model==EVAL1$model[n]] <- ecospat.boyce(DATA1[!calib.lines[,i],EVAL1$model[n]],DATA1[!calib.lines[,i]&DATA1[,2] ==1,EVAL1$model[n]],PEplot = F)$Pearson.cor
       # }else{
         EVAL1$Boyce[EVAL1$model==EVAL1$model[n]] <- ecospat.boyce(DATA1[!calib.lines[,i],EVAL1$model[n]],DATA1[!calib.lines[,i]&DATA1[,2] ==1,EVAL1$model[n]],PEplot = F)$Spearman.cor
-      }
+      #}
     }
     EVAL1$technique <- unlist(strsplit(EVAL1$model,split="_"))[seq(2, nrow(EVAL1)*2, 2)]
     EVAL1$RUN <- paste("RUN",i,sep="")
