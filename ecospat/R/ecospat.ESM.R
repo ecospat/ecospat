@@ -433,7 +433,7 @@ models.<-NULL
                 #  x[names(x)==paste("RUN",i,sep="")] <- ecospat.boyce(z[!calib.lines[,paste("_RUN",i,sep="")],grep(paste("RUN",i,"_",model,sep=""),colnames(z))], z[!calib.lines[,paste("_RUN",i,sep="")] & data@data.species==1, grep(paste("RUN",i,"_",model,sep=""),colnames(z))], PEplot = F)$Pearson.cor
                 # }else{
                   x[names(x)==paste("RUN",i,sep="")] <- ecospat.boyce(z[!calib.lines[,paste("_RUN",i,sep="")],grep(paste("RUN",i,"_",model,sep=""),colnames(z))], z[!calib.lines[,paste("_RUN",i,sep="")] & data@data.species==1, grep(paste("RUN",i,"_",model,sep=""),colnames(z))], PEplot = F)$Spearman.cor
-                }
+                #}
               }    
             }}
           }
