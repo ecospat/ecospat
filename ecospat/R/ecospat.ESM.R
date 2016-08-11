@@ -446,7 +446,7 @@ models.<-NULL
         x<-get_evaluations(y)[,"Testing.data",,,]
         	if(length(models)>1){
         	  for(row in models){
-        	   if(ncol(calib.lines)==NbRunEval){ ## otherwise error in the next if bracket when no full model was calibrated
+        	   if(ncol(calib.lines)==NbRunEval+1){ ## otherwise error in the next if bracket when no full model was calibrated
         	    if(is.na(x[row,NbRunEval+1])){   ## if NbRunEval+1 is na, the model using full data failed
         	      x[row,]<-NA
         	    }}
@@ -456,7 +456,7 @@ models.<-NULL
               x<-round(apply(x,1,mean,na.rm=T),4)
           	}
         	}else{
-        	 if(ncol(calib.lines)==NbRunEval){ ## otherwise error in the next if bracket when no full model was calibrated
+        	 if(ncol(calib.lines)==NbRunEval+1){ ## otherwise error in the next if bracket when no full model was calibrated
         	  if(is.na(x[NbRunEval+1])){       ## if NbRunEval+1 is na, the model using full data failed
         	    x<-NA
         	  }}
