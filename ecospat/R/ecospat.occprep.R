@@ -31,12 +31,12 @@ ecospat.occ.desaggregation <-function(dfvar,colxy,colvar=NULL,min.dist,plot=T){
     
     if(sum(sqrt((train[,xx]-train[i,xx])^2 + (train[,yy]-train[i,yy])^2)<=min.dist)>1) {
       out<-out+1
-      plot.new(); text(0.5,0.8,paste("# initial:",nrow(initial))); text(0.5,0.5,paste("# kept: ",kept)); text(0.5,0.2,paste("# out: ",out))
+      #plot.new(); text(0.5,0.8,paste("# initial:",nrow(initial))); text(0.5,0.5,paste("# kept: ",kept)); text(0.5,0.2,paste("# out: ",out))
     }
     else {
       keep<-c(keep,row.names(train[i,]))
       kept<-kept+1
-      plot.new(); text(0.5,0.8,paste("# initial:",nrow(initial))); text(0.5,0.5,paste("# kept: ",kept)); text(0.5,0.2,paste("# out: ",out))
+      #plot.new(); text(0.5,0.8,paste("# initial:",nrow(initial))); text(0.5,0.5,paste("# kept: ",kept)); text(0.5,0.2,paste("# out: ",out))
     }
     
     train<-train[-i,]
@@ -56,7 +56,9 @@ ecospat.occ.desaggregation <-function(dfvar,colxy,colvar=NULL,min.dist,plot=T){
     plot(initial[,colxy],main="distribution of occurences",sub=paste("# initial (black):",nrow(initial)," | # kept (red): ",kept),pch=19,col="black",cex=0.2)
     points(final[,1:2],pch=19,col="red",cex=0.2)
   }
-  return(final)
+  #return(final)
+  result<- list(initial=nrow(initial), kept=kept, out=out)
+  print(result)
 }
 
 ##################################################################################################
