@@ -24,10 +24,11 @@ ecospat.occ.desaggregation <-function(dfvar,colxy,colvar=NULL,min.dist,plot=T){
   xx<-colxy[1]
   yy<-colxy[2]
   kept<-0 ;out<-0; keep<-c()
-  dev.new(2,2,pointsize = 12); par(mar=c(0,0,0,0)); plot.new()
+  #dev.new(2,2,pointsize = 12); par(mar=c(0,0,0,0)); plot.new()
+  pb = txtProgressBar(min = 0, max = rep, initial = 0) 
   
   while(nrow(train)>0){
-    
+    setTxtProgressBar(pb,i)
     i<-sample(1:nrow(train),1)
     
     if(sum(sqrt((train[,xx]-train[i,xx])^2 + (train[,yy]-train[i,yy])^2)<=min.dist)>1) {
@@ -47,7 +48,8 @@ ecospat.occ.desaggregation <-function(dfvar,colxy,colvar=NULL,min.dist,plot=T){
   for(k in 1:nrow(initial)){
     if( sum(row.names(initial)[k]==keep)==1) keep.row[k]<-T
   }
-  dev.off()
+  #dev.off()
+  close(pb)
   
   if(is.null(colvar))final<-initial[keep.row,colxy]
   if(ncol(dfvar)==2)final<-initial[keep.row,colxy]
