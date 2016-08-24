@@ -56,9 +56,9 @@ ecospat.occ.desaggregation <-function(dfvar,colxy,colvar=NULL,min.dist,plot=T){
     plot(initial[,colxy],main="distribution of occurences",sub=paste("# initial (black):",nrow(initial)," | # kept (red): ",kept),pch=19,col="black",cex=0.2)
     points(final[,1:2],pch=19,col="red",cex=0.2)
   }
-  #return(final)
   result<- list(initial=nrow(initial), kept=kept, out=out)
   print(result)
+  return(final)
 }
 
 ##################################################################################################
@@ -100,7 +100,7 @@ Y<-dfvar[,colvary]
 train<-data.frame(matrix(nrow=nrow(dfsp),ncol=length(colvar)))
 names(train)<-names(dfvar)[colvar]
 
-dev.new(2,2,pointsize = 12); par(mar=c(0,0,0,0));
+#dev.new(2,2,pointsize = 12); par(mar=c(0,0,0,0));
 for (i in 1:nrow(dfsp)){
 	dist<-sqrt((X-x[i])^2 + (Y-y[i])^2)
 	min<-min(dist)
@@ -108,9 +108,9 @@ for (i in 1:nrow(dfsp)){
 		if(length(colvar)>1)train[i,]<-dfvar[dist==min,colvar][1,]
 		if(length(colvar)==1) train[i,]<-dfvar[dist==min,colvar][1]
 	}
-	plot.new(); text(0.5,0.5,paste(paste("sampling:","\n","runs to go: ",nrow(dfsp)-i))); 
+	#plot.new(); text(0.5,0.5,paste(paste("sampling:","\n","runs to go: ",nrow(dfsp)-i))); 
 }
-dev.off()
+#dev.off()
 
 if(!is.null(colspkept))final<-cbind(dfsp[,colspkept],train)
 if(is.null(colspkept))final<-train
