@@ -856,11 +856,11 @@ ecospat.cv.rf <- function(rf.obj,data.cv, K=10, cv.lim = 10, jack.knife = F)
   
   n.1 <- length(rf.obj$y[rf.obj$y==1])
   
-  if (jack.knife  == F && n.1 < cv.lim || jack.knife  == F && n.1 < K || jack.knife  == T)
+  if (jack.knife  == F && n.1 < cv.lim || jack.knife  == F && n.1 < K || jack.knife  == TRUE)
   {
     df.res <- data.frame(id=NA,predicted=NA)
     K <- nrow(data.cv)
-    cat("K has been set to",K,"(leave-one-out CV is enabled!)","\n",append = F)	
+    cat("K has been set to",K,"(leave-one-out CV is enabled!)","\n",append = FALSE)	
     
     
     
