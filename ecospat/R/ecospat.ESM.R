@@ -423,17 +423,17 @@ models.<-NULL
             for(i in 1:NbRunEval){
               if(sum(is.na(z[,grep(paste("RUN",i,"_",model,sep=""),colnames(z))]))!=nrow(z)){
               if(length(models)>1){
-                # if(packageVersion("ecospat")==1.0){
-                #   x[rownames(x)==model,colnames(x)==paste("RUN",i,sep="")] <- ecospat.boyce(z[!calib.lines[,paste("_RUN",i,sep="")],grep(paste("RUN",i,"_",model,sep=""),colnames(z))], z[!calib.lines[,paste("_RUN",i,sep="")] & data@data.species==1, grep(paste("RUN",i,"_",model,sep=""),colnames(z))], PEplot = F)$Pearson.cor
-                # }else{
+               if(grepl("_",names(calib.lines))){ ## for older Biomod versions
                   x[rownames(x)==model,colnames(x)==paste("RUN",i,sep="")] <- ecospat.boyce(z[!calib.lines[,paste("_RUN",i,sep="")],grep(paste("RUN",i,"_",model,sep=""),colnames(z))], z[!calib.lines[,paste("_RUN",i,sep="")] & data@data.species==1, grep(paste("RUN",i,"_",model,sep=""),colnames(z))], PEplot = F)$Spearman.cor
-                #}           
+               }else{
+                x[rownames(x)==model,colnames(x)==paste("RUN",i,sep="")] <- ecospat.boyce(z[!calib.lines[,paste("RUN",i,sep="")],grep(paste("RUN",i,"_",model,sep=""),colnames(z))], z[!calib.lines[,paste("RUN",i,sep="")] & data@data.species==1, grep(paste("RUN",i,"_",model,sep=""),colnames(z))], PEplot = F)$Spearman.cor
+               }         
               }else{ 
-                # if(packageVersion("ecospat")==1.0){
-                #  x[names(x)==paste("RUN",i,sep="")] <- ecospat.boyce(z[!calib.lines[,paste("_RUN",i,sep="")],grep(paste("RUN",i,"_",model,sep=""),colnames(z))], z[!calib.lines[,paste("_RUN",i,sep="")] & data@data.species==1, grep(paste("RUN",i,"_",model,sep=""),colnames(z))], PEplot = F)$Pearson.cor
-                # }else{
+               if(grepl("_",names(calib.lines))){ ## for older Biomod versions
                   x[names(x)==paste("RUN",i,sep="")] <- ecospat.boyce(z[!calib.lines[,paste("_RUN",i,sep="")],grep(paste("RUN",i,"_",model,sep=""),colnames(z))], z[!calib.lines[,paste("_RUN",i,sep="")] & data@data.species==1, grep(paste("RUN",i,"_",model,sep=""),colnames(z))], PEplot = F)$Spearman.cor
-                #}
+               }else{
+                x[names(x)==paste("RUN",i,sep="")] <- ecospat.boyce(z[!calib.lines[,paste("RUN",i,sep="")],grep(paste("RUN",i,"_",model,sep=""),colnames(z))], z[!calib.lines[,paste("RUN",i,sep="")] & data@data.species==1, grep(paste("RUN",i,"_",model,sep=""),colnames(z))], PEplot = F)$Spearman.cor
+               } 
               }    
             }}
           }
