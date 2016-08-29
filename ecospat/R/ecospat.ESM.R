@@ -734,7 +734,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
         
         pred.ESM[[i]] <- apply(biva.st[,grep(models[i],colnames(biva.st))],1,function(x) stats::weighted.mean(x,wm,na.rm=T))
       }else{
-        pred.ESM[[i]] <- apply(biva.st[,grep(models[i],colnames(biva.st))],1,function(x) stats::weighted.mean(x,wm,na.rm=T))      
+        pred.ESM[[i]] <- apply(biva.st[,grep(models[i],colnames(biva.st))],1,function(x) stats::weighted.mean(x,weights,na.rm=T))      
       }
     };rm(biva.st)
     pred.ESM <- as.data.frame(do.call(cbind, pred.ESM))
