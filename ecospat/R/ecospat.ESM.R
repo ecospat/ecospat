@@ -654,6 +654,8 @@ EVAL[,2] <- EVAL[,2]*1000
   }else{
   output<-list(species = data@sp.name, ESM.fit=round(DATA[,-1]), ESM.evaluations = EVAL,weights=weights, failed= failed.mod)
   }
+  save(output, file=paste("ESM_EnsembleModeling..",modeling.id,"out",sep="."))
+  
   setwd(iniwd)
    return(output)
 }    
