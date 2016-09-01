@@ -776,13 +776,10 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
 #            paste(names(weights.mod),"_",sep=""), invert=TRUE)]
 	   
         weights.mod<-weights[grep(models[i], names(weights))]   
-        assign(models[i], round(raster::weighted.mean(get(models[i]), weights.mod,na.rm=TRUE)) )
-        }else{
-          assign(models[i], round(raster::weighted.mean(get(models[i]), weights.mod,na.rm=TRUE)) )
+        assign(models[i], round(raster::weighted.mean(get(models[i]), weights.mod,na.rm=TRUE)))
       }else{
-          assign(models[i], round(raster::weighted.mean(get(models[i]), weights, na.rm=TRUE)) )        
+          assign(models[i], round(raster::weighted.mean(get(models[i]), weights, na.rm=TRUE)))        
       }
-      
     }
     pred.ESM <- stack(mget(models))[[order(models)]];do.call("rm",as.list(models))
   }
