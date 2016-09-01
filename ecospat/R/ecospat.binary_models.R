@@ -13,6 +13,6 @@ ecospat.binary.model <-function(Pred, Sp.occ.xy, Percentage)
   # Generation of binary model
   ############################
   Threshold.Com <- c(0, Threshold, 0, Threshold, 1000, 1)
-  Threshold.Com.b <- matrix (Threshold.Com, ncol=3, byrow=T)
+  Threshold.Com.b <- matrix (Threshold.Com, ncol=3, byrow=TRUE)
   Pred.binary <- reclassify (Pred,Threshold.Com.b)
 }
