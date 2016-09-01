@@ -29,7 +29,7 @@ boycei<-function(interval,obs,fit){
 #### res : resolution of the moving window (by default 100 focals)
 #### PEplot : if True, plot the predicted to expected ratio along the suitability class
 
-ecospat.boyce<-function(fit,obs,nclass=0,window.w="default",res=100,PEplot=T){
+ecospat.boyce<-function(fit,obs,nclass=0,window.w="default",res=100,PEplot=TRUE){
   if(window.w=="default"){window.w<-(max(fit)-min(fit))/10}
   interval<-c(min(fit),max(fit))
   mini<-interval[1];maxi<-interval[2]
@@ -55,7 +55,7 @@ ecospat.boyce<-function(fit,obs,nclass=0,window.w="default",res=100,PEplot=T){
   ID <- seq(1:(length(vec.mov)))
   HS <- apply(interval,1,sum)/2
   
-  if (PEplot==T)plot((apply(interval[which(f!="NaN"),],1,sum)/2),f[which(f!="NaN")],
+  if (PEplot==TRUE)plot((apply(interval[which(f!="NaN"),],1,sum)/2),f[which(f!="NaN")],
                      xlab="Habitat suitability",ylab="Predicted/Expected ratio")
   
   results<-list(F.ratio=f, Spearman.cor=round(b,3), HS=HS, ID=ID)
