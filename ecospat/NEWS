@@ -62,3 +62,13 @@ FIXES
 * Fixed bug in the ESM functions "ecospat.ESM.Modeling()", "ecospat.ESM.EnsembleModeling()" and "ecospat.ESM.EnsembleProjection()", when using raster files as input.
 * Corrected definition of the argument "quant" of the function "ecospat.plot.niche.dyn()".
 * Updated the function "ecospat.grid.clim.dyn()" and thedefinition of its arguments "th.sp"  and "th.env". Also updated its details.
+
+
+
+ecospat_2.1.0 (01.09.16)
+=============
+ 
+FIXES
+
+* Fixed the definition of variables of TRUE/FALSE in the function "ecospat.cv.rf()".
+* Removed window progress indicator for the function "ecospat.occ.desaggregation()" and "ecospat.sample.envar()".
