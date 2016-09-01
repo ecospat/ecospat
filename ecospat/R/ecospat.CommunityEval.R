@@ -1,6 +1,6 @@
 ecospat.CommunityEval <- function (eval,pred,proba,ntir)
 {
-     if(proba==F){
+     if(proba==FALSE){
           ntir<-1
           pred2<-pred
      }
@@ -9,7 +9,7 @@ ecospat.CommunityEval <- function (eval,pred,proba,ntir)
           matrix(nrow=nrow(eval),ncol=ntir,dimnames=list(rownames(eval),c(1:ntir)))
 
      for(i in 1:ntir){
-          if(proba==T){
+          if(proba==TRUE){
                pred2<-matrix(nrow=nrow(pred),ncol=ncol(pred))
                for(k in 1:nrow(pred)){
                     pred2[k,]<-rbinom(n=ncol(pred),size=1,prob=as.numeric(pred[k,]))
