@@ -768,7 +768,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
       assign(models[i], pred.ESM[[grep(models[i], names(pred.ESM))]])
 
       if(length(models)>1){
-        weights.mod<-weights[grep(models[i], names(weights))]        
+     
         ## Remove weights from models where Full model failed
 
 #          weights.mod<- weights.mod[grep( #code by Frank, but doesn't work if more than 1 model failed
@@ -779,7 +779,6 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
         assign(models[i], round(raster::weighted.mean(get(models[i]), weights.mod,na.rm=TRUE)) )
         }else{
           assign(models[i], round(raster::weighted.mean(get(models[i]), weights.mod,na.rm=TRUE)) )
-        }
       }else{
           assign(models[i], round(raster::weighted.mean(get(models[i]), weights, na.rm=TRUE)) )        
         }
