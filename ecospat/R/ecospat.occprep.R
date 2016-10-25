@@ -1,5 +1,4 @@
 
-##################################################################################################
 ##written by Olivier Broennimann. Departement of Ecology and Evolution (DEE). 
 ##October 09. University of Lausanne. Switzerland
 ##
@@ -13,50 +12,59 @@
 ##min.dist: minimun distance threshold in the sub-dataframe
 ##
 
-ecospat.occ.desaggregation <-function(dfvar,colxy,colvar=NULL,min.dist,plot=T){
-  
-  if (sum (is.na (dfvar)) > 0) {
-    stop ("NA values in argument 'dfvar'.")
-  }
-  
-  initial<-dfvar
-  train<-initial
-  xx<-colxy[1]
-  yy<-colxy[2]
-  kept<-0 ;out<-0; keep<-c()
+ecospat.occ.desaggregation <- function(dfvar, colxy, colvar = NULL, min.dist, plot = TRUE) {
 
-  while(nrow(train)>0){
-    
-    i<-sample(1:nrow(train),1)
-    
-    if(sum(sqrt((train[,xx]-train[i,xx])^2 + (train[,yy]-train[i,yy])^2)<=min.dist)>1) {
-      out<-out+1
-      #plot.new(); text(0.5,0.8,paste("# initial:",nrow(initial))); text(0.5,0.5,paste("# kept: ",kept)); text(0.5,0.2,paste("# out: ",out))
-    }
-    else {
-      keep<-c(keep,row.names(train[i,]))
-      kept<-kept+1
-      #plot.new(); text(0.5,0.8,paste("# initial:",nrow(initial))); text(0.5,0.5,paste("# kept: ",kept)); text(0.5,0.2,paste("# out: ",out))
-    }
-    
-    train<-train[-i,]
-  }
-  keep.row<-rep(F,nrow(initial))
-  
-  for(k in 1:nrow(initial)){
-    if( sum(row.names(initial)[k]==keep)==1) keep.row[k]<-T
+  if (sum(is.na(dfvar)) > 0) {
+    stop("NA values in argument 'dfvar'.")
   }
 
-  if(is.null(colvar))final<-initial[keep.row,colxy]
-  if(ncol(dfvar)==2)final<-initial[keep.row,colxy]
-  if(!is.null(colvar)&ncol(dfvar)>2)final<-initial[keep.row,c(colxy,colvar)]
-  
-  if(plot==T){
+  initial <- dfvar
+  train <- initial
+  xx <- colxy[1]
+  yy <- colxy[2]
+  kept <- 0
+  out <- 0
+  keep <- c()
+  dev.new(2, 2, pointsize = 12)
+  par(mar = c(0, 0, 0, 0))
+  plot.new()
+
+  while (nrow(train) > 0) {
+
+    i <- sample(1:nrow(train), 1)
+
+    if (sum(sqrt((train[, xx] - train[i, xx])^2 + (train[, yy] - train[i, yy])^2) <= min.dist) >
+      1) {
+      out <- out + 1
+    } else {
+      keep <- c(keep, row.names(train[i, ]))
+      kept <- kept + 1
+    }
+
+    train <- train[-i, ]
+  }
+  keep.row <- rep(F, nrow(initial))
+
+  for (k in 1:nrow(initial)) {
+    if (sum(row.names(initial)[k] == keep) == 1)
+      keep.row[k] <- T
+  }
+  dev.off()
+
+  if (is.null(colvar))
+    final <- initial[keep.row, colxy]
+  if (ncol(dfvar) == 2)
+    final <- initial[keep.row, colxy]
+  if (!is.null(colvar) & ncol(dfvar) > 2)
+    final <- initial[keep.row, c(colxy, colvar)]
+
+  if (plot == TRUE) {
     dev.new()
-    plot(initial[,colxy],main="distribution of occurences",sub=paste("# initial (black):",nrow(initial)," | # kept (red): ",kept),pch=19,col="black",cex=0.2)
-    points(final[,1:2],pch=19,col="red",cex=0.2)
+    plot(initial[, colxy], main = "distribution of occurences", sub = paste("# initial (black):",
+      nrow(initial), " | # kept (red): ", kept), pch = 19, col = "black", cex = 0.2)
+    points(final[, 1:2], pch = 19, col = "red", cex = 0.2)
   }
-  result<- list(initial=nrow(initial), kept=kept, out=out)
+  result <- list(initial = nrow(initial), kept = kept, out = out)
   print(result)
   return(final)
 }
@@ -83,39 +91,48 @@ ecospat.occ.desaggregation <-function(dfvar,colxy,colvar=NULL,min.dist,plot=T){
 ##resolution: distance between x,y of species and environmental datafreme after which values shouldn't be added 
 ##(typically, the resolution of the data in dfvar)
 
-ecospat.sample.envar <-function(dfsp,colspxy,colspkept="xy",dfvar,colvarxy,colvar="all",resolution){
+ecospat.sample.envar <- function(dfsp, colspxy, colspkept = "xy", dfvar, colvarxy, colvar = "all",
+  resolution) {
 
-if(sum(colspkept=="xy")==1)colspkept<-colspxy
-if(sum(colvar=="all")==1) {
-	if(!is.null(colspkept)) colvar<-(1:ncol(dfvar))[-colvarxy]
-	if(is.null(colspkept))	colvar<-(1:ncol(dfvar))
-}
-colspx<-colspxy[1];colspy<-colspxy[2];colvarx<-colvarxy[1];colvary<-colvarxy[2]
+  if (sum(colspkept == "xy") == 1)
+    colspkept <- colspxy
+  if (sum(colvar == "all") == 1) {
+    if (!is.null(colspkept))
+      colvar <- (1:ncol(dfvar))[-colvarxy]
+    if (is.null(colspkept))
+      colvar <- (1:ncol(dfvar))
+  }
+  colspx <- colspxy[1]
+  colspy <- colspxy[2]
+  colvarx <- colvarxy[1]
+  colvary <- colvarxy[2]
 
-x<-dfsp[,colspx]
-X<-dfvar[,colvarx]
-y<-dfsp[,colspy]
-Y<-dfvar[,colvary]
+  x <- dfsp[, colspx]
+  X <- dfvar[, colvarx]
+  y <- dfsp[, colspy]
+  Y <- dfvar[, colvary]
 
-train<-data.frame(matrix(nrow=nrow(dfsp),ncol=length(colvar)))
-names(train)<-names(dfvar)[colvar]
+  train <- data.frame(matrix(nrow = nrow(dfsp), ncol = length(colvar)))
+  names(train) <- names(dfvar)[colvar]
 
-#dev.new(2,2,pointsize = 12); par(mar=c(0,0,0,0));
-for (i in 1:nrow(dfsp)){
-	dist<-sqrt((X-x[i])^2 + (Y-y[i])^2)
-	min<-min(dist)
-	if(min<=resolution){
-		if(length(colvar)>1)train[i,]<-dfvar[dist==min,colvar][1,]
-		if(length(colvar)==1) train[i,]<-dfvar[dist==min,colvar][1]
-	}
-	#plot.new(); text(0.5,0.5,paste(paste("sampling:","\n","runs to go: ",nrow(dfsp)-i))); 
-}
-#dev.off()
+  for (i in 1:nrow(dfsp)) {
+    dist <- sqrt((X - x[i])^2 + (Y - y[i])^2)
+    min <- min(dist)
+    if (min <= resolution) {
+      if (length(colvar) > 1)
+        train[i, ] <- dfvar[dist == min, colvar][1, ]
+      if (length(colvar) == 1)
+        train[i, ] <- dfvar[dist == min, colvar][1]
+    }
+  }
 
-if(!is.null(colspkept))final<-cbind(dfsp[,colspkept],train)
-if(is.null(colspkept))final<-train
 
-return(final)
+  if (!is.null(colspkept))
+    final <- cbind(dfsp[, colspkept], train)
+  if (is.null(colspkept))
+    final <- train
+
+  return(final)
 }
 
 ##################################################################################################
@@ -135,15 +152,17 @@ return(final)
 ##nperm: number of permutation in the randomization process
 
 
-ecospat.mantel.correlogram <- function(dfvar,colxy,n,colvar,max,nclass,nperm){
-envnorm <- data.frame(t((t(dfvar[, colvar]) - apply(dfvar[, colvar],2,mean) )/ apply(dfvar[,colvar],2,sd) ) )
-row.rand<-sample(1:nrow(dfvar),n,replace=T)
-envdist<-dist(envnorm[row.rand,])
-geodist<-dist(dfvar[row.rand,colxy])
-b<- seq(from = min(geodist), to = max, length.out = nclass)
-crlg<-mgram(envdist,geodist,breaks=b,nperm=nperm)
-plot(crlg)
-abline(h=0)
+
+ecospat.mantel.correlogram <- function(dfvar, colxy, n, colvar, max, nclass, nperm) {
+  envnorm <- data.frame(t((t(dfvar[, colvar]) - apply(dfvar[, colvar], 2, mean))/apply(dfvar[, colvar],
+    2, sd)))
+  row.rand <- sample(1:nrow(dfvar), n, replace = TRUE)
+  envdist <- dist(envnorm[row.rand, ])
+  geodist <- dist(dfvar[row.rand, colxy])
+  b <- seq(from = min(geodist), to = max, length.out = nclass)
+  crlg <- mgram(envdist, geodist, breaks = b, nperm = nperm)
+  plot(crlg)
+  abline(h = 0)
 }
 
 
@@ -164,27 +183,31 @@ abline(h=0)
 ##colxypresence: the range of columns for x and y in presence
 ##mindist: minimum distance from prensences closer to wich pseudoabsences shouldn't be drawn (buffer distance around presences)
 
-ecospat.rand.pseudoabsences<-function(nbabsences, glob, colxyglob,colvar="all", presence, colxypresence, mindist){
+ecospat.rand.pseudoabsences <- function(nbabsences, glob, colxyglob, colvar = "all", presence, colxypresence,
+  mindist) {
 
-colxglob<-colxyglob[1]
-colyglob<-colxyglob[2]
-colxpresence<-colxypresence[1]
-colypresence<-colxypresence[2]
+  colxglob <- colxyglob[1]
+  colyglob <- colxyglob[2]
+  colxpresence <- colxypresence[1]
+  colypresence <- colxypresence[2]
 
-keep<-c()
+  keep <- c()
 
-no.i<-1
-while(no.i <= nbabsences){
-	ki<-sample(1:nrow(glob),1)
-	if(sum(((glob[ki,colxglob]- presence[,colxpresence])^2 + (glob[ki,colyglob]- presence[,colypresence])^2) <= mindist^2)==0) {
-		keep[no.i]<-ki
- 		no.i<-no.i+1
-	}
+  no.i <- 1
+  while (no.i <= nbabsences) {
+    ki <- sample(1:nrow(glob), 1)
+    if (sum(((glob[ki, colxglob] - presence[, colxpresence])^2 + (glob[ki, colyglob] - presence[,
+      colypresence])^2) <= mindist^2) == 0) {
+      keep[no.i] <- ki
+      no.i <- no.i + 1
+    }
+  }
+  if (sum(colvar == "all") == 1)
+    colvar <- (1:ncol(glob))[-colxyglob]
+  if (!is.null(colvar))
+    pseudoabs <- glob[keep, c(colxyglob, colvar)]
+  if (is.null(colvar))
+    pseudoabs <- glob[keep, colxyglob]
+
+  return(pseudoabs)
 }
-if(sum(colvar=="all")==1) colvar<-(1:ncol(glob))[-colxyglob]
-if(!is.null(colvar))pseudoabs<-glob[keep,c(colxyglob,colvar)]
-if(is.null(colvar))pseudoabs<-glob[keep,colxyglob]
-
-return(pseudoabs)
-}
-

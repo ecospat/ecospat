@@ -6,7 +6,7 @@
 
 \description{K-fold and leave-one-out cross validation for Maxent.}
 
-\usage{ecospat.cv.me (data.cv.me, name.sp, names.pred, K=10, cv.lim=10, jack.knife=F)}
+\usage{ecospat.cv.me (data.cv.me, name.sp, names.pred, K=10, cv.lim=10, jack.knife=FALSE)}
 
 \arguments{
   \item{data.cv.me}{A dataframe object containing the calibration data set of a Maxent object to validate with the same names for response and predictor variables.}

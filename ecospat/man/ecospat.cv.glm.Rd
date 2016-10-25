@@ -6,7 +6,7 @@
 
 \description{K-fold and leave-one-out cross validation for GLM.}
 
-\usage{ecospat.cv.glm (glm.obj, K=10, cv.lim=10, jack.knife=F)}
+\usage{ecospat.cv.glm (glm.obj, K=10, cv.lim=10, jack.knife=FALSE)}
 
 \arguments{
   \item{glm.obj}{Any calibrated GLM object with a binomial error distribution.}

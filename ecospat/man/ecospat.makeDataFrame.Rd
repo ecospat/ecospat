@@ -15,12 +15,12 @@ ext=expl.var, tryf=5)}
   \'x-coordinates\' , \'y-coordinates\' and \'species name\' (in the same projection/coordinate system as expl.var!).}
   \item{expl.var}{a RasterStack object of the environmental layers.}
   \item{use.gbif}{Logical. If TRUE presence data from GBIF will be added. It is also possible to use GBIF data only.
-   Default: FALSE. See ?gbif {dismo} for more information. Settings: geo=TRUE, removeZeros=T,
+   Default: FALSE. See ?gbif {dismo} for more information. Settings: geo=TRUE, removeZeros=TRUE,
    all sub-taxa will be used.
    \'species name\' in spec.list must be in the form: \'genus species\',
    \'genus_species\' or \'genus.species\'. If there is no species information available on GBIF an error is returned.
    Try to change species name (maybe there is a synonym) or switch use.gbif off.}
-  \item{precision}{Numeric. Use precision if use.gbif = T to set a minimum precision of
+  \item{precision}{Numeric. Use precision if use.gbif = TRUE to set a minimum precision of
    the presences which should be added. For precision = 1000
    e.g. only presences with precision of at least 1000 meter will be added from GBIF.
    When precision = NULL all presences from GBIF will be used, also presences

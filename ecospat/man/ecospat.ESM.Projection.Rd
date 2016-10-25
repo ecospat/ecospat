@@ -8,9 +8,10 @@ Ensamble of Small Models: Projects Simple Bivariate Models Into New Space Or Tim
 This function projects simple bivariate models on new.env
 }
 \usage{
-    ecospat.ESM.Projection( ESM.modeling.output, 
-                            new.env, 
-                            parallel=F)
+    ecospat.ESM.Projection(ESM.modeling.output, 
+                           new.env, 
+                           parallel,
+                           cleanup)
 }
 \arguments{
     \item{ESM.modeling.output}{
@@ -20,9 +21,10 @@ This function projects simple bivariate models on new.env
 A set of explanatory variables onto which models will be projected. It could be a \code{data.frame}, a \code{matrix}, or a \code{rasterStack} object. Make sure the column names (\code{data.frame} or \code{matrix}) or layer Names (\code{rasterStack}) perfectly match with the names of variables used to build the models in the previous steps.
     }
     \item{parallel}{
-Logical. If TRUE, the parallel computing is enabled
+Logical. If TRUE, the parallel computing is enabled}
+    \item{cleanup}{
+Numeric. Calls removeTmpFiles() to delete all files from rasterOptions()$tmpdir which are older than the given time (in hours). This might be necessary to prevent running over quota. No cleanup is used by default}
 
-}
 }
 \details{
 The basic idea of ensemble of small models (ESMs) is to model a species distribution based on small, simple models, for example all possible bivariate models (i.e. models that contain only two predictors at a time out of a larger set of predictors), and then combine all possible bivariate models into an ensemble (Lomba et al. 2010; Breiner et al. 2015).
@@ -84,7 +86,7 @@ my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
                                 NbRunEval=2,
                                 DataSplit=70,
                                 weighting.score=c("AUC"),
-                                parallel=F)  
+                                parallel=FALSE)  
 
 
 ### Evaluation and average of simple bivariate models to ESMs

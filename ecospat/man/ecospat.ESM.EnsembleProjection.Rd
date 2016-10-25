@@ -83,7 +83,7 @@ my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
                                 NbRunEval=2,
                                 DataSplit=70,
                                 weighting.score=c("AUC"),
-                                parallel=F)  
+                                parallel=FALSE)  
 
 
 ### Evaluation and average of simple bivariate models to ESMs

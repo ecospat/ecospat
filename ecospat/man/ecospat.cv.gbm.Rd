@@ -6,7 +6,7 @@
 
 \description{K-fold and leave-one-out cross validation for GBM.}
 
-\usage{ecospat.cv.gbm (gbm.obj, data.cv, K=10, cv.lim=10, jack.knife=F)}
+\usage{ecospat.cv.gbm (gbm.obj, data.cv, K=10, cv.lim=10, jack.knife=FALSE)}
 
 \arguments{
   \item{gbm.obj}{A calibrated GBM object with a binomial error distribution. Attention: users have to tune model input parameters according to their study!}

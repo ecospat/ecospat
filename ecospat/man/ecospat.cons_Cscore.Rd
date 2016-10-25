@@ -4,11 +4,11 @@
 \description{
 Co-occurrence Analysis & Environmentally Constrained Null Models. The function tests for non-random patterns of species co-occurrence in a presence-absence matrix. It calculates the C-score index for the whole community and for each species pair. An environmental constraint is applied during the generation of the null communities.
 }
-\usage{ecospat.cons_Cscore(presence,pred,nbpermut,outpath)}
+\usage{ecospat.cons_Cscore(presence,pred,nperm,outpath)}
 \arguments{
     \item{presence}{A presence-absence dataframe for each species (columns) in each location or grid cell (rows) Column names (species names) and row names (sampling plots).}
     \item{pred}{A dataframe object with SDM predictions. Column names (species names SDM) and row names (sampling plots).}
-    \item{nbpermut}{The number of permutation in the null model.}
+    \item{nperm}{The number of permutation in the null model.}
     \item{outpath}{Path to specify where to save the results.}
         }
 \details{An environmentally constrained approach to null models will provide a more robust evaluation of species associations by facilitating the distinction between mutually exclusive processes that may shape species distributions and community assembly.
@@ -29,7 +29,7 @@ metrics are calculated for each species pair (only the table with species pairs 
 \dontrun{
 presence <- ecospat.testData[c(53,62,58,70,61,66,65,71,69,43,63,56,68,57,55,60,54,67,59,64)]
 pred <- ecospat.testData[c(73:92)]
-nbpermut <- 10000
+nperm <- 10000
 outpath <- getwd()
-ecospat.cons_Cscore(presence, pred, nbpermut, outpath)
+ecospat.cons_Cscore(presence, pred, nperm, outpath)
 }}

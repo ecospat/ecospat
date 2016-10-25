@@ -20,9 +20,9 @@ This function calibrates simple bivariate models as in Lomba et al. 2010 and Bre
                           parallel, 
                           cleanup)
 }
+
 \arguments{
-    \item{data}{
-    \code{BIOMOD.formated.data} object returned by \code{\link[biomod2]{BIOMOD_FormatingData}}
+    \item{data}{\code{BIOMOD.formated.data} object returned by \code{\link[biomod2]{BIOMOD_FormatingData}}
     }
     \item{NbRunEval}{
 number of dataset splitting replicates for the model evaluation (same as in \code{biomod2})
@@ -118,7 +118,7 @@ my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
                                 NbRunEval=2,
                                 DataSplit=70,
                                 weighting.score=c("AUC"),
-                                parallel=F)  
+                                parallel=FALSE)  
 
 
 ### Evaluation and average of simple bivariate models to ESMs

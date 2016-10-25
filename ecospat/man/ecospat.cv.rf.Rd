@@ -6,7 +6,7 @@
 
 \description{K-fold and leave-one-out cross validation for randomForest.}
 
-\usage{ecospat.cv.rf (rf.obj, data.cv, K=10, cv.lim=10, jack.knife=F)}
+\usage{ecospat.cv.rf (rf.obj, data.cv, K=10, cv.lim=10, jack.knife=FALSE)}
 
 \arguments{
   \item{rf.obj}{Any calibrated randomForest object with a binomial error distribution.}

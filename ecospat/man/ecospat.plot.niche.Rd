@@ -6,14 +6,14 @@
 
 \description{Plot a niche z created by \code{ecospat.grid.clim.dyn}.}
 
-\usage{ecospat.plot.niche (z, title, name.axis1, name.axis2, cor=F)}
+\usage{ecospat.plot.niche (z, title, name.axis1, name.axis2, cor=FALSE)}
 
 \arguments{
   \item{z}{A gridclim object for the species distribution created by \code{ecospat.grid.clim.dyn}.}
   \item{title}{A title for the plot.}
   \item{name.axis1}{A label for the first axis.}
   \item{name.axis2}{A label for the second axis.}
-  \item{cor}{Correct the occurrence densities of the species by the prevalence of the environments in its range (T = yes, F = no).}
+  \item{cor}{Correct the occurrence densities of the species by the prevalence of the environments in its range (TRUE = yes, FALSE = no).}
 }
 
 \details{if z is bivariate, a bivariate plot of the niche of the species. if z is univariate, a histogram of the niche of the species}

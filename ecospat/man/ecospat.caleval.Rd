@@ -7,7 +7,7 @@
 \description{Generate an evaluation and calibration dataset with a desired ratio of disaggregation.}
 
 \usage{ecospat.caleval (data, xy, row.num=1:nrow(data), nrep=1, ratio=0.7, 
-disaggregate=0, pseudoabs=0, npres=0, replace=F)}
+disaggregate=0, pseudoabs=0, npres=0, replace=FALSE)}
 
 \arguments{
   \item{data}{A vector with presence-absence (0-1) data for one species.}

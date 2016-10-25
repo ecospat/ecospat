@@ -15,7 +15,7 @@
 }
 
 \details{If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in http://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html}
-  
+
 \value{A list of dynamic indices: dynamic.index.w [expansion.index.w, stability.index.w, restriction.index.w]}
 
 \author{Blaise Petitpierre \email{bpetitpierre@gmail.com}}

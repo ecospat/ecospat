@@ -15,7 +15,7 @@ CHANGES
 
 
 
-ecospat_2.0 (25.05.16)
+ecospat_2.0 (26.05.16)
 ===========
 
 NEW FEATURES
@@ -29,10 +29,10 @@ NEW FEATURES
 * Added new function "ecospat.ESM.EnsembleProjection()" for projecting calibrated ESMs into new space or time.
 * Added new function "ecospat.SESAM.prr()" for predicting community composition using a 'probability ranking' rule.
 * Added new function "ecospat.cohen.kappa()" for calculating Cohen`s kappa and variance estimates.
-* Added new function "ecospat.max.kappa()" for calculating values for Cohenâ€™s Kappa along different thresholds.
+* Added new function "ecospat.max.kappa()" for calculating values for Cohen’s Kappa along different thresholds.
 * Added new function "ecospat.max.tss()" for calculating values for TSS along different thresholds.
 * Added new function "ecospat.meva.table()" for calculating values of a series of different evaluations metrics for a model.
-* Added new function "ecospat.plot.kappa()" for plotting the values for Cohenâ€™s Kappa.
+* Added new function "ecospat.plot.kappa()" for plotting the values for Cohen’s Kappa.
 * Added new function "ecospat.plot.tss()" for plotting the values for TSS.
 * Added new function "ecospat.mpa()" for calculating minimal predicted area.
 * Added new function "ecospat.cor.plot()" for plotting correlation of variables.
@@ -52,6 +52,7 @@ FIXES
 * Corrected the function "ecospat.niche.dyn.index()", value of the intersection = 0.1.
 
 
+
 ecospat_2.0.1 (09.06.16)
 =============
  
@@ -61,14 +62,31 @@ FIXES
 * Fixed spelling error in description of the package (*Collection).
 * Fixed bug in the ESM functions "ecospat.ESM.Modeling()", "ecospat.ESM.EnsembleModeling()" and "ecospat.ESM.EnsembleProjection()", when using raster files as input.
 * Corrected definition of the argument "quant" of the function "ecospat.plot.niche.dyn()".
-* Updated the function "ecospat.grid.clim.dyn()" and thedefinition of its arguments "th.sp"  and "th.env". Also updated its details.
+* Updated the function "ecospat.grid.clim.dyn()" and the definition of its arguments "th.sp" and "th.env". Also updated its details.
 
 
 
-ecospat_2.1.0 (01.09.16)
+
+ecospat_2.1.0 (23.09.16)
 =============
  
 FIXES
 
-* Fixed the definition of variables of TRUE/FALSE in the function "ecospat.cv.rf()".
+* Fixed the definition of variables of TRUE/FALSE in the function "ecospat.cv.rf()","ecospat.binary.model()", "ecospat.boyce()", "ecospat.caleval()", "ecospat.CommunityEval()","ecospat.cons_Cscore()", "ecospat.co_occurrences()", "ecospat.cv.gbm()", "ecospat.cv.glm()", "ecospat.cv.me()", "ecospat.ESM.EnsembleModeling()", "ecospat.ESM.EnsembleProjection()", "ecospat.ESM.Modeling()", "ecospat.ESM.Projection()", "ecospat.exdet()", "ecospat.makeDataFrame()", "ecospat.mess()", "ecospat.niche.similarity.test()", "ecospat.occ.desaggregation()", "ecospat.SESAM.prr()".
+
 * Removed window progress indicator for the function "ecospat.occ.desaggregation()" and "ecospat.sample.envar()".
+
+
+
+NEW FEATURES
+
+* Added new function "ecospat.rcls.grd()" for reclassifying grid files.
+* Added new function "ecospat.recstrat_regl()" to randomly take an equal number of samples of regular number.
+* Added new function "ecospat.recstrat_prop()" to randomly take an equal number of samples of proportional number.
+* Added new function "ecospat.Cscore()" to test for nonrandom patterns of species co-occurrence in a presence-absence matrix. 
+* Added a new argument in the function "ecospat.niche.similarity.test()", to test for niche conservatism or divergence. 
+* Added a new argument in the function "ecospat.niche.equivalency.test()", to test for niche conservatism or divergence. 
+
+
+
+
