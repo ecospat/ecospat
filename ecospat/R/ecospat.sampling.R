@@ -15,7 +15,7 @@ ecospat.rcls.grd <- function(in_grid, no.classes) {
     new_classes_limits[i, 2] <- new_classes_breaks[i + 1]
     new_classes_limits[i, 3] <- classes[i]
   }
-  in_grid_reclass <- reclassify(in_grid, new_classes_limits, include.lowest = T)
+  in_grid_reclass <- reclassify(in_grid, new_classes_limits, include.lowest = TRUE)
   return(in_grid_reclass)
 }
 
@@ -47,7 +47,7 @@ ecospat.recstrat_prop <- function(in_grid, sample_no) {
 
   strata_stats <- table(in_grid_SPixels$layer)
 
-  strata_stats_sorted <- as.data.frame(sort(strata_stats, decreasing = T))
+  strata_stats_sorted <- as.data.frame(sort(strata_stats, decreasing = TRUE))
   pixels_largest_strata <- max(strata_stats_sorted$Freq)
   proportion_largest_strata <- round((pixels_largest_strata * sample_no)/total_pixels)
 
@@ -57,7 +57,7 @@ ecospat.recstrat_prop <- function(in_grid, sample_no) {
     proportion <- ceiling(log(dim(grid_sel@data)[1])/log(pixels_largest_strata) * proportion_largest_strata)
 
     optimal_samples_per_class <- ifelse(proportion < dim(grid_sel@data)[1], proportion, dim(grid_sel@data)[1])
-    sp_points <- grid_sel[sample(1:nrow(grid_sel), optimal_samples_per_class, replace = F), ]
+    sp_points <- grid_sel[sample(1:nrow(grid_sel), optimal_samples_per_class, replace = FALSE), ]
     sample_points <- cbind(sp_points@coords, class = sp_points@data[, 1])
     result_list[[j]] <- sample_points
   }
@@ -101,7 +101,7 @@ ecospat.recstrat_regl <- function(in_grid, sample_no) {
     grid_sel <- in_grid_SPixels[in_grid_SPixels@data[, 1] == strata[j], ]
     optimal_samples_per_class <- ifelse(dim(grid_sel@data)[1] > samples_per_class, samples_per_class,
       dim(grid_sel@data)[1])
-    sp_points <- grid_sel[sample(1:nrow(grid_sel), optimal_samples_per_class, replace = F), ]
+    sp_points <- grid_sel[sample(1:nrow(grid_sel), optimal_samples_per_class, replace = FALSE), ]
     result_list[[j]] <- cbind(sp_points@coords, sp_points@data)
   }
   result <- do.call("rbind", result_list)
