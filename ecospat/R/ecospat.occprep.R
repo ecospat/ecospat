@@ -43,11 +43,11 @@ ecospat.occ.desaggregation <- function(dfvar, colxy, colvar = NULL, min.dist, pl
 
     train <- train[-i, ]
   }
-  keep.row <- rep(F, nrow(initial))
+  keep.row <- rep(FALSE, nrow(initial))
 
   for (k in 1:nrow(initial)) {
     if (sum(row.names(initial)[k] == keep) == 1)
-      keep.row[k] <- T
+      keep.row[k] <- TRUE
   }
   dev.off()
 
