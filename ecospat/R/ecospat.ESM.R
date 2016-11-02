@@ -294,7 +294,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
           combinations[, k])]], proj.name = paste(name.env, "ESM.BIOMOD", k, mymodel@modeling.id,
           sep = "."), selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
           grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
-          do.stack = TRUE, build.clamping.mask = F)
+          do.stack = TRUE, build.clamping.mask = FALSE)
       }
     }
   }
@@ -328,7 +328,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
           combinations[, k])]], proj.name = paste(name.env, "ESM.BIOMOD", k, mymodel@modeling.id,
           sep = "."), selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
           grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
-          do.stack = TRUE, build.clamping.mask = F)
+          do.stack = TRUE, build.clamping.mask = FALSE)
       }
     }
 
@@ -621,9 +621,9 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
         2] == 1, EVAL1$model[n]])
       # if(packageVersion('ecospat')==1.0){ EVAL1$Boyce[EVAL1$model==EVAL1$model[n]] <-
       # ecospat.boyce(DATA1[!calib.lines[,i],EVAL1$model[n]],DATA1[!calib.lines[,i]&DATA1[,2]
-      # ==1,EVAL1$model[n]],PEplot = F)$Pearson.cor }else{
+      # ==1,EVAL1$model[n]],PEplot = FALSE)$Pearson.cor }else{
       EVAL1$Boyce[EVAL1$model == EVAL1$model[n]] <- ecospat.boyce(DATA1[!calib.lines[, i], EVAL1$model[n]],
-        DATA1[!calib.lines[, i] & DATA1[, 2] == 1, EVAL1$model[n]], PEplot = F)$Spearman.cor
+        DATA1[!calib.lines[, i] & DATA1[, 2] == 1, EVAL1$model[n]], PEplot = FALSE)$Spearman.cor
       # }
     }
     EVAL1$technique <- unlist(strsplit(EVAL1$model, split = "_"))[seq(2, nrow(EVAL1) * 2, 2)]
@@ -692,9 +692,9 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
           2] == 1, EVAL1$model[n]])
         # if(packageVersion('ecospat')==1.0){ EVAL1$Boyce[EVAL1$model==EVAL1$model[n]] <-
         # ecospat.boyce(DATA1[!calib.lines[,i],EVAL1$model[n]],DATA1[!calib.lines[,i]&DATA1[,2]
-        # ==1,EVAL1$model[n]],PEplot = F)$Pearson.cor }else{
+        # ==1,EVAL1$model[n]],PEplot = FALSE)$Pearson.cor }else{
         EVAL1$Boyce[EVAL1$model == EVAL1$model[n]] <- ecospat.boyce(DATA1[!calib.lines[, i],
-          EVAL1$model[n]], DATA1[!calib.lines[, i] & DATA1[, 2] == 1, EVAL1$model[n]], PEplot = F)$Spearman.cor
+          EVAL1$model[n]], DATA1[!calib.lines[, i] & DATA1[, 2] == 1, EVAL1$model[n]], PEplot = FALSE)$Spearman.cor
         # }
       }
       EVAL1$technique <- unlist(strsplit(EVAL1$model, split = "_"))[seq(2, nrow(EVAL1) * 2, 2)]
@@ -771,7 +771,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
     weigths.rm <- NULL
     for (i in 1:length(weights)) {
       weigths.rm <- c(weigths.rm, which(grepl(paste(names(weights), ".", sep = "")[i], pred.biva,
-        fixed = T)))
+        fixed = TRUE)))
     }
     pred.biva <- pred.biva[weigths.rm]
     pred.biva <- sort(pred.biva)
