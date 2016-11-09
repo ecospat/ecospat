@@ -10,20 +10,29 @@ Miscellaneous methods and utilities for spatial ecology analysis, written by cur
 
 # -Pre-modelling:
 Spatial autocorrelation -->*ecospat.mantel.correlogram*;
+
 Variable selection --> *ecospat.npred*;
+
 Extrapolation Detection --> *ecospat.exdet, ecospat.mess* and *ecospat.plot.mess*;
+
 Phylogenetic diversity measures --> *ecospat.calculate.pd*;
-Biotic Interactions --> *ecospat.co-occurrences* and *{ecospat.Cscore*;
+
+Biotic Interactions --> *ecospat.co-occurrences* and *ecospat.Cscore*;
+
 Niche Quantification --> *ecospat.grid.clim.dyn, ecospat.niche.equivalency.test, ecospat.niche.similarity.test, ecospat.plot.niche, ecospat.plot.niche.dyn, ecospat.plot.contrib, ecospat.niche.overlap, ecospat.plot.overlap.test, ecospat.niche.dyn.index* and *ecospat.shift.centroids*;
+
 Data Preparation --> *ecospat.caleval, ecospat.cor.plot, ecospat.makeDataFrame, ecospat.occ.desaggregation, ecospat.rand.pseudoabsences, ecospat.rcls.grd, ecospat.recstrat_prop, ecospat.recstrat_regl* and *ecospat.sample.envar*;
 
 # -Core Niche Modelling:
 Model evaluation --> *ecospat.cv.glm, ecospat.permut.glm, ecospat.cv.gbm, ecospat.cv.me, ecospat.cv.rf, ecospat.boyce, ecospat.CommunityEval, ecospat.cohen.kappa, ecospat.max.kappa, ecospat.max.tss, ecospat.meva.table, ecospat.plot.kappa, ecospat.plot.tss* and * ecospat.adj.D2.glm*;
+
 Spatial predictions and projections --> *ecospat.ESM.Modeling, ecospat.ESM.EnsembleModeling, ecospat.ESM.Projection, ecospat.ESM.EnsembleProjection, ecospat.SESAM.prr, ecospat.migclim, ecospat.binary.model, ecospat.Epred* and *ecospat.mpa*;
+
 Variable Importance --> *ecospat.maxentvarimport*;
 
 # -Post Modelling:
 Variance Partition --> *ecospat.varpart*;
+
 Spatial predictions of species assemblages --> *ecospat.cons_Cscore*
 
 
