@@ -1,73 +1,69 @@
+## Remove species occurrences in a dataframe that are closer to each other than a specified distance threshold.
 
-##written by Olivier Broennimann. Departement of Ecology and Evolution (DEE). 
-##October 09. University of Lausanne. Switzerland
-##
-##DESCRIPTION
-## remove occurences in a dataframe that are closer to each other than a specified distance threshold
-##
-##ARGUMENTS
-##df: dataframe with x, y, and variables
-##colxy: the range of columns for x and y in df
-##colvar: the range of columns for variables in df	
-##min.dist: minimun distance threshold in the sub-dataframe
-##
+## FUNCTION'S ARGUMENTS
+## xy:        A dataframe with xy-coordinates (x-column must be named 'x' and y-column 'y')
+## min.dist:  The minimun distance between points in the sub-dataframe
+## by:        Grouping element in the dataframe (e.g. species)
 
-ecospat.occ.desaggregation <- function(dfvar, colxy, colvar = NULL, min.dist, plot = TRUE) {
+## Details:
 
-  if (sum(is.na(dfvar)) > 0) {
-    stop("NA values in argument 'dfvar'.")
+## Value
+# A subset of df with the columns specified in colvar.
+
+## Author(s)
+# Frank Breiner frank.breiner@unil.ch with contributions of Olivier Broennimann
+
+require(spatstat)
+
+ecospat.occ.desaggregation <- function(xy, min.dist,by=NULL){
+  if(is.null(xy$x)|is.null(xy$y)){
+    stop("no x and/or y column")
   }
 
-  initial <- dfvar
-  train <- initial
-  xx <- colxy[1]
-  yy <- colxy[2]
-  kept <- 0
-  out <- 0
-  keep <- c()
-  dev.new(2, 2, pointsize = 12)
-  par(mar = c(0, 0, 0, 0))
-  plot.new()
+  if(!is.null(by)){
+    xy[,which(names(xy)==by)] <- factor(xy[,which(names(xy)==by)])
+  }
+  new.data <- NULL
 
-  while (nrow(train) > 0) {
-
-    i <- sample(1:nrow(train), 1)
-
-    if (sum(sqrt((train[, xx] - train[i, xx])^2 + (train[, yy] - train[i, yy])^2) <= min.dist) >
-      1) {
-      out <- out + 1
-    } else {
-      keep <- c(keep, row.names(train[i, ]))
-      kept <- kept + 1
+  if(is.null(by)){
+    to<-1
+  }else{
+    to<-nlevels(xy[,which(names(xy)==by)])
+  }
+  for(i in 1:to){
+    if(to>1){
+    print(paste("desaggregate species",i))}
+    if(!is.null(by)){
+      del.min.dist <- xy[xy[,by]==levels(xy[,by])[i],]
+    }else{
+        del.min.dist <- xy
     }
 
-    train <- train[-i, ]
-  }
-  keep.row <- rep(FALSE, nrow(initial))
+    if(sum(duplicated(paste(del.min.dist$x,del.min.dist$y)))>0){
+    stop(paste("duplicated values",levels(xy[,by])[i],sep=" "))
+    }
 
-  for (k in 1:nrow(initial)) {
-    if (sum(row.names(initial)[k] == keep) == 1)
-      keep.row[k] <- TRUE
-  }
-  dev.off()
+    repeat{
+      
+    del.min.dist$nn <- nndist(del.min.dist[,"x"],del.min.dist[,"y"])       # distanzberechnen nearest neighbour
+    if (sum(del.min.dist$nn < min.dist) == 0){
+      break
+    }
+    # iteratively removing points starting with the one having the minimal distance to the nearest neighbour
+    del.min.dist$nn2 <- nndist(del.min.dist[,"x"],del.min.dist[,"y"],k=2)
 
-  if (is.null(colvar))
-    final <- initial[keep.row, colxy]
-  if (ncol(dfvar) == 2)
-    final <- initial[keep.row, colxy]
-  if (!is.null(colvar) & ncol(dfvar) > 2)
-    final <- initial[keep.row, c(colxy, colvar)]
+        mini <- del.min.dist$nn == min(del.min.dist$nn)    
+        # from the two points which are the nearest neighbours of the whole set, remove the one closest to the second neighbour
+        del.min.dist <- del.min.dist[-which(mini)[which.min(del.min.dist[which(mini),"nn2"])],]
+    }
 
-  if (plot == TRUE) {
-    dev.new()
-    plot(initial[, colxy], main = "distribution of occurences", sub = paste("# initial (black):",
-      nrow(initial), " | # kept (red): ", kept), pch = 19, col = "black", cex = 0.2)
-    points(final[, 1:2], pch = 19, col = "red", cex = 0.2)
+    new.data <- rbind(new.data,del.min.dist)
   }
-  result <- list(initial = nrow(initial), kept = kept, out = out)
+  result <- list(initial = nrow(xy), kept = nrow(new.data), out = nrow(xy)-nrow(new.data))
   print(result)
-  return(final)
+  return(xy=new.data[,!colnames(new.data) %in% c("nn","nn2","id")])
 }
+
 
 ##################################################################################################
 ##written by Olivier Broennimann. Departement of Ecology and Evolution (DEE). 
