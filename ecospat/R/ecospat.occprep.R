@@ -45,16 +45,27 @@ ecospat.occ.desaggregation <- function(xy, min.dist,by=NULL){
 
     repeat{
       
-    del.min.dist$nn <- nndist(del.min.dist[,"x"],del.min.dist[,"y"])       # distanzberechnen nearest neighbour
-    if (sum(del.min.dist$nn < min.dist) == 0){
+    nn1 <- nndist(del.min.dist[,"x"],del.min.dist[,"y"])       # calculate distance nearest neighbour
+    if (sum(nn1 < min.dist) == 0){
       break
     }
     # iteratively removing points starting with the one having the minimal distance to the nearest neighbour
-    del.min.dist$nn2 <- nndist(del.min.dist[,"x"],del.min.dist[,"y"],k=2)
+    nn2 <- nndist(del.min.dist[,"x"],del.min.dist[,"y"],k=2)
 
-        mini <- del.min.dist$nn == min(del.min.dist$nn)    
+        del1 <- nn1 == min(nn1) 
+        del2 <- nn2==min(nn2[del1])
+        delk <- del1 & del2 
+        if(sum(del2)>1){
+          for(k in 3:8){
+
+          nn <- nndist(del.min.dist[,"x"],del.min.dist[,"y"],k=k)
+          delk <- delk & nn==min(nn[delk])
+          if(sum(nn[delk]==min(nn[delk]))>1){break}
+          }
+        }
+            
         # from the two points which are the nearest neighbours of the whole set, remove the one closest to the second neighbour
-        del.min.dist <- del.min.dist[-which(mini)[which.min(del.min.dist[which(mini),"nn2"])],]
+        del.min.dist <- del.min.dist[-(which(delk)[1]),]
     }
 
     new.data <- rbind(new.data,del.min.dist)
