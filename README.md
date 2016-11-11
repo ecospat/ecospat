@@ -24,7 +24,7 @@ Niche Quantification --> *ecospat.grid.clim.dyn, ecospat.niche.equivalency.test,
 Data Preparation --> *ecospat.caleval, ecospat.cor.plot, ecospat.makeDataFrame, ecospat.occ.desaggregation, ecospat.rand.pseudoabsences, ecospat.rcls.grd, ecospat.recstrat_prop, ecospat.recstrat_regl* and *ecospat.sample.envar*;
 
 # -Core Niche Modelling:
-Model evaluation --> *ecospat.cv.glm, ecospat.permut.glm, ecospat.cv.gbm, ecospat.cv.me, ecospat.cv.rf, ecospat.boyce, ecospat.CommunityEval, ecospat.cohen.kappa, ecospat.max.kappa, ecospat.max.tss, ecospat.meva.table, ecospat.plot.kappa, ecospat.plot.tss* and * ecospat.adj.D2.glm*;
+Model evaluation --> *ecospat.cv.glm, ecospat.permut.glm, ecospat.cv.gbm, ecospat.cv.me, ecospat.cv.rf, ecospat.boyce, ecospat.CommunityEval, ecospat.cohen.kappa, ecospat.max.kappa, ecospat.max.tss, ecospat.meva.table, ecospat.plot.kappa, ecospat.plot.tss* and *ecospat.adj.D2.glm*;
 
 Spatial predictions and projections --> *ecospat.ESM.Modeling, ecospat.ESM.EnsembleModeling, ecospat.ESM.Projection, ecospat.ESM.EnsembleProjection, ecospat.SESAM.prr, ecospat.migclim, ecospat.binary.model, ecospat.Epred* and *ecospat.mpa*;
 
