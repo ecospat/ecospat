@@ -13,7 +13,6 @@
 ## Author(s)
 # Frank Breiner frank.breiner@unil.ch with contributions of Olivier Broennimann
 
-require(spatstat)
 
 ecospat.occ.desaggregation <- function(xy, min.dist,by=NULL){
   if(is.null(xy$x)|is.null(xy$y)){
