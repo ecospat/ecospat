@@ -26,7 +26,7 @@ Guisan, A., O. Broennimann, R. Engler, M. Vust, N.G. Yoccoz, A. Lehmann and N.E.
 
 }
 
-\author{Ruben G. Mateo \email{rubeng.mateo@gmail.com}}
+\author{Ruben G. Mateo \email{rubeng.mateo@gmail.com} with contributions of Frank Breiner \email{frank.breiner@unil.ch}}
 
 \examples{
 
