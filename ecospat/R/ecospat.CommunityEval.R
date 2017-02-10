@@ -4,14 +4,16 @@ ecospat.CommunityEval <- function(eval, pred, proba, ntir) {
     pred2 <- pred
   }
   
-  Rdev <- over <- under <- succ <- sens <- spec <- kappa <- tss <- sim <- jac <- matrix(nrow = nrow(eval), ncol = ntir, 
+  Rdev <- over <- under <- succ <- sens <- spec <- kappa <- tss <- sim <- jac <- matrix(nrow = nrow(eval), 
+    ncol = ntir, 
     dimnames = list(rownames(eval), c(1:ntir)))
   
   for (i in 1:ntir) {
     if (proba == TRUE) {
       pred2 <- matrix(nrow = nrow(pred), ncol = ncol(pred))
       for (k in 1:nrow(pred)) {
-        pred2[k, ] <- rbinom(n = ncol(pred), size = 1, prob = as.numeric(pred[k, ]))
+        pred2[k, ] <- rbinom(n = ncol(pred), size = 1, 
+                             prob = as.numeric(pred[k, ]))
       }
     }
     errors <- 2 * pred2 + eval
@@ -32,8 +34,8 @@ ecospat.CommunityEval <- function(eval, pred, proba, ntir) {
       succ[j, i] <- (a + d)/n
       sens[j, i] <- a/(a + b)
       spec[j, i] <- d/(c + d)
-      kappa[j, i] <- (((a + d)/n) - (((a + c) * (a + b) + (b + d) * (d + c))/(n^2)))/(1 - (((a + c) * (a + b) + 
-        (b + d) * (d + c))/(n^2)))  ## Kappa
+      kappa[j, i] <- (((a+d)/n)-(((a+c)*(a+b)+(b+d)*(d+c))
+                     /(n^2)))/(1-(((a+c)*(a+b)+(b+d)*(d+c))/(n^2)))  ## Kappa
       tss[j, i] <- sens[j, i] + spec[j, i] - 1
       sim[j, i] <- (2 * a)/(2 * a + b + c)
       jac[j, i] <- a/(a + b + c)
@@ -41,7 +43,10 @@ ecospat.CommunityEval <- function(eval, pred, proba, ntir) {
     cat("trial", i, "on", ntir, "\n")
   }
   res <- list(Rdev, over, under, succ, sens, spec, kappa, tss, sim, jac)
-  names(res) <- c("deviation.rich.pred", "overprediction", "underprediction", "prediction.success", "sensitivity", "specificity", "kappa", "TSS", "similarity", "Jaccard")
+  names(res) <- c("deviation.rich.pred", "overprediction", 
+                  "underprediction", "prediction.success", 
+                  "sensitivity", "specificity", "kappa", 
+                  "TSS", "similarity", "Jaccard")
   return(res)
 }
 
