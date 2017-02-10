@@ -74,7 +74,6 @@ ecospat.occ.desaggregation <- function(xy, min.dist,by=NULL){
   return(xy=new.data[,!colnames(new.data) %in% c("nn","nn2","id")])
 }
 
-
 ##################################################################################################
 ##written by Olivier Broennimann. Departement of Ecology and Evolution (DEE). 
 ##October 09. University of Lausanne. Switzerland
