@@ -112,7 +112,7 @@ ecospat.niche.equivalency.test <- function(z1, z2, rep, alternative = "greater",
     }else{
   #number of cores attributed for the permutation test
   cl <- makeCluster(ncores)  #open a cluster for parallelization
-  invisible(clusterEvalQ(cl, library(ecospat)))  #import the internal function into the cluster
+  invisible(clusterEvalQ(cl))  #import the internal function into the cluster
   sim.o <- as.data.frame(matrix(unlist(parLapply(cl, 1:rep, overlap.eq.gen, z1, z2)), byrow = TRUE,
     ncol = 2))  #simulate random overlap
   stopCluster(cl)  #shutdown the cluster
@@ -270,7 +270,7 @@ ecospat.niche.similarity.test <- function(z1, z2, rep, alternative = "greater", 
                                   byrow = TRUE, ncol = 2))  #simulate random overlap  
     } else {
   cl <- makeCluster(ncores)  #open a cluster for parallelization
-  invisible(clusterEvalQ(cl, library(ecospat)))  #import the internal function into the cluster
+  invisible(clusterEvalQ(cl))  #import the internal function into the cluster
   sim.o <- as.data.frame(matrix(unlist(parLapply(cl, 1:rep, overlap.sim.gen, z1, z2, rand.type = rand.type)),
     byrow = TRUE, ncol = 2))  #simulate random overlap
   stopCluster(cl)  #shutdown the cluster
