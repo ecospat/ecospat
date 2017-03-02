@@ -32,6 +32,7 @@ boycei <- function(interval, obs, fit) {
 
 ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100, PEplot = TRUE) {
   if (class(fit) == "RasterLayer") {
+#    if (class(obs) == "data.frame") {
     if (class(obs) == "data.frame" | class(obs) == "matrix") {
       obs <- extract(fit, obs)
     }
