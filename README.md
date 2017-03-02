@@ -19,6 +19,8 @@ Phylogenetic diversity measures --> *ecospat.calculate.pd*;
 
 Biotic Interactions --> *ecospat.co-occurrences* and *ecospat.Cscore*;
 
+Minimum Dispersal routes --> *ecospat.mdr*;
+
 Niche Quantification --> *ecospat.grid.clim.dyn, ecospat.niche.equivalency.test, ecospat.niche.similarity.test, ecospat.plot.niche, ecospat.plot.niche.dyn, ecospat.plot.contrib, ecospat.niche.overlap, ecospat.plot.overlap.test, ecospat.niche.dyn.index* and *ecospat.shift.centroids*;
 
 Data Preparation --> *ecospat.caleval, ecospat.cor.plot, ecospat.makeDataFrame, ecospat.occ.desaggregation, ecospat.rand.pseudoabsences, ecospat.rcls.grd, ecospat.recstrat_prop, ecospat.recstrat_regl* and *ecospat.sample.envar*;
@@ -33,7 +35,9 @@ Variable Importance --> *ecospat.maxentvarimport*;
 # -Post Modelling:
 Variance Partition --> *ecospat.varpart*;
 
-Spatial predictions of species assemblages --> *ecospat.cons_Cscore*
+Spatial predictions of species assemblages --> *ecospat.cons_Cscore*;
+
+Range size quantification --> *ecospat.rangesize* and *ecospat.occupied.patch*
 
 
 
