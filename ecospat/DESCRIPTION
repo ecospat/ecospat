@@ -1,6 +1,6 @@
 Package: ecospat
 Version: 2.2.0
-Date: 2017-02-28
+Date: 2017-03-02
 Title: Spatial Ecology Miscellaneous Methods
 Authors@R: c(
 	person("Olivier", "Broennimann", role = "aut", email = "olivier.broennimann@unil.ch"),
@@ -54,3 +54,4 @@ LazyData: true
 URL: http://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
 Description: Collection of R functions and data sets for the support of spatial ecology analyses with a focus on pre-, core and post- modelling analyses of species distribution, niche quantification and community assembly. Written by current and former members and collaborators of the ecospat group of Antoine Guisan, Department of Ecology and Evolution (DEE) & Institute of Earth Surface Dynamics (IDYST), University of Lausanne, Switzerland.
 License: GPL
+BugReports: https://github.com/vdicolab/ecospat

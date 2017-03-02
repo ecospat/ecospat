@@ -81,7 +81,7 @@ export(ecospat.shift.centroids)
 export(ecospat.CommunityEval)
 export(ecospat.varpart)
 #export(ecospat.ByRegions)
-#export(ecospat.mdr)
+export(ecospat.mdr)
 export(ecospat.rangesize)
 export(ecospat.occupied.patch)
 
