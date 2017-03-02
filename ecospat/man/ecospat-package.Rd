@@ -24,7 +24,8 @@ Variable Importance --> \code{ecospat.maxentvarimport};
 
 \bold{-Post Modelling:}
 Variance Partition --> \code{ecospat.varpart};
-Spatial predictions of species assemblages --> \code{ecospat.cons_Cscore}
+Spatial predictions of species assemblages --> \code{ecospat.cons_Cscore};
+Range size quantification --> \code{ecospat.rangesize} and \code{ecospat.occupied.patch};
 
 The \code{ecospat} package was written by current and former members and collaborators of the ecospat group of Antoine Guisan, Department of Ecology and Evolution (DEE) & Institute of Earth Surface Dynamics (IDYST), University of Lausanne, Switzerland. 
 
@@ -33,8 +34,8 @@ The \code{ecospat} package was written by current and former members and collabo
 \tabular{ll}{
 Package: \tab ecospat\cr
 Type: \tab Package\cr
-Version: \tab 2.1.0\cr
-Date: \tab 2016-09-26\cr
+Version: \tab 2.2.0\cr
+Date: \tab 2017-02-28\cr
 License: \tab GPL \cr
 }
 

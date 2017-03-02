@@ -6,7 +6,7 @@
 
 \description{Remove species occurrences in a dataframe that are closer to each other than a specified distance threshold.}
 
-\usage{ecospat.occ.desaggregation (dfvar, colxy, colvar=NULL, min.dist, plot=TRUE)}
+\usage{ecospat.occ.desaggregation (xy, min.dist, by)}
 
 \arguments{
   \item{xy}{A dataframe with xy-coordinates (x-column must be named 'x' and y-column 'y')}
@@ -14,17 +14,17 @@
   \item{by}{Grouping element in the dataframe (e.g. species, NULL)}
 }
 
-#\details{The number of occurrences kept and excluded is shown in a dynamic plot. At the end of the selection process, a plot showing the resulting distribution of occurrences will be plotted if argument plot=FALSE}
+\details{This function will desaggregate the original number of occurrences, according to a specified distance.}
 
-\value{A subset of df with the columns specified in colvar.}
+\value{A subset of the initial dataframe. Indicated the "initial", "kept" and "out number of points.}
 
-\author {Frank Breiner} \email{frank.breiner@unil.ch} with contributions of {Olivier Broennimann \email{olivier.broennimann@unil.ch}}
+\author{Frank Breiner \email{frank.breiner@unil.ch} with contributions of Olivier Broennimann \email{olivier.broennimann@unil.ch}}
 
 \examples{
 
 \dontrun{
 spp <- ecospat.testNiche
-sp1 <- spp[1:32,1:2]
+sp1 <- spp[1:32,2:3]
 
 occ.sp1 <- ecospat.occ.desaggregation(xy=sp1, min.dist=500, by=NULL)
 }
