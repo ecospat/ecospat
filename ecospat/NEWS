@@ -89,4 +89,38 @@ NEW FEATURES
 
 
 
+ecospat_2.1.1 (02.11.16)
+=============
+ 
+FIXES
+
+* Fixed the definition of variables of TRUE/FALSE in the files R/ecospat.ESM.R, R/ecospat.sampling.R and R/ecospat.occprep.R.
+
+
+
+ecospat_2.2.0 (10.02.17)
+=============
+
+NEW FEATURES
+
+* Updated the functions "ecospat.occ.desaggregation()", "ecospat.binary.model()"  and "ecospat.boyce()".
+* Added new function "ecospat.rangesize()" to estimate the range.size of a species using standard IUCN criteria. 
+* Added new function "ecospat.occupied.patch()" to determine the occupied patch of a species.
+* Added new function "ecospat.mdr()" to implement a minimum cost arborescence analysis.
+* Added new dataset "ecospat.testMrd.nat" to exemplify the minimum cost arborescence analysis.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
