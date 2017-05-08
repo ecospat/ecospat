@@ -6,30 +6,12 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
 
   requireNamespace("rgdal")
 
-###sample the Pseudo-Absences
-
-  if (is.null(PApoint)) {
-    if (type == "random") {
-      PApoint <- data.frame(randomPoints(mask = expl.var, n, if (class(spec.list) !=
-        "character") {
-        p = spec.list[, -3]
-      }, tryf, ext = ext))
-    } else {
-      if (class(ext) == "RasterStack" | class(ext) == "RasterLayer") {
-        ext <- rasterToPolygons(ext[[1]])
-      }
-      PApoint2 <- data.frame(spsample(ext, n, type))
-    }
-  }
-  PApoint$cell.id <- cellFromXY(expl.var, PApoint)
-  PApoint <- PApoint[!duplicated(PApoint$cell.id), ]
-  PApoint$PA <- 1
-  colnames(PApoint) <- c("x", "y", colnames(PApoint[3:4]))
-
 ## Species data
   if (class(spec.list) != "character") {
     colnames(spec.list)[1:3] <- c("x", "y", "Spec")
   }
+  
+###sample the Pseudo-Absences
 
   if (is.null(PApoint)) {
     if (type == "random") {
@@ -235,16 +217,16 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
   mydataframe <- cbind(mydataframe, expl)
 
   ### Warning for multicollinearity if |r|>= 0.7
-  if (sum(abs(as.dist(cor(mydataframe[, (ncol(mydataframe) - nlayers(expl.var) +
-    1):(ncol(mydataframe))]))) >= 0.7) > 0) {
-    cat(paste("\n\n\n################################\n", "Warning: There are",
-      sum(abs(as.dist(cor(mydataframe[, (ncol(mydataframe) - nlayers(expl.var) +
+  if(nlayers(expl.var)>1){
+    if (sum(abs(as.dist(cor(mydataframe[, (ncol(mydataframe) - nlayers(expl.var) +
+      1):(ncol(mydataframe))]))) >= 0.7) > 0) {
+      cat(paste("\n\n\n################################\n", "Warning: There are",
+        sum(abs(as.dist(cor(mydataframe[, (ncol(mydataframe) - nlayers(expl.var) +
         1):(ncol(mydataframe))]))) >= 0.7), " predictor variable pairs with a correlation coefficients of |r| > 0.7. Be aware of collinearity!",
-      "\n################################\n"))
-    print(abs(as.dist(round(cor(mydataframe[, (ncol(mydataframe) - nlayers(expl.var) +
-      1):(ncol(mydataframe))]), 2))))
-
-  }
+        "\n################################\n"))
+      print(abs(as.dist(round(cor(mydataframe[, (ncol(mydataframe) - nlayers(expl.var) +
+        1):(ncol(mydataframe))]), 2))))
+    }}
 
   return(mydataframe)
 }
