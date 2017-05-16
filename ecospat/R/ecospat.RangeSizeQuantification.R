@@ -83,7 +83,7 @@ ecospat.rangesize <- function(bin.map = NULL,
   if(alpha.hull){
     
     if(!requireNamespace(alphahull)){stop("alphahull package required!")}
-    del<-delvor(xy)
+    del<-alphahull::delvor(xy)
     dv<-del$mesh
     mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^2))*alpha
     h<-alphahull::ahull(del,alpha=mn) 
