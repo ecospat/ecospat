@@ -82,12 +82,12 @@ ecospat.rangesize <- function(bin.map = NULL,
     
   if(alpha.hull){
     
-    if(!requireNamespace(alphahull)){stop("alphahull package required!")}
-    del<-alphahull::delvor(xy)
+    #if(!requireNamespace(alphahull)){stop("alphahull package required!")}
+    del<-delvor(xy)
     dv<-del$mesh
     mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^2))*alpha
-    h<-alphahull::ahull(del,alpha=mn) 
-    alpha.hull <- round(alphahull::areaahull(h))
+    h<-ahull(del,alpha=mn) 
+    alpha.hull <- round(areaahull(h))
   }else{h <- alpha.hull <- NULL}   
 
   
