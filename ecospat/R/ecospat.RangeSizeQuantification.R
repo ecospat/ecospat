@@ -47,7 +47,7 @@ ecospat.rangesize <- function(bin.map = NULL,
                               AOO.circles = F,
                               d = sqrt(2000^2/pi),
                               lonlat = FALSE,
-                              alphahull= F,
+                              alpha.hull= F,
                               alpha = 2,
                               return.obj = T,
                               save.obj = F,
@@ -80,14 +80,14 @@ ecospat.rangesize <- function(bin.map = NULL,
     circ.rs <- round(raster::area(circ@polygons)) 
   }else{circ.rs <- circ <- NULL}    
     
-  if(alphahull){
+  if(alpha.hull){
     
     if(!requireNamespace(alphahull)){stop("alphahull package required!")}
     del<-delvor(xy)
     dv<-del$mesh
     mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^2))*alpha
-    h<-ahull(del,alpha=mn) 
-    alpha.hull <- round(areaahull(h))
+    h<-alphahull::ahull(del,alpha=mn) 
+    alpha.hull <- round(alphahull::areaahull(h))
   }else{h <- alpha.hull <- NULL}   
 
   
