@@ -2,7 +2,7 @@
 # Commented functions for calculating  "Ensemble of Small Models" (ESM) in R using
 # the Biomod2 package
 #
-# Version 11 [20/05/2015]
+# Version 12 [12/12/2016]
 #
 # These functions could be used to build ESMs using simple bivariate models which
 # are averaged weighted by an evaluation score (e.g. AUC) accoring to
@@ -55,7 +55,8 @@
 ## DataSplitTable:      a matrix, data.frame or a 3D array filled with TRUE/FALSE to specify which part of data must be used for models calibration (TRUE) and for models validation (FALSE). Each column corresponds to a 'RUN'. If filled, arguments NbRunEval, DataSplit and #do.full.models will be ignored.
 ## models:              vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', "MAXENT.Tsuruoka" (same as in Biomod)
 ## modeling.id:	        character, the ID (=name) of modeling procedure. A random number by default.
-## models.options:      BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in Biomod)
+## models.options:      BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in Biomod). If none is provided standard ESM tuning parameterswill be used.
+## tune:                logical. if true model tuning will be used to estimate optimal parameters for the models (Default: False).
 ## which.biva:          integer. which bivariate combinations should be used for modeling? Default: all
 ## weighting.score:     evaluation score used to weight single models to build ensembles: 'AUC', 'SomersD' (2xAUC-1), 'Kappa', 'TSS' or 'Boyce'
 ## ESM_Projection:      logical. set to FALSE, if no projections should be calculated. Only Evaluation scores based on test and train data will be returned. (Default: TRUE)
@@ -82,9 +83,8 @@
 # which.biva:     character. Which bivariate combinations should be modeled. If NULL (default) all possible combinations are considered.
 
 ## Authors:
-# Mirko Di Febbraro <mirkodifebbraro@gmail.com>
-# Frank Breiner
-# Olivier Broennimann
+# Frank Breiner <frank.breiner@unil.ch>
+# with contributions from Mirko Di Febbraro
 
 
 ## References
@@ -96,7 +96,7 @@
 #ecospat.ESM.EnsembleModeling; ecospat.ESM.MergeModels
 
 ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTable = NULL, weighting.score,
-                                 models, modeling.id = as.character(format(Sys.time(), "%s")), models.options, which.biva = NULL,
+                                 models, tune = FALSE, modeling.id = as.character(format(Sys.time(), "%s")), models.options = NULL, which.biva = NULL,
                                  parallel, cleanup = FALSE) {
   
   # if(!require(biomod2)){stop('biomod2 package required!')} if(!require(gtools)){stop('gtools package
@@ -135,6 +135,21 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
   if (weighting.score == "Boyce") {
     models.eval.meth <- "ROC"
   }
+  
+  no.opt  <- is.null(models.options)
+  if(no.opt == TRUE){models.options <- BIOMOD_ModelingOptions()
+                              models.options@GBM$n.trees <- 1000
+                              models.options@GBM$interaction.depth <- 4
+                              models.options@GBM$shrinkage <- 0.005
+                              models.options@GAM$select <- TRUE
+                              models.options@CTA$control$cp <- 0
+                              models.options@ANN$size <- 8
+                              models.options@ANN$decay <- 0.001
+                              models.options@MARS$interaction.level <- 0
+                              models.options@MARS$nprune <- 2
+                              models.options@MAXENT.Phillips$product <- FALSE
+                              models.options@MAXENT.Phillips$threshold <- FALSE
+                              models.options@MAXENT.Phillips$betamultiplier <- 0.5}
   
   models <- sort(models)
   
@@ -189,10 +204,25 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
   if (parallel == FALSE) {
     for (k in which.biva) {
       
-      mydata@data.env.var <- data@data.env.var[, colnames(data@data.env.var) %in% combinations[,
-                                                                                               k]]
-      mydata@sp.name <- paste("ESM.BIOMOD", k, sep = "_")
+      mydata@data.env.var <- data@data.env.var[, colnames(data@data.env.var) %in% combinations[,k]]
+      mydata@sp.name <- paste("ESM.BIOMOD", k, sep = ".")
+
+  ##### Tune the bivariate models   
+      if(tune == TRUE){
+      models.options <-BIOMOD_tuning(data=mydata, 
+                    models=models[models!="RF"],
+                    models.options = models.options)$models.options
+      }else{if(no.opt == TRUE & "GLM" %in% models){
+        ## Run the Full model with AIC to get the final bivariate model formula
+            try(BIOMOD_Modeling(data = mydata, models = "GLM", models.options = models.options,
+                                models.eval.meth = models.eval.meth, DataSplit=100, NbRunEval=1, Prevalence = 0.5,
+                                rescal.all.models = TRUE, VarImport = 0, modeling.id = modeling.id))
+              try(models.options@GLM$myFormula <- 
+                get_formal_model(get(load(paste(mydata@sp.name,"/models/",modeling.id,"/",mydata@sp.name,"_AllData_Full_GLM",sep=""))))$formula)
+            models.options@GLM$test <- "none"
+            }}
       
+  #######       
       mymodels[[k]] <- "failed"
       try(mymodels[[k]] <- BIOMOD_Modeling(data = mydata, models = models, models.options = models.options,
                                            models.eval.meth = models.eval.meth, DataSplitTable = calib.lines, Prevalence = 0.5,
@@ -211,11 +241,27 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
       setwd(newwd)
       mydata@data.env.var <- data@data.env.var[, colnames(data@data.env.var) %in% combinations[,
                                                                                                k]]
-      mydata@sp.name <- paste("ESM.BIOMOD", k, sep = "_")
+      mydata@sp.name <- paste("ESM.BIOMOD", k, sep = ".")
       
       if (cleanup != FALSE) {
         removeTmpFiles(h = cleanup)
       }
+
+  ##### Tune the bivariate models   
+      if(tune == TRUE){
+      models.options <-BIOMOD_tuning(data=mydata, 
+                    models=models[models!="RF"],
+                    models.options = models.options)$models.options
+      }else{if(no.opt == TRUE & "GLM" %in% models){
+        ## Run the Full model with AIC to get the final bivariate model formula
+            try(BIOMOD_Modeling(data = mydata, models = "GLM", models.options = models.options,
+                                models.eval.meth = models.eval.meth, DataSplit=100, NbRunEval=1, Prevalence = 0.5,
+                                rescal.all.models = TRUE, VarImport = 0, modeling.id = modeling.id))
+              try(models.options@GLM$myFormula <- 
+                get_formal_model(get(load(paste(mydata@sp.name,"/models/",modeling.id,"/",mydata@sp.name,"_AllData_Full_GLM",sep=""))))$formula)
+            models.options@GLM$test <- "none"
+            }}
+  #######       
       
       BIOMOD_Modeling(data = mydata, models = models, models.options = models.options, models.eval.meth = models.eval.meth,
                       DataSplitTable = calib.lines, Prevalence = 0.5, rescal.all.models = TRUE, do.full.models = TRUE,
@@ -281,22 +327,20 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
       # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
       # paste('RUN',NbRunEval+1,sep='')
       if (is.data.frame(new.env)) {
-        BIOMOD_Projection(modeling.output = mymodel,
-                          new.env = new.env[, colnames(new.env) %in% combinations[, k]], 
-                          proj.name = paste(name.env, ".ESM.BIOMOD_", k,".", mymodel@modeling.id, sep = ""), 
-                          selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
-                                              grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
+        BIOMOD_Projection(modeling.output = mymodel, new.env = new.env[, colnames(new.env) %in%
+                                                                         combinations[, k]], proj.name = paste(name.env, "ESM.BIOMOD", k, mymodel@modeling.id,
+                                                                                                               sep = "."), selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
+                                                                                                                                               grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
                           do.stack = FALSE, build.clamping.mask = FALSE)
       }
       # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
       # paste('RUN',NbRunEval+1,sep='')
       if (class(new.env) == "RasterStack") {
-        BIOMOD_Projection(modeling.output = mymodel, 
-                          new.env = new.env[[which(names(new.env) %in% combinations[, k])]], 
-                          proj.name = paste(name.env, ".ESM.BIOMOD_", k,".", mymodel@modeling.id, sep = ""), 
-                          selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
-                                              grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
-                          do.stack = TRUE, build.clamping.mask = FALSE)
+        BIOMOD_Projection(modeling.output = mymodel, new.env = new.env[[which(names(new.env) %in%
+                                                                                combinations[, k])]], proj.name = paste(name.env, "ESM.BIOMOD", k, mymodel@modeling.id,
+                                                                                                                        sep = "."), selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
+                                                                                                                                                        grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
+                          do.stack = TRUE, build.clamping.mask = F)
       }
     }
   }
@@ -317,22 +361,20 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
       # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
       # paste('RUN',NbRunEval+1,sep='')
       if (is.data.frame(new.env)) {
-        BIOMOD_Projection(modeling.output = mymodel, 
-                          new.env = new.env[, colnames(new.env) %in% combinations[, k]], 
-                          proj.name = paste(name.env, ".ESM.BIOMOD_", k,".", mymodel@modeling.id, sep = ""),
-                          selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
-                                              grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
+        BIOMOD_Projection(modeling.output = mymodel, new.env = new.env[, colnames(new.env) %in%
+                                                                         combinations[, k]], proj.name = paste(name.env, "ESM.BIOMOD", k, mymodel@modeling.id,
+                                                                                                               sep = "."), selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
+                                                                                                                                               grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
                           do.stack = FALSE, build.clamping.mask = FALSE)
       }
       # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
       # paste('RUN',NbRunEval+1,sep='')
       if (class(new.env) == "RasterStack") {
-        BIOMOD_Projection(modeling.output = mymodel, 
-                          new.env = new.env[[which(names(new.env) %in% combinations[, k])]], 
-                          proj.name = paste(name.env, ".ESM.BIOMOD_", k,".", mymodel@modeling.id, sep = ""), 
-                          selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
-                                              grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
-                          do.stack = TRUE, build.clamping.mask = FALSE)
+        BIOMOD_Projection(modeling.output = mymodel, new.env = new.env[[which(names(new.env) %in%
+                                                                                combinations[, k])]], proj.name = paste(name.env, "ESM.BIOMOD", k, mymodel@modeling.id,
+                                                                                                                        sep = "."), selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
+                                                                                                                                                        grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
+                          do.stack = TRUE, build.clamping.mask = F)
       }
     }
     
@@ -444,12 +486,12 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
                   x[rownames(x) == model, colnames(x) == paste("RUN", i, sep = "")] <- ecospat.boyce(z[!calib.lines[,
                                                                                                                     paste("_RUN", i, sep = "")], grep(paste("RUN", i, "_", model, sep = ""),
                                                                                                                                                       colnames(z))], z[!calib.lines[, paste("_RUN", i, sep = "")] & data@data.species ==
-                                                                                                                                                                         1, grep(paste("RUN", i, "_", model, sep = ""), colnames(z))], PEplot = FALSE)$Spearman.cor
+                                                                                                                                                                         1, grep(paste("RUN", i, "_", model, sep = ""), colnames(z))], PEplot = F)$Spearman.cor
                 } else {
                   x[rownames(x) == model, colnames(x) == paste("RUN", i, sep = "")] <- ecospat.boyce(z[!calib.lines[,
                                                                                                                     paste("RUN", i, sep = "")], grep(paste("RUN", i, "_", model, sep = ""),
                                                                                                                                                      colnames(z))], z[!calib.lines[, paste("RUN", i, sep = "")] & data@data.species ==
-                                                                                                                                                                        1, grep(paste("RUN", i, "_", model, sep = ""), colnames(z))], PEplot = FALSE)$Spearman.cor
+                                                                                                                                                                        1, grep(paste("RUN", i, "_", model, sep = ""), colnames(z))], PEplot = F)$Spearman.cor
                 }
               } else {
                 if (grepl("_", names(calib.lines))) {
@@ -457,12 +499,12 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
                   x[names(x) == paste("RUN", i, sep = "")] <- ecospat.boyce(z[!calib.lines[,
                                                                                            paste("_RUN", i, sep = "")], grep(paste("RUN", i, "_", model, sep = ""),
                                                                                                                              colnames(z))], z[!calib.lines[, paste("_RUN", i, sep = "")] & data@data.species ==
-                                                                                                                                                1, grep(paste("RUN", i, "_", model, sep = ""), colnames(z))], PEplot = FALSE)$Spearman.cor
+                                                                                                                                                1, grep(paste("RUN", i, "_", model, sep = ""), colnames(z))], PEplot = F)$Spearman.cor
                 } else {
                   x[names(x) == paste("RUN", i, sep = "")] <- ecospat.boyce(z[!calib.lines[,
                                                                                            paste("RUN", i, sep = "")], grep(paste("RUN", i, "_", model, sep = ""),
                                                                                                                             colnames(z))], z[!calib.lines[, paste("RUN", i, sep = "")] & data@data.species ==
-                                                                                                                                               1, grep(paste("RUN", i, "_", model, sep = ""), colnames(z))], PEplot = FALSE)$Spearman.cor
+                                                                                                                                               1, grep(paste("RUN", i, "_", model, sep = ""), colnames(z))], PEplot = F)$Spearman.cor
                 }
               }
             }
@@ -625,9 +667,9 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
                                                                                               2] == 1, EVAL1$model[n]])
       # if(packageVersion('ecospat')==1.0){ EVAL1$Boyce[EVAL1$model==EVAL1$model[n]] <-
       # ecospat.boyce(DATA1[!calib.lines[,i],EVAL1$model[n]],DATA1[!calib.lines[,i]&DATA1[,2]
-      # ==1,EVAL1$model[n]],PEplot = FALSE)$Pearson.cor }else{
+      # ==1,EVAL1$model[n]],PEplot = F)$Pearson.cor }else{
       EVAL1$Boyce[EVAL1$model == EVAL1$model[n]] <- ecospat.boyce(DATA1[!calib.lines[, i], EVAL1$model[n]],
-                                                                  DATA1[!calib.lines[, i] & DATA1[, 2] == 1, EVAL1$model[n]], PEplot = FALSE)$Spearman.cor
+                                                                  DATA1[!calib.lines[, i] & DATA1[, 2] == 1, EVAL1$model[n]], PEplot = F)$Spearman.cor
       # }
     }
     EVAL1$technique <- unlist(strsplit(EVAL1$model, split = "_"))[seq(2, nrow(EVAL1) * 2, 2)]
@@ -696,9 +738,9 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
                                                                                                 2] == 1, EVAL1$model[n]])
         # if(packageVersion('ecospat')==1.0){ EVAL1$Boyce[EVAL1$model==EVAL1$model[n]] <-
         # ecospat.boyce(DATA1[!calib.lines[,i],EVAL1$model[n]],DATA1[!calib.lines[,i]&DATA1[,2]
-        # ==1,EVAL1$model[n]],PEplot = FALSE)$Pearson.cor }else{
+        # ==1,EVAL1$model[n]],PEplot = F)$Pearson.cor }else{
         EVAL1$Boyce[EVAL1$model == EVAL1$model[n]] <- ecospat.boyce(DATA1[!calib.lines[, i],
-                                                                          EVAL1$model[n]], DATA1[!calib.lines[, i] & DATA1[, 2] == 1, EVAL1$model[n]], PEplot = FALSE)$Spearman.cor
+                                                                          EVAL1$model[n]], DATA1[!calib.lines[, i] & DATA1[, 2] == 1, EVAL1$model[n]], PEplot = F)$Spearman.cor
         # }
       }
       EVAL1$technique <- unlist(strsplit(EVAL1$model, split = "_"))[seq(2, nrow(EVAL1) * 2, 2)]
@@ -775,7 +817,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
     weigths.rm <- NULL
     for (i in 1:length(weights)) {
       weigths.rm <- c(weigths.rm, which(grepl(paste(names(weights), ".", sep = "")[i], pred.biva,
-                                              fixed = TRUE)))
+                                              fixed = T)))
     }
     pred.biva <- pred.biva[weigths.rm]
     pred.biva <- sort(pred.biva)
@@ -1011,7 +1053,7 @@ ecospat.ESM.MergeModels <- function(ESM.modeling.output) {
   }
   if (length(del.models) > 0) {
     warning(cat(paste("\n\n\n################################\n", length(del.models), "models are not considered for ESMs because they seem to be either replicates or artefacts (e.g. BIOMOD.models.out-objects which already existed before running ecospat_ESM_Modeling function but do not belong to the ESM).\n
-                      The following models were deleted:\n",
+            The following models were deleted:\n",
                       sep = " ")), print(ESM.modeling.output[[1]]$models.[del.models]))
   }
   if (length(del.pred) > 0) {
