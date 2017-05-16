@@ -9,7 +9,7 @@ This function quantifies the range size of a species using standard IUCN criteri
 }
 \usage{
 ecospat.rangesize (bin.map, ocp, buffer, eoo.around.model, eoo.around.modelocp, 
-xy, EOO, Model.within.eoo, AOO, resol, AOO.circles, d, lonlat, alphahull, alpha, 
+xy, EOO, Model.within.eoo, AOO, resol, AOO.circles, d, lonlat, alpha.hull, alpha, 
 return.obj, save.obj, save.rangesize, directory)
 
 ecospat.rangesize (bin.map = NULL,
@@ -25,7 +25,7 @@ ecospat.rangesize (bin.map = NULL,
                    AOO.circles = F,
                    d = sqrt(2000^2/pi),
                    lonlat = FALSE,
-                   alphahull= F,
+                   alpha.hull= F,
                    alpha = 2,
                    return.obj = T,
                    save.obj = F,
@@ -49,7 +49,7 @@ ecospat.rangesize (bin.map = NULL,
     \item{AOO.circles}{logical. AOO calculated by circles around the occurrences instead of using a grid frame.}
     \item{d}{Radius of the AOO.circles around the occurrences.}
     \item{lonlat}{Are these longitude/latidue coordinates? (Default = FALSE).}
-    \item{alphahull}{logical. Calculates the alpha-hull for the occurrences.}
+    \item{alpha.hull}{logical. Calculates the alpha-hull for the occurrences.}
     \item{alpha}{numeric.}
     \item{return.obj}{logical. should the objects created to estimate range size be returned (rasterfiles and spatial polygons). Default: TRUE}
     \item{save.obj}{logical. should objects be saved on hard drive?}
