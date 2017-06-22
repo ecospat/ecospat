@@ -138,18 +138,18 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
   
   no.opt  <- is.null(models.options)
   if(no.opt == TRUE){models.options <- BIOMOD_ModelingOptions()
-                              models.options@GBM$n.trees <- 1000
-                              models.options@GBM$interaction.depth <- 4
-                              models.options@GBM$shrinkage <- 0.005
-                              models.options@GAM$select <- TRUE
-                              models.options@CTA$control$cp <- 0
-                              models.options@ANN$size <- 8
-                              models.options@ANN$decay <- 0.001
-                              models.options@MARS$interaction.level <- 0
-                              models.options@MARS$nprune <- 2
-                              models.options@MAXENT.Phillips$product <- FALSE
-                              models.options@MAXENT.Phillips$threshold <- FALSE
-                              models.options@MAXENT.Phillips$betamultiplier <- 0.5}
+  models.options@GBM$n.trees <- 1000
+  models.options@GBM$interaction.depth <- 4
+  models.options@GBM$shrinkage <- 0.005
+  models.options@GAM$select <- TRUE
+  models.options@CTA$control$cp <- 0
+  models.options@ANN$size <- 8
+  models.options@ANN$decay <- 0.001
+  models.options@MARS$interaction.level <- 0
+  models.options@MARS$nprune <- 2
+  models.options@MAXENT.Phillips$product <- FALSE
+  models.options@MAXENT.Phillips$threshold <- FALSE
+  models.options@MAXENT.Phillips$betamultiplier <- 0.5}
   
   models <- sort(models)
   
@@ -206,23 +206,23 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
       
       mydata@data.env.var <- data@data.env.var[, colnames(data@data.env.var) %in% combinations[,k]]
       mydata@sp.name <- paste("ESM.BIOMOD", k, sep = ".")
-
-  ##### Tune the bivariate models   
+      
+      ##### Tune the bivariate models   
       if(tune == TRUE){
-      models.options <-BIOMOD_tuning(data=mydata, 
-                    models=models[models!="RF"],
-                    models.options = models.options)$models.options
+        models.options <-BIOMOD_tuning(data=mydata, 
+                                       models=models[models!="RF"],
+                                       models.options = models.options)$models.options
       }else{if(no.opt == TRUE & "GLM" %in% models){
         ## Run the Full model with AIC to get the final bivariate model formula
-            try(BIOMOD_Modeling(data = mydata, models = "GLM", models.options = models.options,
-                                models.eval.meth = models.eval.meth, DataSplit=100, NbRunEval=1, Prevalence = 0.5,
-                                rescal.all.models = TRUE, VarImport = 0, modeling.id = modeling.id))
-              try(models.options@GLM$myFormula <- 
-                get_formal_model(get(load(paste(mydata@sp.name,"/models/",modeling.id,"/",mydata@sp.name,"_AllData_Full_GLM",sep=""))))$formula)
-            models.options@GLM$test <- "none"
-            }}
+        try(BIOMOD_Modeling(data = mydata, models = "GLM", models.options = models.options,
+                            models.eval.meth = models.eval.meth, DataSplit=100, NbRunEval=1, Prevalence = 0.5,
+                            rescal.all.models = TRUE, VarImport = 0, modeling.id = modeling.id))
+        try(models.options@GLM$myFormula <- 
+              get_formal_model(get(load(paste(mydata@sp.name,"/models/",modeling.id,"/",mydata@sp.name,"_AllData_Full_GLM",sep=""))))$formula)
+        models.options@GLM$test <- "none"
+      }}
       
-  #######       
+      #######       
       mymodels[[k]] <- "failed"
       try(mymodels[[k]] <- BIOMOD_Modeling(data = mydata, models = models, models.options = models.options,
                                            models.eval.meth = models.eval.meth, DataSplitTable = calib.lines, Prevalence = 0.5,
@@ -246,22 +246,22 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
       if (cleanup != FALSE) {
         removeTmpFiles(h = cleanup)
       }
-
-  ##### Tune the bivariate models   
+      
+      ##### Tune the bivariate models   
       if(tune == TRUE){
-      models.options <-BIOMOD_tuning(data=mydata, 
-                    models=models[models!="RF"],
-                    models.options = models.options)$models.options
+        models.options <-BIOMOD_tuning(data=mydata, 
+                                       models=models[models!="RF"],
+                                       models.options = models.options)$models.options
       }else{if(no.opt == TRUE & "GLM" %in% models){
         ## Run the Full model with AIC to get the final bivariate model formula
-            try(BIOMOD_Modeling(data = mydata, models = "GLM", models.options = models.options,
-                                models.eval.meth = models.eval.meth, DataSplit=100, NbRunEval=1, Prevalence = 0.5,
-                                rescal.all.models = TRUE, VarImport = 0, modeling.id = modeling.id))
-              try(models.options@GLM$myFormula <- 
-                get_formal_model(get(load(paste(mydata@sp.name,"/models/",modeling.id,"/",mydata@sp.name,"_AllData_Full_GLM",sep=""))))$formula)
-            models.options@GLM$test <- "none"
-            }}
-  #######       
+        try(BIOMOD_Modeling(data = mydata, models = "GLM", models.options = models.options,
+                            models.eval.meth = models.eval.meth, DataSplit=100, NbRunEval=1, Prevalence = 0.5,
+                            rescal.all.models = TRUE, VarImport = 0, modeling.id = modeling.id))
+        try(models.options@GLM$myFormula <- 
+              get_formal_model(get(load(paste(mydata@sp.name,"/models/",modeling.id,"/",mydata@sp.name,"_AllData_Full_GLM",sep=""))))$formula)
+        models.options@GLM$test <- "none"
+      }}
+      #######       
       
       BIOMOD_Modeling(data = mydata, models = models, models.options = models.options, models.eval.meth = models.eval.meth,
                       DataSplitTable = calib.lines, Prevalence = 0.5, rescal.all.models = TRUE, do.full.models = TRUE,
@@ -828,7 +828,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
     stop("new.env object required!")
   }
   if (new.env.raster)
-    pred.biva <- grep("gri", pred.biva, value = TRUE)
+    pred.biva <- pred.biva[seq(2,length(pred.biva),2)]
   if (!new.env.raster)
     pred.biva <- grep("RData", pred.biva, value = TRUE)
   
@@ -1053,7 +1053,7 @@ ecospat.ESM.MergeModels <- function(ESM.modeling.output) {
   }
   if (length(del.models) > 0) {
     warning(cat(paste("\n\n\n################################\n", length(del.models), "models are not considered for ESMs because they seem to be either replicates or artefacts (e.g. BIOMOD.models.out-objects which already existed before running ecospat_ESM_Modeling function but do not belong to the ESM).\n
-            The following models were deleted:\n",
+                      The following models were deleted:\n",
                       sep = " ")), print(ESM.modeling.output[[1]]$models.[del.models]))
   }
   if (length(del.pred) > 0) {
