@@ -136,8 +136,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
     models.eval.meth <- "ROC"
   }
   
-  no.opt  <- is.null(models.options)
-  if(no.opt == TRUE){models.options <- BIOMOD_ModelingOptions()
+   if(is.null(models.options)){models.options <- BIOMOD_ModelingOptions()
   models.options@GBM$n.trees <- 1000
   models.options@GBM$interaction.depth <- 4
   models.options@GBM$shrinkage <- 0.005
@@ -149,7 +148,8 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
   models.options@MARS$nprune <- 2
   models.options@MAXENT.Phillips$product <- FALSE
   models.options@MAXENT.Phillips$threshold <- FALSE
-  models.options@MAXENT.Phillips$betamultiplier <- 0.5}
+  models.options@MAXENT.Phillips$betamultiplier <- 0.5
+  models.options@GLM$test <- 'none'}
   
   models <- sort(models)
   
@@ -212,15 +212,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
         models.options <-BIOMOD_tuning(data=mydata, 
                                        models=models[models!="RF"],
                                        models.options = models.options)$models.options
-      }else{if(no.opt == TRUE & "GLM" %in% models){
-        ## Run the Full model with AIC to get the final bivariate model formula
-        try(BIOMOD_Modeling(data = mydata, models = "GLM", models.options = models.options,
-                            models.eval.meth = models.eval.meth, DataSplit=100, NbRunEval=1, Prevalence = 0.5,
-                            rescal.all.models = TRUE, VarImport = 0, modeling.id = modeling.id))
-        try(models.options@GLM$myFormula <- 
-              get_formal_model(get(load(paste(mydata@sp.name,"/models/",modeling.id,"/",mydata@sp.name,"_AllData_Full_GLM",sep=""))))$formula)
-        models.options@GLM$test <- "none"
-      }}
+      }
       
       #######       
       mymodels[[k]] <- "failed"
@@ -252,15 +244,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
         models.options <-BIOMOD_tuning(data=mydata, 
                                        models=models[models!="RF"],
                                        models.options = models.options)$models.options
-      }else{if(no.opt == TRUE & "GLM" %in% models){
-        ## Run the Full model with AIC to get the final bivariate model formula
-        try(BIOMOD_Modeling(data = mydata, models = "GLM", models.options = models.options,
-                            models.eval.meth = models.eval.meth, DataSplit=100, NbRunEval=1, Prevalence = 0.5,
-                            rescal.all.models = TRUE, VarImport = 0, modeling.id = modeling.id))
-        try(models.options@GLM$myFormula <- 
-              get_formal_model(get(load(paste(mydata@sp.name,"/models/",modeling.id,"/",mydata@sp.name,"_AllData_Full_GLM",sep=""))))$formula)
-        models.options@GLM$test <- "none"
-      }}
+      }
       #######       
       
       BIOMOD_Modeling(data = mydata, models = models, models.options = models.options, models.eval.meth = models.eval.meth,
