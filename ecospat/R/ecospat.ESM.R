@@ -53,6 +53,7 @@
 ## NbRunEval:           number of dataset splitting replicates for the model evaluation (same as in Biomod)
 ## DataSplit:           percentage of dataset observations retained for the model training (same as in Biomod)
 ## DataSplitTable:      a matrix, data.frame or a 3D array filled with TRUE/FALSE to specify which part of data must be used for models calibration (TRUE) and for models validation (FALSE). Each column corresponds to a 'RUN'. If filled, arguments NbRunEval, DataSplit and #do.full.models will be ignored.
+## Prevalence:          either NULL or a 0-1 numeric used to build 'weighted response weights'. In contrast to Biomod the default is 0.5 (weighting presences equally to the absences). If NULL each observation (presence or absence) has the same weight (independent of the number of presences and absences).
 ## models:              vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', "MAXENT.Tsuruoka" (same as in Biomod)
 ## modeling.id:	        character, the ID (=name) of modeling procedure. A random number by default.
 ## models.options:      BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in Biomod). If none is provided standard ESM tuning parameterswill be used.
@@ -95,7 +96,7 @@
 ##See Also
 #ecospat.ESM.EnsembleModeling; ecospat.ESM.MergeModels
 
-ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTable = NULL, weighting.score,
+ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTable = NULL, Prevalence = 0.5, weighting.score,
                                  models, tune = FALSE, modeling.id = as.character(format(Sys.time(), "%s")), models.options = NULL, which.biva = NULL,
                                  parallel, cleanup = FALSE) {
   
@@ -136,7 +137,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
     models.eval.meth <- "ROC"
   }
   
-   if(is.null(models.options)){models.options <- BIOMOD_ModelingOptions()
+  if(is.null(models.options)){models.options <- BIOMOD_ModelingOptions()
   models.options@GBM$n.trees <- 1000
   models.options@GBM$interaction.depth <- 4
   models.options@GBM$shrinkage <- 0.005
@@ -167,7 +168,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
   
   # produce calib.lines and keep DataSplitTable constant for each BiVa Model
   if (is.null(DataSplitTable)) {
-    mod.prep.dat <- .Models.prepare.data(mydata, NbRunEval, DataSplit, Yweights = NULL, Prevalence = 0.5,
+    mod.prep.dat <- .Models.prepare.data(mydata, NbRunEval, DataSplit, Yweights = NULL, Prevalence = Prevalence,
                                          do.full.models = TRUE)
     if (length(dim(mod.prep.dat[[1]]$calibLines)) == 3) {
       calib.lines <- mod.prep.dat[[1]]$calibLines[, , 1]
@@ -217,7 +218,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
       #######       
       mymodels[[k]] <- "failed"
       try(mymodels[[k]] <- BIOMOD_Modeling(data = mydata, models = models, models.options = models.options,
-                                           models.eval.meth = models.eval.meth, DataSplitTable = calib.lines, Prevalence = 0.5,
+                                           models.eval.meth = models.eval.meth, DataSplitTable = calib.lines, Prevalence = Prevalence,
                                            rescal.all.models = TRUE, do.full.models = TRUE, VarImport = 0, modeling.id = modeling.id))
       
       if (cleanup != FALSE) {
