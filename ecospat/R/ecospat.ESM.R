@@ -249,7 +249,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
       #######       
       
       BIOMOD_Modeling(data = mydata, models = models, models.options = models.options, models.eval.meth = models.eval.meth,
-                      DataSplitTable = calib.lines, Prevalence = 0.5, rescal.all.models = TRUE, do.full.models = TRUE,
+                      DataSplitTable = calib.lines, Prevalence = Prevalence, rescal.all.models = TRUE, do.full.models = TRUE,
                       VarImport = 0, modeling.id = modeling.id)
       
     }
