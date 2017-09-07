@@ -230,7 +230,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
   
   if (parallel == TRUE) {
     
-    mymodels <- foreach(k = which.biva, .packages = "biomod2") %dopar% {
+    mymodels <- foreach(k = which.biva, .packages = c("biomod2","raster")) %dopar% {
       setwd(newwd)
       mydata@data.env.var <- data@data.env.var[, colnames(data@data.env.var) %in% combinations[,
                                                                                                k]]
@@ -330,7 +330,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
     }
   }
   if (parallel == TRUE) {
-    foreach(k = 1:length(mymodels), .packages = "biomod2") %dopar% {
+    foreach(k = 1:length(mymodels), .packages = c("biomod2","raster")) %dopar% {
       mymodel <- mymodels[[k]]
       
       ####### Exclude the models which failed ####### change to failed
