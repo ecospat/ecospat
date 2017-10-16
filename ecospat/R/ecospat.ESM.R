@@ -2,7 +2,6 @@
 # Commented functions for calculating  "Ensemble of Small Models" (ESM) in R using
 # the Biomod2 package
 #
-# Version 12 [12/12/2016]
 #
 # These functions could be used to build ESMs using simple bivariate models which
 # are averaged weighted by an evaluation score (e.g. AUC) accoring to
@@ -272,10 +271,33 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
 
 ## FUNCTION'S ARGUMENTS
 ## ESM.modeling.output:   BIOMOD.formated.data object returned by BIOMOD_FormatingData
-## new.env:             A set of explanatory variables onto which models will be projected . It could be a data.frame, a matrix, or a rasterStack object. Make sure the column names (data.frame or matrix) or layer Names (rasterStack) perfectly match with the names of variables used to build the models in the previous steps.
-## parallel:            logical. If TRUE, the parallel computing is enabled
-## cleanup:             numeric. Calls removeTmpFiles() to delete all files from rasterOptions()$tmpdir which are older than the given time (in hours). This might be necessary to prevent running over quota. No cleanup is used by default.
-## Note: The name of new.env must be a regular expression (see ?regex)
+## new.env:               A set of explanatory variables onto which models will be projected . It could be a data.frame, a matrix, or a rasterStack object. Make sure the column names (data.frame or matrix) or layer Names (rasterStack) perfectly match with the names of variables used to build the models in the previous steps.
+## parallel:              logical. If TRUE, the parallel computing is enabled
+## cleanup:               numeric. Calls removeTmpFiles() to delete all files from rasterOptions()$tmpdir which are older than the given time (in hours). This might be necessary to prevent running over quota. No cleanup is used by default.
+
+## Details:
+# The basic idea of ensemble of small models (ESMs) is to model a species distribution based on
+# small, simple models, for example all possible bivariate models (i.e.  models that contain only two
+# predictors at a time out of a larger set of predictors), and then combine all possible bivariate models
+# into an ensemble (Lomba et al. 2010; Breiner et al. 2015).
+# The ESM set of functions could be used to build ESMs using simple bivariate models which are
+# averaged using weights based on model performances (e.g. AUC) accoring to Breiner et al (2015).
+# They provide full functionality of the approach described in Breiner et al. (2015).
+# The name of new.env must be a regular expression (see ?regex)
+                              
+## Values:
+# Returns the projections for all selected models (same as in biomod2) See "BIOMOD.projection.out" for details.
+
+## Authors:
+# Frank Breiner <frank.breiner@unil.ch>
+
+## References
+# Lomba, A., L. Pellissier, C. F. Randin, J. Vicente, F. Moreira, J. Honrado, and A. Guisan. 2010. Overcoming the rare species modeling paradox: A novel hierarchical framework applied to an Iberian endemic plant. Biological Conservation 143:2647-2657.
+# Breiner F.T., Guisan A., Bergamini A., Nobis M.P. (2015): Overcoming limitations of modeling rare species by using ensembles of small models. Methods in Ecology and Evolution, 6: 1210-1218. doi: 10.1111/2041-210X.12403
+
+##See Also
+# ecospat.ESM.Modeling; ecospat.ESM.EnsembleModeling; ecospat.ESM.EnsembleProjection
+
 
 ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALSE, cleanup = FALSE) {
   
@@ -403,7 +425,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
 # species:          species name
 # ESM.fit:          data.frame of the predicted values for the data used to build the models.
 # ESM.evaluations:  data.frame with evaluations scores for the ESMs
-# ESM.predictions:  Returns the projections of ESMs for the selected single models and their ensemble
+# weights:          weighting scores used to weight the bivariate models to build the single ESM
+# weights.EF:       weighting scores used to weight the single ESM to build the ensemble of ESMs from different modelling techniques (only available if >1 modelling techniques were selected).
+# failed:           bivariate models which failed because they could not be calibrated.
 
 ## Authors:
 # Frank Breiner
@@ -772,7 +796,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
 ## ESM.EnsembleModeling.output:     Object returned by ecospat.ESM.EnsembleModeling
 
 ## Values:
-# ESM.projections:    Returns the projections of ESMs for the selected single models and their ensemble
+# ESM.projections:    Returns the projections of ESMs for the selected single models and their ensemble (data frame or raster stack).
 
 
 ## Authors:
