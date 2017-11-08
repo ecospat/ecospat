@@ -2,7 +2,7 @@ ecospat
 =======
 
 **Valeria Di Cola, Olivier Broennimann, Blaise Petitpierre, Manuela D'Amen, Frank Breiner & Antoine Guisan**
-##### September 26, 2016
+##### Nomvember 08, 2017
 
 Miscellaneous methods and utilities for spatial ecology analysis, written by current and former members and collaborators of the ecospat group of Antoine Guisan, Department of Ecology and Evolution (DEE) & Institute of Earth Surface Dynamics (IDYST), University of Lausanne, Switzerland.
 
@@ -13,7 +13,7 @@ Spatial autocorrelation -->*ecospat.mantel.correlogram*;
 
 Variable selection --> *ecospat.npred*;
 
-Extrapolation Detection --> *ecospat.exdet, ecospat.mess* and *ecospat.plot.mess*;
+Climate Analogy --> *ecospat.climan, ecospat.mess* and *ecospat.plot.mess*;
 
 Phylogenetic diversity measures --> *ecospat.calculate.pd*;
 
@@ -116,10 +116,10 @@ ecospat.npred (x, th=0.75)
 ```
 
 
-## Extrapolation Detection Tools
+## Climate Analogy Tools
 
 
-### Extrapolation Detection with *ecospat.exdet()*
+### Climate Analogy with *ecospat.climan()*
 ```{r}
 x <- ecospat.testData[c(4:8)]
 p<- x[1:90,] #A projection dataset.
@@ -127,7 +127,7 @@ ref<- x[91:300,] # A reference dataset
 ```
 
 ```{r}
-ecospat.exdet(ref,p)
+ecospat.climan(ref,p)
 ```
 
 ### Extrapolation detection, creating a MESS object with *ecospat.mess()*
