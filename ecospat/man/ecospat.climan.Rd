@@ -1,12 +1,12 @@
-\name{ecospat.exdet}
+\name{ecospat.climan}
 
-\alias{ecospat.exdet}
+\alias{ecospat.climan}
 
-\title{An EXtrapolation DETection Tool For The Modeling Of Species Distributions}
+\title{An Climate Analogy Detection Tool For The Modeling Of Species Distributions}
 
 \description{Assess climate analogy between a projection extent (p) and a reference extent (ref, used in general as the background to calibrate SDMs)}
 
-\usage{ecospat.exdet (ref, p)}
+\usage{ecospat.climan (ref, p)}
 
 \arguments{
   \item{ref}{A dataframe with the value of the variables (i.e columns) for each point of the reference exent.}
@@ -15,7 +15,8 @@
 }
 
 \value{
-Returns a vector. Values below 0 are novel conditions at the univariate level (similar to the MESS), values between 0 and 1 are analog and values above 1 are novel covariate condtions. For more information
+Returns a vector. Values below 0 are novel conditions at the univariate level (similar to the MESS), values between 0 and 1 are analog and values above 1 are novel covariate condtions. 
+For more information see Mesgeran et al. (2014)
 }
 
 \author{Blaise Petitpierre \email{bpetitpierre@gmail.com}}
@@ -28,6 +29,6 @@ Mesgaran, M.B., R.D. Cousens and B.L. Webber. 2014. Here be dragons: a tool for 
 x <- ecospat.testData[c(4:8)]
 p<- x[1:90,] #A projection dataset.
 ref<- x[91:300,] #A reference dataset
-ecospat.exdet(ref,p)
+ecospat.climan(ref,p)
 
 }
