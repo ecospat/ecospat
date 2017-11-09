@@ -33,6 +33,9 @@ percentage of dataset observations retained for the model training (same as in \
     \item{DataSplitTable}{
 a matrix, data.frame or a 3D array filled with TRUE/FALSE to specify which part of data must be used for models calibration (TRUE) and for models validation (FALSE). Each column corresponds to a 'RUN'. If filled, arguments NbRunEval and DataSplit  will be ignored.
     }
+    \item{Prevalence}{
+either NULL or a 0-1 numeric used to build 'weighted response weights'. In contrast to Biomod the default is 0.5 (weighting presences equally to the absences). If NULL each observation (presence or absence) has the same weight (independent of the number of presences and absences).
+    }
     \item{weighting.score}{
 evaluation score used to weight single models to build ensembles: 'AUC', 'SomersD' (2xAUC-1), 'Kappa', 'TSS' or 'Boyce'
     }
@@ -117,6 +120,7 @@ my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
                                 models.options=myBiomodOption,
                                 NbRunEval=2,
                                 DataSplit=70,
+                                Prevalence=0.5
                                 weighting.score=c("AUC"),
                                 parallel=FALSE)  
 
