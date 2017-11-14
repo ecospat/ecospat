@@ -2,7 +2,7 @@
 
 \alias{ecospat.climan}
 
-\title{A Climate Analogy Detection Tool For The Modeling Of Species Distributions}
+\title{A climate analogy setection tool for the modeling of species distributions}
 
 \description{Assess climate analogy between a projection extent (p) and a reference extent (ref, used in general as the background to calibrate SDMs)}
 

@@ -115,8 +115,8 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R, th.sp = 0, th.env = 0,
       2] - ymin)/abs(ymax - ymin)))  # data preparation
     spr <- data.frame(cbind((sp[, 1] - xmin)/abs(xmax - xmin), (sp[, 2] -
       ymin)/abs(ymax - ymin)))  # data preparation
-    mask <- ascgen(SpatialPoints(cbind((1:R)/R, (1:R)/R)), nrcol = R -
-      2, count = FALSE)  # data preparation
+    mask <- ascgen(SpatialPoints(cbind((0:(R))/R, (0:(R)/R))), 
+                   nrcol = R-2, count = FALSE) # data preparation
     sp.dens <- kernelUD(SpatialPoints(spr[, 1:2]), h = "href", grid = mask,
       kern = "bivnorm")  # calculate the density of occurrences in a grid of RxR pixels along the score gradients
     sp.dens <- raster(xmn = xmin, xmx = xmax, ymn = ymin, ymx = ymax, matrix(sp.dens$ud,

@@ -11,7 +11,7 @@ Collection of methods, utilities and data sets for the support of spatial ecolog
 \bold{-Pre-modelling:}
 Spatial autocorrelation --> \code{ecospat.mantel.correlogram};
 Variable selection --> \code{ecospat.npred};
-Extrapolation Detection --> \code{ecospat.exdet, ecospat.mess} and \code{ecospat.plot.mess};
+Climate Analogy --> \code{ecospat.climan, ecospat.mess} and \code{ecospat.plot.mess};
 Phylogenetic diversity measures --> \code{ecospat.calculate.pd};
 Biotic Interactions --> \code{ecospat.co-occurrences} and \code{ecospat.Cscore};
 Niche Quantification --> \code{ecospat.grid.clim.dyn, ecospat.niche.equivalency.test, ecospat.niche.similarity.test, ecospat.plot.niche, ecospat.plot.niche.dyn, ecospat.plot.contrib, ecospat.niche.overlap, ecospat.plot.overlap.test, ecospat.niche.dyn.index} and \code{ecospat.shift.centroids};
@@ -35,7 +35,7 @@ The \code{ecospat} package was written by current and former members and collabo
 Package: \tab ecospat\cr
 Type: \tab Package\cr
 Version: \tab 2.2.0\cr
-Date: \tab 2017-02-28\cr
+Date: \tab 2017-11-14\cr
 License: \tab GPL \cr
 }
 

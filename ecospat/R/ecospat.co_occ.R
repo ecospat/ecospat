@@ -1,22 +1,22 @@
 ecospat.co_occurrences <- function (data)
 {
-
-#######################
-## Co-occurrences 2m ##
-#######################
-
+  
+  #######################
+  ## Co-occurrences 2m ##
+  #######################
+  
   #---------------------------------------------------------------------------------
   # This part calculate the matrix P1 of co-occurrence realized on co-occurrences
   # possible at a resolution of 2 meters for each pair of species. These results
   # are also put in a vector L1, where each comparison is only kept once.
   #---------------------------------------------------------------------------------
   
-  Nsp1 <- ncol(data) - 4
-  Nrel1 <- nrow(data)
-  P1_n_occ <- t(as.matrix(data[, -(1:4)])) %*% as.matrix(data[, -(1:4)])
-  Tot1_sp <- apply(data[, -(1:4)], MARGIN = 2, sum)
-  Min1_n <- outer(Tot1_sp, Tot1_sp, FUN = pmin)
-  P1_n <- P1_n_occ/Min1_n
+  Nsp1 = ncol(data) - 4
+  Nrel1 = nrow(data)
+  P1_n_occ = t(as.matrix(data[, -(1:4)])) %*% as.matrix(data[, -(1:4)])
+  Tot1_sp = apply(data[, -(1:4)], MARGIN = 2, sum)
+  Min1_n = outer(Tot1_sp, Tot1_sp, FUN = pmin)
+  P1_n = P1_n_occ/Min1_n
   
   #----------------------------------------------------------------------------------
   # This part reunite in columns all the values of co-occurrences relative to each
@@ -24,10 +24,10 @@ ecospat.co_occurrences <- function (data)
   # columns.
   #----------------------------------------------------------------------------------
   
-  L1_n <- P1_n[lower.tri(P1_n)]
-  Sp1_n <- rep(1:(Nsp1 - 1), times = ((Nsp1 - 1):1))
-  Sp2_n <- t(outer(1:Nsp1, 1:Nsp1, FUN = "pmax"))[lower.tri(t(outer(1:Nsp1, 1:Nsp1, 
-    FUN = "pmax")))]
+  L1_n = P1_n[lower.tri(P1_n)]
+  Sp1_n = rep(1:(Nsp1 - 1), times = ((Nsp1 - 1):1))
+  Sp2_n = t(outer(1:Nsp1, 1:Nsp1, FUN = "pmax"))[lower.tri(t(outer(1:Nsp1, 1:Nsp1, 
+                                                                   FUN = "pmax")))]
   # Sumdata_n = data.frame(cbind(Sp1_n,Sp2_n,L1_n))
   
   #----------------------------------------------------------------------------------
@@ -36,9 +36,9 @@ ecospat.co_occurrences <- function (data)
   # pairs of species occur in two columns.
   #----------------------------------------------------------------------------------
   
-  CoobySp1_n <- matrix(data = 0, nrow = Nsp1 - 1, ncol = Nsp1)
-  CoobySp1_n[lower.tri(CoobySp1_n, diag = TRUE)] <- P1_n[lower.tri(P1_n)]
-  CoobySp1_n[upper.tri(CoobySp1_n)] <- P1_n[upper.tri(P1_n)]
+  CoobySp1_n = matrix(data = 0, nrow = Nsp1 - 1, ncol = Nsp1)
+  CoobySp1_n[lower.tri(CoobySp1_n, diag = TRUE)] = P1_n[lower.tri(P1_n)]
+  CoobySp1_n[upper.tri(CoobySp1_n)] = P1_n[upper.tri(P1_n)]
   CoobySp1_n <- data.frame(cbind(CoobySp1_n))
   # colnames(CoobySp1_n)<-Names
   boxplot(CoobySp1_n)
@@ -71,41 +71,41 @@ ecospat.co_occurrences <- function (data)
 
 ecospat.Cscore <- function(data, nperm, outpath)
 {
-
+  
   # C-coef Observed matrix
   cat("Computing observed co-occurence matrix", "\n", append = FALSE)
   cat(".............", "\n", append = FALSE)
   cat(".............", "\n", append = FALSE)
   cat(".............", "\n", append = FALSE)
-
-
+  
+  
   spec.occ <- data.matrix(data)
-
+  
   #### C-score calculation
   coocc <- t(spec.occ) %*% spec.occ
-  n.spec <- dim(coocc)[1]
+  n.spec = dim(coocc)[1]
   mat1 <- array(apply(spec.occ, MARGIN = 2, sum), dim = c(n.spec, n.spec))
   mat2 <- t(array(apply(spec.occ, MARGIN = 2, sum), dim = c(n.spec, n.spec)))
   mat.obs.c.coef <- (mat1 - coocc) * (mat2 - coocc)  # observed c score
   df.obs.c.coef <- data.frame(Col = rep(1:ncol(mat.obs.c.coef), each = ncol(mat.obs.c.coef)),
-    Row = rep(1:nrow(mat.obs.c.coef), nrow(mat.obs.c.coef)), Sp1 = rep(colnames(mat.obs.c.coef),
-      each = ncol(mat.obs.c.coef)), Sp2 = rep(rownames(mat.obs.c.coef), nrow(mat.obs.c.coef)),
-    Co.Occ = c(mat.obs.c.coef))
+                              Row = rep(1:nrow(mat.obs.c.coef), nrow(mat.obs.c.coef)), Sp1 = rep(colnames(mat.obs.c.coef),
+                                                                                                 each = ncol(mat.obs.c.coef)), Sp2 = rep(rownames(mat.obs.c.coef), nrow(mat.obs.c.coef)),
+                              Co.Occ = c(mat.obs.c.coef))
   v.diago.inf <- c(rownames(df.obs.c.coef)[df.obs.c.coef[, 1] > df.obs.c.coef[,
-    2]], rownames(df.obs.c.coef)[df.obs.c.coef[, 1] == df.obs.c.coef[, 2]])
+                                                                              2]], rownames(df.obs.c.coef)[df.obs.c.coef[, 1] == df.obs.c.coef[, 2]])
   df.obs.c.coef <- df.obs.c.coef[-as.numeric(v.diago.inf), ]
   CscoreTot <- mean(df.obs.c.coef$Co.Occ)
-
+  
   ### Matrix to store the permutations
   mat.perm <- matrix(0, nrow(df.obs.c.coef), nperm, dimnames = list(c(paste(df.obs.c.coef[,
-    3], df.obs.c.coef[, 4])), c(1:nperm)))
-
-
+                                                                                          3], df.obs.c.coef[, 4])), c(1:nperm)))
+  
+  
   ### Permutations C-score
-
+  
   cat("Computing permutations", "\n", append = FALSE)
   cat(".............", "\n", append = FALSE)
-
+  
   for (i in 1:nperm) {
     if (i == 1) {
       cat(nperm, " permutations to go", "\n", append = FALSE)
@@ -115,38 +115,38 @@ ecospat.Cscore <- function(data, nperm, outpath)
       cat(nperm/2, " permutations to go", "\n", append = FALSE)
       cat(".............", "\n", append = FALSE)
     }
-
-
+    
+    
     spec.occ.perm1 <- data.matrix(data)
     spec.occ.perm1 <- permatswap(spec.occ.perm1, fixedmar = "both", mtype = "prab",
-      times = 1)  # times=1 : separate swapping sequence that always begins with the original matrix
+                                 times = 1)  # times=1 : separate swapping sequence that always begins with the original matrix
     spec.occ.perm <- as.matrix(spec.occ.perm1[[3]][[1]])
-
+    
     coocc.perm <- t(spec.occ.perm) %*% spec.occ.perm
     mat1.perm <- array(apply(spec.occ.perm, MARGIN = 2, sum), dim = c(n.spec,
-      n.spec))
+                                                                      n.spec))
     mat2.perm <- t(array(apply(spec.occ.perm, MARGIN = 2, sum), dim = c(n.spec,
-      n.spec)))
-
+                                                                        n.spec)))
+    
     mat.obs.c.coef.perm <- (mat1.perm - coocc.perm) * (mat2.perm - coocc.perm)
-
+    
     df.obs.c.coef.perm <- data.frame(Col = rep(1:ncol(mat.obs.c.coef.perm), each = ncol(mat.obs.c.coef.perm)),
-      Row = rep(1:nrow(mat.obs.c.coef.perm), nrow(mat.obs.c.coef.perm)), Sp1 = rep(colnames(mat.obs.c.coef),
-        each = ncol(mat.obs.c.coef.perm)), Sp2 = rep(rownames(mat.obs.c.coef),
-        nrow(mat.obs.c.coef.perm)), Co.Occ = c(mat.obs.c.coef.perm))
-
-
-
+                                     Row = rep(1:nrow(mat.obs.c.coef.perm), nrow(mat.obs.c.coef.perm)), Sp1 = rep(colnames(mat.obs.c.coef),
+                                                                                                                  each = ncol(mat.obs.c.coef.perm)), Sp2 = rep(rownames(mat.obs.c.coef),
+                                                                                                                                                               nrow(mat.obs.c.coef.perm)), Co.Occ = c(mat.obs.c.coef.perm))
+    
+    
+    
     df.obs.c.coef.perm <- df.obs.c.coef.perm[-as.numeric(v.diago.inf), ]
-
+    
     # Store result of permuation
     mat.perm[, i] <- df.obs.c.coef.perm[, 5]
-
+    
   }
-
-
+  
+  
   #### Calculate C-score and SES for the whole community
-
+  
   vec.CScore.tot <- as.vector(apply(mat.perm, MARGIN = 2, mean))
   SimulatedCscore <- mean(vec.CScore.tot)
   sd.SimulatedCscore <- sd(vec.CScore.tot)
@@ -156,46 +156,46 @@ ecospat.Cscore <- function(data, nperm, outpath)
   randtest.greater <- as.randtest(vec.CScore.tot, CscoreTot, alter = "greater")
   pval.greater <- randtest.greater$pvalue
   # plot(randtest.greater, xlab= 'Simulated C-scores',main=paste('', sep=''))
-
-
+  
+  
   ### Calculate P-values based on random distribution
-
+  
   mat.pval <- matrix(0, nrow(mat.perm), 4, dimnames = list(rownames(mat.perm), c("Obs.Co.Occ",
-    "SES_Cscore", "pval_less", "pval_greater")))
+                                                                                 "SES_Cscore", "pval_less", "pval_greater")))
   mat.pval[, 1] <- df.obs.c.coef[, 5]
-
+  
   cat("Computing P-values", "\n", append = FALSE)
   cat(".............", "\n", append = FALSE)
-
+  
   for (k in 1:nrow(mat.perm)) {
-
+    
     mat.pval[k, 2] <- (df.obs.c.coef[k, 5] - mean(mat.perm[k, ]))/sd(mat.perm[k,
-      ])
+                                                                              ])
     randtest <- as.randtest(sim = mat.perm[k, ], obs = df.obs.c.coef[k, 5], alter = "less")
     mat.pval[k, 3] <- randtest$pvalue
     randtest <- as.randtest(sim = mat.perm[k, ], obs = df.obs.c.coef[k, 5], alter = "greater")
     mat.pval[k, 4] <- randtest$pvalue
   }
-
-
+  
+  
   ### Exporting Co-occ matrix
   cat("Exporting dataset", "\n", append = FALSE)
   cat(".............", "\n", append = FALSE)
   cat(".............", "\n", append = FALSE)
   cat(".............", "\n", append = FALSE)
-
+  
   hist(as.vector(mat.pval[, 2]), xlab = "ses", main = paste("Histogram of standardized effect size"))
   abline(v = c(2, -2), col = "red")
-
+  
   mat.pval.names <- data.frame(df.obs.c.coef[, 3:4], mat.pval, df.obs.c.coef.perm[,
-    5])
+                                                                                  5])
   mat.pval.names2 <- data.frame(mat.pval.names[, 1:3], mat.pval.names[, 7], mat.pval.names[,
-    4:6])
+                                                                                           4:6])
   names(mat.pval.names2)[3] <- "obs.C-score"
   names(mat.pval.names2)[4] <- "exp.C-score"
   write.table(mat.pval.names2, file = paste(outpath, "/Cscores.txt", sep = ""),
-    sep = "\t", append = FALSE, row.names = FALSE, col.names = TRUE, quote = FALSE)
-
+              sep = "\t", append = FALSE, row.names = FALSE, col.names = TRUE, quote = FALSE)
+  
   tab <- mat.pval.names2
   v <- c(0)
   for (i in 1:nrow(tab)) {
@@ -207,18 +207,18 @@ ecospat.Cscore <- function(data, nperm, outpath)
   for (j in 1:length(v)) {
     m <- rbind(m, tab[v[j], ])
   }
-
+  
   m1 <- na.omit(m)
-
+  
   write.table(m1, file = paste(outpath, "/Sign_Cscores.txt", sep = ""), sep = "\t",
-    append = FALSE, row.names = FALSE, col.names = TRUE, quote = FALSE)
+              append = FALSE, row.names = FALSE, col.names = TRUE, quote = FALSE)
   l <- list(ObsCscoreTot = CscoreTot, SimCscoreTot = SimulatedCscore, PVal.less = pval.less,
-    PVal.greater = pval.greater, SES.Tot = ses)
-
+            PVal.greater = pval.greater, SES.Tot = ses)
+  
   return(l)
-
+  
   cat("End computation", "\n", append = FALSE)
-
+  
   # END FUNCTION
 }
 
@@ -309,23 +309,23 @@ SpeciesCooccurrenceStats <- function(presence) {
   
   presence <- as.matrix(presence)
   coocc <- t(presence) %*% presence
-  nbspec <- dim(coocc)[1]
+  nbspec = dim(coocc)[1]
   mat1 <- array(apply(presence, MARGIN = 2, sum), dim = c(nbsps, nbsps))
   mat2 <- t(array(apply(presence, MARGIN = 2, sum), dim = c(nbsps, nbsps)))
   Cscoreperspecies <- (mat1 - coocc) * (mat2 - coocc)
   
   # C-score on all matrix
   df.synthesis1 <- data.frame(Col = rep(1:ncol(Cscoreperspecies), each = ncol(Cscoreperspecies)), 
-    Row = rep(1:nrow(Cscoreperspecies), nrow(Cscoreperspecies)), Sps1 = rep(colnames(Cscoreperspecies), 
-      each = ncol(Cscoreperspecies)), Sps2 = rep(rownames(Cscoreperspecies), 
-      nrow(Cscoreperspecies)), CScore = c(Cscoreperspecies))
+                              Row = rep(1:nrow(Cscoreperspecies), nrow(Cscoreperspecies)), Sps1 = rep(colnames(Cscoreperspecies), 
+                                                                                                      each = ncol(Cscoreperspecies)), Sps2 = rep(rownames(Cscoreperspecies), 
+                                                                                                                                                 nrow(Cscoreperspecies)), CScore = c(Cscoreperspecies))
   v.diago.inf <- c(rownames(df.synthesis1)[df.synthesis1[, 1] > df.synthesis1[, 
-    2]], rownames(df.synthesis1)[df.synthesis1[, 1] == df.synthesis1[, 2]])
+                                                                              2]], rownames(df.synthesis1)[df.synthesis1[, 1] == df.synthesis1[, 2]])
   df.synthesis <- df.synthesis1[-as.numeric(v.diago.inf), ]
   Cscore <- mean(df.synthesis[, 5])
   
   return(list(coocc = Cscoreperspecies, synth = df.synthesis1, synth_lt = df.synthesis, 
-    Cscore = Cscore))
+              Cscore = Cscore))
   
 }  ### END function ###
 
@@ -349,7 +349,7 @@ ecospat.cons_Cscore <- function(presence, pred, nperm, outpath) {
   CscoreTot <- Obs$Cscore
   
   CooccProb <- matrix(0, nrow = nrow(synthObs), ncol = nperm, dimnames = list(c(paste(synthObs[, 
-    3], synthObs[, 4])), c(1:nperm)))
+                                                                                               3], synthObs[, 4])), c(1:nperm)))
   
   cat("Computing permutations", "\n", append = FALSE)
   cat(".............", "\n", append = FALSE)
@@ -402,7 +402,7 @@ ecospat.cons_Cscore <- function(presence, pred, nperm, outpath) {
       randtest.greater <- as.randtest(CooccProb[i, ], mat_pval[i, 1], alter = "greater")
       mat_pval[i, 4] <- randtest.greater$pvalue
       mat_pval[i, 5] <- (mat_pval[i, 1] - mean(CooccProb[i, ]))/(sd(CooccProb[i, 
-        ]))  #ses for any pair of species
+                                                                              ]))  #ses for any pair of species
     }
   }
   
@@ -415,15 +415,15 @@ ecospat.cons_Cscore <- function(presence, pred, nperm, outpath) {
   cat(".............", "\n", append = FALSE)
   
   df.synthesis <- data.frame(Col = rep(1:ncol(CooccObs), each = ncol(CooccObs)), 
-    Row = rep(1:nrow(CooccObs), nrow(CooccObs)), Sps1 = rep(colnames(CooccObs), 
-      each = ncol(CooccObs)), Sps2 = rep(rownames(CooccObs), nrow(CooccObs)), 
-    Cooc_score = c(CooccObs))
+                             Row = rep(1:nrow(CooccObs), nrow(CooccObs)), Sps1 = rep(colnames(CooccObs), 
+                                                                                     each = ncol(CooccObs)), Sps2 = rep(rownames(CooccObs), nrow(CooccObs)), 
+                             Cooc_score = c(CooccObs))
   v.diago.inf <- c(rownames(df.synthesis)[df.synthesis[, 1] > df.synthesis[, 2]], 
-    rownames(df.synthesis)[df.synthesis[, 1] == df.synthesis[, 2]])
+                   rownames(df.synthesis)[df.synthesis[, 1] == df.synthesis[, 2]])
   df.synthesis <- df.synthesis[-as.numeric(v.diago.inf), ]
   df.synthesis <- cbind(df.synthesis, mat_pval[, 2:5])
   names(df.synthesis)[5:9] <- c("C-scoreObs", "C-scoreExp", "p.less", "p.greater", 
-    "ses")
+                                "ses")
   
   hist(as.vector(df.synthesis[, 9]), xlab = "ses", main = paste("Histogram of standardized effect size"))
   abline(v = c(2, -2), col = "red")
@@ -446,10 +446,10 @@ ecospat.cons_Cscore <- function(presence, pred, nperm, outpath) {
   m1 <- na.omit(m)
   
   write.table(m1, file = paste(outpath, "/Signific_const_Cscores.txt", sep = ""), 
-    sep = "\t", append = FALSE, row.names = FALSE, col.names = TRUE, quote = FALSE)
+              sep = "\t", append = FALSE, row.names = FALSE, col.names = TRUE, quote = FALSE)
   
   l <- list(ObsCscoreTot = CscoreTot, SimCscoreTot = SimulatedCscore, PVal.less = pval.less, 
-    PVal.greater = pval.greater, SES.Tot = ses)
+            PVal.greater = pval.greater, SES.Tot = ses)
   return(l)
   
 }

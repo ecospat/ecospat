@@ -43,7 +43,9 @@ The ESM set of functions could be used to build ESMs using simple bivariate mode
 species:          species name
 ESM.fit:          data.frame of the predicted values for the data used to build the models.
 ESM.evaluations:  data.frame with evaluations scores for the ESMs
-ESM.predictions:  Returns the projections of ESMs for the selected single models and their ensemble
+weights:          weighting scores used to weight the bivariate models to build the single ESM
+weights.EF:       weighting scores used to weight the single ESM to build the ensemble of ESMs from different modelling techniques (only available if >1 modelling techniques were selected).
+failed:           bivariate models which failed because they could not be calibrated.
 
 
 A \code{"\link[=BIOMOD.EnsembleModeling.out-class]{BIOMOD.EnsembleModeling.out}"}. This object will be later given to \code{\link[ecospat]{ecospat.ESM.EnsembleProjection}} if you want to make some projections of this ensemble-models.
