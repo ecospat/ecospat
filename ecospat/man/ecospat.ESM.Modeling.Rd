@@ -15,6 +15,7 @@ This function calibrates simple bivariate models as in Lomba et al. 2010 and Bre
                           Prevalence,
                           weighting.score, 
                           models, 
+                          tune,
                           modeling.id, 
                           models.options, 
                           which.biva, 
@@ -43,6 +44,9 @@ evaluation score used to weight single models to build ensembles: 'AUC', 'Somers
     \item{models}{
 vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', 'MAXENT.Tsuruoka' (same as in \code{biomod2})
     }
+    \item{tune}{
+logical. if true model tuning will be used to estimate optimal parameters for the models (Default: False).
+    }    
     \item{modeling.id}{
 character, the ID (=name) of modeling procedure. A random number by default.
     }
