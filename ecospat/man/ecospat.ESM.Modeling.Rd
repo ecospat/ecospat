@@ -12,6 +12,7 @@ This function calibrates simple bivariate models as in Lomba et al. 2010 and Bre
                           NbRunEval, 
                           DataSplit, 
                           DataSplitTable, 
+                          Prevalence,
                           weighting.score, 
                           models, 
                           modeling.id, 
