@@ -4,7 +4,7 @@ Date: 2017-11-14
 Title: Spatial Ecology Miscellaneous Methods
 Authors@R: c(
 	person("Olivier", "Broennimann", role = "aut", email = "olivier.broennimann@unil.ch"),
-	person("Valeria", "Di Cola", role = c("cre", "aut"), email = "valeria.dicola@unil.ch"),
+	person("Valeria", "Di Cola", role = c("cre", "aut"), email = "valeriadicola@gmail.com"),
 	person("Blaise", "Petitpierre", role = "ctb"),
 	person("Frank", "Breiner", role = "ctb"),
 	person("Manuela", "D`Amen", role = "ctb"),
