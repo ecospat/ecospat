@@ -103,7 +103,7 @@ ecospat_2.2.0 (08.11.17)
 
 NEW FEATURES
 
-* Updated the functions "ecospat.occ.desaggregation()", "ecospat.binary.model()"  and "ecospat.boyce()".
+* Updated the functions "ecospat.occ.desaggregation()", "ecospat.binary.model()" and "ecospat.boyce()".
 * Added new function "ecospat.rangesize()" to estimate the range.size of a species using standard IUCN criteria. 
 * Added new function "ecospat.occupied.patch()" to determine the occupied patch of a species.
 * Added new function "ecospat.mdr()" to implement a minimum cost arborescence analysis.
@@ -112,6 +112,10 @@ NEW FEATURES
 CHANGES
 
 * Re-named the function "ecospat.exdet()" to "ecospat.climan()".
+
+FIXES
+* Fixed bug in "ecospat.grid.clim.dyn()" that shifted the gridded distribution one pixel away from the observed points. 
+
 
 
 
