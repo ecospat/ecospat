@@ -17,9 +17,11 @@ This function evaluates and averages simple bivariate models by weighted means t
 \arguments{
     \item{ESM.modeling.output}{a \code{"\link[=BIOMOD.models.out-class]{BIOMOD.models.out}"} returned by \code{\link[ecospat]{ecospat.ESM.Modeling}}}
     
-    \item{weighting.score}{an evaluation score used to weight single models to build ensembles:"AUC","TSS","Boyce","Kappa","SomersD"
-
-#the evaluation methods used to evaluate ensemble models ( see \code{"\link[=BIOMOD_Modeling]{BIOMOD_Modeling}"}  \bold{models.eval.meth} section for more detailed informations )
+    \item{weighting.score}{an evaluation score used to weight single models to build ensembles:"AUC","TSS",
+    
+    "Boyce","Kappa","SomersD" #the evaluation methods used to evaluate ensemble models 
+    
+    ( see \code{"\link[=BIOMOD_Modeling]{BIOMOD_Modeling}"}  \bold{models.eval.meth} section for more detailed informations )
 }
     \item{threshold}{
 threshold value of an evaluation score to select the bivariate model(s) included for building the ESMs
@@ -52,8 +54,9 @@ A \code{"\link[=BIOMOD.EnsembleModeling.out-class]{BIOMOD.EnsembleModeling.out}"
 
 }
 \author{
-Frank Breiner \email{frank.breiner@wsl.ch} with contributions of 
-Olivier Broennimann \email{olivier.broennimann@unil.ch}
+Frank Breiner \email{frank.breiner@wsl.ch} 
+
+with contributions of Olivier Broennimann \email{olivier.broennimann@unil.ch}
 
 }
 \references{

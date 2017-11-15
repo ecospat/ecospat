@@ -38,8 +38,9 @@ Returns the projections for all selected models (same as in \code{biomod2})
 See \code{"\link[=BIOMOD.projection.out-class]{BIOMOD.projection.out}"} for details.
 
 }
-\author{ Frank Breiner \email{frank.breiner@wsl.ch} with contributions of 
-Olivier Broennimann \email{olivier.broennimann@unil.ch}
+\author{ Frank Breiner \email{frank.breiner@wsl.ch} 
+
+with contributions of Olivier Broennimann \email{olivier.broennimann@unil.ch}
 }
 \references{
 
