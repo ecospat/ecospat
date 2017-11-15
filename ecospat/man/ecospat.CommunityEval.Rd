@@ -41,8 +41,9 @@
 
 \references{Pottier, J., A. Dubuis, L. Pellissier, L. Maiorano, L. Rossier, C.F. Randin, P. Vittoz and A. Guisan. 2013. The accuracy of plant assemblage prediction from species distribution models varies along environmental gradients. \emph{Global Ecology and Biogeography}, \bold{22}, 52-63.}
 
-\author{Julien Pottier \email{julien.pottier@clermont.inra.fr} with contribution of 
-Daniel Scherrer \email{daniel.scherrer@unil.ch}, Anne Dubuis \email{anne.dubuis@gmail.com} 
+\author{Julien Pottier \email{julien.pottier@clermont.inra.fr} 
+
+with contribution of Daniel Scherrer \email{daniel.scherrer@unil.ch}, Anne Dubuis \email{anne.dubuis@gmail.com} 
 and Manuela D'Amen \email{manuela.damen@unil.ch}}
 
 \examples{

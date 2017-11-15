@@ -9,8 +9,9 @@
 \usage{ecospat.plot.overlap.test (x, type, title)}
 
 \arguments{
-  \item{x}{Object created by \code{ecospat.niche.similarity.test} 
-  or \code{ecospat.niche.equivalency.test}.}
+  \item{x}{Object created by 
+  
+  \code{ecospat.niche.similarity.test} or \code{ecospat.niche.equivalency.test}.}
   \item{type}{Must be either \dQuote{D} or \dQuote{I}.}
   \item{title}{The title for the plot.}
 }

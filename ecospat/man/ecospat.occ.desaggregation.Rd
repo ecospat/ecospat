@@ -18,7 +18,9 @@
 
 \value{A subset of the initial dataframe. Indicated the "initial", "kept" and "out number of points.}
 
-\author{Frank Breiner \email{frank.breiner@unil.ch} with contributions of Olivier Broennimann \email{olivier.broennimann@unil.ch}}
+\author{Frank Breiner \email{frank.breiner@unil.ch} 
+
+with contributions of Olivier Broennimann \email{olivier.broennimann@unil.ch}}
 
 \examples{
 
