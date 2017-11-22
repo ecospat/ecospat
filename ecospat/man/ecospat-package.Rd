@@ -74,7 +74,7 @@ The \code{ecospat} package was written by current and former members and collabo
 Package: \tab ecospat\cr
 Type: \tab Package\cr
 Version: \tab 2.2.0\cr
-Date: \tab 2017-11-15\cr
+Date: \tab 2017-11-22\cr
 License: \tab GPL \cr
 }
 
