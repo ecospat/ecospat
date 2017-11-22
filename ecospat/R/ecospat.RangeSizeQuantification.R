@@ -47,8 +47,8 @@ ecospat.rangesize <- function(bin.map = NULL,
                               AOO.circles = F,
                               d = sqrt(2000^2/pi),
                               lonlat = FALSE,
-                              alpha.hull= F,
-                              alpha = 2,
+                              # alpha.hull= F,
+                              # alpha = 2,
                               return.obj = T,
                               save.obj = F,
                               save.rangesize = F,
@@ -80,15 +80,15 @@ ecospat.rangesize <- function(bin.map = NULL,
     circ.rs <- round(raster::area(circ@polygons)) 
   }else{circ.rs <- circ <- NULL}    
     
-  if(alpha.hull){
-    
-    #if(!requireNamespace(alphahull)){stop("alphahull package required!")}
-    del<-delvor(xy)
-    dv<-del$mesh
-    mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^2))*alpha
-    h<-ahull(del,alpha=mn) 
-    alpha.hull <- round(areaahull(h))
-  }else{h <- alpha.hull <- NULL}   
+  # if(alpha.hull){
+  #   
+  #   #if(!requireNamespace(alphahull)){stop("alphahull package required!")}
+  #   del<-delvor(xy)
+  #   dv<-del$mesh
+  #   mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^2))*alpha
+  #   h<-ahull(del,alpha=mn) 
+  #   alpha.hull <- round(areaahull(h))
+  # }else{h <- alpha.hull <- NULL}   
 
   
   ## Model range size estimation
@@ -162,7 +162,7 @@ ecospat.rangesize <- function(bin.map = NULL,
   
   range.sizes <-list(AOO = aoo.rs, 
   AOO.circle = circ.rs, 
-  alpha.hull = alpha.hull, 
+  # alpha.hull = alpha.hull, 
   EOO = eoo, model=bin.map.rs, 
   models.ocp= bin.map.ocp.rs, 
   eoo.around.model = eoo.around.mo.rs, 
@@ -170,7 +170,7 @@ ecospat.rangesize <- function(bin.map = NULL,
   model.within.eoo = mo.within.eoo)
   objects <- list(AOO = aoo.obj, 
   AOO.circle = circ, 
-  alpha.hull = h, 
+  # alpha.hull = h, 
   EOO = xy.eoo, 
   models.ocp = bin.map.ocp,
   eoo.around.model = eoo.around.mo, 

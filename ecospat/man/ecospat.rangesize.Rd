@@ -5,12 +5,11 @@
 Quantification of the range size of a species using habitat suitability maps and IUCN criteria)
 }
 \description{
-This function quantifies the range size of a species using standard IUCN criteria (Area of Occupancy AOO, Extent of Occurence EOO, alpha hulls) or binary maps derived from Species Distribution Models.
+This function quantifies the range size of a species using standard IUCN criteria (Area of Occupancy AOO, Extent of Occurence EOO) or binary maps derived from Species Distribution Models.
 }
 \usage{
 ecospat.rangesize (bin.map, ocp, buffer, eoo.around.model, eoo.around.modelocp, 
-xy, EOO, Model.within.eoo, AOO, resol, AOO.circles, d, lonlat, alpha.hull, alpha, 
-return.obj, save.obj, save.rangesize, directory)
+xy, EOO, Model.within.eoo, AOO, resol, AOO.circles, d, lonlat, return.obj, save.obj, save.rangesize, directory)
 
 ecospat.rangesize (bin.map = NULL,
                    ocp = T,
@@ -25,8 +24,6 @@ ecospat.rangesize (bin.map = NULL,
                    AOO.circles = F,
                    d = sqrt(2000^2/pi),
                    lonlat = FALSE,
-                   alpha.hull= F,
-                   alpha = 2,
                    return.obj = T,
                    save.obj = F,
                    save.rangesize = F,
@@ -49,8 +46,6 @@ ecospat.rangesize (bin.map = NULL,
     \item{AOO.circles}{logical. AOO calculated by circles around the occurrences instead of using a grid frame.}
     \item{d}{Radius of the AOO.circles around the occurrences.}
     \item{lonlat}{Are these longitude/latidue coordinates? (Default = FALSE).}
-    \item{alpha.hull}{logical. Calculates the alpha-hull for the occurrences.}
-    \item{alpha}{numeric.}
     \item{return.obj}{logical. should the objects created to estimate range size be returned (rasterfiles and spatial polygons). Default: TRUE}
     \item{save.obj}{logical. should objects be saved on hard drive?}
     \item{save.rangesize}{logical. should range size estimations be saved on hard drive .}
@@ -59,7 +54,7 @@ ecospat.rangesize (bin.map = NULL,
 
 
 \details{
-The range size of a species is important for many conservation purposes, e.g. to assess the status of threat for IUCN Red Lists. This function quantifies the range size using different IUCN measures, i.e. the Area Of Occupancy (AOO), the Extent Of Occurrence (EOO) and alpha-hulls and from binary maps derived from Species Distribution Models (SDMs). Different ways to extract range size from SDMs are available, e.g. using occupied patches, the suitable habitat within EOO or a convex hull around the suitable habitat.
+The range size of a species is important for many conservation purposes, e.g. to assess the status of threat for IUCN Red Lists. This function quantifies the range size using different IUCN measures, i.e. the Area Of Occupancy (AOO), the Extent Of Occurrence (EOO) and from binary maps derived from Species Distribution Models (SDMs). Different ways to extract range size from SDMs are available, e.g. using occupied patches, the suitable habitat within EOO or a convex hull around the suitable habitat.
 }
 \value{
 A list with the values of range size quantification and the stored objects used for quantification (of class RasterLayers, ahull, ConvexHull).
