@@ -323,12 +323,12 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
       
       ### models which failed have class 'character' otherwise 'BIOMOD.models.out'
       if (class(mymodel) == "character") {
-        (next)()
+        next()
       }
       ## don't use models where Full model failed!
       if (sum(c(grepl("Full", mymodel@models.failed), grepl(paste("RUN", NbRunEval + 1, sep = ""),
-                                                            mymodel@models.failed)) == 1)) {
-        (next)()
+                                                            mymodel@models.failed))) == 1) {
+        next()
       }
       
       # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
@@ -358,12 +358,12 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
       ####### Exclude the models which failed ####### change to failed
       if (class(mymodel) == "character")
       {
-        (next)()
+        next()
       }  ### models which failed have class 'character' otherwise 'BIOMOD.models.out'
       ## don't use models where Full model failed!
       if (sum(c(grepl("Full", mymodel@models.failed), grepl(paste("RUN", NbRunEval + 1, sep = ""),
-                                                            mymodel@models.failed)) == 1)) {
-        (next)()
+                                                            mymodel@models.failed))) == 1) {
+        next()
       }
       # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
       # paste('RUN',NbRunEval+1,sep='')
