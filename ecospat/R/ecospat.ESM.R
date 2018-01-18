@@ -830,9 +830,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   }
   
   ## MAKE ESM PROJECTIONS
-  if (!exists("new.env")) {
-    stop("new.env object required!")
-  }
+
   if (new.env.raster)
     pred.biva <- pred.biva[seq(2,length(pred.biva),2)]
   if (!new.env.raster)
@@ -877,26 +875,26 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   
   if (new.env.raster) {
     pred.ESM <- stack(biva.proj)
+    
+    ## Remove weights from models where Full model failed
     for (i in 1:length(models)) {
       assign(models[i], pred.ESM[[grep(models[i], names(pred.ESM))]])
       
-      if (length(models) > 1) {
-        
-        ## Remove weights from models where Full model failed
-        
-        # weights.mod<- weights.mod[grep( #code by Frank, but doesn't work if more than 1 model failed
-        # paste(unlist(strsplit(n,'_'))[((1:length(n))*4)-3],'_',sep=''),
-        # paste(names(weights.mod),'_',sep=''), invert=TRUE)]
-        
-        weights.mod <- weights[grep(models[i], names(weights))]
-        assign(models[i], round(raster::weighted.mean(get(models[i]), weights.mod, na.rm = TRUE)))
-      } else {
-        assign(models[i], round(raster::weighted.mean(get(models[i]), weights, na.rm = TRUE)))
-      }
+      weights.mod <- weights[grep(models[i], names(weights))]
+      
+      if(grepl(models[i], failed.mod)){
+      for(n in 1:length(failed.mod)){
+        weights.mod <- weights.mod[!grepl(paste(strsplit(grep(models[i] , failed.mod[n],value=T),split='_')[[1]][1],'\\b',sep=''),
+             names(weights.mod))]
+        }} ## end of loop removing failed models from the weighting vector
+      
+      ## Build a ESM for each technqiue
+      assign(models[i], round(raster::weighted.mean(get(models[i]), weights.mod, na.rm = TRUE)))
     }
+    
     pred.ESM <- stack(mget(models))[[order(models)]]
     do.call("rm", as.list(models))
-  }
+  } ## End if(new.env.raster)
   
   ## Do projection for Double Ensemble
   
