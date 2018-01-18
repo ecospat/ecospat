@@ -883,10 +883,8 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
       weights.mod <- weights[grep(models[i], names(weights))]
       
       if(any(grepl(models[i], failed.mod))){
-      for(n in 1:sum(grepl(models[i], failed.mod))){
-        weights.mod <- weights.mod[!grepl(paste(strsplit(grep(models[i] , failed.mod[n],value=T),split='_')[[1]][1],'\\b',sep=''),
-             names(weights.mod))]
-        }} ## end of loop removing failed models from the weighting vector
+        weights.mod <- weights.mod[!names(weights.mod) %in% paste(models[i],'.',sub('_.*','',failed.mod[grepl(models[i], failed.mod)]),sep='')]
+        } 
       
       ## Build a ESM for each technqiue
       assign(models[i], round(raster::weighted.mean(get(models[i]), weights.mod, na.rm = TRUE)))
