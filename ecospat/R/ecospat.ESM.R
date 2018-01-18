@@ -360,7 +360,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
       
       if (class(mymodel) != "character" &
          sum(c(grepl("Full", mymodel@models.failed), grepl(paste("RUN", NbRunEval + 1, sep = ""),
-                                                            mymodel@models.failed))) == 1)
+                                                            mymodel@models.failed))) == 0)
       {
       # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
       # paste('RUN',NbRunEval+1,sep='')
