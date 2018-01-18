@@ -325,11 +325,6 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
       if (class(mymodel) == "character") {
         next()
       }
-      ## don't use models where Full model failed!
-      if (sum(c(grepl("Full", mymodel@models.failed), grepl(paste("RUN", NbRunEval + 1, sep = ""),
-                                                            mymodel@models.failed))) == 1) {
-        next()
-      }
       
       # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
       # paste('RUN',NbRunEval+1,sep='')
@@ -358,9 +353,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
       ####### next() is not working in foreach loops
       ####### Exclude the models which failed & don't use models where Full model failed!
       
-      if (class(mymodel) != "character" &
-         sum(c(grepl("Full", mymodel@models.failed), grepl(paste("RUN", NbRunEval + 1, sep = ""),
-                                                            mymodel@models.failed))) == 0)
+      if (class(mymodel) != "character")
       {
       # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
       # paste('RUN',NbRunEval+1,sep='')
