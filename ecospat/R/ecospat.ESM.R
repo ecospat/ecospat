@@ -883,7 +883,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
       weights.mod <- weights[grep(models[i], names(weights))]
       
       if(grepl(models[i], failed.mod)){
-      for(n in 1:sum(grepl(models[2], failed.mod))){
+      for(n in 1:sum(grepl(models[i], failed.mod))){
         weights.mod <- weights.mod[!grepl(paste(strsplit(grep(models[i] , failed.mod[n],value=T),split='_')[[1]][1],'\\b',sep=''),
              names(weights.mod))]
         }} ## end of loop removing failed models from the weighting vector
