@@ -349,22 +349,19 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
                                                                                                                                                         grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
                           do.stack = TRUE, build.clamping.mask = F)
       }
-    }
-  }
+    } ## End for loop
+  } ## End loop if(parallel)
   if (parallel == TRUE) {
     foreach(k = 1:length(mymodels), .packages = c("biomod2","raster")) %dopar% {
       mymodel <- mymodels[[k]]
       
-      ####### Exclude the models which failed ####### change to failed
-      if (class(mymodel) == "character")
+      ####### next() is not working in foreach loops
+      ####### Exclude the models which failed & don't use models where Full model failed!
+      
+      if (class(mymodel) != "character" &
+         sum(c(grepl("Full", mymodel@models.failed), grepl(paste("RUN", NbRunEval + 1, sep = ""),
+                                                            mymodel@models.failed))) == 1)
       {
-        next()
-      }  ### models which failed have class 'character' otherwise 'BIOMOD.models.out'
-      ## don't use models where Full model failed!
-      if (sum(c(grepl("Full", mymodel@models.failed), grepl(paste("RUN", NbRunEval + 1, sep = ""),
-                                                            mymodel@models.failed))) == 1) {
-        next()
-      }
       # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
       # paste('RUN',NbRunEval+1,sep='')
       if (is.data.frame(new.env)) {
@@ -383,9 +380,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
                                                                                                                                                         grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
                           do.stack = TRUE, build.clamping.mask = F)
       }
-    }
-    
-  }
+    } ## End loop if(class(model)) ## i.e. if model not failed
+   } ## End loop foreach()
+  } ## End loop if(parallel)
   
   
   if (cleanup != FALSE) {
