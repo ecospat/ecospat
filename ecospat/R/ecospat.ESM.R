@@ -825,7 +825,8 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   ## MAKE ESM PROJECTIONS
 
   if (new.env.raster)
-    pred.biva <- pred.biva[seq(2,length(pred.biva),2)]
+    #pred.biva <- pred.biva[seq(2,length(pred.biva),2)]
+    pred.biva <- grep("\\.gri\\b", pred.biva, value = T)
   if (!new.env.raster)
     pred.biva <- grep("RData", pred.biva, value = TRUE)
   
@@ -838,7 +839,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
       colnames(biva.proj[[i]]) <- paste(colnames(biva.proj[[i]]), i, sep = ".")
     }
     if (new.env.raster) {
-      biva.proj[[i]] <- stack(pred.biva[i])
+      biva.proj[[i]] <- raster::stack(pred.biva[i])
     }
   }
   
@@ -867,7 +868,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   }
   
   if (new.env.raster) {
-    pred.ESM <- stack(biva.proj)
+    pred.ESM <- raster::stack(biva.proj)
     
     ## Remove weights from models where Full model failed
     for (i in 1:length(models)) {
@@ -883,7 +884,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
       assign(models[i], round(raster::weighted.mean(get(models[i]), weights.mod, na.rm = TRUE)))
     }
     
-    pred.ESM <- stack(mget(models))[[order(models)]]
+    pred.ESM <- raster::stack(mget(models))[[order(models)]]
     do.call("rm", as.list(models))
   } ## End if(new.env.raster)
   
@@ -893,7 +894,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
     if (new.env.raster) {
       ESM.EF <- round(raster::weighted.mean(pred.ESM[[names(pred.ESM)]], weights.EF[order(weights.EF[,
                                                                                                      1]), 2], na.rm = TRUE))
-      pred.ESM <- stack(pred.ESM, ESM.EF)
+      pred.ESM <- raster::stack(pred.ESM, ESM.EF)
       names(pred.ESM) <- c(names(pred.ESM)[1:(nlayers(pred.ESM) - 1)], "EF")
       rm(ESM.EF)
     }
