@@ -800,11 +800,16 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
 ## See also
 # ecospat.ESM.Modeling; ecospat.ESM.MergeModels; ecospat.ESM.EnsembleModeling
 
-ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleModeling.output) {
+ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleModeling.output, chosen.models = 'all') {
   
   models <- ESM.prediction.output$models
   weights <- ESM.EnsembleModeling.output$weights
   weights.EF <- ESM.EnsembleModeling.output$weights.EF
+   if(chosen.models[1]!='all'){
+    if(any(!chosen.models %in% models)){stop('chosen.models must be a subset of the models selected in ecospat.ESM.Modeling()')}
+    models <- chosen.models
+    weights.EF <- weights.EF[weights.EF$Group.1 %in% chosen.models,]
+  }
   NbRunEval <- ESM.prediction.output$NbRunEval
   pred.biva <- ESM.prediction.output$pred.biva
   new.env.raster <- ESM.prediction.output$new.env.raster
