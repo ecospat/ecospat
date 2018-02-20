@@ -41,6 +41,9 @@ IUCN Standards and Petitions Subcommittee. 2016. Guidelines for Using the IUCN R
 library(dismo)
 
 
+library(dismo)
+
+
 # only run if the maxent.jar file is available, in the right folder
 jar <- paste(system.file(package="dismo"), "/java/maxent.jar", sep='')
 
@@ -58,7 +61,7 @@ predictors <- stack(fnames)
 occurence <- paste(system.file(package="dismo"), '/ex/bradypus.csv', sep='')
 occ <- read.table(occurence, header=TRUE, sep=',')[,-1]
 colnames(occ) <- c("x","y")
-occ <- ecospat.occ.desaggregation(occ,mindist=1)
+occ <- ecospat.occ.desaggregation(occ,min.dist=1)
 
 # fit model, biome is a categorical variable
 me <- maxent(predictors, occ, factors='biome')
@@ -80,21 +83,21 @@ names(pred.bin.arbitrary) <- "me.arbitrary"
 
 
 mpa.ocp  <- ecospat.occupied.patch(pred.bin.mpa,occ)
-boyce.ocp  <- ecospat.occupied.patch(pred.bin.boyce,occ)
+arbitrary.ocp  <- ecospat.occupied.patch(pred.bin.arbitrary,occ)
 
 par(mfrow=c(1,2))
 plot(mpa.ocp) ## occupied patches: green area
 points(occ,col="red",cex=0.5,pch=19)
-plot(boyce.ocp)
+plot(arbitrary.ocp)
 points(occ,col="red",cex=0.5,pch=19)
 
 ## with buffer:
 mpa.ocp  <- ecospat.occupied.patch(pred.bin.mpa,occ, buffer=500000)
-boyce.ocp  <- ecospat.occupied.patch(pred.bin.boyce,occ, buffer=500000)
+arbitrary.ocp  <- ecospat.occupied.patch(pred.bin.arbitrary,occ, buffer=500000)
 
 plot(mpa.ocp) ## occupied patches: green area
 points(occ,col="red",cex=0.5,pch=19)
-plot(boyce.ocp)
+plot(arbitrary.ocp)
 points(occ,col="red",cex=0.5,pch=19)
 }
 
