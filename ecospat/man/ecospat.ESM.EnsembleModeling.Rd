@@ -73,7 +73,7 @@ Breiner F.T., A. Guisan, A. Bergamini and M.P. Nobis. 2015. Overcoming limitatio
 }
 \examples{
    \dontrun{
-# Loading test data for the niche dynamics analysis in the invaded range
+# Loading test data
 inv <- ecospat.testNiche.inv
 
 # species occurrences
@@ -85,16 +85,13 @@ current <- inv[3:10]
 
 
 
-### Formating the data with the BIOMOD_FormatingData() function form the package biomod2
-setwd(path.wd)
-t1 <- Sys.time()
+### Formating the data with the BIOMOD_FormatingData() function from the package biomod2
+
 sp <- 1
 myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
                                       expl.var = current,
                                       resp.xy = xy,
                                       resp.name = colnames(sp_occ)[sp])
-
-myBiomodOption <- Print_Default_ModelingOptions()
 
 
 ### Calibration of simple bivariate models
