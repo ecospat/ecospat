@@ -216,10 +216,10 @@ ecospat.rangesize <- function(bin.map = NULL,
 
 
 ecospat.occupied.patch <- function(bin.map, Sp.occ.xy, buffer = 0){
-  cl<-clump(bin.map)
-  d<-extract(cl,Sp.occ.xy,buffer=buffer)
+  cl <- clump(bin.map)
+  d <- raster::extract(cl,Sp.occ.xy,buffer=buffer)
   d <- unique(na.omit(unlist(d)))
-  b.map<-(cl %in% d) + bin.map
+  b.map <- (cl %in% d) + bin.map
   names(b.map) <- names(bin.map)
   return(b.map)}
 
