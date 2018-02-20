@@ -76,3 +76,111 @@ Pateiro-Lopez, B., and A. Rodriguez-Casal. 2010. Generalizing the Convex Hull of
 }
 
 \keyword{file}
+  
+ \examples{
+ library(dismo)
+
+
+# only run if the maxent.jar file is available, in the right folder
+jar <- paste(system.file(package="dismo"), "/java/maxent.jar", sep='')
+
+# checking if maxent can be run (normally not part of your script)
+file.exists(jar)
+require(rJava)
+
+# get predictor variables
+fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
+                     pattern='grd', full.names=TRUE )
+predictors <- stack(fnames)
+#plot(predictors)
+
+# file with presence points
+occurence <- paste(system.file(package="dismo"), '/ex/bradypus.csv', sep='')
+occ <- read.table(occurence, header=TRUE, sep=',')[,-1]
+colnames(occ) <- c("x","y")
+occ <- ecospat.occ.desaggregation(occ,min.dist=1)
+
+# fit model, biome is a categorical variable
+me <- maxent(predictors, occ, factors='biome')
+
+# predict to entire dataset
+pred <- predict(me, predictors) 
+
+plot(pred)
+points(occ)
+
+
+# use MPA to convert suitability to binary map
+mpa.cutoff <- ecospat.mpa(pred,occ)
+
+# use Boyce index to convert suitability to binary map
+boyce <- ecospat.boyce(pred,  occ)
+### use the boyce index to find a threshold
+pred.bin.arbitrary <- ecospat.binary.model(pred,0.5)
+
+
+pred.bin.mpa <- ecospat.binary.model(pred,mpa.cutoff)
+names(pred.bin.mpa) <- "me.mpa"
+pred.bin.arbitrary <- ecospat.binary.model(pred,0.5)
+names(pred.bin.arbitrary) <- "me.arbitrary"
+
+rangesize <- ecospat.rangesize(stack(pred.bin.mpa,pred.bin.arbitrary),
+                               xy=occ,
+                               resol=c(1,1),
+                               eoo.around.modelocp =T,
+                               AOO.circles = T,
+                               d=200000,
+                               lonlat =T)
+
+
+## Range size quantification
+rangesize$RangeSize
+
+names(rangesize$RangeObjects)
+
+
+par(mfrow=c(1,3))
+
+plot(ecospat.binary.model(pred,0),legend=F, main="IUCN criteria")
+## IUCN criteria & derivates
+# plot AOO
+plot(rangesize$RangeObjects$AOO,add=T, col="red",legend=F)
+# plot EOO
+plot(rangesize$RangeObjects$EOO@polygons,add=T, border="red", lwd=2)
+# plot circles around occurrences
+plot(rangesize$RangeObjects$AOO.circle@polygons,add=T,border="blue")
+
+for(i in 1:2){
+## plot the occupied patches of the model
+plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=F)
+points(occ,col="red",cex=0.5,pch=19)
+## plot EOO around model
+plot(rangesize$RangeObjects$eoo.around.model[[i]]@polygons,add=T,border="blue",lwd=2)
+## plot EOO around occupied patches
+plot(rangesize$RangeObjects$eoo.around.mo.ocp[[i]]@polygons,add=T,border="darkgreen",lwd=2)
+## plot the modeled area within EOO
+#plot(rangesize$RangeObjects$model.within.eoo[[i]],col=c("grey","blue","darkgreen"),legend=F)
+#points(occ,col="red",cex=0.5,pch=19)
+#plot(rangesize$RangeObjects$EOO@polygons,add=T, border="red", lwd=2)
+}
+
+### Alpha-hulls are not included in the function yet because of Licence limitations.
+### However, alpha-hulls can easily be included manually (see also the help file of the alpha hull package):
+
+require(alphahull)
+  alpha = 2 # alpha value of 2 recommended by IUCN
+  
+  del<-delvor(occ)
+  dv<-del$mesh
+  mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^2))*alpha
+  alpha.hull<-ahull(del,alpha=mn) 
+  
+  #Size of alpha-hulls
+  areaahull(h)
+
+
+# plot alphahulls
+plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=F)
+plot(alpha.hull,add=T,lwd=1)
+ 
+ }
