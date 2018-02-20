@@ -36,3 +36,43 @@ Freeman, E.A. and G.G. Moisen. 2008. A comparison of the performance of threshol
 
 \author{Ruben G. Mateo \email{rubeng.mateo@gmail.com} with contributions of Frank Breiner \email{frank.breiner@wsl.ch}}
 
+\examples{
+library(dismo)
+
+
+# only run if the maxent.jar file is available, in the right folder
+jar <- paste(system.file(package="dismo"), "/java/maxent.jar", sep='')
+
+# checking if maxent can be run (normally not part of your script)
+file.exists(jar)
+require(rJava)
+
+# get predictor variables
+fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
+                     pattern='grd', full.names=TRUE )
+predictors <- stack(fnames)
+
+
+# file with presence points
+occurence <- paste(system.file(package="dismo"), '/ex/bradypus.csv', sep='')
+occ <- read.table(occurence, header=TRUE, sep=',')[,-1]
+colnames(occ) <- c("x","y")
+
+# fit model, biome is a categorical variable
+me <- maxent(predictors, occ, factors='biome')
+
+# predict to entire dataset
+pred <- predict(me, predictors) 
+
+plot(pred)
+points(occ)
+
+
+# use MPA to convert suitability to binary map (90% of occurrences encompass by binary map)
+mpa.cutoff <- ecospat.mpa(pred,occ)
+
+pred.bin.mpa <- ecospat.binary.model(pred,mpa.cutoff)
+
+plot(pred.bin.mpa)
+points(occ)
+}
