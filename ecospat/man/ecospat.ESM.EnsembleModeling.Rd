@@ -97,7 +97,6 @@ myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
 ### Calibration of simple bivariate models
 my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
                                 models=c('GLM','RF'),
-                                models.options=myBiomodOption,
                                 NbRunEval=2,
                                 DataSplit=70,
                                 weighting.score=c("AUC"),
