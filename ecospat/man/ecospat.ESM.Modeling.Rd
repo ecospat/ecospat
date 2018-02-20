@@ -138,6 +138,6 @@ my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.prediction.output=my
 
 ## get the model performance of ESMs 
 my.ESM_EF$ESM.evaluations
-## get the weights of the single bivariate models for the ESMs
+## get the weights of the single bivariate models used to build the ESMs
 my.ESM_EF$weights
 }}
