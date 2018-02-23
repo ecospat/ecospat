@@ -946,7 +946,7 @@ ecospat.mpa <- function(Pred, Sp.occ.xy, perc = 0.9) {
   if (class(Pred) == "RasterLayer") {
     Pred <- extract(Pred, Sp.occ.xy)
   }
-  round(quantile(Pred, probs = perc), 3)
+  round(quantile(Pred, probs = perc,na.rm=T), 3)
 }
 
 ### EXAMPLE
