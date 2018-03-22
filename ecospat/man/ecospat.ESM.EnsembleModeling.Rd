@@ -15,7 +15,7 @@ This function evaluates and averages simple bivariate models by weighted means t
                                   models)
 }
 \arguments{
-    \item{ESM.modeling.output}{a \code{"\link[=BIOMOD.models.out-class]{BIOMOD.models.out}"} returned by \code{\link[ecospat]{ecospat.ESM.Modeling}}}
+    \item{ESM.modeling.output}{a \code{list} returned by \code{\link[ecospat]{ecospat.ESM.Modeling}}}
     
     \item{weighting.score}{an evaluation score used to weight single models to build ensembles:"AUC","TSS",
     
