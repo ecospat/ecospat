@@ -14,11 +14,11 @@ This function projects calibrated ESMs into new space or time.
                                     chosen.models = 'all')
 }
 \arguments{
-    \item{ESM.prediction.output}{a \code{"\link[=BIOMOD.models.out-class]{BIOMOD.models.out}"} returned by \code{\link[ecospat]{ecospat.ESM.Projection}}
+    \item{ESM.prediction.output}{a list object returned by \code{\link[ecospat]{ecospat.ESM.Projection}}
     }
 
     \item{ESM.EnsembleModeling.output}{
-a \code{"\link[=BIOMOD.EnsembleModeling.out-class]{BIOMOD.EnsembleModeling.out}"} object returned by \code{\link[ecospat]{ecospat.ESM.EnsembleModeling}}}
+a list object returned by \code{\link[ecospat]{ecospat.ESM.EnsembleModeling}}}
         \item{chosen.models}{a character vector (either 'all' or a sub-selection of model names) to remove models from the ensemble (same as in \code{biomod2}). Default is 'all'.
 }
 }
