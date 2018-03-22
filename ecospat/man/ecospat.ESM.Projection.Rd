@@ -15,7 +15,7 @@ This function projects simple bivariate models on new.env
 }
 \arguments{
     \item{ESM.modeling.output}{
-    \code{BIOMOD.formated.data} object returned by \code{\link[biomod2]{BIOMOD_FormatingData}}
+    \code{list} object returned by \code{\link[biomod2]{ecospat.ESM.Modeling}}
     }
     \item{new.env}{
 A set of explanatory variables onto which models will be projected. It could be a \code{data.frame}, a \code{matrix}, or a \code{rasterStack} object. Make sure the column names (\code{data.frame} or \code{matrix}) or layer Names (\code{rasterStack}) perfectly match with the names of variables used to build the models in the previous steps.
