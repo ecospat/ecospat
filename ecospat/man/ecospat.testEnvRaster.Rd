@@ -6,7 +6,7 @@
 
 \title{Test Environmental Rasters for The Ecospat package}
 
-\description{A stack of 5 topoclimatic rasters at 250m resolution for the Western Swiss Alps. It includes "ddeg0" (growing degree-days above 0°C), "mind68" (moisture index for month June to August),  "srad68" (solar radiation for month June to August), "slope25" (average of slopes at 25m resolution) and "topos25" (average of topographic positions at 25m resolution)}
+\description{A stack of 5 topoclimatic rasters at 250m resolution for the Western Swiss Alps. It includes "ddeg0" (growing degree-days above 0C), "mind68" (moisture index for month June to August),  "srad68" (solar radiation for month June to August), "slope25" (average of slopes at 25m resolution) and "topos25" (average of topographic positions at 25m resolution)}
 
 \format{ecospat.testEnvRaster is a RasterBrick encapsulated in a .Rdata that contains the following rasters:
 
