@@ -20,7 +20,7 @@
 ## env is a RasterStack of environmental variables corresponding to the background (glob in ecospat.grid.clim.dyn)
 ## index tells which which index to project ("stability", "unfilling" or "expansion")
 
-ecospat.niche.zProjGeo <- function(z1,env,cor=FALSE) {
+ecospat.niche.zProjGeo <- function(z1,env,cor=FALSE){
 
   XY <- rasterToPoints(env)[,1:2] #geographical coordinates of each point of the background
 
@@ -34,7 +34,7 @@ ecospat.niche.zProjGeo <- function(z1,env,cor=FALSE) {
 
 #########################
 
-ecospat.niche.dynIndexProjGeo <- function(z1,z2,env,index=NULL) {
+ecospat.niche.dynIndexProjGeo <- function(z1,z2,env,index=NULL){
 
   XY <- rasterToPoints(env)[,1:2] #geographical coordinates of each point of the background
 
