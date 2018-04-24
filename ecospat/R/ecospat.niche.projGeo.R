@@ -19,7 +19,6 @@
 ## z1 and z2 are objects created by ecospat.grid.clim.dyn
 ## env is a RasterStack of environmental variables corresponding to the background (glob in ecospat.grid.clim.dyn)
 ## index tells which which index to project ("stability", "unfilling" or "expansion")
-##
 
 ecospat.niche.zProjGeo <- function(z1,env,cor=FALSE){
 
