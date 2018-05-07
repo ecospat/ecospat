@@ -40,5 +40,5 @@ cal <- x[91:300,] #A calibration dataset
 mess.object <- ecospat.mess (proj, cal, w="default")
 
 #Plot MESS 
-ecospat.plot.mess (xy=proj[c(1:2)], mess.object, cex=1, pch=15)
+ecospat.plot.mess (mess.object, cex=1, pch=15)
 }
