@@ -83,7 +83,7 @@ ecospat.mess <- function(proj, cal, w = "default") {
 ##### values, MESSw is then the mean MESS (red= negative, blue= positive values)###
 ##### MESSneg: number of predictors on which there is extrapolation ###
 
-ecospat.plot.mess.daniel <- function (mess.object, cex = 1, pch = 15) 
+ecospat.plot.mess <- function (mess.object, cex = 1, pch = 15) 
 {
   #Plot MESS
   col.mess.neg <- colorRampPalette(c("white", "red"))
