@@ -20,6 +20,11 @@ ecospat.mess <- function(proj, cal, w = "default") {
     w <- rep(1, ncol(proj))
   }
 
+  xy.proj <- proj[,1:2]
+  xy.cal <- cal[,1:2] #Not used at the moment but could be to plot some additonal stuff
+  proj <- proj[,-c(1:2)]
+  cal <- cal[,-c(1:2)]
+  
   minp <- apply(cal, 2, min)
   minp <- sapply(minp, rep, t = nrow(proj))
   maxp <- apply(cal, 2, max)
@@ -53,8 +58,8 @@ ecospat.mess <- function(proj, cal, w = "default") {
   count.neg <- function(x) {
     return(length(which(x < 0)))
   }
-  total <- round(matrix(apply(cbind(fi, as.vector(proj), as.vector(minp), as.vector(maxp)),
-    1, messi), nrow = nrow(proj)))
+  total <- round(matrix(apply(cbind(fi, as.vector(proj), as.vector(minp), 
+                                    as.vector(maxp)),1, messi), nrow = nrow(proj)))
   if (ncol(proj) > 1) {
     MESS <- apply(total, 1, min)
     MESSneg <- total
@@ -62,9 +67,9 @@ ecospat.mess <- function(proj, cal, w = "default") {
     MESSneg[which(MESS >= 0), ] <- total[which(MESS >= 0), ]
     MESSw <- round(apply(MESSneg, 1, weighted.mean, w = w))
     MESSneg <- apply(total, 1, count.neg)
-    return(cbind(MESS, MESSw, MESSneg))
+    return(cbind(xy.proj,MESS, MESSw, MESSneg))
   } else {
-    return(total)
+    return(cbind(xy.proj,total))
   }
 }
 
