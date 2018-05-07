@@ -83,35 +83,27 @@ ecospat.mess <- function(proj, cal, w = "default") {
 ##### values, MESSw is then the mean MESS (red= negative, blue= positive values)###
 ##### MESSneg: number of predictors on which there is extrapolation ###
 
-ecospat.plot.mess <- function(xy, mess.object, cex = 1, pch = 15) {
-
+ecospat.plot.mess.daniel <- function (mess.object, cex = 1, pch = 15) 
+{
+  #Plot MESS
   col.mess.neg <- colorRampPalette(c("white", "red"))
   col.mess.pos <- colorRampPalette(c("white", "blue"))
-
-  col.neg <- col.mess.neg(max(1 + abs(mess.object[, 1])))
-  col.pos <- col.mess.pos(max(1 + abs(mess.object[, 1])))
-  par(mfrow = c(2, 2))
-  # x11()
-  plot(xy, cex = cex, pch = pch, col = 0, main = "MESS", xlab = paste("min=", min(mess.object[,
-    1]), " & max=", max(mess.object[, 1]), sep = ""), ylab = "")
-  points(xy[which(mess.object[, 1] < 0), ], cex = cex, pch = pch, col = col.neg[mess.object[which(mess.object[,
-    1] < 0), 1]])
-  points(xy[which(mess.object[, 1] > 0), ], cex = cex, pch = pch, col = col.pos[mess.object[which(mess.object[,
-    1] > 0), 1]])
-
-  col.neg <- col.mess.neg(max(1 + abs(mess.object[, 2])))
-  col.pos <- col.mess.pos(max(1 + abs(mess.object[, 2])))
-  # x11()
-  plot(xy, cex = cex, pch = pch, col = 0, main = "MESSw", xlab = paste("min=",
-    min(mess.object[, 2]), " & max=", max(mess.object[, 2]), sep = ""), ylab = "")
-  points(xy[which(mess.object[, 2] < 0), ], cex = cex, pch = pch, col = col.neg[mess.object[which(mess.object[,
-    2] < 0), 2]])
-  points(xy[which(mess.object[, 2] > 0), ], cex = cex, pch = pch, col = col.pos[mess.object[which(mess.object[,
-    2] > 0), 2]])
-
-  # x11()
   col.neg <- col.mess.neg(max(1 + abs(mess.object[, 3])))
-  plot(xy, cex = cex, pch = pch, col = col.neg[mess.object[, 3] + 1], main = "#MESSneg",
-    xlab = paste("min=", min(mess.object[, 3]), " & max=", max(mess.object[,
-      3]), sep = ""), ylab = "")
+  col.pos <- col.mess.pos(max(1 + abs(mess.object[, 3])))
+  par(mfrow = c(2, 2))
+  plot(mess.object[,1:2], cex = cex, pch = pch, col = 0, main = "MESS", xlab = paste("min=", 
+                                                                                     min(mess.object[, 3]), " & max=", max(mess.object[, 3]), sep = ""), ylab = "")
+  points(mess.object[,1:2][which(mess.object[, 3] < 0), ], cex = cex, pch = pch, 
+         col = col.neg[mess.object[which(mess.object[, 3] < 0), 3]])
+  points(mess.object[,1:2][which(mess.object[, 3] > 0), ], cex = cex, pch = pch, 
+         col = col.pos[mess.object[which(mess.object[, 3] > 0), 3]])
+  #Plot MESSw
+  col.neg <- col.mess.neg(max(1 + abs(mess.object[, 4])))
+  col.pos <- col.mess.pos(max(1 + abs(mess.object[, 4])))
+  plot(mess.object[,1:2], cex = cex, pch = pch, col = 0, main = "MESSw", xlab = paste("min=", min(mess.object[, 4]), " & max=", max(mess.object[, 4]), sep = ""), ylab = "")
+  points(mess.object[,1:2][which(mess.object[, 4] < 0), ], cex = cex, pch = pch, col = col.neg[mess.object[which(mess.object[, 4] < 0), 4]])
+  points(mess.object[,1:2][which(mess.object[, 4] > 0), ], cex = cex, pch = pch, col = col.pos[mess.object[which(mess.object[, 4] > 0), 4]])
+  #Plot MESSneg
+  col.neg <- col.mess.neg(max(1 + abs(mess.object[, 5])))
+  plot(mess.object[,1:2], cex = cex, pch = pch, col = col.neg[mess.object[, 5] + 1], main = "#MESSneg", xlab = paste("min=", min(mess.object[, 5]), " & max=", max(mess.object[, 5]), sep = ""), ylab = "")
 }
