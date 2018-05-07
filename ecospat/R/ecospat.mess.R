@@ -16,15 +16,16 @@ ecospat.mess <- function(proj, cal, w = "default") {
     proj <- as.matrix(proj)
     cal <- as.matrix(cal)
   }
-  if (w == "default") {
-    w <- rep(1, ncol(proj))
-  }
-
+  
   xy.proj <- proj[,1:2]
   xy.cal <- cal[,1:2] #Not used at the moment but could be to plot some additonal stuff
   proj <- proj[,-c(1:2)]
   cal <- cal[,-c(1:2)]
   
+  if (w == "default") {
+    w <- rep(1, ncol(proj))
+  }
+
   minp <- apply(cal, 2, min)
   minp <- sapply(minp, rep, t = nrow(proj))
   maxp <- apply(cal, 2, max)
