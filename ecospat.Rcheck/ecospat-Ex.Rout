@@ -1,0 +1,2885 @@
+
+R version 3.3.3 (2017-03-06) -- "Another Canoe"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "ecospat"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> options(pager = "console")
+> base::assign(".ExTimings", "ecospat-Ex.timings", pos = 'CheckExEnv')
+> base::cat("name\tuser\tsystem\telapsed\n", file=base::get(".ExTimings", pos = 'CheckExEnv'))
+> base::assign(".format_ptime",
++ function(x) {
++   if(!is.na(x[4L])) x[1L] <- x[1L] + x[4L]
++   if(!is.na(x[5L])) x[2L] <- x[2L] + x[5L]
++   options(OutDec = '.')
++   format(x[1L:3L], digits = 7L)
++ },
++ pos = 'CheckExEnv')
+> 
+> ### * </HEADER>
+> library('ecospat')
+Loading required package: ade4
+Loading required package: ape
+Loading required package: gbm
+Loading required package: survival
+Loading required package: lattice
+Loading required package: splines
+Loading required package: parallel
+Loaded gbm 2.1.1
+Loading required package: sp
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("ecospat.CommunityEval")
+> ### * ecospat.CommunityEval
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ecospat.CommunityEval
+> ### Title: Community Evaluation
+> ### Aliases: ecospat.CommunityEval
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D eval <- Data[c(53,62,58,70,61,66,65,71,69,43,63,56,68,57,55,60,54,67,59,64)]
+> ##D pred <- Data[c(73:92)]
+> ##D 
+> ##D ecospat.CommunityEval (eval, pred, proba=TRUE, ntir=10)
+> ## End(Not run)
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ecospat.CommunityEval", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("ecospat.Cscore")
+> ### * ecospat.Cscore
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ecospat.Cscore
+> ### Title: Pairwise co-occurrence Analysis with calculation of the C-score
+> ###   index.
+> ### Aliases: ecospat.Cscore
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D data<- ecospat.testData[c(53,62,58,70,61,66,65,71,69,43,63,56,68,57,55,60,54,67,59,64)]
+> ##D nperm <- 10000
+> ##D outpath <- getwd()
+> ##D ecospat.Cscore(data, nperm, outpath)
+> ##D 
+> ## End(Not run)
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ecospat.Cscore", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("ecospat.ESM.EnsembleModeling")
+> ### * ecospat.ESM.EnsembleModeling
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ecospat.ESM.EnsembleModeling
+> ### Title: Ensamble of Small Models: Evaluates and Averages Simple
+> ###   Bivariate Models To ESMs
+> ### Aliases: ecospat.ESM.EnsembleModeling
+> 
+> ### ** Examples
+> 
+>    ## Not run: 
+> ##D # Loading test data
+> ##D inv <- ecospat.testNiche.inv
+> ##D 
+> ##D # species occurrences
+> ##D xy <- inv[,1:2]
+> ##D sp_occ <- inv[11]
+> ##D 
+> ##D # env
+> ##D current <- inv[3:10]
+> ##D 
+> ##D 
+> ##D 
+> ##D ### Formating the data with the BIOMOD_FormatingData() function from the package biomod2
+> ##D 
+> ##D sp <- 1
+> ##D myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
+> ##D                                       expl.var = current,
+> ##D                                       resp.xy = xy,
+> ##D                                       resp.name = colnames(sp_occ)[sp])
+> ##D 
+> ##D 
+> ##D ### Calibration of simple bivariate models
+> ##D my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
+> ##D                                 models=c('GLM','RF'),
+> ##D                                 NbRunEval=2,
+> ##D                                 DataSplit=70,
+> ##D                                 weighting.score=c("AUC"),
+> ##D                                 parallel=FALSE)  
+> ##D 
+> ##D 
+> ##D ### Evaluation and average of simple bivariate models to ESMs
+> ##D my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.score=c("SomersD"),threshold=0)
+> ##D 
+> ##D ### Projection of simple bivariate models into new space 
+> ##D my.ESM_proj_current<-ecospat.ESM.Projection(ESM.modeling.output=my.ESM,
+> ##D                                             new.env=current)
+> ##D 
+> ##D ### Projection of calibrated ESMs into new space 
+> ##D my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.prediction.output=my.ESM_proj_current,
+> ##D                                                         ESM.EnsembleModeling.output=my.ESM_EF)
+> ##D 
+> ##D ## get the model performance of ESMs 
+> ##D my.ESM_EF$ESM.evaluations
+> ##D ## get the weights of the single bivariate models used to build the ESMs
+> ##D my.ESM_EF$weights
+> ## End(Not run)
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ecospat.ESM.EnsembleModeling", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("ecospat.ESM.EnsembleProjection")
+> ### * ecospat.ESM.EnsembleProjection
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ecospat.ESM.EnsembleProjection
+> ### Title: Ensamble of Small Models: Projects Calibrated ESMs Into New
+> ###   Space Or Time.
+> ### Aliases: ecospat.ESM.EnsembleProjection
+> 
+> ### ** Examples
+> 
+>    ## Not run: 
+> ##D # Loading test data for the niche dynamics analysis in the invaded range
+> ##D inv <- ecospat.testNiche.inv
+> ##D 
+> ##D # species occurrences
+> ##D xy <- inv[,1:2]
+> ##D sp_occ <- inv[11]
+> ##D 
+> ##D # env
+> ##D current <- inv[3:10]
+> ##D 
+> ##D 
+> ##D 
+> ##D ### Formating the data with the BIOMOD_FormatingData() function form the package biomod2
+> ##D setwd(path.wd)
+> ##D t1 <- Sys.time()
+> ##D sp <- 1
+> ##D myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
+> ##D                                       expl.var = current,
+> ##D                                       resp.xy = xy,
+> ##D                                       resp.name = colnames(sp_occ)[sp])
+> ##D 
+> ##D myBiomodOption <- Print_Default_ModelingOptions()
+> ##D 
+> ##D 
+> ##D ### Calibration of simple bivariate models
+> ##D my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
+> ##D                                 models=c('GLM','RF'),
+> ##D                                 models.options=myBiomodOption,
+> ##D                                 NbRunEval=2,
+> ##D                                 DataSplit=70,
+> ##D                                 weighting.score=c("AUC"),
+> ##D                                 parallel=FALSE)  
+> ##D 
+> ##D 
+> ##D ### Evaluation and average of simple bivariate models to ESMs
+> ##D my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.score=c("SomersD"),threshold=0)
+> ##D 
+> ##D ### Projection of simple bivariate models into new space 
+> ##D my.ESM_proj_current<-ecospat.ESM.Projection(ESM.modeling.output=my.ESM,
+> ##D                                             new.env=current)
+> ##D 
+> ##D ### Projection of calibrated ESMs into new space 
+> ##D my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.prediction.output=my.ESM_proj_current,
+> ##D                                                         ESM.EnsembleModeling.output=my.ESM_EF)
+> ##D 
+> ##D ## get the model performance of ESMs 
+> ##D my.ESM_EF$ESM.evaluations
+> ##D ## get the weights of the single bivariate models used to build the ESMs
+> ##D my.ESM_EF$weights
+> ## End(Not run)
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ecospat.ESM.EnsembleProjection", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("ecospat.ESM.Modeling")
+> ### * ecospat.ESM.Modeling
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ecospat.ESM.Modeling
+> ### Title: Ensamble of Small Models: Calibration of Simple Bivariate Models
+> ### Aliases: ecospat.ESM.Modeling
+> 
+> ### ** Examples
+> 
+>    ## Not run: 
+> ##D # Loading test data
+> ##D inv <- ecospat.testNiche.inv
+> ##D 
+> ##D # species occurrences
+> ##D xy <- inv[,1:2]
+> ##D sp_occ <- inv[11]
+> ##D 
+> ##D # env
+> ##D current <- inv[3:10]
+> ##D 
+> ##D 
+> ##D 
+> ##D ### Formating the data with the BIOMOD_FormatingData() function from the package biomod2
+> ##D sp <- 1
+> ##D myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
+> ##D                                       expl.var = current,
+> ##D                                       resp.xy = xy,
+> ##D                                       resp.name = colnames(sp_occ)[sp])
+> ##D 
+> ##D ### Calibration of simple bivariate models
+> ##D my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
+> ##D                                 models=c('GLM','RF'),
+> ##D                                 NbRunEval=2,
+> ##D                                 DataSplit=70,
+> ##D                                 Prevalence=0.5
+> ##D                                 weighting.score=c("AUC"),
+> ##D                                 parallel=FALSE)  
+> ##D 
+> ##D 
+> ##D ### Evaluation and average of simple bivariate models to ESMs
+> ##D my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.score=c("SomersD"),threshold=0)
+> ##D 
+> ##D ### Projection of simple bivariate models into new space 
+> ##D my.ESM_proj_current<-ecospat.ESM.Projection(ESM.modeling.output=my.ESM,
+> ##D                                             new.env=current)
+> ##D 
+> ##D ### Projection of calibrated ESMs into new space 
+> ##D my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.prediction.output=my.ESM_proj_current,
+> ##D                                                         ESM.EnsembleModeling.output=my.ESM_EF)
+> ##D 
+> ##D ## get the model performance of ESMs 
+> ##D my.ESM_EF$ESM.evaluations
+> ##D ## get the weights of the single bivariate models used to build the ESMs
+> ##D my.ESM_EF$weights
+> ## End(Not run)
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ecospat.ESM.Modeling", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("ecospat.ESM.Projection")
+> ### * ecospat.ESM.Projection
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ecospat.ESM.Projection
+> ### Title: Ensamble of Small Models: Projects Simple Bivariate Models Into
+> ###   New Space Or Time
+> ### Aliases: ecospat.ESM.Projection
+> 
+> ### ** Examples
+> 
+>    ## Not run: 
+> ##D # Loading test data
+> ##D inv <- ecospat.testNiche.inv
+> ##D 
+> ##D # species occurrences
+> ##D xy <- inv[,1:2]
+> ##D sp_occ <- inv[11]
+> ##D 
+> ##D # env
+> ##D current <- inv[3:10]
+> ##D 
+> ##D 
+> ##D 
+> ##D ### Formating the data with the BIOMOD_FormatingData() function from the package biomod2
+> ##D        
+> ##D sp <- 1
+> ##D myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
+> ##D                                       expl.var = current,
+> ##D                                       resp.xy = xy,
+> ##D                                       resp.name = colnames(sp_occ)[sp])
+> ##D 
+> ##D ### Calibration of simple bivariate models
+> ##D my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
+> ##D                                 models=c('GLM','RF'),
+> ##D                                 NbRunEval=2,
+> ##D                                 DataSplit=70,
+> ##D                                 weighting.score=c("AUC"),
+> ##D                                 parallel=FALSE)  
+> ##D 
+> ##D 
+> ##D ### Evaluation and average of simple bivariate models to ESMs
+> ##D my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.score=c("SomersD"),threshold=0)
+> ##D 
+> ##D ### Projection of simple bivariate models into new space 
+> ##D my.ESM_proj_current<-ecospat.ESM.Projection(ESM.modeling.output=my.ESM,
+> ##D                                             new.env=current)
+> ##D 
+> ##D ### Projection of calibrated ESMs into new space 
+> ##D my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.prediction.output=my.ESM_proj_current,
+> ##D                                                         ESM.EnsembleModeling.output=my.ESM_EF)
+> ##D 
+> ##D ## get the model performance of ESMs 
+> ##D my.ESM_EF$ESM.evaluations
+> ##D ## get the weights of the single bivariate models used to build the ESMs
+> ##D my.ESM_EF$weights
+> ## End(Not run)
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ecospat.ESM.Projection", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("ecospat.Epred")
+> ### * ecospat.Epred
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ecospat.Epred
+> ### Title: Prediction Mean
+> ### Aliases: ecospat.Epred
+> 
+> ### ** Examples
+> 
+> x <- ecospat.testData[c(92,96)]
+> mean <- ecospat.Epred (x, w=rep(1,ncol(x)), th=0.5)
+
+*** in setMethod('BinaryTransformation', signature(data='numeric')
+*** in setMethod('BinaryTransformation', signature(data='data.frame')
+*** in setMethod('BinaryTransformation', signature(data='numeric')
+*** in setMethod('BinaryTransformation', signature(data='data.frame')> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ecospat.Epred", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("ecospat.SESAM.prr")
+> ### * ecospat.SESAM.prr
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ecospat.SESAM.prr
+> ### Title: SESAM Probability Ranking Rule
+> ### Aliases: ecospat.SESAM.prr
+> 
+> ### ** Examples
+> 
+> proba <- ecospat.testData[,73:92]
+> sr <- as.data.frame(rowSums(proba))
+> ecospat.SESAM.prr(proba, sr)
+[1] "test.prr, processing row 1"
+[1] "test.prr, processing row 2"
+[1] "test.prr, processing row 3"
+[1] "test.prr, processing row 4"
+[1] "test.prr, processing row 5"
+[1] "test.prr, processing row 6"
+[1] "test.prr, processing row 7"
+[1] "test.prr, processing row 8"
+[1] "test.prr, processing row 9"
+[1] "test.prr, processing row 10"
+[1] "test.prr, processing row 11"
+[1] "test.prr, processing row 12"
+[1] "test.prr, processing row 13"
+[1] "test.prr, processing row 14"
+[1] "test.prr, processing row 15"
+[1] "test.prr, processing row 16"
+[1] "test.prr, processing row 17"
+[1] "test.prr, processing row 18"
+[1] "test.prr, processing row 19"
+[1] "test.prr, processing row 20"
+[1] "test.prr, processing row 21"
+[1] "test.prr, processing row 22"
+[1] "test.prr, processing row 23"
+[1] "test.prr, processing row 24"
+[1] "test.prr, processing row 25"
+[1] "test.prr, processing row 26"
+[1] "test.prr, processing row 27"
+[1] "test.prr, processing row 28"
+[1] "test.prr, processing row 29"
+[1] "test.prr, processing row 30"
+[1] "test.prr, processing row 31"
+[1] "test.prr, processing row 32"
+[1] "test.prr, processing row 33"
+[1] "test.prr, processing row 34"
+[1] "test.prr, processing row 35"
+[1] "test.prr, processing row 36"
+[1] "test.prr, processing row 37"
+[1] "test.prr, processing row 38"
+[1] "test.prr, processing row 39"
+[1] "test.prr, processing row 40"
+[1] "test.prr, processing row 41"
+[1] "test.prr, processing row 42"
+[1] "test.prr, processing row 43"
+[1] "test.prr, processing row 44"
+[1] "test.prr, processing row 45"
+[1] "test.prr, processing row 46"
+[1] "test.prr, processing row 47"
+[1] "test.prr, processing row 48"
+[1] "test.prr, processing row 49"
+[1] "test.prr, processing row 50"
+[1] "test.prr, processing row 51"
+[1] "test.prr, processing row 52"
+[1] "test.prr, processing row 53"
+[1] "test.prr, processing row 54"
+[1] "test.prr, processing row 55"
+[1] "test.prr, processing row 56"
+[1] "test.prr, processing row 57"
+[1] "test.prr, processing row 58"
+[1] "test.prr, processing row 59"
+[1] "test.prr, processing row 60"
+[1] "test.prr, processing row 61"
+[1] "test.prr, processing row 62"
+[1] "test.prr, processing row 63"
+[1] "test.prr, processing row 64"
+[1] "test.prr, processing row 65"
+[1] "test.prr, processing row 66"
+[1] "test.prr, processing row 67"
+[1] "test.prr, processing row 68"
+[1] "test.prr, processing row 69"
+[1] "test.prr, processing row 70"
+[1] "test.prr, processing row 71"
+[1] "test.prr, processing row 72"
+[1] "test.prr, processing row 73"
+[1] "test.prr, processing row 74"
+[1] "test.prr, processing row 75"
+[1] "test.prr, processing row 76"
+[1] "test.prr, processing row 77"
+[1] "test.prr, processing row 78"
+[1] "test.prr, processing row 79"
+[1] "test.prr, processing row 80"
+[1] "test.prr, processing row 81"
+[1] "test.prr, processing row 82"
+[1] "test.prr, processing row 83"
+[1] "test.prr, processing row 84"
+[1] "test.prr, processing row 85"
+[1] "test.prr, processing row 86"
+[1] "test.prr, processing row 87"
+[1] "test.prr, processing row 88"
+[1] "test.prr, processing row 89"
+[1] "test.prr, processing row 90"
+[1] "test.prr, processing row 91"
+[1] "test.prr, processing row 92"
+[1] "test.prr, processing row 93"
+[1] "test.prr, processing row 94"
+[1] "test.prr, processing row 95"
+[1] "test.prr, processing row 96"
+[1] "test.prr, processing row 97"
+[1] "test.prr, processing row 98"
+[1] "test.prr, processing row 99"
+[1] "test.prr, processing row 100"
+[1] "test.prr, processing row 101"
+[1] "test.prr, processing row 102"
+[1] "test.prr, processing row 103"
+[1] "test.prr, processing row 104"
+[1] "test.prr, processing row 105"
+[1] "test.prr, processing row 106"
+[1] "test.prr, processing row 107"
+[1] "test.prr, processing row 108"
+[1] "test.prr, processing row 109"
+[1] "test.prr, processing row 110"
+[1] "test.prr, processing row 111"
+[1] "test.prr, processing row 112"
+[1] "test.prr, processing row 113"
+[1] "test.prr, processing row 114"
+[1] "test.prr, processing row 115"
+[1] "test.prr, processing row 116"
+[1] "test.prr, processing row 117"
+[1] "test.prr, processing row 118"
+[1] "test.prr, processing row 119"
+[1] "test.prr, processing row 120"
+[1] "test.prr, processing row 121"
+[1] "test.prr, processing row 122"
+[1] "test.prr, processing row 123"
+[1] "test.prr, processing row 124"
+[1] "test.prr, processing row 125"
+[1] "test.prr, processing row 126"
+[1] "test.prr, processing row 127"
+[1] "test.prr, processing row 128"
+[1] "test.prr, processing row 129"
+[1] "test.prr, processing row 130"
+[1] "test.prr, processing row 131"
+[1] "test.prr, processing row 132"
+[1] "test.prr, processing row 133"
+[1] "test.prr, processing row 134"
+[1] "test.prr, processing row 135"
+[1] "test.prr, processing row 136"
+[1] "test.prr, processing row 137"
+[1] "test.prr, processing row 138"
+[1] "test.prr, processing row 139"
+[1] "test.prr, processing row 140"
+[1] "test.prr, processing row 141"
+[1] "test.prr, processing row 142"
+[1] "test.prr, processing row 143"
+[1] "test.prr, processing row 144"
+[1] "test.prr, processing row 145"
+[1] "test.prr, processing row 146"
+[1] "test.prr, processing row 147"
+[1] "test.prr, processing row 148"
+[1] "test.prr, processing row 149"
+[1] "test.prr, processing row 150"
+[1] "test.prr, processing row 151"
+[1] "test.prr, processing row 152"
+[1] "test.prr, processing row 153"
+[1] "test.prr, processing row 154"
+[1] "test.prr, processing row 155"
+[1] "test.prr, processing row 156"
+[1] "test.prr, processing row 157"
+[1] "test.prr, processing row 158"
+[1] "test.prr, processing row 159"
+[1] "test.prr, processing row 160"
+[1] "test.prr, processing row 161"
+[1] "test.prr, processing row 162"
+[1] "test.prr, processing row 163"
+[1] "test.prr, processing row 164"
+[1] "test.prr, processing row 165"
+[1] "test.prr, processing row 166"
+[1] "test.prr, processing row 167"
+[1] "test.prr, processing row 168"
+[1] "test.prr, processing row 169"
+[1] "test.prr, processing row 170"
+[1] "test.prr, processing row 171"
+[1] "test.prr, processing row 172"
+[1] "test.prr, processing row 173"
+[1] "test.prr, processing row 174"
+[1] "test.prr, processing row 175"
+[1] "test.prr, processing row 176"
+[1] "test.prr, processing row 177"
+[1] "test.prr, processing row 178"
+[1] "test.prr, processing row 179"
+[1] "test.prr, processing row 180"
+[1] "test.prr, processing row 181"
+[1] "test.prr, processing row 182"
+[1] "test.prr, processing row 183"
+[1] "test.prr, processing row 184"
+[1] "test.prr, processing row 185"
+[1] "test.prr, processing row 186"
+[1] "test.prr, processing row 187"
+[1] "test.prr, processing row 188"
+[1] "test.prr, processing row 189"
+[1] "test.prr, processing row 190"
+[1] "test.prr, processing row 191"
+[1] "test.prr, processing row 192"
+[1] "test.prr, processing row 193"
+[1] "test.prr, processing row 194"
+[1] "test.prr, processing row 195"
+[1] "test.prr, processing row 196"
+[1] "test.prr, processing row 197"
+[1] "test.prr, processing row 198"
+[1] "test.prr, processing row 199"
+[1] "test.prr, processing row 200"
+[1] "test.prr, processing row 201"
+[1] "test.prr, processing row 202"
+[1] "test.prr, processing row 203"
+[1] "test.prr, processing row 204"
+[1] "test.prr, processing row 205"
+[1] "test.prr, processing row 206"
+[1] "test.prr, processing row 207"
+[1] "test.prr, processing row 208"
+[1] "test.prr, processing row 209"
+[1] "test.prr, processing row 210"
+[1] "test.prr, processing row 211"
+[1] "test.prr, processing row 212"
+[1] "test.prr, processing row 213"
+[1] "test.prr, processing row 214"
+[1] "test.prr, processing row 215"
+[1] "test.prr, processing row 216"
+[1] "test.prr, processing row 217"
+[1] "test.prr, processing row 218"
+[1] "test.prr, processing row 219"
+[1] "test.prr, processing row 220"
+[1] "test.prr, processing row 221"
+[1] "test.prr, processing row 222"
+[1] "test.prr, processing row 223"
+[1] "test.prr, processing row 224"
+[1] "test.prr, processing row 225"
+[1] "test.prr, processing row 226"
+[1] "test.prr, processing row 227"
+[1] "test.prr, processing row 228"
+[1] "test.prr, processing row 229"
+[1] "test.prr, processing row 230"
+[1] "test.prr, processing row 231"
+[1] "test.prr, processing row 232"
+[1] "test.prr, processing row 233"
+[1] "test.prr, processing row 234"
+[1] "test.prr, processing row 235"
+[1] "test.prr, processing row 236"
+[1] "test.prr, processing row 237"
+[1] "test.prr, processing row 238"
+[1] "test.prr, processing row 239"
+[1] "test.prr, processing row 240"
+[1] "test.prr, processing row 241"
+[1] "test.prr, processing row 242"
+[1] "test.prr, processing row 243"
+[1] "test.prr, processing row 244"
+[1] "test.prr, processing row 245"
+[1] "test.prr, processing row 246"
+[1] "test.prr, processing row 247"
+[1] "test.prr, processing row 248"
+[1] "test.prr, processing row 249"
+[1] "test.prr, processing row 250"
+[1] "test.prr, processing row 251"
+[1] "test.prr, processing row 252"
+[1] "test.prr, processing row 253"
+[1] "test.prr, processing row 254"
+[1] "test.prr, processing row 255"
+[1] "test.prr, processing row 256"
+[1] "test.prr, processing row 257"
+[1] "test.prr, processing row 258"
+[1] "test.prr, processing row 259"
+[1] "test.prr, processing row 260"
+[1] "test.prr, processing row 261"
+[1] "test.prr, processing row 262"
+[1] "test.prr, processing row 263"
+[1] "test.prr, processing row 264"
+[1] "test.prr, processing row 265"
+[1] "test.prr, processing row 266"
+[1] "test.prr, processing row 267"
+[1] "test.prr, processing row 268"
+[1] "test.prr, processing row 269"
+[1] "test.prr, processing row 270"
+[1] "test.prr, processing row 271"
+[1] "test.prr, processing row 272"
+[1] "test.prr, processing row 273"
+[1] "test.prr, processing row 274"
+[1] "test.prr, processing row 275"
+[1] "test.prr, processing row 276"
+[1] "test.prr, processing row 277"
+[1] "test.prr, processing row 278"
+[1] "test.prr, processing row 279"
+[1] "test.prr, processing row 280"
+[1] "test.prr, processing row 281"
+[1] "test.prr, processing row 282"
+[1] "test.prr, processing row 283"
+[1] "test.prr, processing row 284"
+[1] "test.prr, processing row 285"
+[1] "test.prr, processing row 286"
+[1] "test.prr, processing row 287"
+[1] "test.prr, processing row 288"
+[1] "test.prr, processing row 289"
+[1] "test.prr, processing row 290"
+[1] "test.prr, processing row 291"
+[1] "test.prr, processing row 292"
+[1] "test.prr, processing row 293"
+[1] "test.prr, processing row 294"
+[1] "test.prr, processing row 295"
+[1] "test.prr, processing row 296"
+[1] "test.prr, processing row 297"
+[1] "test.prr, processing row 298"
+[1] "test.prr, processing row 299"
+[1] "test.prr, processing row 300"
+    glm_Agrostis_capillaris glm_Leontodon_hispidus_sl glm_Dactylis_glomerata
+1                         0                         1                      1
+2                         1                         0                      1
+3                         1                         0                      1
+4                         1                         0                      1
+5                         1                         0                      1
+6                         1                         0                      1
+7                         1                         0                      1
+8                         1                         0                      1
+9                         1                         0                      1
+10                        0                         0                      1
+11                        1                         0                      1
+12                        1                         0                      1
+13                        1                         0                      1
+14                        1                         0                      1
+15                        1                         0                      1
+16                        0                         0                      1
+17                        1                         0                      1
+18                        1                         0                      1
+19                        0                         0                      1
+20                        1                         0                      1
+21                        1                         0                      1
+22                        1                         0                      1
+23                        1                         0                      1
+24                        0                         0                      1
+25                        1                         0                      1
+26                        1                         0                      1
+27                        1                         0                      1
+28                        1                         0                      1
+29                        1                         0                      1
+30                        1                         0                      1
+31                        1                         0                      1
+32                        1                         0                      1
+33                        1                         0                      1
+34                        1                         0                      1
+35                        1                         0                      1
+36                        1                         0                      1
+37                        0                         0                      1
+38                        1                         1                      1
+39                        1                         0                      1
+40                        1                         0                      1
+41                        1                         0                      1
+42                        1                         0                      1
+43                        1                         0                      1
+44                        0                         0                      1
+45                        1                         0                      1
+46                        1                         0                      1
+47                        0                         0                      1
+48                        1                         0                      1
+49                        1                         0                      1
+50                        1                         0                      1
+51                        0                         0                      1
+52                        1                         0                      1
+53                        1                         1                      1
+54                        1                         1                      1
+55                        1                         0                      1
+56                        1                         0                      1
+57                        1                         1                      1
+58                        1                         1                      1
+59                        1                         0                      1
+60                        1                         0                      1
+61                        0                         0                      1
+62                        0                         0                      1
+63                        1                         0                      1
+64                        1                         0                      1
+65                        1                         0                      1
+66                        1                         0                      1
+67                        1                         1                      1
+68                        0                         0                      1
+69                        1                         0                      1
+70                        1                         1                      1
+71                        1                         1                      1
+72                        1                         1                      1
+73                        1                         1                      1
+74                        1                         1                      1
+75                        1                         0                      1
+76                        0                         0                      1
+77                        1                         1                      1
+78                        1                         1                      1
+79                        1                         1                      1
+80                        1                         0                      1
+81                        1                         1                      1
+82                        1                         1                      0
+83                        1                         0                      1
+84                        1                         0                      0
+85                        1                         1                      1
+86                        1                         1                      0
+87                        1                         1                      1
+88                        1                         1                      1
+89                        1                         1                      1
+90                        1                         0                      1
+91                        1                         0                      1
+92                        1                         1                      1
+93                        1                         1                      1
+94                        1                         1                      1
+95                        1                         1                      1
+96                        1                         0                      1
+97                        1                         1                      1
+98                        1                         0                      1
+99                        1                         1                      1
+100                       1                         0                      1
+101                       1                         1                      1
+102                       1                         1                      1
+103                       1                         1                      1
+104                       1                         1                      1
+105                       0                         0                      1
+106                       1                         0                      1
+107                       1                         1                      1
+108                       1                         1                      1
+109                       1                         1                      1
+110                       1                         1                      1
+111                       1                         1                      1
+112                       1                         1                      1
+113                       1                         1                      1
+114                       1                         1                      1
+115                       1                         1                      1
+116                       1                         1                      1
+117                       1                         1                      1
+118                       1                         1                      1
+119                       1                         1                      0
+120                       1                         0                      0
+121                       1                         1                      0
+122                       1                         1                      1
+123                       1                         1                      0
+124                       1                         0                      0
+125                       1                         1                      0
+126                       1                         1                      1
+127                       1                         1                      0
+128                       1                         1                      1
+129                       1                         1                      0
+130                       1                         1                      1
+131                       1                         1                      1
+132                       1                         1                      1
+133                       1                         1                      1
+134                       1                         1                      1
+135                       1                         1                      1
+136                       1                         1                      1
+137                       1                         1                      1
+138                       1                         1                      1
+139                       1                         1                      1
+140                       1                         1                      0
+141                       1                         1                      0
+142                       1                         0                      0
+143                       1                         1                      1
+144                       1                         1                      0
+145                       0                         1                      1
+146                       1                         1                      1
+147                       1                         1                      1
+148                       1                         1                      1
+149                       1                         1                      1
+150                       0                         1                      1
+151                       1                         1                      1
+152                       1                         1                      1
+153                       1                         1                      1
+154                       0                         1                      1
+155                       1                         1                      0
+156                       1                         1                      0
+157                       0                         1                      0
+158                       1                         1                      0
+159                       1                         1                      0
+160                       1                         1                      0
+161                       1                         1                      0
+162                       1                         1                      0
+163                       1                         1                      0
+164                       1                         1                      0
+165                       1                         1                      0
+166                       1                         1                      0
+167                       1                         1                      1
+168                       1                         1                      0
+169                       1                         1                      0
+170                       1                         1                      0
+171                       1                         1                      0
+172                       1                         1                      0
+173                       1                         1                      1
+174                       1                         1                      0
+175                       1                         1                      1
+176                       1                         1                      0
+177                       1                         0                      0
+178                       1                         1                      0
+179                       1                         1                      1
+180                       1                         1                      0
+181                       1                         1                      0
+182                       1                         1                      0
+183                       1                         1                      0
+184                       1                         1                      0
+185                       1                         1                      0
+186                       0                         1                      1
+187                       1                         1                      1
+188                       1                         1                      0
+189                       0                         1                      1
+190                       1                         1                      1
+191                       1                         1                      0
+192                       0                         1                      1
+193                       0                         1                      0
+194                       1                         1                      0
+195                       1                         1                      0
+196                       1                         1                      0
+197                       1                         1                      0
+198                       0                         1                      0
+199                       1                         1                      0
+200                       0                         1                      0
+201                       1                         1                      0
+202                       1                         1                      0
+203                       1                         1                      1
+204                       0                         1                      0
+205                       1                         1                      0
+206                       1                         1                      0
+207                       0                         0                      0
+208                       1                         1                      0
+209                       1                         1                      1
+210                       0                         1                      1
+211                       1                         0                      0
+212                       0                         1                      0
+213                       0                         1                      0
+214                       1                         1                      0
+215                       1                         1                      0
+216                       0                         1                      1
+217                       1                         1                      1
+218                       1                         1                      0
+219                       0                         1                      0
+220                       0                         1                      0
+221                       0                         1                      0
+222                       1                         1                      0
+223                       1                         0                      0
+224                       1                         1                      0
+225                       0                         1                      0
+226                       0                         1                      0
+227                       0                         1                      0
+228                       0                         0                      0
+229                       0                         1                      0
+230                       0                         1                      0
+231                       0                         1                      0
+232                       0                         1                      0
+233                       0                         1                      0
+234                       0                         1                      0
+235                       0                         0                      0
+236                       0                         1                      0
+237                       0                         1                      0
+238                       0                         0                      0
+239                       0                         1                      0
+240                       0                         1                      0
+241                       0                         0                      0
+242                       0                         0                      0
+243                       0                         1                      0
+244                       0                         1                      0
+245                       0                         1                      0
+246                       0                         1                      0
+247                       0                         0                      0
+248                       0                         0                      0
+249                       0                         1                      0
+250                       0                         1                      0
+251                       0                         1                      0
+252                       0                         1                      0
+253                       0                         0                      0
+254                       0                         0                      0
+255                       0                         0                      0
+256                       0                         1                      0
+257                       0                         0                      0
+258                       0                         0                      0
+259                       0                         0                      0
+260                       0                         0                      0
+261                       0                         0                      0
+262                       0                         0                      0
+263                       0                         0                      0
+264                       0                         0                      0
+265                       0                         0                      0
+266                       0                         0                      0
+267                       0                         0                      0
+268                       0                         0                      0
+269                       0                         0                      0
+270                       0                         0                      0
+271                       0                         0                      0
+272                       0                         0                      0
+273                       0                         0                      0
+274                       0                         0                      0
+275                       0                         1                      0
+276                       1                         1                      1
+277                       1                         0                      1
+278                       1                         1                      1
+279                       1                         1                      1
+280                       1                         1                      0
+281                       1                         1                      0
+282                       1                         1                      0
+283                       1                         0                      0
+284                       1                         1                      0
+285                       1                         1                      0
+286                       1                         1                      0
+287                       0                         1                      0
+288                       0                         1                      0
+289                       0                         1                      0
+290                       1                         1                      0
+291                       0                         1                      0
+292                       0                         1                      0
+293                       0                         1                      0
+294                       0                         1                      0
+295                       0                         1                      0
+296                       0                         0                      0
+297                       0                         0                      0
+298                       1                         0                      1
+299                       0                         0                      0
+300                       0                         0                      0
+    glm_Trifolium_repens_sstr glm_Geranium_sylvaticum glm_Ranunculus_acris_sl
+1                           0                       0                       0
+2                           1                       1                       1
+3                           1                       1                       1
+4                           1                       1                       1
+5                           1                       1                       1
+6                           1                       1                       1
+7                           1                       1                       1
+8                           1                       1                       1
+9                           0                       0                       1
+10                          1                       0                       1
+11                          1                       0                       1
+12                          1                       0                       1
+13                          1                       0                       1
+14                          1                       1                       1
+15                          1                       1                       1
+16                          1                       1                       1
+17                          1                       1                       1
+18                          1                       0                       1
+19                          1                       0                       1
+20                          1                       1                       1
+21                          1                       1                       1
+22                          1                       1                       1
+23                          1                       1                       1
+24                          1                       0                       1
+25                          0                       1                       1
+26                          0                       0                       1
+27                          0                       0                       1
+28                          1                       1                       1
+29                          1                       1                       1
+30                          1                       1                       1
+31                          1                       1                       1
+32                          1                       1                       1
+33                          1                       0                       1
+34                          1                       1                       1
+35                          1                       0                       1
+36                          1                       1                       1
+37                          1                       0                       1
+38                          1                       1                       0
+39                          1                       0                       1
+40                          1                       1                       1
+41                          1                       1                       1
+42                          1                       1                       1
+43                          1                       0                       1
+44                          1                       0                       1
+45                          1                       1                       1
+46                          1                       1                       1
+47                          1                       0                       1
+48                          1                       1                       1
+49                          1                       0                       1
+50                          1                       1                       1
+51                          1                       0                       1
+52                          1                       0                       1
+53                          1                       0                       1
+54                          1                       1                       1
+55                          1                       1                       1
+56                          1                       1                       1
+57                          1                       1                       1
+58                          1                       1                       1
+59                          1                       1                       1
+60                          1                       1                       1
+61                          0                       0                       1
+62                          1                       0                       1
+63                          0                       0                       1
+64                          0                       0                       1
+65                          0                       0                       1
+66                          0                       0                       1
+67                          0                       0                       0
+68                          0                       0                       1
+69                          1                       1                       0
+70                          0                       0                       0
+71                          1                       1                       0
+72                          0                       0                       0
+73                          1                       0                       0
+74                          1                       0                       0
+75                          0                       0                       1
+76                          0                       0                       1
+77                          1                       1                       1
+78                          1                       1                       1
+79                          1                       1                       1
+80                          1                       0                       1
+81                          1                       1                       1
+82                          1                       0                       1
+83                          1                       1                       1
+84                          0                       0                       1
+85                          1                       1                       1
+86                          0                       1                       1
+87                          1                       1                       1
+88                          1                       0                       0
+89                          1                       1                       0
+90                          1                       1                       1
+91                          1                       1                       1
+92                          1                       0                       0
+93                          1                       1                       1
+94                          1                       1                       1
+95                          1                       1                       1
+96                          0                       0                       1
+97                          1                       1                       0
+98                          1                       1                       1
+99                          1                       1                       0
+100                         1                       1                       1
+101                         1                       1                       0
+102                         0                       1                       0
+103                         1                       1                       1
+104                         0                       1                       0
+105                         0                       0                       1
+106                         0                       0                       0
+107                         0                       0                       0
+108                         1                       1                       0
+109                         0                       1                       0
+110                         0                       0                       0
+111                         0                       0                       0
+112                         0                       1                       0
+113                         0                       0                       0
+114                         0                       1                       0
+115                         1                       0                       0
+116                         1                       1                       0
+117                         0                       1                       0
+118                         1                       1                       0
+119                         1                       0                       1
+120                         1                       1                       1
+121                         1                       1                       1
+122                         1                       1                       1
+123                         0                       0                       0
+124                         0                       0                       1
+125                         0                       0                       0
+126                         1                       1                       0
+127                         0                       0                       1
+128                         1                       1                       1
+129                         0                       1                       0
+130                         1                       1                       0
+131                         1                       1                       0
+132                         1                       0                       0
+133                         1                       0                       0
+134                         1                       1                       0
+135                         0                       0                       0
+136                         0                       0                       0
+137                         1                       1                       0
+138                         1                       0                       1
+139                         1                       1                       0
+140                         0                       1                       0
+141                         0                       0                       0
+142                         1                       0                       1
+143                         1                       1                       0
+144                         0                       0                       0
+145                         0                       0                       0
+146                         0                       0                       0
+147                         0                       0                       0
+148                         0                       0                       0
+149                         0                       0                       0
+150                         0                       0                       0
+151                         0                       0                       0
+152                         0                       1                       0
+153                         0                       1                       0
+154                         0                       0                       0
+155                         0                       0                       0
+156                         0                       0                       0
+157                         1                       0                       0
+158                         1                       0                       0
+159                         1                       0                       0
+160                         0                       0                       1
+161                         1                       0                       1
+162                         0                       0                       0
+163                         0                       0                       0
+164                         1                       1                       0
+165                         0                       0                       0
+166                         1                       1                       0
+167                         1                       0                       0
+168                         0                       0                       0
+169                         0                       0                       0
+170                         0                       0                       0
+171                         1                       1                       0
+172                         1                       0                       0
+173                         0                       0                       0
+174                         0                       0                       0
+175                         1                       1                       0
+176                         0                       1                       0
+177                         0                       0                       0
+178                         0                       0                       0
+179                         0                       0                       0
+180                         0                       0                       0
+181                         0                       0                       0
+182                         0                       0                       0
+183                         0                       0                       0
+184                         0                       0                       0
+185                         0                       0                       0
+186                         0                       0                       0
+187                         0                       0                       0
+188                         0                       0                       0
+189                         0                       0                       0
+190                         0                       1                       0
+191                         0                       0                       0
+192                         0                       0                       0
+193                         0                       0                       0
+194                         0                       0                       0
+195                         0                       0                       0
+196                         0                       0                       0
+197                         0                       0                       0
+198                         0                       0                       0
+199                         0                       0                       0
+200                         1                       0                       0
+201                         0                       0                       0
+202                         0                       0                       0
+203                         0                       0                       0
+204                         0                       0                       0
+205                         0                       0                       0
+206                         0                       0                       0
+207                         0                       0                       0
+208                         0                       0                       0
+209                         0                       0                       0
+210                         0                       1                       0
+211                         0                       0                       0
+212                         0                       0                       0
+213                         0                       0                       0
+214                         0                       0                       0
+215                         0                       0                       0
+216                         0                       0                       0
+217                         0                       0                       0
+218                         0                       0                       0
+219                         0                       0                       0
+220                         0                       0                       0
+221                         0                       0                       0
+222                         0                       0                       0
+223                         0                       0                       0
+224                         0                       0                       0
+225                         0                       0                       0
+226                         0                       0                       0
+227                         0                       0                       0
+228                         0                       0                       0
+229                         0                       0                       0
+230                         0                       0                       0
+231                         0                       0                       0
+232                         0                       0                       0
+233                         0                       0                       0
+234                         0                       0                       0
+235                         0                       0                       0
+236                         0                       0                       0
+237                         0                       0                       0
+238                         0                       0                       0
+239                         0                       0                       0
+240                         0                       0                       0
+241                         0                       0                       0
+242                         0                       0                       0
+243                         0                       0                       0
+244                         0                       0                       0
+245                         0                       0                       0
+246                         0                       0                       0
+247                         0                       0                       0
+248                         0                       0                       0
+249                         0                       0                       0
+250                         0                       0                       0
+251                         0                       0                       0
+252                         0                       0                       0
+253                         0                       0                       0
+254                         0                       0                       0
+255                         0                       0                       0
+256                         0                       0                       0
+257                         0                       0                       0
+258                         0                       0                       0
+259                         0                       0                       0
+260                         0                       0                       0
+261                         0                       0                       0
+262                         0                       0                       0
+263                         0                       0                       0
+264                         0                       0                       0
+265                         0                       0                       0
+266                         0                       0                       0
+267                         0                       0                       0
+268                         0                       0                       0
+269                         0                       0                       0
+270                         0                       0                       0
+271                         0                       0                       0
+272                         0                       0                       0
+273                         0                       0                       0
+274                         0                       0                       0
+275                         0                       0                       0
+276                         1                       1                       0
+277                         1                       1                       1
+278                         1                       1                       0
+279                         1                       1                       0
+280                         0                       1                       0
+281                         0                       0                       0
+282                         0                       0                       0
+283                         0                       0                       0
+284                         1                       0                       1
+285                         0                       1                       0
+286                         1                       0                       0
+287                         0                       0                       0
+288                         0                       0                       0
+289                         0                       0                       0
+290                         0                       0                       0
+291                         0                       0                       0
+292                         0                       0                       0
+293                         0                       0                       0
+294                         0                       0                       0
+295                         0                       0                       0
+296                         0                       0                       0
+297                         0                       0                       0
+298                         1                       1                       1
+299                         0                       0                       0
+300                         0                       0                       0
+    glm_Prunella_vulgaris glm_Veronica_chamaedrys glm_Taraxacum_officinale_aggr
+1                       0                       0                             0
+2                       1                       1                             1
+3                       1                       1                             1
+4                       1                       1                             1
+5                       1                       1                             1
+6                       1                       1                             1
+7                       1                       1                             0
+8                       1                       1                             1
+9                       1                       1                             0
+10                      1                       1                             1
+11                      1                       1                             0
+12                      1                       1                             1
+13                      1                       1                             1
+14                      1                       1                             1
+15                      1                       1                             1
+16                      1                       1                             1
+17                      1                       1                             1
+18                      1                       1                             1
+19                      1                       1                             1
+20                      0                       1                             1
+21                      1                       1                             1
+22                      1                       1                             1
+23                      1                       1                             1
+24                      1                       1                             0
+25                      1                       1                             0
+26                      1                       1                             0
+27                      1                       0                             0
+28                      1                       1                             0
+29                      1                       1                             0
+30                      1                       1                             1
+31                      1                       1                             1
+32                      1                       1                             1
+33                      1                       1                             1
+34                      0                       1                             1
+35                      1                       1                             1
+36                      0                       1                             1
+37                      1                       1                             0
+38                      0                       1                             1
+39                      1                       1                             1
+40                      1                       1                             1
+41                      1                       1                             1
+42                      1                       0                             1
+43                      1                       1                             1
+44                      1                       1                             1
+45                      1                       1                             1
+46                      1                       1                             1
+47                      1                       1                             1
+48                      1                       1                             1
+49                      1                       1                             1
+50                      1                       1                             1
+51                      1                       1                             0
+52                      1                       1                             1
+53                      0                       1                             1
+54                      0                       1                             1
+55                      0                       1                             1
+56                      0                       1                             1
+57                      0                       1                             1
+58                      1                       1                             1
+59                      1                       1                             1
+60                      1                       1                             0
+61                      1                       1                             1
+62                      1                       1                             0
+63                      1                       1                             0
+64                      1                       1                             0
+65                      1                       0                             0
+66                      1                       1                             0
+67                      0                       1                             1
+68                      1                       1                             0
+69                      1                       0                             0
+70                      1                       1                             0
+71                      0                       1                             1
+72                      0                       1                             1
+73                      0                       1                             1
+74                      0                       1                             1
+75                      1                       1                             0
+76                      1                       1                             1
+77                      0                       1                             1
+78                      1                       0                             1
+79                      0                       0                             1
+80                      1                       0                             1
+81                      0                       0                             1
+82                      0                       0                             1
+83                      0                       0                             1
+84                      1                       0                             0
+85                      1                       0                             0
+86                      1                       0                             0
+87                      1                       0                             0
+88                      0                       1                             1
+89                      0                       1                             0
+90                      1                       0                             0
+91                      0                       0                             1
+92                      0                       1                             1
+93                      0                       1                             1
+94                      0                       1                             1
+95                      0                       1                             1
+96                      1                       1                             0
+97                      0                       1                             0
+98                      0                       0                             1
+99                      0                       0                             0
+100                     0                       0                             1
+101                     0                       1                             0
+102                     1                       0                             0
+103                     1                       1                             0
+104                     0                       1                             0
+105                     1                       1                             0
+106                     1                       0                             0
+107                     0                       0                             0
+108                     1                       0                             0
+109                     0                       1                             0
+110                     0                       1                             0
+111                     0                       1                             0
+112                     0                       0                             0
+113                     0                       0                             0
+114                     0                       1                             0
+115                     0                       1                             0
+116                     1                       0                             0
+117                     0                       0                             0
+118                     0                       0                             1
+119                     0                       0                             1
+120                     0                       0                             1
+121                     0                       0                             1
+122                     0                       0                             1
+123                     0                       0                             0
+124                     1                       0                             0
+125                     0                       0                             0
+126                     0                       0                             0
+127                     0                       0                             0
+128                     0                       0                             1
+129                     1                       0                             0
+130                     0                       0                             1
+131                     0                       0                             1
+132                     0                       0                             0
+133                     0                       0                             1
+134                     0                       0                             1
+135                     0                       0                             0
+136                     0                       0                             0
+137                     0                       1                             0
+138                     0                       0                             1
+139                     0                       0                             0
+140                     0                       0                             0
+141                     0                       0                             0
+142                     1                       0                             0
+143                     0                       0                             1
+144                     0                       0                             0
+145                     0                       1                             0
+146                     0                       0                             0
+147                     0                       0                             0
+148                     0                       0                             0
+149                     0                       0                             0
+150                     0                       0                             0
+151                     0                       0                             0
+152                     0                       0                             0
+153                     0                       0                             0
+154                     0                       0                             0
+155                     0                       0                             0
+156                     1                       0                             0
+157                     0                       0                             0
+158                     0                       0                             1
+159                     0                       0                             0
+160                     0                       0                             0
+161                     0                       0                             1
+162                     0                       0                             0
+163                     0                       0                             0
+164                     0                       0                             1
+165                     0                       0                             0
+166                     0                       0                             0
+167                     0                       0                             0
+168                     0                       0                             0
+169                     0                       0                             0
+170                     1                       0                             0
+171                     0                       0                             0
+172                     0                       0                             1
+173                     0                       0                             0
+174                     0                       0                             0
+175                     0                       0                             1
+176                     0                       0                             0
+177                     0                       0                             0
+178                     0                       0                             0
+179                     0                       0                             0
+180                     0                       0                             0
+181                     0                       0                             0
+182                     0                       0                             0
+183                     0                       0                             0
+184                     0                       0                             0
+185                     0                       0                             0
+186                     0                       0                             0
+187                     0                       0                             0
+188                     0                       0                             0
+189                     0                       1                             0
+190                     0                       0                             0
+191                     0                       0                             0
+192                     0                       1                             0
+193                     0                       0                             0
+194                     0                       0                             0
+195                     0                       0                             0
+196                     0                       0                             0
+197                     0                       0                             0
+198                     0                       0                             0
+199                     0                       0                             0
+200                     0                       0                             0
+201                     0                       0                             0
+202                     0                       0                             0
+203                     0                       0                             1
+204                     0                       0                             0
+205                     0                       0                             0
+206                     0                       0                             0
+207                     0                       0                             0
+208                     0                       0                             0
+209                     0                       0                             0
+210                     0                       0                             0
+211                     0                       0                             0
+212                     0                       0                             0
+213                     0                       0                             0
+214                     0                       0                             0
+215                     0                       0                             0
+216                     0                       0                             0
+217                     0                       0                             0
+218                     0                       0                             0
+219                     0                       0                             0
+220                     0                       0                             0
+221                     0                       0                             0
+222                     0                       0                             0
+223                     0                       0                             0
+224                     0                       0                             0
+225                     0                       0                             0
+226                     0                       0                             0
+227                     0                       0                             0
+228                     0                       0                             0
+229                     0                       0                             0
+230                     0                       0                             0
+231                     0                       1                             0
+232                     0                       0                             0
+233                     0                       0                             0
+234                     0                       0                             0
+235                     0                       0                             0
+236                     0                       0                             0
+237                     0                       0                             0
+238                     0                       0                             0
+239                     0                       0                             0
+240                     0                       0                             0
+241                     0                       0                             0
+242                     0                       0                             0
+243                     0                       0                             0
+244                     0                       0                             0
+245                     0                       0                             0
+246                     0                       0                             0
+247                     0                       0                             0
+248                     0                       0                             0
+249                     0                       0                             0
+250                     0                       0                             0
+251                     0                       0                             0
+252                     0                       0                             0
+253                     0                       0                             0
+254                     0                       0                             0
+255                     0                       0                             0
+256                     0                       0                             0
+257                     0                       0                             0
+258                     0                       0                             0
+259                     0                       0                             0
+260                     0                       0                             0
+261                     0                       0                             0
+262                     0                       0                             0
+263                     0                       0                             0
+264                     0                       0                             0
+265                     0                       0                             0
+266                     0                       0                             0
+267                     0                       0                             0
+268                     0                       0                             0
+269                     0                       0                             0
+270                     0                       0                             0
+271                     0                       0                             0
+272                     0                       0                             0
+273                     0                       0                             0
+274                     0                       0                             0
+275                     0                       0                             0
+276                     0                       1                             1
+277                     1                       1                             0
+278                     0                       1                             1
+279                     0                       0                             1
+280                     1                       0                             0
+281                     1                       0                             0
+282                     0                       0                             0
+283                     1                       0                             0
+284                     0                       0                             1
+285                     0                       0                             0
+286                     0                       0                             0
+287                     0                       0                             0
+288                     0                       0                             0
+289                     0                       0                             0
+290                     0                       0                             0
+291                     0                       0                             0
+292                     0                       0                             0
+293                     0                       0                             0
+294                     0                       0                             0
+295                     0                       0                             0
+296                     0                       0                             0
+297                     0                       0                             0
+298                     1                       1                             0
+299                     0                       0                             0
+300                     0                       0                             0
+    glm_Plantago_lanceolata glm_Potentilla_erecta glm_Carex_sempervirens
+1                         0                     1                      1
+2                         1                     0                      0
+3                         1                     0                      0
+4                         1                     0                      0
+5                         1                     0                      0
+6                         1                     0                      0
+7                         1                     0                      0
+8                         1                     0                      0
+9                         0                     0                      0
+10                        1                     0                      0
+11                        1                     0                      0
+12                        1                     0                      0
+13                        1                     0                      0
+14                        1                     0                      0
+15                        1                     0                      0
+16                        1                     0                      0
+17                        1                     0                      0
+18                        1                     0                      0
+19                        1                     0                      0
+20                        1                     0                      0
+21                        1                     0                      0
+22                        1                     0                      0
+23                        1                     0                      0
+24                        1                     0                      0
+25                        0                     0                      0
+26                        0                     0                      0
+27                        0                     0                      0
+28                        1                     0                      0
+29                        0                     0                      0
+30                        1                     0                      0
+31                        1                     0                      0
+32                        1                     1                      0
+33                        1                     0                      0
+34                        1                     0                      0
+35                        1                     0                      0
+36                        1                     1                      0
+37                        1                     0                      0
+38                        1                     1                      0
+39                        1                     0                      0
+40                        1                     0                      0
+41                        0                     0                      0
+42                        0                     0                      0
+43                        0                     0                      0
+44                        0                     0                      0
+45                        1                     0                      0
+46                        0                     0                      0
+47                        0                     0                      0
+48                        0                     0                      0
+49                        0                     0                      0
+50                        1                     0                      0
+51                        0                     0                      0
+52                        0                     0                      0
+53                        1                     0                      0
+54                        1                     0                      0
+55                        1                     0                      0
+56                        1                     0                      0
+57                        1                     0                      0
+58                        1                     0                      0
+59                        1                     0                      0
+60                        0                     0                      0
+61                        1                     0                      0
+62                        0                     0                      0
+63                        0                     0                      0
+64                        0                     0                      0
+65                        0                     1                      0
+66                        0                     0                      0
+67                        1                     1                      0
+68                        1                     0                      0
+69                        1                     1                      0
+70                        1                     1                      0
+71                        1                     0                      0
+72                        1                     1                      0
+73                        1                     1                      0
+74                        1                     1                      0
+75                        1                     1                      0
+76                        1                     0                      0
+77                        1                     0                      0
+78                        0                     0                      0
+79                        0                     0                      0
+80                        0                     0                      0
+81                        0                     0                      0
+82                        0                     0                      0
+83                        0                     0                      0
+84                        0                     0                      0
+85                        0                     0                      0
+86                        0                     0                      0
+87                        0                     0                      0
+88                        1                     0                      0
+89                        0                     0                      0
+90                        0                     0                      0
+91                        0                     0                      0
+92                        1                     0                      0
+93                        1                     0                      0
+94                        1                     0                      0
+95                        1                     0                      0
+96                        0                     0                      0
+97                        1                     1                      0
+98                        0                     0                      0
+99                        0                     0                      0
+100                       0                     0                      0
+101                       1                     0                      0
+102                       0                     0                      0
+103                       0                     0                      0
+104                       1                     1                      0
+105                       1                     0                      0
+106                       0                     1                      0
+107                       0                     0                      1
+108                       0                     0                      0
+109                       1                     1                      0
+110                       1                     1                      0
+111                       1                     1                      0
+112                       1                     1                      0
+113                       1                     1                      0
+114                       1                     1                      0
+115                       1                     1                      0
+116                       0                     0                      0
+117                       0                     1                      0
+118                       0                     0                      0
+119                       0                     0                      0
+120                       0                     0                      0
+121                       0                     0                      0
+122                       0                     0                      0
+123                       0                     0                      0
+124                       0                     0                      0
+125                       0                     0                      0
+126                       0                     0                      0
+127                       0                     0                      0
+128                       0                     0                      0
+129                       0                     0                      0
+130                       1                     0                      0
+131                       0                     0                      0
+132                       0                     0                      1
+133                       0                     0                      0
+134                       1                     0                      0
+135                       0                     0                      1
+136                       1                     0                      1
+137                       0                     0                      0
+138                       0                     0                      0
+139                       1                     0                      0
+140                       0                     0                      0
+141                       0                     0                      0
+142                       0                     0                      0
+143                       0                     0                      0
+144                       0                     0                      0
+145                       1                     1                      0
+146                       0                     0                      1
+147                       0                     1                      1
+148                       0                     0                      1
+149                       1                     0                      1
+150                       1                     0                      1
+151                       1                     1                      1
+152                       1                     0                      0
+153                       0                     0                      0
+154                       1                     1                      1
+155                       0                     1                      0
+156                       0                     0                      0
+157                       0                     0                      0
+158                       0                     0                      0
+159                       0                     0                      0
+160                       0                     0                      0
+161                       0                     0                      0
+162                       0                     0                      0
+163                       0                     0                      0
+164                       0                     0                      0
+165                       0                     0                      0
+166                       0                     0                      0
+167                       0                     0                      1
+168                       0                     0                      1
+169                       0                     0                      1
+170                       0                     0                      0
+171                       0                     0                      0
+172                       0                     0                      1
+173                       0                     0                      1
+174                       0                     0                      1
+175                       0                     0                      0
+176                       0                     0                      0
+177                       0                     0                      0
+178                       0                     0                      1
+179                       0                     0                      1
+180                       0                     0                      1
+181                       0                     0                      0
+182                       0                     0                      0
+183                       0                     0                      0
+184                       0                     0                      0
+185                       0                     0                      1
+186                       0                     0                      1
+187                       0                     0                      1
+188                       0                     0                      1
+189                       0                     0                      0
+190                       0                     1                      0
+191                       0                     0                      1
+192                       1                     0                      1
+193                       0                     0                      1
+194                       0                     0                      0
+195                       0                     0                      1
+196                       0                     1                      0
+197                       0                     0                      1
+198                       0                     0                      1
+199                       0                     0                      0
+200                       0                     0                      1
+201                       0                     0                      0
+202                       0                     0                      1
+203                       1                     1                      0
+204                       0                     0                      1
+205                       0                     0                      0
+206                       0                     0                      0
+207                       0                     0                      1
+208                       0                     0                      0
+209                       0                     0                      1
+210                       0                     0                      1
+211                       0                     0                      0
+212                       0                     0                      1
+213                       0                     0                      1
+214                       0                     0                      1
+215                       0                     0                      0
+216                       1                     0                      1
+217                       0                     0                      1
+218                       0                     0                      0
+219                       0                     0                      1
+220                       0                     0                      1
+221                       0                     0                      1
+222                       0                     0                      1
+223                       0                     0                      0
+224                       0                     0                      0
+225                       0                     0                      0
+226                       0                     0                      1
+227                       0                     0                      0
+228                       0                     0                      1
+229                       0                     0                      1
+230                       0                     0                      1
+231                       0                     0                      0
+232                       0                     0                      1
+233                       0                     0                      1
+234                       0                     0                      1
+235                       0                     0                      1
+236                       0                     0                      1
+237                       0                     0                      0
+238                       0                     0                      0
+239                       0                     0                      1
+240                       0                     0                      1
+241                       0                     0                      1
+242                       0                     0                      1
+243                       0                     0                      1
+244                       0                     0                      1
+245                       0                     0                      1
+246                       0                     0                      1
+247                       0                     0                      1
+248                       0                     0                      1
+249                       0                     0                      1
+250                       0                     0                      1
+251                       0                     0                      1
+252                       0                     0                      1
+253                       0                     0                      1
+254                       0                     0                      0
+255                       0                     0                      1
+256                       0                     0                      1
+257                       0                     0                      1
+258                       0                     0                      0
+259                       0                     0                      1
+260                       0                     0                      1
+261                       0                     0                      1
+262                       0                     0                      0
+263                       0                     0                      1
+264                       0                     0                      1
+265                       0                     0                      1
+266                       0                     0                      0
+267                       0                     0                      0
+268                       0                     0                      0
+269                       0                     0                      1
+270                       0                     0                      1
+271                       0                     0                      1
+272                       0                     0                      1
+273                       0                     0                      1
+274                       0                     0                      1
+275                       0                     0                      1
+276                       1                     1                      0
+277                       0                     0                      0
+278                       1                     1                      0
+279                       1                     0                      0
+280                       0                     0                      0
+281                       0                     0                      0
+282                       0                     0                      0
+283                       0                     0                      0
+284                       0                     0                      0
+285                       0                     0                      0
+286                       0                     0                      0
+287                       0                     0                      1
+288                       0                     0                      1
+289                       0                     0                      1
+290                       0                     0                      1
+291                       0                     0                      1
+292                       0                     0                      1
+293                       0                     0                      1
+294                       0                     0                      1
+295                       0                     0                      1
+296                       0                     0                      1
+297                       0                     0                      1
+298                       1                     0                      0
+299                       0                     0                      0
+300                       0                     0                      1
+    glm_Soldanella_alpina glm_Cynosurus_cristatus glm_Campanula_scheuchzeri
+1                       0                       0                         0
+2                       0                       1                         0
+3                       0                       1                         0
+4                       0                       1                         0
+5                       0                       1                         0
+6                       0                       1                         0
+7                       0                       0                         0
+8                       0                       1                         0
+9                       0                       0                         0
+10                      0                       1                         0
+11                      0                       1                         0
+12                      0                       1                         0
+13                      0                       1                         0
+14                      0                       0                         0
+15                      0                       1                         0
+16                      0                       1                         0
+17                      0                       1                         0
+18                      0                       1                         0
+19                      0                       1                         0
+20                      0                       1                         0
+21                      0                       1                         0
+22                      0                       0                         0
+23                      0                       1                         0
+24                      0                       1                         0
+25                      0                       1                         0
+26                      0                       0                         0
+27                      0                       1                         0
+28                      0                       0                         0
+29                      0                       0                         0
+30                      0                       1                         0
+31                      0                       0                         0
+32                      0                       0                         0
+33                      0                       1                         0
+34                      0                       0                         0
+35                      0                       1                         0
+36                      0                       0                         0
+37                      0                       1                         0
+38                      0                       0                         0
+39                      0                       0                         0
+40                      0                       1                         0
+41                      0                       1                         0
+42                      0                       0                         0
+43                      0                       1                         0
+44                      0                       1                         0
+45                      0                       0                         0
+46                      0                       0                         0
+47                      0                       1                         0
+48                      0                       0                         0
+49                      0                       1                         0
+50                      0                       0                         0
+51                      0                       1                         0
+52                      0                       1                         0
+53                      0                       1                         0
+54                      0                       1                         0
+55                      0                       1                         0
+56                      0                       1                         0
+57                      0                       0                         0
+58                      0                       0                         0
+59                      0                       1                         0
+60                      0                       0                         0
+61                      0                       1                         0
+62                      0                       1                         0
+63                      0                       0                         0
+64                      0                       0                         0
+65                      0                       0                         0
+66                      0                       0                         0
+67                      0                       0                         0
+68                      0                       1                         0
+69                      0                       0                         0
+70                      0                       0                         0
+71                      0                       0                         0
+72                      0                       0                         0
+73                      0                       0                         0
+74                      0                       0                         0
+75                      0                       0                         0
+76                      0                       1                         0
+77                      0                       0                         0
+78                      0                       0                         0
+79                      0                       0                         0
+80                      0                       1                         0
+81                      0                       0                         0
+82                      1                       0                         0
+83                      0                       0                         0
+84                      0                       1                         0
+85                      0                       0                         0
+86                      0                       0                         0
+87                      0                       0                         0
+88                      0                       0                         0
+89                      0                       0                         0
+90                      0                       0                         0
+91                      0                       0                         0
+92                      0                       0                         0
+93                      0                       0                         0
+94                      0                       0                         0
+95                      0                       0                         0
+96                      0                       0                         0
+97                      0                       0                         0
+98                      0                       0                         0
+99                      0                       0                         0
+100                     0                       0                         0
+101                     0                       0                         0
+102                     0                       0                         0
+103                     0                       0                         0
+104                     0                       0                         0
+105                     0                       0                         0
+106                     0                       0                         0
+107                     0                       0                         1
+108                     0                       0                         0
+109                     0                       0                         0
+110                     0                       0                         0
+111                     0                       0                         0
+112                     0                       0                         0
+113                     0                       0                         0
+114                     0                       0                         0
+115                     0                       0                         0
+116                     0                       0                         0
+117                     0                       0                         0
+118                     1                       0                         0
+119                     1                       0                         0
+120                     1                       0                         0
+121                     0                       0                         0
+122                     0                       0                         0
+123                     1                       0                         1
+124                     0                       0                         0
+125                     1                       0                         1
+126                     1                       0                         0
+127                     1                       0                         0
+128                     0                       0                         0
+129                     0                       0                         0
+130                     0                       0                         0
+131                     0                       0                         0
+132                     0                       0                         0
+133                     0                       0                         0
+134                     0                       0                         0
+135                     0                       0                         1
+136                     0                       0                         0
+137                     0                       0                         0
+138                     0                       0                         0
+139                     0                       0                         0
+140                     1                       0                         0
+141                     1                       0                         1
+142                     0                       0                         0
+143                     0                       0                         0
+144                     1                       0                         0
+145                     0                       0                         0
+146                     0                       0                         1
+147                     0                       0                         0
+148                     0                       0                         0
+149                     0                       0                         1
+150                     0                       0                         1
+151                     0                       0                         0
+152                     0                       0                         0
+153                     1                       0                         0
+154                     0                       0                         0
+155                     1                       0                         0
+156                     1                       0                         0
+157                     1                       0                         1
+158                     1                       0                         0
+159                     1                       0                         1
+160                     1                       0                         0
+161                     0                       0                         0
+162                     1                       0                         1
+163                     1                       0                         1
+164                     1                       0                         0
+165                     1                       0                         0
+166                     1                       0                         0
+167                     0                       0                         0
+168                     1                       0                         1
+169                     0                       0                         1
+170                     1                       0                         0
+171                     1                       0                         1
+172                     0                       0                         1
+173                     0                       0                         1
+174                     1                       0                         1
+175                     0                       0                         0
+176                     1                       0                         1
+177                     1                       0                         1
+178                     1                       0                         1
+179                     0                       0                         1
+180                     1                       0                         1
+181                     1                       0                         1
+182                     1                       0                         0
+183                     1                       0                         0
+184                     1                       0                         1
+185                     1                       0                         1
+186                     0                       0                         1
+187                     0                       0                         1
+188                     1                       0                         1
+189                     0                       0                         0
+190                     0                       0                         0
+191                     0                       0                         1
+192                     0                       0                         0
+193                     0                       0                         1
+194                     1                       0                         0
+195                     1                       0                         1
+196                     0                       0                         0
+197                     1                       0                         1
+198                     1                       0                         1
+199                     1                       0                         1
+200                     1                       0                         1
+201                     1                       0                         1
+202                     1                       0                         1
+203                     0                       0                         0
+204                     1                       0                         1
+205                     1                       0                         0
+206                     1                       0                         1
+207                     1                       0                         1
+208                     1                       0                         1
+209                     0                       0                         0
+210                     0                       0                         1
+211                     1                       0                         1
+212                     1                       0                         1
+213                     0                       0                         1
+214                     1                       0                         1
+215                     1                       0                         1
+216                     0                       0                         0
+217                     0                       0                         1
+218                     1                       0                         1
+219                     1                       0                         1
+220                     1                       0                         1
+221                     1                       0                         1
+222                     1                       0                         1
+223                     1                       0                         0
+224                     1                       0                         1
+225                     1                       0                         1
+226                     1                       0                         1
+227                     1                       0                         1
+228                     1                       0                         1
+229                     1                       0                         1
+230                     0                       0                         1
+231                     0                       0                         0
+232                     1                       0                         1
+233                     1                       0                         1
+234                     0                       0                         1
+235                     1                       0                         1
+236                     1                       0                         1
+237                     1                       0                         1
+238                     1                       0                         1
+239                     0                       0                         1
+240                     1                       0                         1
+241                     1                       0                         1
+242                     1                       0                         1
+243                     0                       0                         1
+244                     0                       0                         1
+245                     1                       0                         1
+246                     0                       0                         1
+247                     0                       0                         1
+248                     1                       0                         1
+249                     0                       0                         1
+250                     0                       0                         1
+251                     0                       0                         1
+252                     0                       0                         0
+253                     0                       0                         0
+254                     1                       0                         0
+255                     1                       0                         1
+256                     0                       0                         1
+257                     1                       0                         1
+258                     1                       0                         1
+259                     0                       0                         1
+260                     1                       0                         1
+261                     0                       0                         1
+262                     0                       0                         1
+263                     0                       0                         1
+264                     0                       0                         1
+265                     1                       0                         1
+266                     1                       0                         1
+267                     0                       0                         1
+268                     0                       0                         1
+269                     1                       0                         1
+270                     0                       0                         1
+271                     1                       0                         1
+272                     0                       0                         1
+273                     1                       0                         1
+274                     0                       0                         1
+275                     0                       0                         1
+276                     0                       0                         0
+277                     0                       0                         0
+278                     0                       0                         0
+279                     0                       0                         0
+280                     0                       0                         0
+281                     0                       0                         0
+282                     1                       0                         1
+283                     1                       0                         0
+284                     0                       0                         0
+285                     1                       0                         0
+286                     0                       0                         1
+287                     1                       0                         1
+288                     0                       0                         1
+289                     1                       0                         1
+290                     0                       0                         1
+291                     0                       0                         1
+292                     0                       0                         1
+293                     1                       0                         1
+294                     0                       0                         1
+295                     0                       0                         1
+296                     1                       0                         1
+297                     1                       0                         1
+298                     0                       0                         0
+299                     0                       0                         1
+300                     0                       0                         0
+    glm_Festuca_pratensis_sl glm_Bromus_erectus_sstr
+1                          0                       0
+2                          0                       0
+3                          0                       0
+4                          0                       0
+5                          0                       0
+6                          1                       0
+7                          1                       0
+8                          1                       0
+9                          1                       0
+10                         1                       0
+11                         1                       0
+12                         1                       1
+13                         1                       0
+14                         1                       0
+15                         1                       0
+16                         1                       1
+17                         0                       0
+18                         0                       0
+19                         1                       1
+20                         1                       1
+21                         1                       0
+22                         1                       1
+23                         0                       0
+24                         1                       0
+25                         1                       0
+26                         1                       0
+27                         1                       0
+28                         1                       0
+29                         1                       0
+30                         1                       0
+31                         1                       1
+32                         1                       0
+33                         0                       0
+34                         1                       1
+35                         0                       0
+36                         1                       1
+37                         1                       1
+38                         0                       1
+39                         1                       0
+40                         0                       0
+41                         0                       0
+42                         0                       0
+43                         0                       0
+44                         0                       0
+45                         0                       0
+46                         0                       0
+47                         1                       0
+48                         0                       0
+49                         0                       0
+50                         0                       0
+51                         1                       0
+52                         0                       0
+53                         0                       0
+54                         0                       0
+55                         0                       0
+56                         0                       0
+57                         0                       0
+58                         0                       0
+59                         1                       0
+60                         0                       0
+61                         1                       1
+62                         1                       0
+63                         1                       0
+64                         1                       0
+65                         0                       0
+66                         1                       0
+67                         0                       0
+68                         1                       1
+69                         0                       0
+70                         0                       0
+71                         0                       1
+72                         1                       1
+73                         0                       1
+74                         0                       0
+75                         1                       1
+76                         1                       1
+77                         1                       0
+78                         0                       0
+79                         0                       0
+80                         0                       0
+81                         0                       0
+82                         0                       0
+83                         0                       0
+84                         0                       0
+85                         0                       0
+86                         0                       0
+87                         0                       0
+88                         0                       0
+89                         0                       0
+90                         0                       0
+91                         0                       0
+92                         0                       0
+93                         0                       0
+94                         0                       0
+95                         0                       0
+96                         0                       0
+97                         0                       0
+98                         0                       0
+99                         0                       0
+100                        0                       0
+101                        0                       0
+102                        0                       0
+103                        0                       0
+104                        0                       0
+105                        0                       0
+106                        0                       0
+107                        0                       0
+108                        0                       0
+109                        0                       0
+110                        0                       1
+111                        0                       0
+112                        0                       0
+113                        0                       0
+114                        0                       0
+115                        0                       0
+116                        0                       0
+117                        0                       0
+118                        0                       0
+119                        0                       0
+120                        0                       0
+121                        0                       0
+122                        0                       0
+123                        0                       0
+124                        0                       0
+125                        0                       0
+126                        0                       0
+127                        0                       0
+128                        0                       0
+129                        0                       0
+130                        0                       0
+131                        0                       0
+132                        0                       0
+133                        0                       0
+134                        0                       0
+135                        0                       0
+136                        0                       0
+137                        0                       0
+138                        0                       0
+139                        0                       0
+140                        0                       0
+141                        0                       0
+142                        0                       0
+143                        0                       0
+144                        0                       0
+145                        0                       1
+146                        0                       0
+147                        0                       0
+148                        0                       0
+149                        0                       0
+150                        0                       0
+151                        0                       0
+152                        0                       0
+153                        0                       0
+154                        0                       0
+155                        0                       0
+156                        0                       0
+157                        0                       0
+158                        0                       0
+159                        0                       0
+160                        0                       0
+161                        0                       0
+162                        0                       0
+163                        0                       0
+164                        0                       0
+165                        0                       0
+166                        0                       0
+167                        0                       0
+168                        0                       0
+169                        0                       0
+170                        0                       0
+171                        0                       0
+172                        0                       0
+173                        0                       0
+174                        0                       0
+175                        0                       0
+176                        0                       0
+177                        0                       0
+178                        0                       0
+179                        0                       0
+180                        0                       0
+181                        0                       0
+182                        0                       0
+183                        0                       0
+184                        0                       0
+185                        0                       0
+186                        0                       0
+187                        0                       0
+188                        0                       0
+189                        0                       0
+190                        0                       0
+191                        0                       0
+192                        0                       0
+193                        0                       0
+194                        0                       0
+195                        0                       0
+196                        0                       0
+197                        0                       0
+198                        0                       0
+199                        0                       0
+200                        0                       0
+201                        0                       0
+202                        0                       0
+203                        0                       0
+204                        0                       0
+205                        0                       0
+206                        0                       0
+207                        0                       0
+208                        0                       0
+209                        0                       0
+210                        0                       0
+211                        0                       0
+212                        0                       0
+213                        0                       0
+214                        0                       0
+215                        0                       0
+216                        0                       0
+217                        0                       0
+218                        0                       0
+219                        0                       0
+220                        0                       0
+221                        0                       0
+222                        0                       0
+223                        0                       0
+224                        0                       0
+225                        0                       0
+226                        0                       0
+227                        0                       0
+228                        0                       0
+229                        0                       0
+230                        0                       0
+231                        0                       0
+232                        0                       0
+233                        0                       0
+234                        0                       0
+235                        0                       0
+236                        0                       0
+237                        0                       0
+238                        0                       0
+239                        0                       0
+240                        0                       0
+241                        0                       0
+242                        0                       0
+243                        0                       0
+244                        0                       0
+245                        0                       0
+246                        0                       0
+247                        0                       0
+248                        0                       0
+249                        0                       0
+250                        0                       0
+251                        0                       0
+252                        0                       0
+253                        0                       0
+254                        0                       0
+255                        0                       0
+256                        0                       0
+257                        0                       0
+258                        0                       0
+259                        0                       0
+260                        0                       0
+261                        0                       0
+262                        0                       0
+263                        0                       0
+264                        0                       0
+265                        0                       0
+266                        0                       0
+267                        0                       0
+268                        0                       0
+269                        0                       0
+270                        0                       0
+271                        0                       0
+272                        0                       0
+273                        0                       0
+274                        0                       0
+275                        0                       0
+276                        0                       0
+277                        0                       0
+278                        0                       1
+279                        0                       0
+280                        0                       0
+281                        0                       0
+282                        0                       0
+283                        0                       0
+284                        0                       0
+285                        0                       0
+286                        0                       0
+287                        0                       0
+288                        0                       0
+289                        0                       0
+290                        0                       0
+291                        0                       0
+292                        0                       0
+293                        0                       0
+294                        0                       0
+295                        0                       0
+296                        0                       0
+297                        0                       0
+298                        1                       0
+299                        0                       0
+300                        0                       0
+    glm_Saxifraga_oppositifolia glm_Daucus_carota glm_Pritzelago_alpina_sstr
+1                             0                 0                          0
+2                             0                 0                          0
+3                             0                 0                          0
+4                             0                 0                          0
+5                             0                 0                          0
+6                             0                 0                          0
+7                             0                 0                          0
+8                             0                 0                          0
+9                             0                 0                          0
+10                            0                 0                          0
+11                            0                 0                          0
+12                            0                 0                          0
+13                            0                 0                          0
+14                            0                 0                          0
+15                            0                 0                          0
+16                            0                 1                          0
+17                            0                 0                          0
+18                            0                 0                          0
+19                            0                 1                          0
+20                            0                 1                          0
+21                            0                 0                          0
+22                            0                 1                          0
+23                            0                 0                          0
+24                            0                 0                          0
+25                            0                 0                          0
+26                            0                 0                          0
+27                            0                 0                          0
+28                            0                 0                          0
+29                            0                 0                          0
+30                            0                 0                          0
+31                            0                 1                          0
+32                            0                 0                          0
+33                            0                 0                          0
+34                            0                 1                          0
+35                            0                 0                          0
+36                            0                 1                          0
+37                            0                 1                          0
+38                            0                 1                          0
+39                            0                 0                          0
+40                            0                 0                          0
+41                            0                 0                          0
+42                            0                 0                          0
+43                            0                 0                          0
+44                            0                 0                          0
+45                            0                 0                          0
+46                            0                 0                          0
+47                            0                 0                          0
+48                            0                 0                          0
+49                            0                 0                          0
+50                            0                 0                          0
+51                            0                 0                          0
+52                            0                 0                          0
+53                            0                 0                          0
+54                            0                 0                          0
+55                            0                 0                          0
+56                            0                 0                          0
+57                            0                 0                          0
+58                            0                 0                          0
+59                            0                 0                          0
+60                            0                 0                          0
+61                            0                 0                          0
+62                            0                 0                          0
+63                            0                 0                          0
+64                            0                 0                          0
+65                            0                 0                          0
+66                            0                 0                          0
+67                            0                 0                          0
+68                            0                 1                          0
+69                            0                 0                          0
+70                            0                 0                          0
+71                            0                 0                          0
+72                            0                 1                          0
+73                            0                 1                          0
+74                            0                 0                          0
+75                            0                 0                          0
+76                            0                 0                          0
+77                            0                 0                          0
+78                            0                 0                          0
+79                            0                 0                          0
+80                            0                 0                          0
+81                            0                 0                          0
+82                            0                 0                          0
+83                            0                 0                          0
+84                            0                 0                          0
+85                            0                 0                          0
+86                            0                 0                          0
+87                            0                 0                          0
+88                            0                 0                          0
+89                            0                 0                          0
+90                            0                 0                          0
+91                            0                 0                          0
+92                            0                 0                          0
+93                            0                 0                          0
+94                            0                 0                          0
+95                            0                 0                          0
+96                            0                 0                          0
+97                            0                 0                          0
+98                            0                 0                          0
+99                            0                 0                          0
+100                           0                 0                          0
+101                           0                 0                          0
+102                           0                 0                          0
+103                           0                 0                          0
+104                           0                 0                          0
+105                           0                 0                          0
+106                           0                 0                          0
+107                           0                 0                          0
+108                           0                 0                          0
+109                           0                 0                          0
+110                           0                 0                          0
+111                           0                 0                          0
+112                           0                 0                          0
+113                           0                 0                          0
+114                           0                 0                          0
+115                           0                 0                          0
+116                           0                 0                          0
+117                           0                 0                          0
+118                           0                 0                          0
+119                           0                 0                          0
+120                           0                 0                          0
+121                           0                 0                          0
+122                           0                 0                          0
+123                           0                 0                          0
+124                           0                 0                          0
+125                           0                 0                          0
+126                           0                 0                          0
+127                           0                 0                          0
+128                           0                 0                          0
+129                           0                 0                          0
+130                           0                 0                          0
+131                           0                 0                          0
+132                           0                 0                          0
+133                           0                 0                          0
+134                           0                 0                          0
+135                           0                 0                          0
+136                           0                 0                          0
+137                           0                 0                          0
+138                           0                 0                          0
+139                           0                 0                          0
+140                           0                 0                          0
+141                           0                 0                          0
+142                           0                 0                          0
+143                           0                 0                          0
+144                           0                 0                          0
+145                           0                 1                          0
+146                           0                 0                          0
+147                           0                 0                          0
+148                           0                 0                          0
+149                           0                 0                          0
+150                           0                 0                          0
+151                           0                 0                          0
+152                           0                 0                          0
+153                           0                 0                          0
+154                           0                 0                          0
+155                           0                 0                          0
+156                           0                 0                          0
+157                           0                 0                          0
+158                           0                 0                          0
+159                           0                 0                          0
+160                           0                 0                          0
+161                           0                 0                          0
+162                           0                 0                          0
+163                           0                 0                          0
+164                           0                 0                          0
+165                           0                 0                          0
+166                           0                 0                          0
+167                           0                 0                          0
+168                           0                 0                          0
+169                           0                 0                          0
+170                           0                 0                          0
+171                           0                 0                          0
+172                           0                 0                          0
+173                           0                 0                          0
+174                           0                 0                          0
+175                           0                 0                          0
+176                           0                 0                          0
+177                           0                 0                          1
+178                           0                 0                          0
+179                           0                 0                          0
+180                           0                 0                          0
+181                           0                 0                          0
+182                           0                 0                          0
+183                           0                 0                          0
+184                           0                 0                          0
+185                           0                 0                          0
+186                           0                 0                          0
+187                           0                 0                          0
+188                           0                 0                          0
+189                           0                 0                          0
+190                           0                 0                          0
+191                           0                 0                          0
+192                           0                 0                          0
+193                           0                 0                          0
+194                           0                 0                          0
+195                           0                 0                          0
+196                           0                 0                          0
+197                           0                 0                          0
+198                           0                 0                          0
+199                           0                 0                          1
+200                           0                 0                          0
+201                           0                 0                          0
+202                           0                 0                          0
+203                           0                 0                          0
+204                           0                 0                          0
+205                           0                 0                          0
+206                           0                 0                          0
+207                           0                 0                          0
+208                           0                 0                          0
+209                           0                 0                          0
+210                           0                 0                          0
+211                           0                 0                          1
+212                           0                 0                          0
+213                           0                 0                          0
+214                           0                 0                          0
+215                           0                 0                          0
+216                           0                 0                          0
+217                           0                 0                          0
+218                           0                 0                          0
+219                           0                 0                          0
+220                           0                 0                          0
+221                           0                 0                          0
+222                           0                 0                          0
+223                           0                 0                          1
+224                           0                 0                          0
+225                           0                 0                          0
+226                           0                 0                          0
+227                           0                 0                          0
+228                           0                 0                          1
+229                           0                 0                          0
+230                           0                 0                          0
+231                           0                 0                          0
+232                           0                 0                          0
+233                           0                 0                          0
+234                           0                 0                          0
+235                           0                 0                          1
+236                           1                 0                          0
+237                           0                 0                          1
+238                           0                 0                          1
+239                           0                 0                          0
+240                           0                 0                          0
+241                           0                 0                          1
+242                           0                 0                          0
+243                           0                 0                          0
+244                           0                 0                          0
+245                           0                 0                          0
+246                           0                 0                          0
+247                           0                 0                          1
+248                           1                 0                          0
+249                           0                 0                          0
+250                           0                 0                          0
+251                           0                 0                          0
+252                           0                 0                          0
+253                           1                 0                          0
+254                           1                 0                          1
+255                           0                 0                          0
+256                           1                 0                          0
+257                           0                 0                          0
+258                           1                 0                          1
+259                           1                 0                          0
+260                           0                 0                          0
+261                           1                 0                          0
+262                           1                 0                          1
+263                           1                 0                          0
+264                           1                 0                          1
+265                           0                 0                          1
+266                           1                 0                          1
+267                           1                 0                          1
+268                           1                 0                          1
+269                           1                 0                          0
+270                           1                 0                          0
+271                           1                 0                          0
+272                           1                 0                          0
+273                           1                 0                          0
+274                           1                 0                          1
+275                           1                 0                          0
+276                           0                 0                          0
+277                           0                 0                          0
+278                           0                 1                          0
+279                           0                 0                          0
+280                           0                 0                          0
+281                           0                 0                          0
+282                           0                 0                          0
+283                           0                 0                          0
+284                           0                 0                          0
+285                           0                 0                          0
+286                           0                 0                          0
+287                           0                 0                          0
+288                           0                 0                          0
+289                           0                 0                          0
+290                           0                 0                          0
+291                           0                 0                          0
+292                           0                 0                          0
+293                           0                 0                          0
+294                           0                 0                          0
+295                           0                 0                          0
+296                           0                 0                          0
+297                           1                 0                          0
+298                           0                 0                          0
+299                           1                 0                          1
+300                           1                 0                          0
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ecospat.SESAM.prr", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("ecospat.adj.D2")
+> ### * ecospat.adj.D2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ecospat.adj.D2.glm
+> ### Title: Calculate An Adjusted D2
+> ### Aliases: ecospat.adj.D2.glm
+> 
+> ### ** Examples
+> 
+> 
+> glm.obj<-glm(Achillea_millefolium~ddeg+mind+srad+slp+topo, 
++ family = binomial, data=ecospat.testData)
+> 
+> ecospat.adj.D2.glm(glm.obj)
+[1] 0.1274509
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ecospat.adj.D2", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("ecospat.binary.model")
+> ### * ecospat.binary.model
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ecospat.binary.model
+> ### Title: Generate Binary Models
+> ### Aliases: ecospat.binary.model
+> 
+> ### ** Examples
+> 
+> library(dismo)
+Loading required package: raster
+
+Attaching package: 'raster'
+
+The following objects are masked from 'package:ape':
+
+    rotate, zoom
+
+> 
+> 
+> # only run if the maxent.jar file is available, in the right folder
+> jar <- paste(system.file(package="dismo"), "/java/maxent.jar", sep='')
+> 
+> # checking if maxent can be run (normally not part of your script)
+> file.exists(jar)
+[1] FALSE
+> require(rJava)
+Loading required package: rJava
+> 
+> # get predictor variables
+> fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
++                      pattern='grd', full.names=TRUE )
+> predictors <- stack(fnames)
+> 
+> 
+> # file with presence points
+> occurence <- paste(system.file(package="dismo"), '/ex/bradypus.csv', sep='')
+> occ <- read.table(occurence, header=TRUE, sep=',')[,-1]
+> colnames(occ) <- c("x","y")
+> 
+> # fit model, biome is a categorical variable
+> me <- maxent(predictors, occ, factors='biome')
+Error in .getMeVersion() : file missing:
+C:/Users/obroenni/AppData/Local/Temp/RtmpeG9lO9/RLIBS_59406e2d1a28/dismo/java/maxent.jar.
+Please download it here: http://www.cs.princeton.edu/~schapire/maxent/
+Calls: maxent ... .local -> maxent -> maxent -> .local -> .getMeVersion
+Execution halted

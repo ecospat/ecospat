@@ -117,11 +117,20 @@ FIXES
 * Fixed bug in "ecospat.grid.clim.dyn()" that shifted the gridded distribution one pixel away from the observed points. 
 
 
+ecospat_2.2.1 (only on gitHub)
+=============
 
 
+NEW FEATURES
+
+* Added new funtions "ecospat.niche.zProjGeo" and "ecospat.niche.dynIndexProjGeo" to project niche quantification (calculated with ecospat.grid.clim.dyn) onto the geographical space
+* Added a new dataset ecospat.testEnvRaster including a stack of 5 topoclimatic rasters at 250m resolution for the Western Swiss Alps
 
 
+FIXES
 
+* Fixed several bugs in "ecospat.ESM.R","ecospat.ESM.Projection.Rd", "ecospat.ESM.EnsembleModeling.Rd",and "ecospat.ESM.EnsembleProjection.Rd" 
+* Fixed bug in "ecospat.mess" that included x and y coordinates as environmental factors
 
 
 

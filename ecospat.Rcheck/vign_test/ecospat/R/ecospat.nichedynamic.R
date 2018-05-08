@@ -1,0 +1,335 @@
+## Written by Olivier Broennimann and Blaise Petitpierre. Departement of Ecology and Evolution (DEE). 
+## University of Lausanne. Switzerland. April 2012.
+##
+## DESCRIPTION
+##
+## functions to perform measures of niche overlap and niche equivalency/similarity tests as described in Broennimann et al. (submitted)
+## 
+## list of functions:
+##
+## grid.clim.dyn(glob,glob1,sp,R,th.sp,th.env) 
+## use the scores of an ordination (or SDM predictions) and create a grid z of RxR pixels 
+## (or a vector of R pixels when using scores of dimension 1 or SDM predictions) with occurrence densities
+## Only scores of one, or two dimensions can be used 
+## sp= scores for the occurrences of the species in the ordination, glob = scores for the whole studies areas, glob 1 = scores for the range of sp 
+## R= resolution of the grid, th.sp=quantile of species densitie at species occurences used as a threshold to exclude low species density values, 
+## th.env=The quantile used to delimit a threshold to exclude low environmental density values of the study area.
+## geomask= a geographical mask to delimit the background extent if the analysis takes place in the geographical space. It can be a SpatialPolygon or a raster object. Note that the CRS should be the same as the one used for the points.
+##
+## dynamic.index(z1,z2,intersection=NA)
+## calculate niche expansion, stability and unfilling
+## z1 : gridclim object for the native distribution
+## z2 : gridclim object for the invaded range
+## intersection : quantile of the environmental density used to remove marginal climates. 
+## If intersection = NA, analysis is performed on the whole environmental extent (native and invaded)
+## If intersection = 0, analysis is performed at the intersection between native and invaded range
+## If intersection = 0.05, analysis is performed at the intersection of the 5th quantile of both native and invaded environmental densities 
+## etc...
+##
+## plot.niche.dyn(z1,z2,quant,title,interest,colz1,colz2,colinter,colZ1=,colZ2=)
+## plot niche categories and species density
+## z1 : gridclim object for the native distribution
+## z2 : gridclim object for the invaded range
+## quant : quantile of the environmental density used to delimit marginal climates.
+## title : title of the figure
+## interest : choose which density to plot. If interest=1 plot native density, if interest=2 plot invasive density
+## colz1 : color used to depict unfilling area
+## colz2 : color used to depict expansion area
+## colinter : color used to depict overlap area
+## colZ1 : color used to delimit the native extent
+## colZ2 : color used to delimit the invaded extent
+##
+## ecospat.pts2img <- function(pts,extent)
+## convert plots into image
+## pts = points coordinates (2 columns)
+## extent : grid intervals (2 columns)
+##
+## ecospat.shift.centroids(sp1,sp2,clim1,clim2)
+## draw arrows linking the centroid of the native and inasive distribution (continuous line) and between native and invaded extent (dashed line)
+## sp1 : scores of the species native distribution along the the 2 first axes of the PCA
+## sp2 : scores of the species invasive distribution along the the 2 first axes of the PCA
+## clim1 : scores of the entire native extent along the the 2 first axes of the PCA
+## clim2 : scores of the entire invaded extent along the the 2 first axes of the PCA
+
+
+##################################################################################################
+ecospat.grid.clim.dyn <- function(glob, glob1, sp, R, th.sp = 0, th.env = 0,
+  geomask = NULL) {
+
+  glob <- as.matrix(glob)
+  glob1 <- as.matrix(glob1)
+  sp <- as.matrix(sp)
+  l <- list()
+
+  if (ncol(glob) > 2)
+    stop("cannot calculate overlap with more than two axes")
+
+  if (ncol(glob) == 1) {
+    # if scores in one dimension (e.g. LDA,SDM predictions,...)
+    xmax <- max(glob[, 1])
+    xmin <- min(glob[, 1])
+    x <- seq(from = min(glob[, 1]), to = max(glob[, 1]), length.out = R)  # breaks on score gradient 1
+    sp.dens <- density(sp[, 1], kernel = "gaussian", from = xmin, to = xmax,
+      n = R, cut = 0)  # calculate the density of occurrences in a vector of R pixels along the score gradient
+    # using a gaussian kernel density function, with R bins.
+    glob1.dens <- density(glob1[, 1], kernel = "gaussian", from = xmin,
+      to = xmax, n = R, cut = 0)  # calculate the density of environments in glob1
+    z <- sp.dens$y * nrow(sp)/sum(sp.dens$y)  # rescale density to the number of occurrences in sp
+    # number of occurrence/pixel
+    Z <- glob1.dens$y * nrow(glob)/sum(glob1.dens$y)  # rescale density to the number of sites in glob1
+    glob1r <- sapply(glob1, findInterval, glob1.dens$x)
+    th.env <- quantile(glob1.dens$y[glob1r], th.env)
+    glob1rm <- which(Z < th.env)
+    spr <- sapply(sp, findInterval, sp.dens$x)
+    th.sp <- quantile(sp.dens$y[spr], th.sp)
+    sprm <- which(z < th.sp)
+    z[sprm] <- 0  # remove infinitesimally small number generated by kernel density function
+    Z[glob1rm] <- 0  # remove infinitesimally small number generated by kernel density function
+
+    z.uncor <- z/max(z)  # rescale between [0:1] for comparison with other species
+    z.cor <- z/Z  # correct for environment prevalence
+    z.cor[is.na(z.cor)] <- 0  # remove n/0 situations
+    z.cor[z.cor == "Inf"] <- 0  # remove 0/0 situations
+    z.cor <- z.cor/max(z.cor)  # rescale between [0:1] for comparison with other species
+    w <- z.uncor
+    w[w > 0] <- 1
+    l$x <- x
+    l$z <- z
+    l$z.uncor <- z.uncor
+    l$z.cor <- z.cor
+    l$Z <- Z
+    l$glob <- glob
+    l$glob1 <- glob1
+    l$sp <- sp
+    l$w <- w
+  }
+
+  if (ncol(glob) == 2) {
+    # if scores in two dimensions (e.g. PCA)
+
+    xmin <- min(glob[, 1])
+    xmax <- max(glob[, 1])
+    ymin <- min(glob[, 2])
+    ymax <- max(glob[, 2])  # data preparation
+    glob1r <- data.frame(cbind((glob1[, 1] - xmin)/abs(xmax - xmin), (glob1[,
+      2] - ymin)/abs(ymax - ymin)))  # data preparation
+    spr <- data.frame(cbind((sp[, 1] - xmin)/abs(xmax - xmin), (sp[, 2] -
+      ymin)/abs(ymax - ymin)))  # data preparation
+    mask <- ascgen(SpatialPoints(cbind((0:(R))/R, (0:(R)/R))), 
+                   nrcol = R-2, count = FALSE) # data preparation
+    sp.dens <- kernelUD(SpatialPoints(spr[, 1:2]), h = "href", grid = mask,
+      kern = "bivnorm")  # calculate the density of occurrences in a grid of RxR pixels along the score gradients
+    sp.dens <- raster(xmn = xmin, xmx = xmax, ymn = ymin, ymx = ymax, matrix(sp.dens$ud,
+      nrow = R))
+    # using a gaussian kernel density function, with RxR bins.
+    # sp.dens$var[sp.dens$var>0 & sp.dens$var<1]<-0
+    glob1.dens <- kernelUD(SpatialPoints(glob1r[, 1:2]), grid = mask, kern = "bivnorm")
+    glob1.dens <- raster(xmn = xmin, xmx = xmax, ymn = ymin, ymx = ymax,
+      matrix(glob1.dens$ud, nrow = R))
+    # glob1.dens$var[glob1.dens$var<1 & glob1.dens$var>0]<-0
+
+    x <- seq(from = min(glob[, 1]), to = max(glob[, 1]), length.out = R)  # breaks on score gradient 1
+    y <- seq(from = min(glob[, 2]), to = max(glob[, 2]), length.out = R)  # breaks on score gradient 2
+    glob1r <- extract(glob1.dens, glob1)
+    Z.th <- quantile(glob1r, th.env)
+    glob1.dens[glob1.dens < Z.th] <- 0
+    if (!is.null(geomask)) {
+      proj4string(geomask) <- NA
+      glob1.dens <- mask(glob1.dens, geomask, updatevalue = 0)  # Geographical mask in the case if the analysis takes place in the geographical space
+    }
+    Z <- glob1.dens * nrow(glob1)/cellStats(glob1.dens, "sum")
+
+    spr <- extract(sp.dens, sp)
+    z.th <- quantile(spr, th.sp)
+    sp.dens[Z == 0] <- 0
+    sp.dens[sp.dens < z.th] <- 0
+    if (!is.null(geomask)) {
+      sp.dens <- mask(sp.dens, geomask, updatevalue = 0)  # Geographical mask in the case if the analysis takes place in the geographical space
+    }
+    z <- sp.dens * nrow(sp)/cellStats(sp.dens, "sum")
+    z.uncor <- z/cellStats(z, "max")
+    w <- z.uncor  # remove infinitesimally small number generated by kernel density function
+    w[w > 0] <- 1
+    z.cor <- z/Z  # correct for environment prevalence
+    z.cor[is.na(z.cor)] <- 0  # remove n/0 situations
+    z.cor <- z.cor/cellStats(z.cor, "max")
+    l$x <- x
+    l$y <- y
+    l$z <- z
+    l$z.uncor <- z.uncor
+    l$z.cor <- z.cor
+    l$Z <- Z
+    l$glob <- glob
+    l$glob1 <- glob1
+    l$sp <- sp
+    l$w <- w
+
+  }
+
+  return(l)
+}
+
+
+##################################################################################################
+
+ecospat.plot.niche.dyn <- function(z1, z2, quant, title = "", name.axis1 = "Axis 1",
+  name.axis2 = "Axis 2", interest = 1, colz1 = "#00FF0050", colz2 = "#FF000050",
+  colinter = "#0000FF50", colZ1 = "green3", colZ2 = "red3") {
+
+  if (is.null(z1$y)) {
+    R <- length(z1$x)
+    x <- z1$x
+    xx <- sort(rep(1:length(x), 2))
+
+    y1 <- z1$z.uncor/max(z1$z.uncor)
+    Y1 <- z1$Z/max(z1$Z)
+    if (quant > 0) {
+      Y1.quant <- quantile(z1$Z[which(z1$Z > 0)], probs = seq(0, 1, quant))[2]/max(z1$Z)
+    } else {
+      Y1.quant <- 0
+    }
+    Y1.quant <- Y1 - Y1.quant
+    Y1.quant[Y1.quant < 0] <- 0
+    yy1 <- sort(rep(1:length(y1), 2))[-c(1:2, length(y1) * 2)]
+    YY1 <- sort(rep(1:length(Y1), 2))[-c(1:2, length(Y1) * 2)]
+
+    y2 <- z2$z.uncor/max(z2$z.uncor)
+    Y2 <- z2$Z/max(z2$Z)
+    if (quant > 0) {
+      Y2.quant <- quantile(z2$Z[which(z2$Z > 0)], probs = seq(0, 1, quant))[2]/max(z2$Z)
+    } else {
+      Y2.quant = 0
+    }
+    Y2.quant <- Y2 - Y2.quant
+    Y2.quant[Y2.quant < 0] <- 0
+    yy2 <- sort(rep(1:length(y2), 2))[-c(1:2, length(y2) * 2)]
+    YY2 <- sort(rep(1:length(Y2), 2))[-c(1:2, length(Y2) * 2)]
+
+    plot(x, y1, type = "n", xlab = name.axis1, ylab = "density of occurrence")
+    polygon(x[xx], c(0, y1[yy1], 0, 0), col = colz1, border = 0)
+    polygon(x[xx], c(0, y2[yy2], 0, 0), col = colz2, border = 0)
+    polygon(x[xx], c(0, apply(cbind(y2[yy2], y1[yy1]), 1, min, na.exclude = TRUE),
+      0, 0), col = colinter, border = 0)
+    lines(x[xx], c(0, Y2.quant[YY2], 0, 0), col = colZ2, lty = "dashed")
+    lines(x[xx], c(0, Y1.quant[YY1], 0, 0), col = colZ1, lty = "dashed")
+    lines(x[xx], c(0, Y2[YY2], 0, 0), col = colZ2)
+    lines(x[xx], c(0, Y1[YY1], 0, 0), col = colZ1)
+    segments(x0 = 0, y0 = 0, x1 = max(x[xx]), y1 = 0, col = "white")
+    segments(x0 = 0, y0 = 0, x1 = 0, y1 = 1, col = "white")
+
+    seg.cat <- function(inter, cat, col.unf, col.exp, col.stab) {
+      if (inter[3] == 0) {
+        my.col = 0
+      }
+      if (inter[3] == 1) {
+        my.col = col.unf
+      }
+      if (inter[3] == 2) {
+        my.col = col.stab
+      }
+      if (inter[3] == -1) {
+        my.col = col.exp
+      }
+      segments(x0 = inter[1], y0 = -0.01, y1 = -0.01, x1 = inter[2],
+        col = my.col, lwd = 4, lty = 2)
+    }
+    cat <- ecospat.niche.dyn.index(z1, z2, intersection = quant)$dyn
+    inter <- cbind(z1$x[-length(z1$x)], z1$x[-1], cat[-1])
+    apply(inter, 1, seg.cat, col.unf = "#00FF0050", col.exp = "#FF000050",
+      col.stab = "#0000FF50")
+
+  }
+
+  if (!is.null(z1$y)) {
+    z <- t(as.matrix(z1$w + 2 * z2$w))[,nrow(as.matrix(z1$z.uncor)):1]
+    z1$Z<-t(as.matrix(z1$Z))[,nrow(as.matrix(z1$Z)):1]
+    z2$Z<-t(as.matrix(z2$Z))[,nrow(as.matrix(z2$Z)):1]
+    if (interest == 1) {
+      image(x=z1$x,y=z1$y,z=t(as.matrix(z1$z.uncor))[,nrow(as.matrix(z1$z.uncor)):1], col = gray(100:0/100), zlim = c(1e-05, cellStats(z1$z.uncor,"max")), xlab = name.axis1, ylab = name.axis2)
+      image(x=z1$x,y=z1$y,z=z, col = c("#FFFFFF00", colz1, colz2, colinter), add = TRUE)
+    }
+    if (interest == 2) {
+      image(x=z2$x,y=z2$y,z=t(as.matrix(z2$z.uncor))[,nrow(as.matrix(z2$z.uncor)):1], col = gray(100:0/100), zlim = c(1e-05, cellStats(z2$z.uncor,"max")), xlab = name.axis1, ylab = name.axis2)
+      image(x=z2$x,y=z2$y,z=z, col = c("#FFFFFF00", colz1, colz2, colinter), add = TRUE)
+    }
+    title(title)
+    contour(x=z1$x,y=z1$y,z1$Z, add = TRUE, levels = quantile(z1$Z[z1$Z > 0], c(0, quant)),
+      drawlabels = FALSE, lty = c(1, 2), col = colZ1)
+    contour(x=z2$x,y=z2$y,z2$Z, add = TRUE, levels = quantile(z2$Z[z2$Z > 0], c(0, quant)),
+      drawlabels = FALSE, lty = c(1, 2), col = colZ2)
+  }
+}
+
+ecospat.pts2img <- function(pts, extent) {
+  img <- matrix(0, nrow = nrow(extent), ncol = nrow(extent))
+  x <- findInterval(pts[, 1], extent[, 1])
+  y <- findInterval(pts[, 2], extent[, 2])
+  xy <- cbind(x, y)
+  img[xy] <- 1
+  return(img)
+}
+
+##################################################################################################
+
+ecospat.shift.centroids <- function(sp1, sp2, clim1, clim2, col = "red") {
+
+  if (ncol(as.matrix(sp1)) == 2) {
+    arrows(median(sp1[, 1]), median(sp1[, 2]), median(sp2[, 1]), median(sp2[,
+      2]), col = "red", lwd = 2, length = 0.1)
+    arrows(median(clim1[, 1]), median(clim1[, 2]), median(clim2[, 1]),
+      median(clim2[, 2]), lty = "11", col = col, lwd = 2, length = 0.1)
+  } else {
+    arrows(median(sp1), 0.025, median(sp2), 0.025, col = "red", lwd = 2,
+      length = 0.1)
+    arrows(median(clim1), -0.025, median(clim2), -0.025, lty = "11", col = col,
+      lwd = 2, length = 0.1)
+  }
+}
+
+##################################################################################################
+
+ecospat.niche.dyn.index <- function(z1, z2, intersection = NA) {
+  w1 <- as.matrix(z1$w)  # native environmental distribution mask
+  w2 <- as.matrix(z2$w)  # invaded environmental distribution mask
+  glob1 <- as.matrix(z1$Z)  # Native environmental extent densities
+  glob2 <- as.matrix(z2$Z)  # Invaded environmental extent densities
+  if (!is.na(intersection)) {
+    if (intersection == 0) {
+      glob1[glob1 > 0] <- 1  # Native environmental extent mask
+      glob2[glob2 > 0] <- 1  # Invaded environmental extent mask
+    } else {
+      quant.val <- quantile(glob1[glob1 > 0], probs = seq(0, 1, intersection))[2]  # threshold do delimit native environmental mask
+      glob1[glob1[] <= quant.val] <- 0
+      glob1[glob1[] > quant.val] <- 1  #  native environmental mask
+      quant.val <- quantile(glob2[glob2 > 0], probs = seq(0, 1, intersection))[2]  # threshold do delimit invaded environmental mask
+      glob2[glob2[] <= quant.val] <- 0
+      glob2[glob2[] > quant.val] <- 1  #  invaded environmental mask
+    }
+    glob <- glob1 * glob2  # delimitation of the intersection between the native and invaded extents
+    w1 <- w1 * glob  # Environmental native distribution at the intersection
+    w2 <- w2 * glob  # Environmental invasive distribution at the intersection
+  }
+  z.exp.cat <- (w1 + 2 * w2)/2
+  z.exp.cat[z.exp.cat != 1] <- 0  #categorizing expansion pixels
+  z.stable.cat <- (w1 + 2 * w2)/3
+  z.stable.cat[z.stable.cat != 1] <- 0  #categorizing stable pixels
+  z.res.cat <- w1 + 2 * w2
+  z.res.cat[z.res.cat != 1] <- 0  #categorizing restriction pixels
+  obs.exp <- as.matrix(z2$z.uncor) * as.matrix(z.exp.cat)  #density correction
+  obs.stab <- as.matrix(z2$z.uncor) * as.matrix(z.stable.cat)  #density correction
+  obs.res <- as.matrix(z1$z.uncor) * as.matrix(z.res.cat)  #density correction
+
+  dyn <- (-1 * z.exp.cat) + (2 * z.stable.cat) + z.res.cat
+  if (ncol(w1) == 2)
+    {
+      dyn <- raster(dyn)
+    }  # draw matrix with 3 categories of niche dynamic
+  expansion.index.w <- sum(obs.exp)/sum(obs.stab + obs.exp)  # expansion
+  stability.index.w <- sum(obs.stab)/sum(obs.stab + obs.exp)  # stability
+  restriction.index.w <- sum(obs.res)/sum(obs.res + (z.stable.cat * as.matrix(z1$z.uncor)))  #unfilling
+  part <- list()
+  part$dyn <- dyn
+  part$dynamic.index.w <- c(expansion.index.w, stability.index.w, restriction.index.w)
+  names(part$dynamic.index.w) <- c("expansion", "stability", "unfilling")
+  return(part)
+}
