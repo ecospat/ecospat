@@ -88,4 +88,7 @@ export(ecospat.varpart)
 export(ecospat.mdr)
 export(ecospat.rangesize)
 export(ecospat.occupied.patch)
-
+export(ecospat.CCV.createDataSplitTable)
+export(ecospat.CCV.modeling)
+export(ecospat.CCV.communityEvaluation.bin)
+export(ecospat.CCV.communityEvaluation.prob)
