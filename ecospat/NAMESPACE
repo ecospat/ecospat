@@ -24,6 +24,7 @@ importFrom("utils", "combn", "packageVersion", "setTxtProgressBar", "txtProgress
 importFrom("classInt", "classIntervals")
 importFrom("vegan", "permatswap")
 importFrom("poibin", "dpoibin")
+importFrom("snowfall","sfInit","sfLibrary","sfLapply","sfStop","sfExport")
 
 # Export
 export(ecospat.adj.D2.glm)
