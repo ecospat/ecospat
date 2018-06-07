@@ -122,7 +122,7 @@ mess.object<-ecospat.mess (proj, cal, w="default")
 
 #### Plot MESS with *ecospat.plot.mess()*
 ```{r mess}
-ecospat.plot.mess (xy=proj[c(1:2)], mess.object, cex=1, pch=15)
+ecospat.plot.mess (mess.object, cex=1, pch=15)
 
 ```
 In the MESS plot pixels in red indicate sites where at least one environmental predictor has values outside of the range of that predictor in the calibration dataset. In the MESSw plot, same as previous plot but with weighted by the number of predictors.Finally, the MESSneg plot shows at each site how many predictors have values outside of their calibration range.
