@@ -23,6 +23,7 @@ importFrom("stats", "aggregate", "as.dist", "binomial", "coef", "complete.cases"
 importFrom("utils", "combn", "packageVersion", "setTxtProgressBar", "txtProgressBar", "write.table")
 importFrom("classInt", "classIntervals")
 importFrom("vegan", "permatswap")
+importFrom("poibin", "dpoibin")
 
 # Export
 export(ecospat.adj.D2.glm)
