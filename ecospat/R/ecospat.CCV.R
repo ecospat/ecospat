@@ -1710,7 +1710,7 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
       composition.pred <- apply(data.frame(obs, pred),1, composition.prob)
       composition.results <- signif(data.frame(composition.imp.05 = composition.pred/composition.Null.pred.05, composition.imp.average.SR = composition.pred/composition.Null.pred.average.SR, composition.imp.prevalence = composition.pred/composition.Null.pred.prevalence),3)
       
-      #The mean and sd Sörensen
+      #The mean and sd Sorensen
       if("probabilistic.Sorensen" %in% metrics){
         Sorensen.stat <- data.frame(t(apply(data.frame(obs, pred),1, Sorensen.mean.sd, se.th=se.th)))
         composition.results <- signif(data.frame(Sorensen.stat, composition.results),3)
