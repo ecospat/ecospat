@@ -18,10 +18,6 @@ CRAN repository db overrides:
 
 Package has a VignetteBuilder field but no prebuilt vignette index.
 
-No package encoding and non-ASCII characters in the following R files:
-  R/ecospat.CCV.R
-    1713:       #The mean and sd S<c3><b6>rensen
-
 The build time stamp is missing.
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
