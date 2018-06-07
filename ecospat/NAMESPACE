@@ -2,7 +2,6 @@
 import("ade4", "gbm", "sp", "MigClim", "doParallel", "foreach", "iterators", "parallel")
 #import("alphahull")
 import(ape, except=c(complement))
-import(poibin)
 #import("gam")
 importFrom("adehabitatHR", kernelUD)
 importFrom("adehabitatMA", ascgen)
@@ -16,8 +15,8 @@ importFrom("raster", cellFromXY, extract, nlayers, projection, stack, reclassify
 importFrom("rms", pol)
 importFrom("gtools", mixedsort, combinations)
 importFrom("PresenceAbsence", presence.absence.accuracy, optimal.thresholds)
-#importFrom("poibin", dpoibin)
-#importFrom("snowfall", sfInit, sfLibrary, sfLapply, sfStop, sfExport)
+importFrom("poibin", dpoibin)
+importFrom("snowfall", sfInit, sfLibrary, sfLapply, sfStop, sfExport)
 
 #new suggested by check
 importFrom("grDevices", "colorRampPalette", "dev.new", "dev.off", "gray", "grey")
