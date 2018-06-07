@@ -20,10 +20,4 @@ Package has a VignetteBuilder field but no prebuilt vignette index.
 
 The build time stamp is missing.
 * checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Namespace dependency not required: 'poibin'
-
-See section 'The DESCRIPTION file' in the 'Writing R Extensions'
-manual.
-* DONE
-Status: 1 ERROR, 1 NOTE
+* checking package dependencies ...
