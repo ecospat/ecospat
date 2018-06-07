@@ -261,12 +261,12 @@ ecospat.CCV.modeling <- function(sp.data,
                                  modeling.id = as.character(format(Sys.time(), '%s'))){
   
   #Loading the packages needed (they should all be installed by ecospat library)
-  require(raster)
-  require(rgdal)
-  require(biomod2)
-  require(snowfall)
-  require(gtools)
-  require(PresenceAbsence)
+  #require(raster)
+  #require(rgdal)
+  #require(biomod2)
+  #require(snowfall)
+  #require(gtools)
+  #require(PresenceAbsence)
   
   #Checking all the input data
   stopifnot(dim(sp.data)[1]==dim(xy)[1])
@@ -828,8 +828,8 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
                                                 MEM=NULL){
 
     #Loading the packages needed (they should all be installed by ecospat library)
-  require(snowfall)
-  require(PresenceAbsence)
+  #require(snowfall)
+  #require(PresenceAbsence)
   
   #Checking all the input data
   stopifnot(names(ccv.modeling.data)==c("modeling.id",
@@ -1508,9 +1508,9 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
   
   
   #Loading the packages needed (they should all be installed by ecospat library)
-  require(PresenceAbsence)
-  require(poibin)
-  require(snowfall)
+  #require(PresenceAbsence)
+  #require(poibin)
+  #require(snowfall)
   
   #Checking all the input data
   stopifnot(names(ccv.modeling.data)==c("modeling.id",
