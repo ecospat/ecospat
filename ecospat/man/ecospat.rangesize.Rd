@@ -9,7 +9,8 @@ This function quantifies the range size of a species using standard IUCN criteri
 }
 \usage{
 ecospat.rangesize (bin.map, ocp, buffer, eoo.around.model, eoo.around.modelocp, 
-xy, EOO, Model.within.eoo, AOO, resol, AOO.circles, d, lonlat, return.obj, save.obj, save.rangesize, directory)
+xy, EOO, Model.within.eoo, AOO, resol, AOO.circles, d, lonlat, return.obj, 
+save.obj, save.rangesize, directory)
 
 ecospat.rangesize (bin.map = NULL,
                    ocp = T,
@@ -152,12 +153,14 @@ plot(rangesize$RangeObjects$AOO.circle@polygons,add=T,border="blue")
 
 for(i in 1:2){
 ## plot the occupied patches of the model
-plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=F)
+plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
+main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=F)
 points(occ,col="red",cex=0.5,pch=19)
 ## plot EOO around model
 plot(rangesize$RangeObjects$eoo.around.model[[i]]@polygons,add=T,border="blue",lwd=2)
 ## plot EOO around occupied patches
-plot(rangesize$RangeObjects$eoo.around.mo.ocp[[i]]@polygons,add=T,border="darkgreen",lwd=2)
+plot(rangesize$RangeObjects$eoo.around.mo.ocp[[i]]@polygons,add=T,border="darkgreen",
+lwd=2)
 ## plot the modeled area within EOO
 #plot(rangesize$RangeObjects$model.within.eoo[[i]],col=c("grey","blue","darkgreen"),legend=F)
 #points(occ,col="red",cex=0.5,pch=19)

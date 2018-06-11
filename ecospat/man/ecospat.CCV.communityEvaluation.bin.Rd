@@ -44,9 +44,6 @@ Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2018) Ho
 \author{
 Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
 }
-\note{
-%%  ~~further notes~~
-}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
@@ -73,11 +70,12 @@ myCCV.Models <- ecospat.CCV.modeling(sp.data = sp.data,
                                      VarImport = 3)
                                      
 #Thresholding all the predictions and calculating the community evaluation metrics
-myCCV.communityEvaluation.bin <- ecospat.CCV.communityEvaluation.bin(ccv.modeling.data = myCCV.Models,
-                                                                     thresholds = c('MAX.KAPPA', 'MAX.ROC','PS_SDM'),
-                                                                     community.metrics= c('SR.deviation','Sorensen'),
-                                                                     parallel = TRUE,
-                                                                     cpus = 4)
+myCCV.communityEvaluation.bin <- ecospat.CCV.communityEvaluation.bin(
+      ccv.modeling.data = myCCV.Models, 
+      thresholds = c('MAX.KAPPA', 'MAX.ROC','PS_SDM'),
+      community.metrics= c('SR.deviation','Sorensen'),
+      parallel = TRUE,
+      cpus = 4)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

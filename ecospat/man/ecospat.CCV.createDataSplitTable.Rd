@@ -40,17 +40,10 @@ If a \code{sp.data} data.frame with species presences and absences is provided t
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
 %%  ~~who you are~~
 }
-\note{
-%%  ~~further notes~~
-}
-
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
@@ -58,7 +51,9 @@ Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-#Creating a DataSplitTable for 200 sites, 25 runs with an 80/20 calibration/evaluation cross-validation
+#Creating a DataSplitTable for 200 sites, 25 runs with an 
+#80/20 calibration/evaluation cross-validation
+
 DataSplitTable <- ecospat.CCV.createDataSplitTable(NbSites = 200, 
                                                    NbRunEval=25, 
                                                    DataSplit=80, 

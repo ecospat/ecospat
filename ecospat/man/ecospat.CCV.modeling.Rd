@@ -72,9 +72,6 @@ Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2018) Ho
 \author{
 Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
 }
-\note{
-%%  ~~further notes~~
-}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

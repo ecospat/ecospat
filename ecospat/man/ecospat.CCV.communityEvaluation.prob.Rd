@@ -8,11 +8,12 @@ Evaluates community predictions directly on the probabilities (i.e., threshold i
 This function generates a number of community evaluation metrics directly based on the probability returned by the individual models. Instead of thresholding the predictions (\code{\link{ecospat.CCV.communityEvaluation.bin}} this function directly uses the probability and compares its outcome to null models or average expectations.)
 }
 \usage{
-ecospat.CCV.communityEvaluation.prob(ccv.modeling.data, 
-                                     community.metrics=c('SR.deviation','community.AUC','probabilistic.Sorensen'), 
-                                     se.th=0.01, 
-                                     parallel = TRUE, 
-                                     cpus = 4)
+ecospat.CCV.communityEvaluation.prob(
+      ccv.modeling.data,
+      community.metrics=c('SR.deviation','community.AUC','probabilistic.Sorensen'),
+      se.th=0.01,
+      parallel = TRUE,
+      cpus = 4)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -22,17 +23,10 @@ ecospat.CCV.communityEvaluation.prob(ccv.modeling.data,
   \item{parallel}{should parallel computing be allowed (\code{TRUE/FALSE})}
   \item{cpus}{number of cpus to use in parallel computing}
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
 \value{
   \item{DataSplitTable}{a matrix with \code{TRUE/FALSE} for each model run (\code{TRUE}=Calibration point, \code{FALSE}=Evaluation point)}
   \item{CommunityEvaluationMetrics.CalibrationSites}{a 3-dimensional array containing the community evaluation metrics for the calibartion sites of each run (\code{NA} means that the site was used for evaluation)}
   \item{CommunityEvaluationMetrics.EvaluationSites}{a 3-dimensional array containing the community evaluation metrics for the evaluation sites of each run (\code{NA} means that the site was used for calibaration)}
-
-}
-\references{
-%% ~put references to the literature/web site here ~
 }
 \author{
 Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
@@ -94,11 +88,12 @@ myCCV.Models <- ecospat.CCV.modeling(sp.data = sp.data,
                                      VarImport = 3)
                                      
 #Calculating the probabilistic community metrics
-myCCV.communityEvaluation.prob <- ecospat.CCV.communityEvaluation.prob(ccv.modeling.data = myCCV.Models, 
-                                                                       community.metrics = c('SR.deviation','community.AUC','probabilistic.Sorensen'), 
-                                                                       se.th = 0.02, 
-                                                                       parallel = TRUE, 
-                                                                       cpus = 4)
+myCCV.communityEvaluation.prob <- ecospat.CCV.communityEvaluation.prob(
+      ccv.modeling.data = myCCV.Models,
+      community.metrics = c('SR.deviation','community.AUC','probabilistic.Sorensen'),
+      se.th = 0.02, 
+      parallel = TRUE,
+      cpus = 4)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
