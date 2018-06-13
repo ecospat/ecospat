@@ -27,7 +27,7 @@ ecospat.CCV.modeling(sp.data,
                      parallel = TRUE, 
                      cpus = 4,
                      VarImport = 10,
-                     modeling.id = as.character(format(Sys.time(), \code{"%s"}))
+                     modeling.id = as.character(format(Sys.time(), "\%s"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

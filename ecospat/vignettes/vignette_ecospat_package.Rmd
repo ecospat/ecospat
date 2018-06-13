@@ -24,8 +24,8 @@ In addition, the *ecospat* package includes Niche Quantification and Overlap fun
 
 
 ```{r load_library}
-library(ecospat)
-citation("ecospat")
+#library(ecospat)
+#citation("ecospat")
 ```
 
 ### Test data for the ecospat library 

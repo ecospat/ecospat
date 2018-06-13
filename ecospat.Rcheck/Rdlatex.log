@@ -177,632 +177,574 @@ Overfull \hbox (30.02594pt too wide) in paragraph at lines 712--712
  []                                                   \OT1/cmtt/m/n/9 validatio
 n.method = "cross-validation",[] 
 [14]
-Overfull \hbox (108.77649pt too wide) in paragraph at lines 753--753
- []  \OT1/cmtt/m/n/10 \item{sp.data}{a data.frame where the rows are sites and 
-the columns are species (values 1,0)}[] 
+Overfull \hbox (5.4849pt too wide) in paragraph at lines 758--759
+\OT1/cmr/m/n/10 tion and eval-u-a-tion. As re-turned by \OT1/cmtt/m/n/10 ecospa
+t.CCV.createDataSplitTable 
 
-Overfull \hbox (376.52415pt too wide) in paragraph at lines 754--754
- []  \OT1/cmtt/m/n/10 \item{env.data}{either a data.frame where rows are sites 
-and colums are environmental variables or a raster stack of the envrionmental v
-ariables}[] 
-
-Overfull \hbox (255.7752pt too wide) in paragraph at lines 755--755
- []  \OT1/cmtt/m/n/10 \item{xy}{two column data.frame with X and Y coordinates 
-of the sites (most be same coordinate system as \code{env.data})}[] 
-
-Overfull \hbox (770.27072pt too wide) in paragraph at lines 756--756
- []  \OT1/cmtt/m/n/10 \item{DataSplitTable}{a table providing \code{TRUE/FALSE}
- to indicate what points are used for calibration and evaluation. As returned b
-y \code{\LinkA{ecospat.CCV.createDataSplitTable}{ecospat.CCV.createDataSplitTab
-le}}}[] 
-
-Overfull \hbox (329.27457pt too wide) in paragraph at lines 757--757
- []  \OT1/cmtt/m/n/10 \item{DataSplit}{percentage of dataset observations retai
-ned for the model training  (only needed if no \code{DataSplitTable} provided)}
-[] 
-
-Overfull \hbox (203.27567pt too wide) in paragraph at lines 758--758
- []  \OT1/cmtt/m/n/10 \item{NbRunEval}{number of cross-validatio/split sample r
-uns (only needed if no \code{DataSplitTable} provided)}[] 
-
-Overfull \hbox (266.27512pt too wide) in paragraph at lines 759--759
- []  \OT1/cmtt/m/n/10 \item{minNbPredictors}{minimum number of occurences [min(
-presences/Absences] per predicotors needed to calibrate the models}[] 
-
-Overfull \hbox (471.02333pt too wide) in paragraph at lines 760--760
- []  \OT1/cmtt/m/n/10 \item{validation.method}{either "cross-validation" or "sp
-lit-sample" used to validate the communtiy predictions (only needed if no \code
-{DataSplitTable} provided)}[] 
-
-Overfull \hbox (722.99394pt too wide) in paragraph at lines 761--761
- []  \OT1/cmtt/m/n/10 \item{models.sdm}{modeling techniques used for the normal
- SDMs. Vector of models names choosen among \code{\TS1/cmtt/m/n/10 '\OT1/cmtt/m
-/n/10 GLM\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/1
-0 GBM\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GA
-M\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 CTA\TS
-1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 ANN\TS1/cm
-tt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 SRE\TS1/cmtt/m
-/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 FDA\TS1/cmtt/m/n/1
-0 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MARS\TS1/cmtt/m/n/10 '
-\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 RF\TS1/cmtt/m/n/10 '\OT1/
-cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MAXENT.Phillips\TS1/cmtt/m/n/1
-0 ' \OT1/cmtt/m/n/10 and \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MAXENT.Tsuruoka\TS1
-/cmtt/m/n/10 '\OT1/cmtt/m/n/10 }}[] 
-
-Overfull \hbox (686.24426pt too wide) in paragraph at lines 762--762
- []  \OT1/cmtt/m/n/10 \item{models.esm}{modeling techniques used for the ESMs. 
-Vector of models names choosen among \code{\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 G
-LM\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GBM\T
-S1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GAM\TS1/c
-mtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 CTA\TS1/cmtt/
-m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 ANN\TS1/cmtt/m/n/
-10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 SRE\TS1/cmtt/m/n/10 '
-\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 FDA\TS1/cmtt/m/n/10 '\OT1
-/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MARS\TS1/cmtt/m/n/10 '\OT1/cm
-tt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 RF\TS1/cmtt/m/n/10 '\OT1/cmtt/m/
-n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MAXENT.Phillips\TS1/cmtt/m/n/10 ' \OT
-1/cmtt/m/n/10 and \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MAXENT.Tsuruoka\TS1/cmtt/m
-/n/10 '\OT1/cmtt/m/n/10 }}[] 
-
-Overfull \hbox (581.27237pt too wide) in paragraph at lines 763--763
- []  \OT1/cmtt/m/n/10 \item{modeling.options.sdm}{modeling options for the norm
-al SDMs. \code{"BIOMOD.models.options"}" object returned by \code{\LinkA{BIOMOD
-\_ModelingOptions}{BIOMOD.Rul.ModelingOptions}}}[] 
-
-Overfull \hbox (539.27274pt too wide) in paragraph at lines 764--764
- []  \OT1/cmtt/m/n/10 \item{modeling.options.esm}{modeling options for the ESMs
-. \code{"BIOMOD.models.options"} object returned by \code{\LinkA{BIOMOD\_Modeli
-ngOptions}{BIOMOD.Rul.ModelingOptions}}}[] 
-
-Overfull \hbox (245.26788pt too wide) in paragraph at lines 765--765
- []  \OT1/cmtt/m/n/10 \item{ensemble.metric}{evaluation score used to weight si
-ngle models to build ensembles: \code{\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 AUC\TS
-1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 Kappa\TS1/
-cmtt/m/n/10 ' \OT1/cmtt/m/n/10 or \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 TSS\TS1/cm
-tt/m/n/10 '\OT1/cmtt/m/n/10 }}[] 
-
-Overfull \hbox (234.76797pt too wide) in paragraph at lines 766--766
- []  \OT1/cmtt/m/n/10 \item{ESM}{either \code{\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/1
-0 YES\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 } (ESMs allowed), \code{\TS1/cmtt/m/n/1
-0 '\OT1/cmtt/m/n/10 NO\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 } (ESMs not allowed) o
-r \code{\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 ALL\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/1
-0 } (ESMs used in any case)}[] 
-
-Overfull \hbox (14.27731pt too wide) in paragraph at lines 769--769
- []  \OT1/cmtt/m/n/10 \item{VarImport}{number of permutation runs to evaluate v
-ariable importance}[] 
-
-Overfull \hbox (114.02644pt too wide) in paragraph at lines 770--770
- []  \OT1/cmtt/m/n/10 \item{modeling.id}{character, the ID (=name) of modeling 
-procedure. A random number by default}[] 
+Overfull \hbox (20.63406pt too wide) in paragraph at lines 760--761
+[]\OT1/cmr/m/n/10 number of cross-validatio/split sam-ple runs (only needed if 
+no \OT1/cmtt/m/n/10 DataSplitTable
 [15]
-Overfull \hbox (52.05551pt too wide) in paragraph at lines 775--777
+Overfull \hbox (284.93579pt too wide) in paragraph at lines 763--764
+\OT1/cmr/m/n/10 choosen among \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GLM\TS1/cmtt/m
+/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GBM\TS1/cmtt/m/n/1
+0 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GAM\TS1/cmtt/m/n/10 '\
+OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 CTA\TS1/cmtt/m/n/10 '\OT1/
+cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 ANN\TS1/cmtt/m/n/10 '\OT1/cmtt
+/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 SRE\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n
+/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 FDA\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 
+, \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MARS\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \
+TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 RF\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/c
+mtt/m/n/10 '\OT1/cmtt/m/n/10 MAXENT.Phillips\TS1/cmtt/m/n/10 ' \OT1/cmtt/m/n/10
+ and \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MAXENT.Tsuruoka\TS1/cmtt/m/n/10 ' 
+
+Overfull \hbox (248.76907pt too wide) in paragraph at lines 764--765
+\OT1/cmr/m/n/10 among \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GLM\TS1/cmtt/m/n/10 '\
+OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GBM\TS1/cmtt/m/n/10 '\OT1/
+cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GAM\TS1/cmtt/m/n/10 '\OT1/cmtt
+/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 CTA\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n
+/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 ANN\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 
+, \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 SRE\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \T
+S1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 FDA\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/c
+mtt/m/n/10 '\OT1/cmtt/m/n/10 MARS\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt
+/m/n/10 '\OT1/cmtt/m/n/10 RF\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/
+10 '\OT1/cmtt/m/n/10 MAXENT.Phillips\TS1/cmtt/m/n/10 ' \OT1/cmtt/m/n/10 and \TS
+1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MAXENT.Tsuruoka\TS1/cmtt/m/n/10 ' 
+
+Overfull \hbox (81.76506pt too wide) in paragraph at lines 767--768
+[]\OT1/cmr/m/n/10 evaluation score used to weight sin-gle mod-els to build en-s
+em-bles: \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 AUC\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/
+10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 Kappa\TS1/cmtt/m/n/10 ' \OT1/cmtt/m/n/1
+0 or \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 TSS\TS1/cmtt/m/n/10 ' 
+
+Overfull \hbox (52.05551pt too wide) in paragraph at lines 777--779
 \OT1/cmr/m/n/10 tions with the \OT1/cmtt/m/n/10 ecospat.CCV.communityEvaluation
 .bin \OT1/cmr/m/n/10 or \OT1/cmtt/m/n/10 ecospat.CCV.communityEvaluation.prob
-
-Overfull \hbox (123.34781pt too wide) in paragraph at lines 787--788
+[16]
+Overfull \hbox (123.34781pt too wide) in paragraph at lines 789--790
 []\OT1/cmr/m/n/10 a 3-dimensional ar-ray of sin-gle species eval-u-a-tion met-r
 ics (\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 Max.KAPPA\TS1/cmtt/m/n/10 '\OT1/cmtt/m/
 n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 Max.TSS\TS1/cmtt/m/n/10 '\OT1/cmtt/m/
 n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 AUC of ROC\TS1/cmtt/m/n/10 '\OT1/cmr/
 m/n/10 ) 
 
-Overfull \hbox (156.26692pt too wide) in paragraph at lines 803--804
+Overfull \hbox (156.26692pt too wide) in paragraph at lines 805--806
 []\OT1/cmtt/m/n/10 ecospat.CCV.createDataSplitTable\OT1/cmr/m/n/10 ; \OT1/cmtt/
 m/n/10 ecospat.CCV.communityEvaluation.bin\OT1/cmr/m/n/10 ; \OT1/cmtt/m/n/10 ec
 ospat.CCV.communityEvaluation.prob 
-[16] [17]
-Overfull \hbox (14.2235pt too wide) in paragraph at lines 903--904
+[17] [18]
+Overfull \hbox (14.2235pt too wide) in paragraph at lines 905--906
 \OT1/cmr/m/n/10 mer-mann \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 niklaus.zimmermann@
 wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/cmtt/m/n/10
  <\OT1/cmtt/m/n/10 valeria.dicola@unil.ch\OML/cmtt/m/n/10 > 
 
-Overfull \hbox (66.66595pt too wide) in paragraph at lines 913--914
+Overfull \hbox (66.66595pt too wide) in paragraph at lines 915--916
 []\OT1/cmtt/m/n/10 ecospat.meva.table\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat
 .max.tss\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.plot.tss\OT1/cmr/m/n/10 , \O
 T1/cmtt/m/n/10 ecospat.plot.kappa\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.max
 .kappa 
-[18]
-Overfull \hbox (10.55145pt too wide) in paragraph at lines 943--944
+[19]
+Overfull \hbox (10.55145pt too wide) in paragraph at lines 945--946
 []\OT1/cmr/m/n/10 Logical vari-able in-di-cat-ing whether the pre-dic-tion ma-t
 rix con-tains presences-
-[19]
-Overfull \hbox (87.00156pt too wide) in paragraph at lines 979--981
+[20]
+Overfull \hbox (87.00156pt too wide) in paragraph at lines 981--983
 []\OT1/cmr/m/n/10 with con-tri-bu-tion of Daniel Scher-rer \OML/cmtt/m/n/10 <\O
 T1/cmtt/m/n/10 daniel.scherrer@unil.ch\OML/cmtt/m/n/10 >\OT1/cmr/m/n/10 , Anne 
 Dubuis \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 anne.dubuis@gmail.com\OML/cmtt/m/n/10
  >
-[20]
-Overfull \hbox (13.39044pt too wide) in paragraph at lines 1033--1034
+[21]
+Overfull \hbox (13.39044pt too wide) in paragraph at lines 1035--1036
 []\OT1/cmr/m/n/10 Anne Dubuis \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 anne.dubuis@gm
 ail.com\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Manuela D`Amen \OML/cmtt/m/n/10 <
 \OT1/cmtt/m/n/10 manuela.damen@unil.ch\OML/cmtt/m/n/10 > 
 
-Overfull \hbox (39.47583pt too wide) in paragraph at lines 1046--1046
+Overfull \hbox (39.47583pt too wide) in paragraph at lines 1048--1048
  []\OT1/cmtt/m/n/9 presence <- ecospat.testData[c(53,62,58,70,61,66,65,71,69,43
 ,63,56,68,57,55,60,54,67,59,64)][] 
-[21] [22] [23]
-Overfull \hbox (55.89153pt too wide) in paragraph at lines 1179--1180
+[22] [23] [24]
+Overfull \hbox (55.89153pt too wide) in paragraph at lines 1181--1182
 []\OT1/cmr/m/n/10 Christophe Randin \OML/cmtt/m/n/10 < \OT1/cmtt/m/n/10 christo
 phe.randin@wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Manuela D'Amen <manuela
 .damen@msn.com> 
 
-Overfull \hbox (15.8511pt too wide) in paragraph at lines 1199--1199
+Overfull \hbox (15.8511pt too wide) in paragraph at lines 1201--1201
  []\OT1/cmtt/m/n/9 data<- ecospat.testData[c(53,62,58,70,61,66,65,71,69,43,63,5
 6,68,57,55,60,54,67,59,64)][] 
-[24]
-Overfull \hbox (56.87636pt too wide) in paragraph at lines 1226--1227
+
+Overfull \hbox (56.87636pt too wide) in paragraph at lines 1228--1229
 []\OT1/cmr/m/n/10 Christophe Randin \OML/cmtt/m/n/10 < \OT1/cmtt/m/n/10 christo
 phe.randin@wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/cm
 tt/m/n/10 <\OT1/cmtt/m/n/10 antoine.guisan@unil.ch\OML/cmtt/m/n/10 > 
 [25]
-Overfull \hbox (67.37627pt too wide) in paragraph at lines 1269--1270
+Overfull \hbox (67.37627pt too wide) in paragraph at lines 1271--1272
 []\OT1/cmr/m/n/10 Christophe Randin \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 christop
 he.randin@unibas.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/
 cmtt/m/n/10 <\OT1/cmtt/m/n/10 antoine.guisan@unil.ch\OML/cmtt/m/n/10 > 
 [26]
-Overfull \hbox (67.37627pt too wide) in paragraph at lines 1319--1320
+Overfull \hbox (67.37627pt too wide) in paragraph at lines 1321--1322
 []\OT1/cmr/m/n/10 Christophe Randin \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 christop
 he.randin@unibas.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/
 cmtt/m/n/10 <\OT1/cmtt/m/n/10 antoine.guisan@unil.ch\OML/cmtt/m/n/10 > 
-
-Overfull \hbox (1.67627pt too wide) in paragraph at lines 1331--1331
+[27]
+Overfull \hbox (1.67627pt too wide) in paragraph at lines 1333--1333
  []\OT1/cmtt/m/n/9 glm <- ecospat.cv.glm (glm.obj = get ("glm.Agrostis_capillar
 is", envir=ecospat.env),[] 
 
-Overfull \hbox (35.27713pt too wide) in paragraph at lines 1346--1346
+Overfull \hbox (35.27713pt too wide) in paragraph at lines 1348--1348
  []\OT1/cmtt/m/n/10 ecospat.cv.me (data.cv.me, name.sp, names.pred, K=10, cv.li
 m=10, jack.knife=FALSE)[] 
-[27]
-Overfull \hbox (67.37627pt too wide) in paragraph at lines 1370--1371
+
+Overfull \hbox (67.37627pt too wide) in paragraph at lines 1372--1373
 []\OT1/cmr/m/n/10 Christophe Randin \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 christop
 he.randin@unibas.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/
 cmtt/m/n/10 <\OT1/cmtt/m/n/10 antoine.guisan@unil.ch\OML/cmtt/m/n/10 > 
-[28]
-Overfull \hbox (51.6264pt too wide) in paragraph at lines 1422--1423
+[28] [29]
+Overfull \hbox (51.6264pt too wide) in paragraph at lines 1424--1425
 []\OT1/cmr/m/n/10 Christophe Randin \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 christop
 he.randin@wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/cmt
 t/m/n/10 <\OT1/cmtt/m/n/10 antoine.guisan@unil.ch\OML/cmtt/m/n/10 > 
-[29] [30]
-Overfull \hbox (35.74593pt too wide) in paragraph at lines 1521--1522
+[30]
+Overfull \hbox (35.74593pt too wide) in paragraph at lines 1523--1524
 []\OT1/cmr/m/n/10 an eval-u-a-tion score used to weight sin-gle mod-els to buil
 d en-sem-bles:"AUC","TSS", 
-
-Overfull \hbox (31.3016pt too wide) in paragraph at lines 1531--1532
+[31]
+Overfull \hbox (31.3016pt too wide) in paragraph at lines 1533--1534
 \OT1/cmr/m/n/10 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', "MAX-ENT.T
 suruoka"
-[31]
-Overfull \hbox (70.62915pt too wide) in paragraph at lines 1557--1558
+
+Overfull \hbox (70.62915pt too wide) in paragraph at lines 1559--1560
 []\OT1/cmr/m/n/10 A \OT1/cmtt/m/n/10 "BIOMOD.EnsembleModeling.out"\OT1/cmr/m/n/
 10 . This ob-ject will be later given to \OT1/cmtt/m/n/10 ecospat.ESM.EnsembleP
 rojection
-
-Overfull \hbox (20.57605pt too wide) in paragraph at lines 1597--1597
+[32]
+Overfull \hbox (20.57605pt too wide) in paragraph at lines 1599--1599
  []\OT1/cmtt/m/n/9 ### Formating the data with the BIOMOD_FormatingData() funct
 ion from the package biomod2[] 
-[32]
-Overfull \hbox (30.02594pt too wide) in paragraph at lines 1616--1616
+
+Overfull \hbox (30.02594pt too wide) in paragraph at lines 1618--1618
  []\OT1/cmtt/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.s
 core=c("SomersD"),threshold=0)[] 
 
-Overfull \hbox (67.8255pt too wide) in paragraph at lines 1623--1623
+Overfull \hbox (67.8255pt too wide) in paragraph at lines 1625--1625
  []\OT1/cmtt/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.
 prediction.output=my.ESM_proj_current,[] 
 
-Overfull \hbox (48.92572pt too wide) in paragraph at lines 1624--1624
+Overfull \hbox (48.92572pt too wide) in paragraph at lines 1626--1626
  []                                                        \OT1/cmtt/m/n/9 ESM.
 EnsembleModeling.output=my.ESM_EF)[] 
-[33]
-Overfull \hbox (39.81386pt too wide) in paragraph at lines 1692--1693
+[33] [34]
+Overfull \hbox (39.81386pt too wide) in paragraph at lines 1694--1695
 []\OT1/cmtt/m/n/10 BIOMOD[]Modeling\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 BIOMOD[]P
 rojection\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 BIOMOD[]EnsembleForecasting\OT1/cmr
 /m/n/10 , \OT1/cmtt/m/n/10 BIOMOD[]EnsembleModeling 
 
-Overfull \hbox (20.57605pt too wide) in paragraph at lines 1711--1711
+Overfull \hbox (20.57605pt too wide) in paragraph at lines 1713--1713
  []\OT1/cmtt/m/n/9 ### Formating the data with the BIOMOD_FormatingData() funct
 ion form the package biomod2[] 
-[34]
-Overfull \hbox (30.02594pt too wide) in paragraph at lines 1734--1734
+
+Overfull \hbox (30.02594pt too wide) in paragraph at lines 1736--1736
  []\OT1/cmtt/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.s
 core=c("SomersD"),threshold=0)[] 
-
-Overfull \hbox (67.8255pt too wide) in paragraph at lines 1741--1741
+[35]
+Overfull \hbox (67.8255pt too wide) in paragraph at lines 1743--1743
  []\OT1/cmtt/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.
 prediction.output=my.ESM_proj_current,[] 
 
-Overfull \hbox (48.92572pt too wide) in paragraph at lines 1742--1742
+Overfull \hbox (48.92572pt too wide) in paragraph at lines 1744--1744
  []                                                        \OT1/cmtt/m/n/9 ESM.
 EnsembleModeling.output=my.ESM_EF)[] 
-[35]
-Overfull \hbox (26.85715pt too wide) in paragraph at lines 1797--1798
+[36]
+Overfull \hbox (26.85715pt too wide) in paragraph at lines 1799--1800
 \OT1/cmr/m/n/10 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', 'MAX-ENT.T
 suruoka'
 
-Overfull \hbox (25.87436pt too wide) in paragraph at lines 1815--1816
+Overfull \hbox (25.87436pt too wide) in paragraph at lines 1817--1818
 []\OT1/cmr/m/n/10 numeric. Calls re-moveTmp-Files() to delete all files from ra
 s-terOp-tions()\TS1/cmr/m/n/10 $\OT1/cmr/m/n/10 tmpdir
-[36]
-Overfull \hbox (36.75143pt too wide) in paragraph at lines 1837--1838
+
+Overfull \hbox (36.75143pt too wide) in paragraph at lines 1839--1840
 []\OT1/cmr/m/n/10 Frank Breiner \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 frank.breine
 r@wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Mirko Di Feb-braro \OML/cmtt/m/n
 /10 <\OT1/cmtt/m/n/10 mirkodifebbraro@gmail.com\OML/cmtt/m/n/10 >
-
-Overfull \hbox (35.22168pt too wide) in paragraph at lines 1849--1850
+[37]
+Overfull \hbox (35.22168pt too wide) in paragraph at lines 1851--1852
 []\OT1/cmtt/m/n/10 ecospat.ESM.EnsembleModeling\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/
 10 ecospat.ESM.Projection\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.ESM.Ensembl
 eProjection 
 
-Overfull \hbox (0.61974pt too wide) in paragraph at lines 1851--1852
+Overfull \hbox (0.61974pt too wide) in paragraph at lines 1853--1854
 []\OT1/cmtt/m/n/10 BIOMOD[]FormatingData\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 BIOM
 OD[]ModelingOptions\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 BIOMOD[]Modeling\OT1/cmr/
 m/n/10 ,\OT1/cmtt/m/n/10 BIOMOD[]Projection 
 
-Overfull \hbox (20.57605pt too wide) in paragraph at lines 1870--1870
+Overfull \hbox (20.57605pt too wide) in paragraph at lines 1872--1872
  []\OT1/cmtt/m/n/9 ### Formating the data with the BIOMOD_FormatingData() funct
 ion from the package biomod2[] 
-[37]
-Overfull \hbox (30.02594pt too wide) in paragraph at lines 1888--1888
+
+Overfull \hbox (30.02594pt too wide) in paragraph at lines 1890--1890
  []\OT1/cmtt/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.s
 core=c("SomersD"),threshold=0)[] 
 
-Overfull \hbox (67.8255pt too wide) in paragraph at lines 1895--1895
+Overfull \hbox (67.8255pt too wide) in paragraph at lines 1897--1897
  []\OT1/cmtt/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.
 prediction.output=my.ESM_proj_current,[] 
 
-Overfull \hbox (48.92572pt too wide) in paragraph at lines 1896--1896
+Overfull \hbox (48.92572pt too wide) in paragraph at lines 1898--1898
  []                                                        \OT1/cmtt/m/n/9 ESM.
 EnsembleModeling.output=my.ESM_EF)[] 
-
-Overfull \hbox (0.10545pt too wide) in paragraph at lines 1928--1929
+[38]
+Overfull \hbox (0.10545pt too wide) in paragraph at lines 1930--1931
 \OT1/cmr/m/n/10 the col-umn names (\OT1/cmtt/m/n/10 data.frame \OT1/cmr/m/n/10 
 or \OT1/cmtt/m/n/10 matrix\OT1/cmr/m/n/10 ) or layer Names (\OT1/cmtt/m/n/10 ra
 sterStack\OT1/cmr/m/n/10 )
-[38]
-Overfull \hbox (28.09659pt too wide) in paragraph at lines 1933--1934
+
+Overfull \hbox (28.09659pt too wide) in paragraph at lines 1935--1936
 []\OT1/cmr/m/n/10 Numeric. Calls re-moveTmp-Files() to delete all files from ra
 s-terOp-tions()\TS1/cmr/m/n/10 $\OT1/cmr/m/n/10 tmpdir
 
-Overfull \hbox (33.66875pt too wide) in paragraph at lines 1947--1949
+Overfull \hbox (33.66875pt too wide) in paragraph at lines 1949--1951
 []\OT1/cmr/m/n/10 Returns the pro-jec-tions for all se-lected mod-els (same as 
 in \OT1/cmtt/m/n/10 biomod2\OT1/cmr/m/n/10 ) See \OT1/cmtt/m/n/10 "BIOMOD.proje
 ction.out"
-
-Overfull \hbox (24.72177pt too wide) in paragraph at lines 1967--1968
+[39]
+Overfull \hbox (24.72177pt too wide) in paragraph at lines 1969--1970
 []\OT1/cmtt/m/n/10 ecospat.ESM.EnsembleModeling\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/
 10 ecospat.ESM.Modeling\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.ESM.EnsembleP
 rojection 
 
-Overfull \hbox (0.61974pt too wide) in paragraph at lines 1969--1970
+Overfull \hbox (0.61974pt too wide) in paragraph at lines 1971--1972
 []\OT1/cmtt/m/n/10 BIOMOD[]FormatingData\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 BIOM
 OD[]ModelingOptions\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 BIOMOD[]Modeling\OT1/cmr/
 m/n/10 ,\OT1/cmtt/m/n/10 BIOMOD[]Projection 
-[39]
-Overfull \hbox (20.57605pt too wide) in paragraph at lines 1988--1988
+
+Overfull \hbox (20.57605pt too wide) in paragraph at lines 1990--1990
  []\OT1/cmtt/m/n/9 ### Formating the data with the BIOMOD_FormatingData() funct
 ion from the package biomod2[] 
-
-Overfull \hbox (30.02594pt too wide) in paragraph at lines 2006--2006
+[40]
+Overfull \hbox (30.02594pt too wide) in paragraph at lines 2008--2008
  []\OT1/cmtt/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.s
 core=c("SomersD"),threshold=0)[] 
 
-Overfull \hbox (67.8255pt too wide) in paragraph at lines 2013--2013
+Overfull \hbox (67.8255pt too wide) in paragraph at lines 2015--2015
  []\OT1/cmtt/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.
 prediction.output=my.ESM_proj_current,[] 
 
-Overfull \hbox (48.92572pt too wide) in paragraph at lines 2014--2014
+Overfull \hbox (48.92572pt too wide) in paragraph at lines 2016--2016
  []                                                        \OT1/cmtt/m/n/9 ESM.
 EnsembleModeling.output=my.ESM_EF)[] 
-[40]
-Overfull \hbox (84.00133pt too wide) in paragraph at lines 2071--2072
+[41]
+Overfull \hbox (84.00133pt too wide) in paragraph at lines 2073--2074
 []\OT1/cmr/m/n/10 Olivier Broen-ni-mann \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 oliv
 ier.broennimann@unil.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Blaise Pe-tit-pie
 rre \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 bpetitpierre@gmail.com\OML/cmtt/m/n/10 >
  
-[41]
-Overfull \hbox (44.20078pt too wide) in paragraph at lines 2091--2091
+
+Overfull \hbox (44.20078pt too wide) in paragraph at lines 2093--2093
  []\OT1/cmtt/m/n/9 occ.sp_test <- na.exclude(ecospat.sample.envar(dfsp=spp,cols
 pxy=2:3,colspkept=1:3,dfvar=clim,[] 
-
-Overfull \hbox (34.75089pt too wide) in paragraph at lines 2100--2100
+[42]
+Overfull \hbox (34.75089pt too wide) in paragraph at lines 2102--2102
  []\OT1/cmtt/m/n/9 for (i in 1:length(sp.list)){sp.nbocc<-c(sp.nbocc,length(whi
 ch(occ.sp[,1] == sp.list[i])))}[] 
 
-Overfull \hbox (15.8511pt too wide) in paragraph at lines 2115--2115
+Overfull \hbox (15.8511pt too wide) in paragraph at lines 2117--2117
  []\OT1/cmtt/m/n/9 #################################### PCA-ENVIRONMENT #######
 ###########################[] 
 
-Overfull \hbox (25.301pt too wide) in paragraph at lines 2118--2118
+Overfull \hbox (25.301pt too wide) in paragraph at lines 2120--2120
  []\OT1/cmtt/m/n/9 pca.cal <- dudi.pca(data, row.w = w, center = TRUE, scale = 
 TRUE, scannf = FALSE, nf = 2)[] 
 
-Overfull \hbox (39.47583pt too wide) in paragraph at lines 2125--2125
+Overfull \hbox (39.47583pt too wide) in paragraph at lines 2127--2127
  []  \OT1/cmtt/m/n/9 row.sp1 <- which(occ.sp[,1] == sp.list[sp.combn[1,i]]) # r
 ows in data corresponding to sp1[] 
-[42]
-Overfull \hbox (39.47583pt too wide) in paragraph at lines 2126--2126
+
+Overfull \hbox (39.47583pt too wide) in paragraph at lines 2128--2128
  []  \OT1/cmtt/m/n/9 row.sp2 <- which(occ.sp[,1] == sp.list[sp.combn[2,i]]) # r
 ows in data corresponding to sp2[] 
 
-Overfull \hbox (6.40121pt too wide) in paragraph at lines 2130--2130
+Overfull \hbox (6.40121pt too wide) in paragraph at lines 2132--2132
  []  \OT1/cmtt/m/n/9 scores.clim <- pca.cal$li[(nrow(occ.sp)+1):nrow(data),]  #
 scores for global climate[] 
-(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/omscmr.fd)
 [43]
-Overfull \hbox (28.3294pt too wide) in paragraph at lines 2180--2184
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/omscmr.fd)
+
+Overfull \hbox (28.3294pt too wide) in paragraph at lines 2182--2186
 \OT1/cmr/m/n/10 When se-lect-ing an-other sam-pling type (\OMS/cmsy/m/n/10 n\OT
 1/cmr/m/n/10 'regular\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ', \OMS/cmsy/m/n/10 n\OT
 1/cmr/m/n/10 'stratified\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ', \OMS/cmsy/m/n/10 n
 \OT1/cmr/m/n/10 'nonaligned\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ',
 
-Overfull \hbox (0.70882pt too wide) in paragraph at lines 2184--2187
+Overfull \hbox (0.70882pt too wide) in paragraph at lines 2186--2189
 []\OT1/cmr/m/n/10 data.frame or Spa-tial-Points. You can use your own set of Ps
 eudo-Absences
-
-Overfull \hbox (39.47583pt too wide) in paragraph at lines 2216--2216
+[44]
+Overfull \hbox (39.47583pt too wide) in paragraph at lines 2218--2218
  []\OT1/cmtt/m/n/9 random.spec <- cbind(as.data.frame(randomPoints(predictors,5
 0,extf=1)),species="randomSpec")[] 
-[44] [45]
-Overfull \hbox (20.57605pt too wide) in paragraph at lines 2279--2279
+[45]
+Overfull \hbox (20.57605pt too wide) in paragraph at lines 2281--2281
  []\OT1/cmtt/m/n/9 ecospat.mantel.correlogram(dfvar=ecospat.testData[c(2:16)],c
 olxy=1:2, n=100, colvar=3:7,[] 
-
-Overfull \hbox (109.15433pt too wide) in paragraph at lines 2312--2313
+[46]
+Overfull \hbox (109.15433pt too wide) in paragraph at lines 2314--2315
 []\OT1/cmr/m/n/10 Antoine Guisan \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 antoine.gui
 san@unil.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Luigi Ma
 io-rano \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 luigi.maiorano@gmail.com\OML/cmtt/m/
 n/10 >
 
-Overfull \hbox (77.16586pt too wide) in paragraph at lines 2321--2322
+Overfull \hbox (77.16586pt too wide) in paragraph at lines 2323--2324
 []\OT1/cmtt/m/n/10 ecospat.meva.table\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat
 .max.tss\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.plot.tss\OT1/cmr/m/n/10 , \O
 T1/cmtt/m/n/10 ecospat.cohen.kappa\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.pl
 ot.kappa 
-[46]
-Overfull \hbox (109.15433pt too wide) in paragraph at lines 2366--2367
+
+Overfull \hbox (109.15433pt too wide) in paragraph at lines 2368--2369
 []\OT1/cmr/m/n/10 Luigi Maio-rano \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 luigi.maio
 rano@gmail.com\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of An-to
 ine Guisan \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 antoine.guisan@unil.ch\OML/cmtt/m
 /n/10 > 
 [47] [48]
-Overfull \hbox (61.5269pt too wide) in paragraph at lines 2437--2437
+Overfull \hbox (61.5269pt too wide) in paragraph at lines 2439--2439
  []\OT1/cmtt/m/n/10 ecospat.mdr (data, xcol, ycol, datecol, mode, rep, mean.dat
 e.error, fixed.sources.rows)[] 
-[49]
-Overfull \hbox (48.92572pt too wide) in paragraph at lines 2503--2503
+[49] [50]
+Overfull \hbox (48.92572pt too wide) in paragraph at lines 2505--2505
  []\OT1/cmtt/m/n/9 text(data[fixed.sources.rows,2]+0.5,data[fixed.sources.rows,
 1]+0.5,data[fixed.sources.rows,3],[] 
-[50]
-Overfull \hbox (109.43637pt too wide) in paragraph at lines 2547--2548
+
+Overfull \hbox (109.43637pt too wide) in paragraph at lines 2549--2550
 []\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 bpeti
 tpierre@gmail.com\OML/cmtt/m/n/10 >\OT1/cmr/m/n/10 . Mod-i-fied by Daniel Scher
 -rer \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 daniel.j.a.scherrer@gmail.com\OML/cmtt/
 m/n/10 > 
 [51]
-Overfull \hbox (109.15433pt too wide) in paragraph at lines 2606--2607
+Overfull \hbox (109.15433pt too wide) in paragraph at lines 2608--2609
 []\OT1/cmr/m/n/10 Antoine Guisan \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 antoine.gui
 san@unil.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Luigi Ma
 io-rano \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 luigi.maiorano@gmail.com\OML/cmtt/m/
 n/10 > 
 
-Overfull \hbox (71.91591pt too wide) in paragraph at lines 2614--2615
+Overfull \hbox (71.91591pt too wide) in paragraph at lines 2616--2617
 []\OT1/cmtt/m/n/10 ecospat.max.kappa\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.
 max.tss\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.plot.tss\OT1/cmr/m/n/10 , \OT
 1/cmtt/m/n/10 ecospat.cohen.kappa\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.plo
 t.kappa 
 [52]
-Overfull \hbox (16.47343pt too wide) in paragraph at lines 2645--2646
+Overfull \hbox (16.47343pt too wide) in paragraph at lines 2647--2648
 []\OT1/cmr/m/n/10 Robin En-gler \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 robin.engler
 @gmail.com\OML/cmtt/m/n/10 >\OT1/cmr/m/n/10 , Wim Hordijk \OML/cmtt/m/n/10 <\OT
 1/cmtt/m/n/10 wim@WorldWideWanderings.net\OML/cmtt/m/n/10 >
 [53] [54] [55] [56]
-Overfull \hbox (15.8511pt too wide) in paragraph at lines 2825--2825
+Overfull \hbox (15.8511pt too wide) in paragraph at lines 2827--2827
  []\OT1/cmtt/m/n/9 #################################### PCA-ENVIRONMENT #######
 ###########################[] 
 
-Overfull \hbox (39.47583pt too wide) in paragraph at lines 2847--2847
+Overfull \hbox (39.47583pt too wide) in paragraph at lines 2849--2849
  []\OT1/cmtt/m/n/9 #################################### stability S in space ##
 ################################[] 
 [57]
-Overfull \hbox (66.7618pt too wide) in paragraph at lines 2889--2890
+Overfull \hbox (66.7618pt too wide) in paragraph at lines 2891--2892
 \OT1/cmr/m/n/10 tion. The de-fault value is 1. On mul-ti-core com-put-ers, the 
 op-ti-mal would be \OT1/cmtt/m/n/10 ncores = detectCores() - 1\OT1/cmr/m/n/10 .
  
 [58] [59]
-Overfull \hbox (66.7618pt too wide) in paragraph at lines 2989--2990
+Overfull \hbox (66.7618pt too wide) in paragraph at lines 2991--2992
 \OT1/cmr/m/n/10 tion. The de-fault value is 1. On mul-ti-core com-put-ers, the 
 op-ti-mal would be \OT1/cmtt/m/n/10 ncores = detectCores() - 1\OT1/cmr/m/n/10 .
  
 [60] [61]
-Overfull \hbox (15.8511pt too wide) in paragraph at lines 3069--3069
+Overfull \hbox (15.8511pt too wide) in paragraph at lines 3071--3071
  []\OT1/cmtt/m/n/9 #################################### PCA-ENVIRONMENT #######
 ###########################[] 
 
-Overfull \hbox (72.55045pt too wide) in paragraph at lines 3084--3084
+Overfull \hbox (72.55045pt too wide) in paragraph at lines 3086--3086
  []\OT1/cmtt/m/n/9 #################################### occurrence density in s
 pace ##################################[] 
 [62] [63] [64] [65] [66]
-Overfull \hbox (52.04291pt too wide) in paragraph at lines 3323--3324
+Overfull \hbox (52.04291pt too wide) in paragraph at lines 3325--3326
 []\OT1/cmr/m/n/10 Christophe Randin \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 christop
 he.randin@unibas.ch\OML/cmtt/m/n/10 >\OT1/cmr/m/n/10 , An-toine Guisan \OML/cmt
 t/m/n/10 <\OT1/cmtt/m/n/10 antoine.guisan@unil.ch\OML/cmtt/m/n/10 >
 [67]
-Overfull \hbox (56.55484pt too wide) in paragraph at lines 3374--3376
+Overfull \hbox (56.55484pt too wide) in paragraph at lines 3376--3378
 []\OT1/cmtt/m/n/10 ecospat.plot.niche.dyn\OT1/cmr/m/n/10 ,\OT1/cmtt/m/n/10 ecos
 pat.plot.overlap.test\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.niche.similarit
 y.test\OT1/cmr/m/n/10 ,\OT1/cmtt/m/n/10 princomp 
 
-Overfull \hbox (110.02931pt too wide) in paragraph at lines 3407--3408
+Overfull \hbox (110.02931pt too wide) in paragraph at lines 3409--3410
 []\OT1/cmr/m/n/10 Luigi Maio-rano \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 luigi.maio
 rano@gmail.com\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Va-le
 -ria Di Cola \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 valeria.dicola@unil.ch\OML/cmtt
 /m/n/10 >\OT1/cmr/m/n/10 . 
 
-Overfull \hbox (71.91591pt too wide) in paragraph at lines 3418--3419
+Overfull \hbox (71.91591pt too wide) in paragraph at lines 3420--3421
 []\OT1/cmtt/m/n/10 ecospat.meva.table\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat
 .max.tss\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.plot.tss\OT1/cmr/m/n/10 , \O
 T1/cmtt/m/n/10 ecospat.cohen.kappa\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.ma
 x.kappa 
 [68] [69]
-Overfull \hbox (34.3825pt too wide) in paragraph at lines 3499--3500
+Overfull \hbox (34.3825pt too wide) in paragraph at lines 3501--3502
 []\OT1/cmr/m/n/10 A grid-clim ob-ject for the species dis-tri-bu-tion cre-ated 
 by \OT1/cmtt/m/n/10 ecospat.grid.clim.dyn\OT1/cmr/m/n/10 . 
 [70]
-Overfull \hbox (7.93707pt too wide) in paragraph at lines 3574--3575
+Overfull \hbox (7.93707pt too wide) in paragraph at lines 3576--3577
 []\OT1/cmtt/m/n/10 ecospat.niche.similarity.test \OT1/cmr/m/n/10 or \OT1/cmtt/m
 /n/10 ecospat.niche.equivalency.test\OT1/cmr/m/n/10 . 
 [71] [72]
-Overfull \hbox (0.54227pt too wide) in paragraph at lines 3662--3663
+Overfull \hbox (0.54227pt too wide) in paragraph at lines 3664--3665
 []\OT1/cmr/m/n/10 The range of columns for the en-vi-ron-men-tal vari-ables in 
 glob. colvar="all"
 
-Overfull \hbox (6.40121pt too wide) in paragraph at lines 3682--3682
+Overfull \hbox (6.40121pt too wide) in paragraph at lines 3684--3684
  []\OT1/cmtt/m/n/9 ecospat.rand.pseudoabsences (nbabsences=10, glob=glob, colxy
 glob=1:2, colvar = "all",[] 
 [73]
-Overfull \hbox (19.52727pt too wide) in paragraph at lines 3696--3696
+Overfull \hbox (19.52727pt too wide) in paragraph at lines 3698--3698
  []\OT1/cmtt/m/n/10 ecospat.rangesize (bin.map, ocp, buffer, eoo.around.model, 
 eoo.around.modelocp,[] 
 [74] [75] [76]
-Overfull \hbox (6.40121pt too wide) in paragraph at lines 3851--3851
+Overfull \hbox (6.40121pt too wide) in paragraph at lines 3853--3853
  []\OT1/cmtt/m/n/9 plot(rangesize$RangeObjects$eoo.around.model[[i]]@polygons,a
 dd=T,border="blue",lwd=2)[] 
 
-Overfull \hbox (6.40121pt too wide) in paragraph at lines 3853--3853
+Overfull \hbox (6.40121pt too wide) in paragraph at lines 3855--3855
  []\OT1/cmtt/m/n/9 plot(rangesize$RangeObjects$eoo.around.mo.ocp[[i]]@polygons,
 add=T,border="darkgreen",[] 
 
-Overfull \hbox (44.20078pt too wide) in paragraph at lines 3856--3856
+Overfull \hbox (44.20078pt too wide) in paragraph at lines 3858--3858
  []\OT1/cmtt/m/n/9 #plot(rangesize$RangeObjects$model.within.eoo[[i]],col=c("gr
 ey","blue","darkgreen"),legend=F)[] 
 
-Overfull \hbox (1.67627pt too wide) in paragraph at lines 3861--3861
+Overfull \hbox (1.67627pt too wide) in paragraph at lines 3863--3863
  []\OT1/cmtt/m/n/9 ### Alpha-hulls are not included in the function yet because
  of Licence limitations.[] 
 
-Overfull \hbox (34.75089pt too wide) in paragraph at lines 3870--3870
+Overfull \hbox (34.75089pt too wide) in paragraph at lines 3872--3872
  []  \OT1/cmtt/m/n/9 mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$m
 esh[,4]-del$mesh[,6])^2))*alpha[] 
 
 Underfull \vbox (badness 10000) has occurred while \output is active [77]
-Overfull \hbox (92.30693pt too wide) in paragraph at lines 3914--3915
+Overfull \hbox (92.30693pt too wide) in paragraph at lines 3916--3917
 []\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 achillea
 s.psomas@wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \
 OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 niklaus.zimmermann@wsl.ch\OML/cmtt/m/n/10 > 
 [78]
-Overfull \hbox (92.30693pt too wide) in paragraph at lines 3971--3972
+Overfull \hbox (92.30693pt too wide) in paragraph at lines 3973--3974
 []\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 achillea
 s.psomas@wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \
 OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 niklaus.zimmermann@wsl.ch\OML/cmtt/m/n/10 > 
 
-Overfull \hbox (6.40121pt too wide) in paragraph at lines 3982--3982
+Overfull \hbox (6.40121pt too wide) in paragraph at lines 3984--3984
  []    \OT1/cmtt/m/n/9 bio3<- raster(system.file("external/bioclim/current/bio3
 .grd",package="biomod2"))[] 
 
-Overfull \hbox (15.8511pt too wide) in paragraph at lines 3983--3983
+Overfull \hbox (15.8511pt too wide) in paragraph at lines 3985--3985
  []    \OT1/cmtt/m/n/9 bio12<- raster(system.file("external/bioclim/current/bio
 12.grd",package="biomod2"))[] 
 
-Overfull \hbox (63.10056pt too wide) in paragraph at lines 3989--3989
+Overfull \hbox (63.10056pt too wide) in paragraph at lines 3991--3991
  []    \OT1/cmtt/m/n/9 points(B3B12.prop_samples$x,B3B12.prop_samples$y,pch=16,
 cex=0.6,col=B3B12.prop_samples$class)[] 
 [79]
-Overfull \hbox (92.30693pt too wide) in paragraph at lines 4033--4034
+Overfull \hbox (92.30693pt too wide) in paragraph at lines 4035--4036
 []\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 achillea
 s.psomas@wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \
 OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 niklaus.zimmermann@wsl.ch\OML/cmtt/m/n/10 > 
 
-Overfull \hbox (6.40121pt too wide) in paragraph at lines 4045--4045
+Overfull \hbox (6.40121pt too wide) in paragraph at lines 4047--4047
  []    \OT1/cmtt/m/n/9 bio3<- raster(system.file("external/bioclim/current/bio3
 .grd",package="biomod2"))[] 
 
-Overfull \hbox (15.8511pt too wide) in paragraph at lines 4046--4046
+Overfull \hbox (15.8511pt too wide) in paragraph at lines 4048--4048
  []    \OT1/cmtt/m/n/9 bio12<- raster(system.file("external/bioclim/current/bio
 12.grd",package="biomod2"))[] 
 
-Overfull \hbox (63.10056pt too wide) in paragraph at lines 4052--4052
+Overfull \hbox (63.10056pt too wide) in paragraph at lines 4054--4054
  []    \OT1/cmtt/m/n/9 points(B3B12.regl_samples$x,B3B12.regl_samples$y,pch=16,
 cex=0.6,col=B3B12.regl_samples$class)[] 
 [80]
-Overfull \hbox (48.92572pt too wide) in paragraph at lines 4101--4101
+Overfull \hbox (48.92572pt too wide) in paragraph at lines 4103--4103
  []\OT1/cmtt/m/n/9 occ.sp1 <- ecospat.occ.desaggregation(dfvar=sp1,colxy=2:3,co
 lvar=NULL, min.dist=500,plot=TRUE)[] 
 
-Overfull \hbox (44.20078pt too wide) in paragraph at lines 4104--4104
+Overfull \hbox (44.20078pt too wide) in paragraph at lines 4106--4106
  []\OT1/cmtt/m/n/9 occ_sp1 <- na.exclude(ecospat.sample.envar(dfsp=occ.sp1,cols
 pxy=1:2,colspkept=1:2,dfvar=clim,[] 
 [81]
-Overfull \hbox (13.39044pt too wide) in paragraph at lines 4143--4144
+Overfull \hbox (13.39044pt too wide) in paragraph at lines 4145--4146
 []\OT1/cmr/m/n/10 Manuela D`Amen \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 manuela.dam
 en@unil.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Anne Dubuis \OML/cmtt/m/n/10 <
 \OT1/cmtt/m/n/10 anne.dubuis@gmail.com\OML/cmtt/m/n/10 > 
 [82] [83] [84] [85]
-Overfull \hbox (5.00673pt too wide) in paragraph at lines 4317--4318
+Overfull \hbox (5.00673pt too wide) in paragraph at lines 4319--4320
 \OT1/cmr/m/n/10 Leontodon[]hispidus[]sl, Dactylis[]glomerata, Tri-folium[]repen
 s[]sstr, Gera-nium[]sylvaticum, Ra-
 
-Overfull \hbox (2.46504pt too wide) in paragraph at lines 4317--4318
+Overfull \hbox (2.46504pt too wide) in paragraph at lines 4319--4320
 \OT1/cmr/m/n/10 nun-cu-lus[]acris[]sl, Prunella[]vulgaris, Veron-ica[]chamaedry
 s, Tarax-acum[]officinale[]aggr, Plan-
 
-Overfull \hbox (14.86508pt too wide) in paragraph at lines 4317--4318
+Overfull \hbox (14.86508pt too wide) in paragraph at lines 4319--4320
 \OT1/cmr/m/n/10 tago[]lanceolata, Po-ten-tilla[]erecta, Carex[]sempervirens, So
 l-danella[]alpina, Cyno-su-rus[]cristatus,
 [86] [87] [88]
-Overfull \hbox (34.4704pt too wide) in paragraph at lines 4445--4446
+Overfull \hbox (34.4704pt too wide) in paragraph at lines 4447--4448
 []\OT1/cmr/m/n/10 Scientific name of the species used in the exmaple: Bro-mus[]
 erectus[]sstr, Sax-ifraga[]oppositifolia,
 [89]
-Overfull \hbox (32.16809pt too wide) in paragraph at lines 4511--4512
+Overfull \hbox (32.16809pt too wide) in paragraph at lines 4513--4514
 []\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 bpeti
 tpierre@gmail.com\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/
 cmtt/m/n/10 <\OT1/cmtt/m/n/10 valeria.dicola@unil.ch\OML/cmtt/m/n/10 > 
 [90]
-Overfull \hbox (32.16809pt too wide) in paragraph at lines 4571--4572
+Overfull \hbox (32.16809pt too wide) in paragraph at lines 4573--4574
 []\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 bpeti
 tpierre@gmail.com\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/
 cmtt/m/n/10 <\OT1/cmtt/m/n/10 valeria.dicola@unil.ch\OML/cmtt/m/n/10 > 
 [91]
-Overfull \hbox (16.70961pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (16.70961pt too wide) in paragraph at lines 4602--4652
 []\OT1/cmr/m/n/10 [1] "Rumex[]acetosa" [2] "Poly-gonum[]bistorta" [3] "Poly-gon
 um[]viviparum" [4] "Rumex[]crispus"
 
-Overfull \hbox (42.66794pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (42.66794pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 [5] "Cerastium[]latifolium" [6] "Si-lene[]acaulis" [7] "Gyp-sop
 hila[]repens" [8] "Vac-cinium[]gaultherioides"
 
-Overfull \hbox (21.6819pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (21.6819pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 [9] "Sol-danella[]alpina" [10] "Cru-ci-ata[]laevipes" [11] "Gal
 -ium[]album" [12] "Gal-ium[]anisophyllon"
 
-Overfull \hbox (8.41791pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (8.41791pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 tiana[]purpurea" [17] "Gen-tiana[]lutea" [18] "Bart-sia[]alpina
 " [19] "Rhi-nan-thus[]alectorolophus"
 
-Overfull \hbox (29.23746pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (29.23746pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 [20] "Prunella[]grandiflora" [21] "Aci-nos[]alpinus" [22] "Plan
 -tago[]alpina" [23] "Plan-tago[]lanceolata"
 
-Overfull \hbox (38.32068pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (38.32068pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 [24] "Veron-ica[]officinalis" [25] "Veron-ica[]aphylla" [26] "V
 eron-ica[]alpina" [27] "Veron-ica[]chamaedrys"
 
-Overfull \hbox (4.35953pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (4.35953pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 [28] "Veron-ica[]persica" [29] "Glob-u-laria[]cordifolia" [30] 
 "Glob-u-laria[]nudicaulis" [31] "Myoso-
 
-Overfull \hbox (26.54298pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (26.54298pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 "Hypochaeris[]radicata" [39] "Achil-lea[]atrata" [40] "Achil-le
 a[]millefolium" [41] "Ho-mog-yne[]alpina"
 
-Overfull \hbox (43.15407pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (43.15407pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 [42] "Senecio[]doronicum" [43] "Adenos-tyles[]glabra" [44] "Ar-
 nica[]montana" [45] "Aster[]bellidiastrum"
 
-Overfull \hbox (1.69289pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (1.69289pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 [46] "Bel-lis[]perennis" [47] "Doron-icum[]grandiflorum" [48] "
 Phy-teuma[]orbiculare" [49] "Phy-
 
-Overfull \hbox (42.94576pt too wide) in paragraph at lines 4654--4655
+Overfull \hbox (42.94576pt too wide) in paragraph at lines 4656--4657
 []\OT1/cmr/m/n/10 Charlotte Ndiribe \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 charlott
 e.ndiribe@unil.ch\OML/cmtt/m/n/10 >\OT1/cmr/m/n/10 , Nico-las Salamin \OML/cmtt
 /m/n/10 <\OT1/cmtt/m/n/10 nicolas.salamin@unil.ch\OML/cmtt/m/n/10 >
@@ -831,7 +773,7 @@ s/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 tt10.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmtt12.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on Rd2.pdf (94 pages, 343642 bytes).
+Output written on Rd2.pdf (94 pages, 344327 bytes).
 Transcript written on Rd2.log.
 This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex)
  restricted \write18 enabled.
@@ -1012,632 +954,574 @@ Overfull \hbox (30.02594pt too wide) in paragraph at lines 712--712
  []                                                   \OT1/cmtt/m/n/9 validatio
 n.method = "cross-validation",[] 
 
-Overfull \hbox (108.77649pt too wide) in paragraph at lines 753--753
- []  \OT1/cmtt/m/n/10 \item{sp.data}{a data.frame where the rows are sites and 
-the columns are species (values 1,0)}[] 
-
-Overfull \hbox (376.52415pt too wide) in paragraph at lines 754--754
- []  \OT1/cmtt/m/n/10 \item{env.data}{either a data.frame where rows are sites 
-and colums are environmental variables or a raster stack of the envrionmental v
-ariables}[] 
-
-Overfull \hbox (255.7752pt too wide) in paragraph at lines 755--755
- []  \OT1/cmtt/m/n/10 \item{xy}{two column data.frame with X and Y coordinates 
-of the sites (most be same coordinate system as \code{env.data})}[] 
-
-Overfull \hbox (770.27072pt too wide) in paragraph at lines 756--756
- []  \OT1/cmtt/m/n/10 \item{DataSplitTable}{a table providing \code{TRUE/FALSE}
- to indicate what points are used for calibration and evaluation. As returned b
-y \code{\LinkA{ecospat.CCV.createDataSplitTable}{ecospat.CCV.createDataSplitTab
-le}}}[] 
-
-Overfull \hbox (329.27457pt too wide) in paragraph at lines 757--757
- []  \OT1/cmtt/m/n/10 \item{DataSplit}{percentage of dataset observations retai
-ned for the model training  (only needed if no \code{DataSplitTable} provided)}
-[] 
-
-Overfull \hbox (203.27567pt too wide) in paragraph at lines 758--758
- []  \OT1/cmtt/m/n/10 \item{NbRunEval}{number of cross-validatio/split sample r
-uns (only needed if no \code{DataSplitTable} provided)}[] 
-
-Overfull \hbox (266.27512pt too wide) in paragraph at lines 759--759
- []  \OT1/cmtt/m/n/10 \item{minNbPredictors}{minimum number of occurences [min(
-presences/Absences] per predicotors needed to calibrate the models}[] 
+Overfull \hbox (5.4849pt too wide) in paragraph at lines 758--759
+\OT1/cmr/m/n/10 tion and eval-u-a-tion. As re-turned by \OT1/cmtt/m/n/10 ecospa
+t.CCV.createDataSplitTable 
 [16]
-Overfull \hbox (471.02333pt too wide) in paragraph at lines 760--760
- []  \OT1/cmtt/m/n/10 \item{validation.method}{either "cross-validation" or "sp
-lit-sample" used to validate the communtiy predictions (only needed if no \code
-{DataSplitTable} provided)}[] 
+Overfull \hbox (20.63406pt too wide) in paragraph at lines 760--761
+[]\OT1/cmr/m/n/10 number of cross-validatio/split sam-ple runs (only needed if 
+no \OT1/cmtt/m/n/10 DataSplitTable
 
-Overfull \hbox (722.99394pt too wide) in paragraph at lines 761--761
- []  \OT1/cmtt/m/n/10 \item{models.sdm}{modeling techniques used for the normal
- SDMs. Vector of models names choosen among \code{\TS1/cmtt/m/n/10 '\OT1/cmtt/m
-/n/10 GLM\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/1
-0 GBM\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GA
-M\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 CTA\TS
-1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 ANN\TS1/cm
-tt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 SRE\TS1/cmtt/m
-/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 FDA\TS1/cmtt/m/n/1
-0 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MARS\TS1/cmtt/m/n/10 '
-\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 RF\TS1/cmtt/m/n/10 '\OT1/
-cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MAXENT.Phillips\TS1/cmtt/m/n/1
-0 ' \OT1/cmtt/m/n/10 and \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MAXENT.Tsuruoka\TS1
-/cmtt/m/n/10 '\OT1/cmtt/m/n/10 }}[] 
+Overfull \hbox (284.93579pt too wide) in paragraph at lines 763--764
+\OT1/cmr/m/n/10 choosen among \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GLM\TS1/cmtt/m
+/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GBM\TS1/cmtt/m/n/1
+0 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GAM\TS1/cmtt/m/n/10 '\
+OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 CTA\TS1/cmtt/m/n/10 '\OT1/
+cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 ANN\TS1/cmtt/m/n/10 '\OT1/cmtt
+/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 SRE\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n
+/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 FDA\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 
+, \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MARS\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \
+TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 RF\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/c
+mtt/m/n/10 '\OT1/cmtt/m/n/10 MAXENT.Phillips\TS1/cmtt/m/n/10 ' \OT1/cmtt/m/n/10
+ and \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MAXENT.Tsuruoka\TS1/cmtt/m/n/10 ' 
 
-Overfull \hbox (686.24426pt too wide) in paragraph at lines 762--762
- []  \OT1/cmtt/m/n/10 \item{models.esm}{modeling techniques used for the ESMs. 
-Vector of models names choosen among \code{\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 G
-LM\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GBM\T
-S1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GAM\TS1/c
-mtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 CTA\TS1/cmtt/
-m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 ANN\TS1/cmtt/m/n/
-10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 SRE\TS1/cmtt/m/n/10 '
-\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 FDA\TS1/cmtt/m/n/10 '\OT1
-/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MARS\TS1/cmtt/m/n/10 '\OT1/cm
-tt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 RF\TS1/cmtt/m/n/10 '\OT1/cmtt/m/
-n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MAXENT.Phillips\TS1/cmtt/m/n/10 ' \OT
-1/cmtt/m/n/10 and \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MAXENT.Tsuruoka\TS1/cmtt/m
-/n/10 '\OT1/cmtt/m/n/10 }}[] 
+Overfull \hbox (248.76907pt too wide) in paragraph at lines 764--765
+\OT1/cmr/m/n/10 among \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GLM\TS1/cmtt/m/n/10 '\
+OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GBM\TS1/cmtt/m/n/10 '\OT1/
+cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 GAM\TS1/cmtt/m/n/10 '\OT1/cmtt
+/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 CTA\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n
+/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 ANN\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 
+, \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 SRE\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \T
+S1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 FDA\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/c
+mtt/m/n/10 '\OT1/cmtt/m/n/10 MARS\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt
+/m/n/10 '\OT1/cmtt/m/n/10 RF\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/
+10 '\OT1/cmtt/m/n/10 MAXENT.Phillips\TS1/cmtt/m/n/10 ' \OT1/cmtt/m/n/10 and \TS
+1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 MAXENT.Tsuruoka\TS1/cmtt/m/n/10 ' 
 
-Overfull \hbox (581.27237pt too wide) in paragraph at lines 763--763
- []  \OT1/cmtt/m/n/10 \item{modeling.options.sdm}{modeling options for the norm
-al SDMs. \code{"BIOMOD.models.options"}" object returned by \code{\LinkA{BIOMOD
-\_ModelingOptions}{BIOMOD.Rul.ModelingOptions}}}[] 
+Overfull \hbox (81.76506pt too wide) in paragraph at lines 767--768
+[]\OT1/cmr/m/n/10 evaluation score used to weight sin-gle mod-els to build en-s
+em-bles: \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 AUC\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/
+10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 Kappa\TS1/cmtt/m/n/10 ' \OT1/cmtt/m/n/1
+0 or \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 TSS\TS1/cmtt/m/n/10 ' 
 
-Overfull \hbox (539.27274pt too wide) in paragraph at lines 764--764
- []  \OT1/cmtt/m/n/10 \item{modeling.options.esm}{modeling options for the ESMs
-. \code{"BIOMOD.models.options"} object returned by \code{\LinkA{BIOMOD\_Modeli
-ngOptions}{BIOMOD.Rul.ModelingOptions}}}[] 
-
-Overfull \hbox (245.26788pt too wide) in paragraph at lines 765--765
- []  \OT1/cmtt/m/n/10 \item{ensemble.metric}{evaluation score used to weight si
-ngle models to build ensembles: \code{\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 AUC\TS
-1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 Kappa\TS1/
-cmtt/m/n/10 ' \OT1/cmtt/m/n/10 or \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 TSS\TS1/cm
-tt/m/n/10 '\OT1/cmtt/m/n/10 }}[] 
-
-Overfull \hbox (234.76797pt too wide) in paragraph at lines 766--766
- []  \OT1/cmtt/m/n/10 \item{ESM}{either \code{\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/1
-0 YES\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 } (ESMs allowed), \code{\TS1/cmtt/m/n/1
-0 '\OT1/cmtt/m/n/10 NO\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 } (ESMs not allowed) o
-r \code{\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 ALL\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/1
-0 } (ESMs used in any case)}[] 
-
-Overfull \hbox (14.27731pt too wide) in paragraph at lines 769--769
- []  \OT1/cmtt/m/n/10 \item{VarImport}{number of permutation runs to evaluate v
-ariable importance}[] 
-
-Overfull \hbox (114.02644pt too wide) in paragraph at lines 770--770
- []  \OT1/cmtt/m/n/10 \item{modeling.id}{character, the ID (=name) of modeling 
-procedure. A random number by default}[] 
-
-Overfull \hbox (52.05551pt too wide) in paragraph at lines 775--777
+Overfull \hbox (52.05551pt too wide) in paragraph at lines 777--779
 \OT1/cmr/m/n/10 tions with the \OT1/cmtt/m/n/10 ecospat.CCV.communityEvaluation
 .bin \OT1/cmr/m/n/10 or \OT1/cmtt/m/n/10 ecospat.CCV.communityEvaluation.prob
-
-Overfull \hbox (123.34781pt too wide) in paragraph at lines 787--788
+[17]
+Overfull \hbox (123.34781pt too wide) in paragraph at lines 789--790
 []\OT1/cmr/m/n/10 a 3-dimensional ar-ray of sin-gle species eval-u-a-tion met-r
 ics (\TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 Max.KAPPA\TS1/cmtt/m/n/10 '\OT1/cmtt/m/
 n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 Max.TSS\TS1/cmtt/m/n/10 '\OT1/cmtt/m/
 n/10 , \TS1/cmtt/m/n/10 '\OT1/cmtt/m/n/10 AUC of ROC\TS1/cmtt/m/n/10 '\OT1/cmr/
 m/n/10 ) 
-[17]
-Overfull \hbox (156.26692pt too wide) in paragraph at lines 803--804
+
+Overfull \hbox (156.26692pt too wide) in paragraph at lines 805--806
 []\OT1/cmtt/m/n/10 ecospat.CCV.createDataSplitTable\OT1/cmr/m/n/10 ; \OT1/cmtt/
 m/n/10 ecospat.CCV.communityEvaluation.bin\OT1/cmr/m/n/10 ; \OT1/cmtt/m/n/10 ec
 ospat.CCV.communityEvaluation.prob 
-[18]
-Overfull \hbox (14.2235pt too wide) in paragraph at lines 903--904
+[18] [19]
+Overfull \hbox (14.2235pt too wide) in paragraph at lines 905--906
 \OT1/cmr/m/n/10 mer-mann \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 niklaus.zimmermann@
 wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/cmtt/m/n/10
  <\OT1/cmtt/m/n/10 valeria.dicola@unil.ch\OML/cmtt/m/n/10 > 
-[19]
-Overfull \hbox (66.66595pt too wide) in paragraph at lines 913--914
+
+Overfull \hbox (66.66595pt too wide) in paragraph at lines 915--916
 []\OT1/cmtt/m/n/10 ecospat.meva.table\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat
 .max.tss\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.plot.tss\OT1/cmr/m/n/10 , \O
 T1/cmtt/m/n/10 ecospat.plot.kappa\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.max
 .kappa 
-
-Overfull \hbox (10.55145pt too wide) in paragraph at lines 943--944
+[20]
+Overfull \hbox (10.55145pt too wide) in paragraph at lines 945--946
 []\OT1/cmr/m/n/10 Logical vari-able in-di-cat-ing whether the pre-dic-tion ma-t
 rix con-tains presences-
-[20]
-Overfull \hbox (87.00156pt too wide) in paragraph at lines 979--981
+[21]
+Overfull \hbox (87.00156pt too wide) in paragraph at lines 981--983
 []\OT1/cmr/m/n/10 with con-tri-bu-tion of Daniel Scher-rer \OML/cmtt/m/n/10 <\O
 T1/cmtt/m/n/10 daniel.scherrer@unil.ch\OML/cmtt/m/n/10 >\OT1/cmr/m/n/10 , Anne 
 Dubuis \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 anne.dubuis@gmail.com\OML/cmtt/m/n/10
  >
-[21]
-Overfull \hbox (13.39044pt too wide) in paragraph at lines 1033--1034
+[22]
+Overfull \hbox (13.39044pt too wide) in paragraph at lines 1035--1036
 []\OT1/cmr/m/n/10 Anne Dubuis \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 anne.dubuis@gm
 ail.com\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Manuela D`Amen \OML/cmtt/m/n/10 <
 \OT1/cmtt/m/n/10 manuela.damen@unil.ch\OML/cmtt/m/n/10 > 
 
-Overfull \hbox (39.47583pt too wide) in paragraph at lines 1046--1046
+Overfull \hbox (39.47583pt too wide) in paragraph at lines 1048--1048
  []\OT1/cmtt/m/n/9 presence <- ecospat.testData[c(53,62,58,70,61,66,65,71,69,43
 ,63,56,68,57,55,60,54,67,59,64)][] 
-[22] [23] [24]
-Overfull \hbox (55.89153pt too wide) in paragraph at lines 1179--1180
+[23] [24] [25]
+Overfull \hbox (55.89153pt too wide) in paragraph at lines 1181--1182
 []\OT1/cmr/m/n/10 Christophe Randin \OML/cmtt/m/n/10 < \OT1/cmtt/m/n/10 christo
 phe.randin@wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Manuela D'Amen <manuela
 .damen@msn.com> 
 
-Overfull \hbox (15.8511pt too wide) in paragraph at lines 1199--1199
+Overfull \hbox (15.8511pt too wide) in paragraph at lines 1201--1201
  []\OT1/cmtt/m/n/9 data<- ecospat.testData[c(53,62,58,70,61,66,65,71,69,43,63,5
 6,68,57,55,60,54,67,59,64)][] 
-[25]
-Overfull \hbox (56.87636pt too wide) in paragraph at lines 1226--1227
+
+Overfull \hbox (56.87636pt too wide) in paragraph at lines 1228--1229
 []\OT1/cmr/m/n/10 Christophe Randin \OML/cmtt/m/n/10 < \OT1/cmtt/m/n/10 christo
 phe.randin@wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/cm
 tt/m/n/10 <\OT1/cmtt/m/n/10 antoine.guisan@unil.ch\OML/cmtt/m/n/10 > 
 [26]
-Overfull \hbox (67.37627pt too wide) in paragraph at lines 1269--1270
+Overfull \hbox (67.37627pt too wide) in paragraph at lines 1271--1272
 []\OT1/cmr/m/n/10 Christophe Randin \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 christop
 he.randin@unibas.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/
 cmtt/m/n/10 <\OT1/cmtt/m/n/10 antoine.guisan@unil.ch\OML/cmtt/m/n/10 > 
 [27]
-Overfull \hbox (67.37627pt too wide) in paragraph at lines 1319--1320
+Overfull \hbox (67.37627pt too wide) in paragraph at lines 1321--1322
 []\OT1/cmr/m/n/10 Christophe Randin \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 christop
 he.randin@unibas.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/
 cmtt/m/n/10 <\OT1/cmtt/m/n/10 antoine.guisan@unil.ch\OML/cmtt/m/n/10 > 
-
-Overfull \hbox (1.67627pt too wide) in paragraph at lines 1331--1331
+[28]
+Overfull \hbox (1.67627pt too wide) in paragraph at lines 1333--1333
  []\OT1/cmtt/m/n/9 glm <- ecospat.cv.glm (glm.obj = get ("glm.Agrostis_capillar
 is", envir=ecospat.env),[] 
 
-Overfull \hbox (35.27713pt too wide) in paragraph at lines 1346--1346
+Overfull \hbox (35.27713pt too wide) in paragraph at lines 1348--1348
  []\OT1/cmtt/m/n/10 ecospat.cv.me (data.cv.me, name.sp, names.pred, K=10, cv.li
 m=10, jack.knife=FALSE)[] 
-[28]
-Overfull \hbox (67.37627pt too wide) in paragraph at lines 1370--1371
+
+Overfull \hbox (67.37627pt too wide) in paragraph at lines 1372--1373
 []\OT1/cmr/m/n/10 Christophe Randin \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 christop
 he.randin@unibas.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/
 cmtt/m/n/10 <\OT1/cmtt/m/n/10 antoine.guisan@unil.ch\OML/cmtt/m/n/10 > 
-[29]
-Overfull \hbox (51.6264pt too wide) in paragraph at lines 1422--1423
+[29] [30]
+Overfull \hbox (51.6264pt too wide) in paragraph at lines 1424--1425
 []\OT1/cmr/m/n/10 Christophe Randin \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 christop
 he.randin@wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/cmt
 t/m/n/10 <\OT1/cmtt/m/n/10 antoine.guisan@unil.ch\OML/cmtt/m/n/10 > 
-[30] [31]
-Overfull \hbox (35.74593pt too wide) in paragraph at lines 1521--1522
+[31]
+Overfull \hbox (35.74593pt too wide) in paragraph at lines 1523--1524
 []\OT1/cmr/m/n/10 an eval-u-a-tion score used to weight sin-gle mod-els to buil
 d en-sem-bles:"AUC","TSS", 
-
-Overfull \hbox (31.3016pt too wide) in paragraph at lines 1531--1532
+[32]
+Overfull \hbox (31.3016pt too wide) in paragraph at lines 1533--1534
 \OT1/cmr/m/n/10 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', "MAX-ENT.T
 suruoka"
-[32]
-Overfull \hbox (70.62915pt too wide) in paragraph at lines 1557--1558
+
+Overfull \hbox (70.62915pt too wide) in paragraph at lines 1559--1560
 []\OT1/cmr/m/n/10 A \OT1/cmtt/m/n/10 "BIOMOD.EnsembleModeling.out"\OT1/cmr/m/n/
 10 . This ob-ject will be later given to \OT1/cmtt/m/n/10 ecospat.ESM.EnsembleP
 rojection
-
-Overfull \hbox (20.57605pt too wide) in paragraph at lines 1597--1597
+[33]
+Overfull \hbox (20.57605pt too wide) in paragraph at lines 1599--1599
  []\OT1/cmtt/m/n/9 ### Formating the data with the BIOMOD_FormatingData() funct
 ion from the package biomod2[] 
-[33]
-Overfull \hbox (30.02594pt too wide) in paragraph at lines 1616--1616
+
+Overfull \hbox (30.02594pt too wide) in paragraph at lines 1618--1618
  []\OT1/cmtt/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.s
 core=c("SomersD"),threshold=0)[] 
 
-Overfull \hbox (67.8255pt too wide) in paragraph at lines 1623--1623
+Overfull \hbox (67.8255pt too wide) in paragraph at lines 1625--1625
  []\OT1/cmtt/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.
 prediction.output=my.ESM_proj_current,[] 
 
-Overfull \hbox (48.92572pt too wide) in paragraph at lines 1624--1624
+Overfull \hbox (48.92572pt too wide) in paragraph at lines 1626--1626
  []                                                        \OT1/cmtt/m/n/9 ESM.
 EnsembleModeling.output=my.ESM_EF)[] 
-[34]
-Overfull \hbox (39.81386pt too wide) in paragraph at lines 1692--1693
+[34] [35]
+Overfull \hbox (39.81386pt too wide) in paragraph at lines 1694--1695
 []\OT1/cmtt/m/n/10 BIOMOD[]Modeling\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 BIOMOD[]P
 rojection\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 BIOMOD[]EnsembleForecasting\OT1/cmr
 /m/n/10 , \OT1/cmtt/m/n/10 BIOMOD[]EnsembleModeling 
 
-Overfull \hbox (20.57605pt too wide) in paragraph at lines 1711--1711
+Overfull \hbox (20.57605pt too wide) in paragraph at lines 1713--1713
  []\OT1/cmtt/m/n/9 ### Formating the data with the BIOMOD_FormatingData() funct
 ion form the package biomod2[] 
-[35]
-Overfull \hbox (30.02594pt too wide) in paragraph at lines 1734--1734
+
+Overfull \hbox (30.02594pt too wide) in paragraph at lines 1736--1736
  []\OT1/cmtt/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.s
 core=c("SomersD"),threshold=0)[] 
-
-Overfull \hbox (67.8255pt too wide) in paragraph at lines 1741--1741
+[36]
+Overfull \hbox (67.8255pt too wide) in paragraph at lines 1743--1743
  []\OT1/cmtt/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.
 prediction.output=my.ESM_proj_current,[] 
 
-Overfull \hbox (48.92572pt too wide) in paragraph at lines 1742--1742
+Overfull \hbox (48.92572pt too wide) in paragraph at lines 1744--1744
  []                                                        \OT1/cmtt/m/n/9 ESM.
 EnsembleModeling.output=my.ESM_EF)[] 
-[36]
-Overfull \hbox (26.85715pt too wide) in paragraph at lines 1797--1798
+[37]
+Overfull \hbox (26.85715pt too wide) in paragraph at lines 1799--1800
 \OT1/cmr/m/n/10 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', 'MAX-ENT.T
 suruoka'
 
-Overfull \hbox (25.87436pt too wide) in paragraph at lines 1815--1816
+Overfull \hbox (25.87436pt too wide) in paragraph at lines 1817--1818
 []\OT1/cmr/m/n/10 numeric. Calls re-moveTmp-Files() to delete all files from ra
 s-terOp-tions()\TS1/cmr/m/n/10 $\OT1/cmr/m/n/10 tmpdir
-[37]
-Overfull \hbox (36.75143pt too wide) in paragraph at lines 1837--1838
+
+Overfull \hbox (36.75143pt too wide) in paragraph at lines 1839--1840
 []\OT1/cmr/m/n/10 Frank Breiner \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 frank.breine
 r@wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Mirko Di Feb-braro \OML/cmtt/m/n
 /10 <\OT1/cmtt/m/n/10 mirkodifebbraro@gmail.com\OML/cmtt/m/n/10 >
-
-Overfull \hbox (35.22168pt too wide) in paragraph at lines 1849--1850
+[38]
+Overfull \hbox (35.22168pt too wide) in paragraph at lines 1851--1852
 []\OT1/cmtt/m/n/10 ecospat.ESM.EnsembleModeling\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/
 10 ecospat.ESM.Projection\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.ESM.Ensembl
 eProjection 
 
-Overfull \hbox (0.61974pt too wide) in paragraph at lines 1851--1852
+Overfull \hbox (0.61974pt too wide) in paragraph at lines 1853--1854
 []\OT1/cmtt/m/n/10 BIOMOD[]FormatingData\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 BIOM
 OD[]ModelingOptions\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 BIOMOD[]Modeling\OT1/cmr/
 m/n/10 ,\OT1/cmtt/m/n/10 BIOMOD[]Projection 
 
-Overfull \hbox (20.57605pt too wide) in paragraph at lines 1870--1870
+Overfull \hbox (20.57605pt too wide) in paragraph at lines 1872--1872
  []\OT1/cmtt/m/n/9 ### Formating the data with the BIOMOD_FormatingData() funct
 ion from the package biomod2[] 
-[38]
-Overfull \hbox (30.02594pt too wide) in paragraph at lines 1888--1888
+
+Overfull \hbox (30.02594pt too wide) in paragraph at lines 1890--1890
  []\OT1/cmtt/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.s
 core=c("SomersD"),threshold=0)[] 
 
-Overfull \hbox (67.8255pt too wide) in paragraph at lines 1895--1895
+Overfull \hbox (67.8255pt too wide) in paragraph at lines 1897--1897
  []\OT1/cmtt/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.
 prediction.output=my.ESM_proj_current,[] 
 
-Overfull \hbox (48.92572pt too wide) in paragraph at lines 1896--1896
+Overfull \hbox (48.92572pt too wide) in paragraph at lines 1898--1898
  []                                                        \OT1/cmtt/m/n/9 ESM.
 EnsembleModeling.output=my.ESM_EF)[] 
-
-Overfull \hbox (0.10545pt too wide) in paragraph at lines 1928--1929
+[39]
+Overfull \hbox (0.10545pt too wide) in paragraph at lines 1930--1931
 \OT1/cmr/m/n/10 the col-umn names (\OT1/cmtt/m/n/10 data.frame \OT1/cmr/m/n/10 
 or \OT1/cmtt/m/n/10 matrix\OT1/cmr/m/n/10 ) or layer Names (\OT1/cmtt/m/n/10 ra
 sterStack\OT1/cmr/m/n/10 )
-[39]
-Overfull \hbox (28.09659pt too wide) in paragraph at lines 1933--1934
+
+Overfull \hbox (28.09659pt too wide) in paragraph at lines 1935--1936
 []\OT1/cmr/m/n/10 Numeric. Calls re-moveTmp-Files() to delete all files from ra
 s-terOp-tions()\TS1/cmr/m/n/10 $\OT1/cmr/m/n/10 tmpdir
 
-Overfull \hbox (33.66875pt too wide) in paragraph at lines 1947--1949
+Overfull \hbox (33.66875pt too wide) in paragraph at lines 1949--1951
 []\OT1/cmr/m/n/10 Returns the pro-jec-tions for all se-lected mod-els (same as 
 in \OT1/cmtt/m/n/10 biomod2\OT1/cmr/m/n/10 ) See \OT1/cmtt/m/n/10 "BIOMOD.proje
 ction.out"
-
-Overfull \hbox (24.72177pt too wide) in paragraph at lines 1967--1968
+[40]
+Overfull \hbox (24.72177pt too wide) in paragraph at lines 1969--1970
 []\OT1/cmtt/m/n/10 ecospat.ESM.EnsembleModeling\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/
 10 ecospat.ESM.Modeling\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.ESM.EnsembleP
 rojection 
 
-Overfull \hbox (0.61974pt too wide) in paragraph at lines 1969--1970
+Overfull \hbox (0.61974pt too wide) in paragraph at lines 1971--1972
 []\OT1/cmtt/m/n/10 BIOMOD[]FormatingData\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 BIOM
 OD[]ModelingOptions\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 BIOMOD[]Modeling\OT1/cmr/
 m/n/10 ,\OT1/cmtt/m/n/10 BIOMOD[]Projection 
-[40]
-Overfull \hbox (20.57605pt too wide) in paragraph at lines 1988--1988
+
+Overfull \hbox (20.57605pt too wide) in paragraph at lines 1990--1990
  []\OT1/cmtt/m/n/9 ### Formating the data with the BIOMOD_FormatingData() funct
 ion from the package biomod2[] 
-
-Overfull \hbox (30.02594pt too wide) in paragraph at lines 2006--2006
+[41]
+Overfull \hbox (30.02594pt too wide) in paragraph at lines 2008--2008
  []\OT1/cmtt/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.s
 core=c("SomersD"),threshold=0)[] 
 
-Overfull \hbox (67.8255pt too wide) in paragraph at lines 2013--2013
+Overfull \hbox (67.8255pt too wide) in paragraph at lines 2015--2015
  []\OT1/cmtt/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.
 prediction.output=my.ESM_proj_current,[] 
 
-Overfull \hbox (48.92572pt too wide) in paragraph at lines 2014--2014
+Overfull \hbox (48.92572pt too wide) in paragraph at lines 2016--2016
  []                                                        \OT1/cmtt/m/n/9 ESM.
 EnsembleModeling.output=my.ESM_EF)[] 
-[41]
-Overfull \hbox (84.00133pt too wide) in paragraph at lines 2071--2072
+[42]
+Overfull \hbox (84.00133pt too wide) in paragraph at lines 2073--2074
 []\OT1/cmr/m/n/10 Olivier Broen-ni-mann \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 oliv
 ier.broennimann@unil.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Blaise Pe-tit-pie
 rre \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 bpetitpierre@gmail.com\OML/cmtt/m/n/10 >
  
-[42]
-Overfull \hbox (44.20078pt too wide) in paragraph at lines 2091--2091
+
+Overfull \hbox (44.20078pt too wide) in paragraph at lines 2093--2093
  []\OT1/cmtt/m/n/9 occ.sp_test <- na.exclude(ecospat.sample.envar(dfsp=spp,cols
 pxy=2:3,colspkept=1:3,dfvar=clim,[] 
-
-Overfull \hbox (34.75089pt too wide) in paragraph at lines 2100--2100
+[43]
+Overfull \hbox (34.75089pt too wide) in paragraph at lines 2102--2102
  []\OT1/cmtt/m/n/9 for (i in 1:length(sp.list)){sp.nbocc<-c(sp.nbocc,length(whi
 ch(occ.sp[,1] == sp.list[i])))}[] 
 
-Overfull \hbox (15.8511pt too wide) in paragraph at lines 2115--2115
+Overfull \hbox (15.8511pt too wide) in paragraph at lines 2117--2117
  []\OT1/cmtt/m/n/9 #################################### PCA-ENVIRONMENT #######
 ###########################[] 
 
-Overfull \hbox (25.301pt too wide) in paragraph at lines 2118--2118
+Overfull \hbox (25.301pt too wide) in paragraph at lines 2120--2120
  []\OT1/cmtt/m/n/9 pca.cal <- dudi.pca(data, row.w = w, center = TRUE, scale = 
 TRUE, scannf = FALSE, nf = 2)[] 
 
-Overfull \hbox (39.47583pt too wide) in paragraph at lines 2125--2125
+Overfull \hbox (39.47583pt too wide) in paragraph at lines 2127--2127
  []  \OT1/cmtt/m/n/9 row.sp1 <- which(occ.sp[,1] == sp.list[sp.combn[1,i]]) # r
 ows in data corresponding to sp1[] 
-[43]
-Overfull \hbox (39.47583pt too wide) in paragraph at lines 2126--2126
+
+Overfull \hbox (39.47583pt too wide) in paragraph at lines 2128--2128
  []  \OT1/cmtt/m/n/9 row.sp2 <- which(occ.sp[,1] == sp.list[sp.combn[2,i]]) # r
 ows in data corresponding to sp2[] 
 
-Overfull \hbox (6.40121pt too wide) in paragraph at lines 2130--2130
+Overfull \hbox (6.40121pt too wide) in paragraph at lines 2132--2132
  []  \OT1/cmtt/m/n/9 scores.clim <- pca.cal$li[(nrow(occ.sp)+1):nrow(data),]  #
 scores for global climate[] 
-(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/omscmr.fd)
 [44]
-Overfull \hbox (28.3294pt too wide) in paragraph at lines 2180--2184
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/omscmr.fd)
+
+Overfull \hbox (28.3294pt too wide) in paragraph at lines 2182--2186
 \OT1/cmr/m/n/10 When se-lect-ing an-other sam-pling type (\OMS/cmsy/m/n/10 n\OT
 1/cmr/m/n/10 'regular\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ', \OMS/cmsy/m/n/10 n\OT
 1/cmr/m/n/10 'stratified\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ', \OMS/cmsy/m/n/10 n
 \OT1/cmr/m/n/10 'nonaligned\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ',
 
-Overfull \hbox (0.70882pt too wide) in paragraph at lines 2184--2187
+Overfull \hbox (0.70882pt too wide) in paragraph at lines 2186--2189
 []\OT1/cmr/m/n/10 data.frame or Spa-tial-Points. You can use your own set of Ps
 eudo-Absences
-
-Overfull \hbox (39.47583pt too wide) in paragraph at lines 2216--2216
+[45]
+Overfull \hbox (39.47583pt too wide) in paragraph at lines 2218--2218
  []\OT1/cmtt/m/n/9 random.spec <- cbind(as.data.frame(randomPoints(predictors,5
 0,extf=1)),species="randomSpec")[] 
-[45] [46]
-Overfull \hbox (20.57605pt too wide) in paragraph at lines 2279--2279
+[46]
+Overfull \hbox (20.57605pt too wide) in paragraph at lines 2281--2281
  []\OT1/cmtt/m/n/9 ecospat.mantel.correlogram(dfvar=ecospat.testData[c(2:16)],c
 olxy=1:2, n=100, colvar=3:7,[] 
-
-Overfull \hbox (109.15433pt too wide) in paragraph at lines 2312--2313
+[47]
+Overfull \hbox (109.15433pt too wide) in paragraph at lines 2314--2315
 []\OT1/cmr/m/n/10 Antoine Guisan \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 antoine.gui
 san@unil.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Luigi Ma
 io-rano \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 luigi.maiorano@gmail.com\OML/cmtt/m/
 n/10 >
 
-Overfull \hbox (77.16586pt too wide) in paragraph at lines 2321--2322
+Overfull \hbox (77.16586pt too wide) in paragraph at lines 2323--2324
 []\OT1/cmtt/m/n/10 ecospat.meva.table\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat
 .max.tss\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.plot.tss\OT1/cmr/m/n/10 , \O
 T1/cmtt/m/n/10 ecospat.cohen.kappa\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.pl
 ot.kappa 
-[47]
-Overfull \hbox (109.15433pt too wide) in paragraph at lines 2366--2367
+
+Overfull \hbox (109.15433pt too wide) in paragraph at lines 2368--2369
 []\OT1/cmr/m/n/10 Luigi Maio-rano \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 luigi.maio
 rano@gmail.com\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of An-to
 ine Guisan \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 antoine.guisan@unil.ch\OML/cmtt/m
 /n/10 > 
 [48] [49]
-Overfull \hbox (61.5269pt too wide) in paragraph at lines 2437--2437
+Overfull \hbox (61.5269pt too wide) in paragraph at lines 2439--2439
  []\OT1/cmtt/m/n/10 ecospat.mdr (data, xcol, ycol, datecol, mode, rep, mean.dat
 e.error, fixed.sources.rows)[] 
-[50]
-Overfull \hbox (48.92572pt too wide) in paragraph at lines 2503--2503
+[50] [51]
+Overfull \hbox (48.92572pt too wide) in paragraph at lines 2505--2505
  []\OT1/cmtt/m/n/9 text(data[fixed.sources.rows,2]+0.5,data[fixed.sources.rows,
 1]+0.5,data[fixed.sources.rows,3],[] 
-[51]
-Overfull \hbox (109.43637pt too wide) in paragraph at lines 2547--2548
+
+Overfull \hbox (109.43637pt too wide) in paragraph at lines 2549--2550
 []\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 bpeti
 tpierre@gmail.com\OML/cmtt/m/n/10 >\OT1/cmr/m/n/10 . Mod-i-fied by Daniel Scher
 -rer \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 daniel.j.a.scherrer@gmail.com\OML/cmtt/
 m/n/10 > 
 [52]
-Overfull \hbox (109.15433pt too wide) in paragraph at lines 2606--2607
+Overfull \hbox (109.15433pt too wide) in paragraph at lines 2608--2609
 []\OT1/cmr/m/n/10 Antoine Guisan \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 antoine.gui
 san@unil.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Luigi Ma
 io-rano \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 luigi.maiorano@gmail.com\OML/cmtt/m/
 n/10 > 
 
-Overfull \hbox (71.91591pt too wide) in paragraph at lines 2614--2615
+Overfull \hbox (71.91591pt too wide) in paragraph at lines 2616--2617
 []\OT1/cmtt/m/n/10 ecospat.max.kappa\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.
 max.tss\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.plot.tss\OT1/cmr/m/n/10 , \OT
 1/cmtt/m/n/10 ecospat.cohen.kappa\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.plo
 t.kappa 
 [53]
-Overfull \hbox (16.47343pt too wide) in paragraph at lines 2645--2646
+Overfull \hbox (16.47343pt too wide) in paragraph at lines 2647--2648
 []\OT1/cmr/m/n/10 Robin En-gler \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 robin.engler
 @gmail.com\OML/cmtt/m/n/10 >\OT1/cmr/m/n/10 , Wim Hordijk \OML/cmtt/m/n/10 <\OT
 1/cmtt/m/n/10 wim@WorldWideWanderings.net\OML/cmtt/m/n/10 >
 [54] [55] [56] [57]
-Overfull \hbox (15.8511pt too wide) in paragraph at lines 2825--2825
+Overfull \hbox (15.8511pt too wide) in paragraph at lines 2827--2827
  []\OT1/cmtt/m/n/9 #################################### PCA-ENVIRONMENT #######
 ###########################[] 
 
-Overfull \hbox (39.47583pt too wide) in paragraph at lines 2847--2847
+Overfull \hbox (39.47583pt too wide) in paragraph at lines 2849--2849
  []\OT1/cmtt/m/n/9 #################################### stability S in space ##
 ################################[] 
 [58]
-Overfull \hbox (66.7618pt too wide) in paragraph at lines 2889--2890
+Overfull \hbox (66.7618pt too wide) in paragraph at lines 2891--2892
 \OT1/cmr/m/n/10 tion. The de-fault value is 1. On mul-ti-core com-put-ers, the 
 op-ti-mal would be \OT1/cmtt/m/n/10 ncores = detectCores() - 1\OT1/cmr/m/n/10 .
  
 [59] [60]
-Overfull \hbox (66.7618pt too wide) in paragraph at lines 2989--2990
+Overfull \hbox (66.7618pt too wide) in paragraph at lines 2991--2992
 \OT1/cmr/m/n/10 tion. The de-fault value is 1. On mul-ti-core com-put-ers, the 
 op-ti-mal would be \OT1/cmtt/m/n/10 ncores = detectCores() - 1\OT1/cmr/m/n/10 .
  
 [61] [62]
-Overfull \hbox (15.8511pt too wide) in paragraph at lines 3069--3069
+Overfull \hbox (15.8511pt too wide) in paragraph at lines 3071--3071
  []\OT1/cmtt/m/n/9 #################################### PCA-ENVIRONMENT #######
 ###########################[] 
 
-Overfull \hbox (72.55045pt too wide) in paragraph at lines 3084--3084
+Overfull \hbox (72.55045pt too wide) in paragraph at lines 3086--3086
  []\OT1/cmtt/m/n/9 #################################### occurrence density in s
 pace ##################################[] 
 [63] [64] [65] [66] [67]
-Overfull \hbox (52.04291pt too wide) in paragraph at lines 3323--3324
+Overfull \hbox (52.04291pt too wide) in paragraph at lines 3325--3326
 []\OT1/cmr/m/n/10 Christophe Randin \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 christop
 he.randin@unibas.ch\OML/cmtt/m/n/10 >\OT1/cmr/m/n/10 , An-toine Guisan \OML/cmt
 t/m/n/10 <\OT1/cmtt/m/n/10 antoine.guisan@unil.ch\OML/cmtt/m/n/10 >
 [68]
-Overfull \hbox (56.55484pt too wide) in paragraph at lines 3374--3376
+Overfull \hbox (56.55484pt too wide) in paragraph at lines 3376--3378
 []\OT1/cmtt/m/n/10 ecospat.plot.niche.dyn\OT1/cmr/m/n/10 ,\OT1/cmtt/m/n/10 ecos
 pat.plot.overlap.test\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.niche.similarit
 y.test\OT1/cmr/m/n/10 ,\OT1/cmtt/m/n/10 princomp 
 
-Overfull \hbox (110.02931pt too wide) in paragraph at lines 3407--3408
+Overfull \hbox (110.02931pt too wide) in paragraph at lines 3409--3410
 []\OT1/cmr/m/n/10 Luigi Maio-rano \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 luigi.maio
 rano@gmail.com\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Va-le
 -ria Di Cola \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 valeria.dicola@unil.ch\OML/cmtt
 /m/n/10 >\OT1/cmr/m/n/10 . 
 
-Overfull \hbox (71.91591pt too wide) in paragraph at lines 3418--3419
+Overfull \hbox (71.91591pt too wide) in paragraph at lines 3420--3421
 []\OT1/cmtt/m/n/10 ecospat.meva.table\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat
 .max.tss\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.plot.tss\OT1/cmr/m/n/10 , \O
 T1/cmtt/m/n/10 ecospat.cohen.kappa\OT1/cmr/m/n/10 , \OT1/cmtt/m/n/10 ecospat.ma
 x.kappa 
 [69] [70]
-Overfull \hbox (34.3825pt too wide) in paragraph at lines 3499--3500
+Overfull \hbox (34.3825pt too wide) in paragraph at lines 3501--3502
 []\OT1/cmr/m/n/10 A grid-clim ob-ject for the species dis-tri-bu-tion cre-ated 
 by \OT1/cmtt/m/n/10 ecospat.grid.clim.dyn\OT1/cmr/m/n/10 . 
 [71]
-Overfull \hbox (7.93707pt too wide) in paragraph at lines 3574--3575
+Overfull \hbox (7.93707pt too wide) in paragraph at lines 3576--3577
 []\OT1/cmtt/m/n/10 ecospat.niche.similarity.test \OT1/cmr/m/n/10 or \OT1/cmtt/m
 /n/10 ecospat.niche.equivalency.test\OT1/cmr/m/n/10 . 
 [72] [73]
-Overfull \hbox (0.54227pt too wide) in paragraph at lines 3662--3663
+Overfull \hbox (0.54227pt too wide) in paragraph at lines 3664--3665
 []\OT1/cmr/m/n/10 The range of columns for the en-vi-ron-men-tal vari-ables in 
 glob. colvar="all"
 
-Overfull \hbox (6.40121pt too wide) in paragraph at lines 3682--3682
+Overfull \hbox (6.40121pt too wide) in paragraph at lines 3684--3684
  []\OT1/cmtt/m/n/9 ecospat.rand.pseudoabsences (nbabsences=10, glob=glob, colxy
 glob=1:2, colvar = "all",[] 
 [74]
-Overfull \hbox (19.52727pt too wide) in paragraph at lines 3696--3696
+Overfull \hbox (19.52727pt too wide) in paragraph at lines 3698--3698
  []\OT1/cmtt/m/n/10 ecospat.rangesize (bin.map, ocp, buffer, eoo.around.model, 
 eoo.around.modelocp,[] 
 [75] [76] [77]
-Overfull \hbox (6.40121pt too wide) in paragraph at lines 3851--3851
+Overfull \hbox (6.40121pt too wide) in paragraph at lines 3853--3853
  []\OT1/cmtt/m/n/9 plot(rangesize$RangeObjects$eoo.around.model[[i]]@polygons,a
 dd=T,border="blue",lwd=2)[] 
 
-Overfull \hbox (6.40121pt too wide) in paragraph at lines 3853--3853
+Overfull \hbox (6.40121pt too wide) in paragraph at lines 3855--3855
  []\OT1/cmtt/m/n/9 plot(rangesize$RangeObjects$eoo.around.mo.ocp[[i]]@polygons,
 add=T,border="darkgreen",[] 
 
-Overfull \hbox (44.20078pt too wide) in paragraph at lines 3856--3856
+Overfull \hbox (44.20078pt too wide) in paragraph at lines 3858--3858
  []\OT1/cmtt/m/n/9 #plot(rangesize$RangeObjects$model.within.eoo[[i]],col=c("gr
 ey","blue","darkgreen"),legend=F)[] 
 
-Overfull \hbox (1.67627pt too wide) in paragraph at lines 3861--3861
+Overfull \hbox (1.67627pt too wide) in paragraph at lines 3863--3863
  []\OT1/cmtt/m/n/9 ### Alpha-hulls are not included in the function yet because
  of Licence limitations.[] 
 
-Overfull \hbox (34.75089pt too wide) in paragraph at lines 3870--3870
+Overfull \hbox (34.75089pt too wide) in paragraph at lines 3872--3872
  []  \OT1/cmtt/m/n/9 mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$m
 esh[,4]-del$mesh[,6])^2))*alpha[] 
 
 Underfull \vbox (badness 10000) has occurred while \output is active [78]
-Overfull \hbox (92.30693pt too wide) in paragraph at lines 3914--3915
+Overfull \hbox (92.30693pt too wide) in paragraph at lines 3916--3917
 []\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 achillea
 s.psomas@wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \
 OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 niklaus.zimmermann@wsl.ch\OML/cmtt/m/n/10 > 
 [79]
-Overfull \hbox (92.30693pt too wide) in paragraph at lines 3971--3972
+Overfull \hbox (92.30693pt too wide) in paragraph at lines 3973--3974
 []\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 achillea
 s.psomas@wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \
 OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 niklaus.zimmermann@wsl.ch\OML/cmtt/m/n/10 > 
 
-Overfull \hbox (6.40121pt too wide) in paragraph at lines 3982--3982
+Overfull \hbox (6.40121pt too wide) in paragraph at lines 3984--3984
  []    \OT1/cmtt/m/n/9 bio3<- raster(system.file("external/bioclim/current/bio3
 .grd",package="biomod2"))[] 
 
-Overfull \hbox (15.8511pt too wide) in paragraph at lines 3983--3983
+Overfull \hbox (15.8511pt too wide) in paragraph at lines 3985--3985
  []    \OT1/cmtt/m/n/9 bio12<- raster(system.file("external/bioclim/current/bio
 12.grd",package="biomod2"))[] 
 
-Overfull \hbox (63.10056pt too wide) in paragraph at lines 3989--3989
+Overfull \hbox (63.10056pt too wide) in paragraph at lines 3991--3991
  []    \OT1/cmtt/m/n/9 points(B3B12.prop_samples$x,B3B12.prop_samples$y,pch=16,
 cex=0.6,col=B3B12.prop_samples$class)[] 
 [80]
-Overfull \hbox (92.30693pt too wide) in paragraph at lines 4033--4034
+Overfull \hbox (92.30693pt too wide) in paragraph at lines 4035--4036
 []\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 achillea
 s.psomas@wsl.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \
 OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 niklaus.zimmermann@wsl.ch\OML/cmtt/m/n/10 > 
 
-Overfull \hbox (6.40121pt too wide) in paragraph at lines 4045--4045
+Overfull \hbox (6.40121pt too wide) in paragraph at lines 4047--4047
  []    \OT1/cmtt/m/n/9 bio3<- raster(system.file("external/bioclim/current/bio3
 .grd",package="biomod2"))[] 
 
-Overfull \hbox (15.8511pt too wide) in paragraph at lines 4046--4046
+Overfull \hbox (15.8511pt too wide) in paragraph at lines 4048--4048
  []    \OT1/cmtt/m/n/9 bio12<- raster(system.file("external/bioclim/current/bio
 12.grd",package="biomod2"))[] 
 
-Overfull \hbox (63.10056pt too wide) in paragraph at lines 4052--4052
+Overfull \hbox (63.10056pt too wide) in paragraph at lines 4054--4054
  []    \OT1/cmtt/m/n/9 points(B3B12.regl_samples$x,B3B12.regl_samples$y,pch=16,
 cex=0.6,col=B3B12.regl_samples$class)[] 
 [81]
-Overfull \hbox (48.92572pt too wide) in paragraph at lines 4101--4101
+Overfull \hbox (48.92572pt too wide) in paragraph at lines 4103--4103
  []\OT1/cmtt/m/n/9 occ.sp1 <- ecospat.occ.desaggregation(dfvar=sp1,colxy=2:3,co
 lvar=NULL, min.dist=500,plot=TRUE)[] 
 
-Overfull \hbox (44.20078pt too wide) in paragraph at lines 4104--4104
+Overfull \hbox (44.20078pt too wide) in paragraph at lines 4106--4106
  []\OT1/cmtt/m/n/9 occ_sp1 <- na.exclude(ecospat.sample.envar(dfsp=occ.sp1,cols
 pxy=1:2,colspkept=1:2,dfvar=clim,[] 
 [82]
-Overfull \hbox (13.39044pt too wide) in paragraph at lines 4143--4144
+Overfull \hbox (13.39044pt too wide) in paragraph at lines 4145--4146
 []\OT1/cmr/m/n/10 Manuela D`Amen \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 manuela.dam
 en@unil.ch\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Anne Dubuis \OML/cmtt/m/n/10 <
 \OT1/cmtt/m/n/10 anne.dubuis@gmail.com\OML/cmtt/m/n/10 > 
 [83] [84] [85] [86]
-Overfull \hbox (5.00673pt too wide) in paragraph at lines 4317--4318
+Overfull \hbox (5.00673pt too wide) in paragraph at lines 4319--4320
 \OT1/cmr/m/n/10 Leontodon[]hispidus[]sl, Dactylis[]glomerata, Tri-folium[]repen
 s[]sstr, Gera-nium[]sylvaticum, Ra-
 
-Overfull \hbox (2.46504pt too wide) in paragraph at lines 4317--4318
+Overfull \hbox (2.46504pt too wide) in paragraph at lines 4319--4320
 \OT1/cmr/m/n/10 nun-cu-lus[]acris[]sl, Prunella[]vulgaris, Veron-ica[]chamaedry
 s, Tarax-acum[]officinale[]aggr, Plan-
 
-Overfull \hbox (14.86508pt too wide) in paragraph at lines 4317--4318
+Overfull \hbox (14.86508pt too wide) in paragraph at lines 4319--4320
 \OT1/cmr/m/n/10 tago[]lanceolata, Po-ten-tilla[]erecta, Carex[]sempervirens, So
 l-danella[]alpina, Cyno-su-rus[]cristatus,
 [87] [88] [89]
-Overfull \hbox (34.4704pt too wide) in paragraph at lines 4445--4446
+Overfull \hbox (34.4704pt too wide) in paragraph at lines 4447--4448
 []\OT1/cmr/m/n/10 Scientific name of the species used in the exmaple: Bro-mus[]
 erectus[]sstr, Sax-ifraga[]oppositifolia,
 [90]
-Overfull \hbox (32.16809pt too wide) in paragraph at lines 4511--4512
+Overfull \hbox (32.16809pt too wide) in paragraph at lines 4513--4514
 []\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 bpeti
 tpierre@gmail.com\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/
 cmtt/m/n/10 <\OT1/cmtt/m/n/10 valeria.dicola@unil.ch\OML/cmtt/m/n/10 > 
 [91]
-Overfull \hbox (32.16809pt too wide) in paragraph at lines 4571--4572
+Overfull \hbox (32.16809pt too wide) in paragraph at lines 4573--4574
 []\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 bpeti
 tpierre@gmail.com\OML/cmtt/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/
 cmtt/m/n/10 <\OT1/cmtt/m/n/10 valeria.dicola@unil.ch\OML/cmtt/m/n/10 > 
 [92]
-Overfull \hbox (16.70961pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (16.70961pt too wide) in paragraph at lines 4602--4652
 []\OT1/cmr/m/n/10 [1] "Rumex[]acetosa" [2] "Poly-gonum[]bistorta" [3] "Poly-gon
 um[]viviparum" [4] "Rumex[]crispus"
 
-Overfull \hbox (42.66794pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (42.66794pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 [5] "Cerastium[]latifolium" [6] "Si-lene[]acaulis" [7] "Gyp-sop
 hila[]repens" [8] "Vac-cinium[]gaultherioides"
 
-Overfull \hbox (21.6819pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (21.6819pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 [9] "Sol-danella[]alpina" [10] "Cru-ci-ata[]laevipes" [11] "Gal
 -ium[]album" [12] "Gal-ium[]anisophyllon"
 
-Overfull \hbox (8.41791pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (8.41791pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 tiana[]purpurea" [17] "Gen-tiana[]lutea" [18] "Bart-sia[]alpina
 " [19] "Rhi-nan-thus[]alectorolophus"
 
-Overfull \hbox (29.23746pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (29.23746pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 [20] "Prunella[]grandiflora" [21] "Aci-nos[]alpinus" [22] "Plan
 -tago[]alpina" [23] "Plan-tago[]lanceolata"
 
-Overfull \hbox (38.32068pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (38.32068pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 [24] "Veron-ica[]officinalis" [25] "Veron-ica[]aphylla" [26] "V
 eron-ica[]alpina" [27] "Veron-ica[]chamaedrys"
 
-Overfull \hbox (4.35953pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (4.35953pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 [28] "Veron-ica[]persica" [29] "Glob-u-laria[]cordifolia" [30] 
 "Glob-u-laria[]nudicaulis" [31] "Myoso-
 
-Overfull \hbox (26.54298pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (26.54298pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 "Hypochaeris[]radicata" [39] "Achil-lea[]atrata" [40] "Achil-le
 a[]millefolium" [41] "Ho-mog-yne[]alpina"
 
-Overfull \hbox (43.15407pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (43.15407pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 [42] "Senecio[]doronicum" [43] "Adenos-tyles[]glabra" [44] "Ar-
 nica[]montana" [45] "Aster[]bellidiastrum"
 
-Overfull \hbox (1.69289pt too wide) in paragraph at lines 4600--4650
+Overfull \hbox (1.69289pt too wide) in paragraph at lines 4602--4652
 \OT1/cmr/m/n/10 [46] "Bel-lis[]perennis" [47] "Doron-icum[]grandiflorum" [48] "
 Phy-teuma[]orbiculare" [49] "Phy-
 
-Overfull \hbox (42.94576pt too wide) in paragraph at lines 4654--4655
+Overfull \hbox (42.94576pt too wide) in paragraph at lines 4656--4657
 []\OT1/cmr/m/n/10 Charlotte Ndiribe \OML/cmtt/m/n/10 <\OT1/cmtt/m/n/10 charlott
 e.ndiribe@unil.ch\OML/cmtt/m/n/10 >\OT1/cmr/m/n/10 , Nico-las Salamin \OML/cmtt
 /m/n/10 <\OT1/cmtt/m/n/10 nicolas.salamin@unil.ch\OML/cmtt/m/n/10 >
@@ -1666,8 +1550,8 @@ s/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 tt10.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmtt12.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on Rd2.pdf (95 pages, 345428 bytes).
+Output written on Rd2.pdf (95 pages, 346188 bytes).
 Transcript written on Rd2.log.
 Saving output to 'ecospat-manual.pdf' ...
 Done
-You may want to clean up by 'rm -Rf C:/Users/obroenni/AppData/Local/Temp/RtmpGkhiRF/Rd2pdf2678119276b5'
+You may want to clean up by 'rm -Rf C:/Users/obroenni/AppData/Local/Temp/RtmpU1S9X7/Rd2pdf14bcc2cea6'

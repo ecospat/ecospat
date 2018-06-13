@@ -27,22 +27,12 @@ The build time stamp is missing.
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
 * checking serialization versions ... OK
-* checking whether package 'ecospat' can be installed ... WARNING
-Found the following significant warnings:
-  Warning: retour de ligne à l'intérieur d'une chaîne de caractères entre guillemets à ecospat.CCV.modeling.Rd:30
-  Warning: W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat/man/ecospat.CCV.modeling.Rd:45: unknown macro '\item'
-  Warning: W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat/man/ecospat.CCV.modeling.Rd:46: unknown macro '\item'
-  Warning: W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat/man/ecospat.CCV.modeling.Rd:47: unknown macro '\item'
-  Warning: W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat/man/ecospat.CCV.modeling.Rd:48: unknown macro '\item'
-  Warning: W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat/man/ecospat.CCV.modeling.Rd:49: unknown macro '\item'
-  Warning: W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat/man/ecospat.CCV.modeling.Rd:50: unknown macro '\item'
-  Warning: W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat/man/ecospat.CCV.modeling.Rd:51: unknown macro '\item'
-See 'W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat.Rcheck/00install.out' for details.
+* checking whether package 'ecospat' can be installed ... OK
 * checking installed package size ... NOTE
-  installed size is 31.3Mb
+  installed size is 30.7Mb
   sub-directories of 1Mb or more:
     Meta      8.0Mb
-    R         3.0Mb
+    R         2.4Mb
     data      4.0Mb
     doc       3.0Mb
     extdata   2.0Mb
@@ -91,30 +81,17 @@ ecospat.niche.dynIndexProjGeo: no visible global function definition
 Undefined global functions or variables:
   PresenceAbsence community.metrics.cali.selected
   community.metrics.eval.selected extent<- output poibin
-* checking Rd files ... WARNING
-prepare_Rd: retour de ligne à l'intérieur d'une chaîne de caractères entre guillemets à ecospat.CCV.modeling.Rd:30
-prepare_Rd: ecospat.CCV.modeling.Rd:45: unknown macro '\item'
-prepare_Rd: ecospat.CCV.modeling.Rd:46: unknown macro '\item'
-prepare_Rd: ecospat.CCV.modeling.Rd:47: unknown macro '\item'
-prepare_Rd: ecospat.CCV.modeling.Rd:48: unknown macro '\item'
-prepare_Rd: ecospat.CCV.modeling.Rd:49: unknown macro '\item'
-prepare_Rd: ecospat.CCV.modeling.Rd:50: unknown macro '\item'
-prepare_Rd: ecospat.CCV.modeling.Rd:51: unknown macro '\item'
-checkRd: (7) ecospat.CCV.modeling.Rd:30-44: Tag \code is invalid in a \usage block
-checkRd: (7) ecospat.CCV.modeling.Rd:45: Tag \code is invalid in a \usage block
-checkRd: (7) ecospat.CCV.modeling.Rd:46: Tag \code is invalid in a \usage block
-checkRd: (7) ecospat.CCV.modeling.Rd:47: Tag \code is invalid in a \usage block
-checkRd: (7) ecospat.CCV.modeling.Rd:48: Tag \code is invalid in a \usage block
+* checking Rd files ... OK
 * checking Rd metadata ... OK
-* checking Rd line widths ... NOTE
-Erreur : 30-44: Tag \code not expected in code block
-Exécution arrêtée
-These lines will be truncated in the PDF manual.
+* checking Rd line widths ... OK
 * checking Rd cross-references ... WARNING
 Package inconnu 'DOI' dans les xrefs Rd
 * checking for missing documentation entries ... OK
 * checking for code/documentation mismatches ... OK
 * checking Rd \usage sections ... WARNING
+Assignments in \usage in documentation object 'ecospat.CCV.modeling':
+  modeling.id = as.character(format(Sys.time(), "%s"))
+
 Documented arguments not in \usage in documentation object 'ecospat.plot.mess':
   'xy'
 
@@ -136,27 +113,6 @@ Bad \usage lines found in documentation object 'ecospat.CCV.modeling':
                        parallel = TRUE, 
                        cpus = 4,
                        VarImport = 10,
-                       modeling.id = as.character(format(Sys.time(), <unescaped bksl>code{"
-  }
-  \arguments{
-    <unescaped bksl>item{sp.data}{a data.frame where the rows are sites and the columns are species (values 1,0)}
-    <unescaped bksl>item{env.data}{either a data.frame where rows are sites and colums are environmental variables or a raster stack of the envrionmental variables}
-    <unescaped bksl>item{xy}{two column data.frame with X and Y coordinates of the sites (most be same coordinate system as <unescaped bksl>code{env.data})}
-    <unescaped bksl>item{DataSplitTable}{a table providing <unescaped bksl>code{TRUE/FALSE} to indicate what points are used for calibration and evaluation. As returned by <unescaped bksl>code{<unescaped bksl>link{ecospat.CCV.createDataSplitTable}}}
-    <unescaped bksl>item{DataSplit}{percentage of dataset observations retained for the model training  (only needed if no <unescaped bksl>code{DataSplitTable} provided)}
-    <unescaped bksl>item{NbRunEval}{number of cross-validatio/split sample runs (only needed if no <unescaped bksl>code{DataSplitTable} provided)}
-    <unescaped bksl>item{minNbPredictors}{minimum number of occurences [min(presences/Absences] per predicotors needed to calibrate the models}
-    <unescaped bksl>item{validation.method}{either "cross-validation" or "split-sample" used to validate the communtiy predictions (only needed if no <unescaped bksl>code{DataSplitTable} provided)}
-    <unescaped bksl>item{models.sdm}{modeling techniques used for the normal SDMs. Vector of models names choosen among <unescaped bksl>code{'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF', 'MAXENT.Phillips' and 'MAXENT.Tsuruoka'}}
-    <unescaped bksl>item{models.esm}{modeling techniques used for the ESMs. Vector of models names choosen among <unescaped bksl>code{'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF', 'MAXENT.Phillips' and 'MAXENT.Tsuruoka'}}
-    <unescaped bksl>item{modeling.options.sdm}{modeling options for the normal SDMs. <unescaped bksl>code{"BIOMOD.models.options"}" object returned by <unescaped bksl>code{<unescaped bksl>link{BIOMOD_ModelingOptions}}}
-    <unescaped bksl>item{modeling.options.esm}{modeling options for the ESMs. <unescaped bksl>code{"BIOMOD.models.options"} object returned by <unescaped bksl>code{<unescaped bksl>link{BIOMOD_ModelingOptions}}}
-    <unescaped bksl>item{ensemble.metric}{evaluation score used to weight single models to build ensembles: <unescaped bksl>code{'AUC', 'Kappa' or 'TSS'}}
-    <unescaped bksl>item{ESM}{either <unescaped bksl>code{'YES'} (ESMs allowed), <unescaped bksl>code{'NO'} (ESMs not allowed) or <unescaped bksl>code{'ALL'} (ESMs used in any case)}
-    <unescaped bksl>item{parallel}{should parallel computing be allowed (<unescaped bksl>code{TRUE/FALSE})}
-    <unescaped bksl>item{cpus}{number of cpus to use in parallel computing}
-    <unescaped bksl>item{VarImport}{number of permutation runs to evaluate variable importance}
-    <unescaped bksl>item{modeling.id}{character, the ID (=name) of modeling procedure. A random number by default}
 
 Functions with \usage entries need to have the appropriate \alias
 entries, and all their arguments documented.
@@ -246,4 +202,4 @@ l.276 ^^M
 !  ==> Fatal error occurred, no output PDF file produced!
 * checking PDF version of manual without hyperrefs or index ... OK
 * DONE
-Status: 1 ERROR, 8 WARNINGs, 6 NOTEs
+Status: 1 ERROR, 6 WARNINGs, 5 NOTEs
