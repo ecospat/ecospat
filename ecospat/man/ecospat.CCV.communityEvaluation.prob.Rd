@@ -17,7 +17,7 @@ ecospat.CCV.communityEvaluation.prob(
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{cvv.modeling.data}{a \code{'ccv.modeling.data'} object returned by \code{\link{ecospat.CCV.modeling}}}
+  \item{ccv.modeling.data}{a \code{'ccv.modeling.data'} object returned by \code{\link{ecospat.CCV.modeling}}}
   \item{community.metrics}{a selection of community metrics to calculate (\code{'SR.deviation', 'community.AUC', 'probabilistic.Sorensen', 'probabilistic.Jaccard', 'probabilistic.Simpson'})}
   \item{se.th}{the desired precission for the community metrics (standard error of the mean)}
   \item{parallel}{should parallel computing be allowed (\code{TRUE/FALSE})}

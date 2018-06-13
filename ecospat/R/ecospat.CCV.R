@@ -408,7 +408,7 @@ ecospat.CCV.modeling <- function(sp.data,
                                           models=models,
                                           Prevalence=NULL,
                                           modeling.id="ccv", 
-                                          models.option=MyBiomodOptions, 
+                                          models.options=MyBiomodOptions, 
                                           parallel=FALSE)
     
     #Ensemble the ESMs

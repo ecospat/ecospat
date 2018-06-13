@@ -6,7 +6,7 @@
 
 \description{Creates a raster in geography with each pixel containing a niche dynamic index (stability, expansion, or unfilling) extracted from 2 niches generated with \code{ecospat.grid.clim.dyn}.}
 
-\usage{ecospat.niche.zProjGeo(z1,z2,env,index)}
+\usage{ecospat.niche.dynIndexProjGeo(z1,z2,env,index)}
 
 \arguments{
   \item{z1}{Species 1 occurrence density grid created by \code{ecospat.grid.clim.dyn}.}

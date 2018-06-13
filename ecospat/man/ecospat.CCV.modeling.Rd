@@ -27,14 +27,14 @@ ecospat.CCV.modeling(sp.data,
                      parallel = TRUE, 
                      cpus = 4,
                      VarImport = 10,
-                     modeling.id = as.character(format(Sys.time(), '\%s'))
+                     modeling.id = as.character(format(Sys.time(), "%s"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{sp.data}{a data.frame where the rows are sites and the columns are species (values 1,0)}
   \item{env.data}{either a data.frame where rows are sites and colums are environmental variables or a raster stack of the envrionmental variables}
   \item{xy}{two column data.frame with X and Y coordinates of the sites (most be same coordinate system as \code{env.data})}
-  \item{DataSplitTable}{a table providing \code{TRUE/FALSE} to indicate what points are used for calibration and evaluation. As returned by \code{\link{ecospat.CCV.createDataSplitTable()}}}
+  \item{DataSplitTable}{a table providing \code{TRUE/FALSE} to indicate what points are used for calibration and evaluation. As returned by \code{\link{ecospat.CCV.createDataSplitTable}}}
   \item{DataSplit}{percentage of dataset observations retained for the model training  (only needed if no \code{DataSplitTable} provided)}
   \item{NbRunEval}{number of cross-validatio/split sample runs (only needed if no \code{DataSplitTable} provided)}
   \item{minNbPredictors}{minimum number of occurences [min(presences/Absences] per predicotors needed to calibrate the models}
@@ -47,7 +47,7 @@ ecospat.CCV.modeling(sp.data,
   \item{ESM}{either \code{'YES'} (ESMs allowed), \code{'NO'} (ESMs not allowed) or \code{'ALL'} (ESMs used in any case)}
   \item{parallel}{should parallel computing be allowed (\code{TRUE/FALSE})}
   \item{cpus}{number of cpus to use in parallel computing}
-  \item{varImport}{number of permutation runs to evaluate variable importance}
+  \item{VarImport}{number of permutation runs to evaluate variable importance}
   \item{modeling.id}{character, the ID (=name) of modeling procedure. A random number by default}
 }
 \details{

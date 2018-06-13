@@ -1,6 +1,6 @@
 Package: ecospat
 Version: 2.2.1
-Date: 2018-05-08
+Date: 2018-06-013
 Title: Spatial Ecology Miscellaneous Methods
 Authors@R: c(
 	person("Olivier", "Broennimann", role = "aut", email = "olivier.broennimann@unil.ch"),
@@ -24,7 +24,7 @@ Authors@R: c(
 	person("Nicolas", "Salamin", role = "ctb"),
 	person("Niklaus", "Zimmermann", role = "ctb"),
 	person("Antoine", "Guisan", role = "aut", email = "antoine.guisan@unil.ch"))
-Author: Olivier Broennimann [aut],
+Author: Olivier Broennimann [cre, aut],
              Valeria Di Cola [cre, aut],
              Blaise Petitpierre [ctb],
              Frank Breiner [ctb],

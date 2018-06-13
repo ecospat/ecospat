@@ -23,7 +23,7 @@ ecospat.rangesize (bin.map = NULL,
                    AOO = T,
                    resol = c(2000, 2000),
                    AOO.circles = F,
-                   d = sqrt(2000^2/pi),
+                   d = sqrt((2000 * 2)/pi),
                    lonlat = FALSE,
                    return.obj = T,
                    save.obj = F,
@@ -168,7 +168,8 @@ lwd=2)
 }
 
 ### Alpha-hulls are not included in the function yet because of Licence limitations.
-### However, alpha-hulls can easily be included manually (see also the help file of the alpha hull package):
+### However, alpha-hulls can easily be included manually (see also the help file of 
+### the alpha hull package):
 
 require(alphahull)
   alpha = 2 # alpha value of 2 recommended by IUCN
@@ -183,7 +184,8 @@ require(alphahull)
 
 
 # plot alphahulls
-plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=F)
+plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
+  main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=F)
 plot(alpha.hull,add=T,lwd=1)
  
  }
