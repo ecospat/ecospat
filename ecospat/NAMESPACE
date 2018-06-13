@@ -27,7 +27,7 @@ importFrom("utils", "combn", "packageVersion", "setTxtProgressBar", "txtProgress
 importFrom("classInt", "classIntervals")
 importFrom("vegan", "permatswap")
 importFrom("stats", "pnorm")
-importFrom("alphahull","ahull","delvor")
+#importFrom("alphahull","ahull","delvor")
 # Export
 export(ecospat.adj.D2.glm)
 export(ecospat.binary.model)

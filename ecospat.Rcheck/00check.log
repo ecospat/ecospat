@@ -1,0 +1,29 @@
+* using log directory 'W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat.Rcheck'
+* using R version 3.5.0 (2018-04-23)
+* using platform: x86_64-w64-mingw32 (64-bit)
+* using session charset: ISO8859-1
+* using option '--as-cran'
+* checking for file 'ecospat/DESCRIPTION' ... OK
+* this is package 'ecospat' version '2.2.1'
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: 'Olivier Broennimann <olivier.broennimann@unil.ch>'
+
+New submission
+
+Package was archived on CRAN
+
+CRAN repository db overrides:
+  X-CRAN-Comment: Archived on 2018-05-03 as check problems were not
+    corrected despite reminders.
+
+Package has a VignetteBuilder field but no prebuilt vignette index.
+
+The build time stamp is missing.
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Namespace dependency not required: 'alphahull'
+
+See section 'The DESCRIPTION file' in the 'Writing R Extensions'
+manual.
+* DONE
+Status: 1 ERROR, 1 NOTE
