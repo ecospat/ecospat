@@ -1,0 +1,30 @@
+* installing *source* package 'ecospat' ...
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+Warning: retour de ligne à l'intérieur d'une chaîne de caractères entre guillemets à ecospat.CCV.modeling.Rd:30
+Warning: W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat/man/ecospat.CCV.modeling.Rd:45: unknown macro '\item'
+Warning: retour de ligne à l'intérieur d'une chaîne de caractères entre guillemets à ecospat.CCV.modeling.Rd:30
+Warning: W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat/man/ecospat.CCV.modeling.Rd:46: unknown macro '\item'
+Warning: retour de ligne à l'intérieur d'une chaîne de caractères entre guillemets à ecospat.CCV.modeling.Rd:30
+Warning: W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat/man/ecospat.CCV.modeling.Rd:47: unknown macro '\item'
+Warning: retour de ligne à l'intérieur d'une chaîne de caractères entre guillemets à ecospat.CCV.modeling.Rd:30
+Warning: W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat/man/ecospat.CCV.modeling.Rd:48: unknown macro '\item'
+Warning: retour de ligne à l'intérieur d'une chaîne de caractères entre guillemets à ecospat.CCV.modeling.Rd:30
+Warning: W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat/man/ecospat.CCV.modeling.Rd:49: unknown macro '\item'
+Warning: retour de ligne à l'intérieur d'une chaîne de caractères entre guillemets à ecospat.CCV.modeling.Rd:30
+Warning: W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat/man/ecospat.CCV.modeling.Rd:50: unknown macro '\item'
+Warning: retour de ligne à l'intérieur d'une chaîne de caractères entre guillemets à ecospat.CCV.modeling.Rd:30
+Warning: W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat/man/ecospat.CCV.modeling.Rd:51: unknown macro '\item'
+*** installing help indices
+** building package indices
+** installing vignettes
+   'vignette_ecospat_package.Rmd' 
+** testing if installed package can be loaded
+*** arch - i386
+*** arch - x64
+* DONE (ecospat)
+In R CMD INSTALL
