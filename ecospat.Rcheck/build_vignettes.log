@@ -1,6 +1,6 @@
 Warning in engine$weave(file, quiet = quiet, encoding = enc) :
   The vignette engine knitr::rmarkdown is not available, because the rmarkdown package is not installed. Please install it.
-Quitting from lines 27-29 (vignette_ecospat_package.Rmd) 
+Quitting from lines 34-36 (vignette_ecospat_package.Rmd) 
 Erreur : le traitement de la vignette 'vignette_ecospat_package.Rmd' a échoué avec le diagnostic :
-there is no package called 'ecospat'
+objet 'ecospat.testData' introuvable
 Exécution arrêtée

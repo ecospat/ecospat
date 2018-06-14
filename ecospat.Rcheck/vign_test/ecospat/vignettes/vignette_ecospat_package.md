@@ -24,7 +24,13 @@ In addition, the *ecospat* package includes Niche Quantification and Overlap fun
 
 
 
+```r
+#library(ecospat)
+#citation("ecospat")
+```
 
+### Test data for the ecospat library 
+*ecospat.testData()*
 
 
 

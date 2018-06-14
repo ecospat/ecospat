@@ -171,13 +171,13 @@ lwd=2)
 ### However, alpha-hulls can easily be included manually (see also the help file of 
 ### the alpha hull package):
 
-require(alphahull)
+  #require(alphahull)
   alpha = 2 # alpha value of 2 recommended by IUCN
   
-  del<-delvor(occ)
+  del<-alphahull::delvor(occ)
   dv<-del$mesh
   mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^2))*alpha
-  alpha.hull<-ahull(del,alpha=mn) 
+  alpha.hull<-alphahull::ahull(del,alpha=mn) 
   
   #Size of alpha-hulls
   areaahull(h)
