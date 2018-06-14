@@ -27,7 +27,7 @@ ecospat.CCV.modeling(sp.data,
                      parallel = TRUE, 
                      cpus = 4,
                      VarImport = 10,
-                     modeling.id = 123456)
+                     modeling.id)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

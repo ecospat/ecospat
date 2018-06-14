@@ -9,7 +9,6 @@
 \usage{ecospat.plot.mess (mess.object, cex=1, pch=15)}
 
 \arguments{
-  \item{xy}{The x and y coordinates of the projection dataset.}
   \item{mess.object}{A dataframe as returned by the \code{ecospat.mess} function.}
   \item{cex}{Specify the size of the symbol.}
   \item{pch}{Specify the point symbols.}

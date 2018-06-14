@@ -28,6 +28,8 @@ importFrom("classInt", "classIntervals")
 importFrom("vegan", "permatswap")
 importFrom("stats", "pnorm")
 #importFrom("alphahull","ahull","delvor")
+importFrom("snow","setDefaultClusterOptions")
+
 # Export
 export(ecospat.adj.D2.glm)
 export(ecospat.binary.model)
