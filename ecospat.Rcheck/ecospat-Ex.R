@@ -2,18 +2,6 @@ pkgname <- "ecospat"
 source(file.path(R.home("share"), "R", "examples-header.R"))
 options(warn = 1)
 options(pager = "console")
-base::assign(".ExTimings", "ecospat-Ex.timings", pos = 'CheckExEnv')
-base::cat("name\tuser\tsystem\telapsed\n", file=base::get(".ExTimings", pos = 'CheckExEnv'))
-base::assign(".format_ptime",
-function(x) {
-  if(!is.na(x[4L])) x[1L] <- x[1L] + x[4L]
-  if(!is.na(x[5L])) x[2L] <- x[2L] + x[5L]
-  options(OutDec = '.')
-  format(x[1L:3L], digits = 7L)
-},
-pos = 'CheckExEnv')
-
-### * </HEADER>
 library('ecospat')
 
 base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
@@ -24,7 +12,6 @@ nameEx("ecospat.CCV.communityEvaluation.bin")
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.CCV.communityEvaluation.bin
 ### Title: Calculates a range of community evaluation metrics based on
 ###   different thresholding techniques.
@@ -61,15 +48,12 @@ myCCV.communityEvaluation.bin <- ecospat.CCV.communityEvaluation.bin(
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.CCV.communityEvaluation.bin", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.CCV.communityEvaluation.prob")
 ### * ecospat.CCV.communityEvaluation.prob
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.CCV.communityEvaluation.prob
 ### Title: Evaluates community predictions directly on the probabilities
 ###   (i.e., threshold independent)
@@ -106,15 +90,12 @@ myCCV.communityEvaluation.prob <- ecospat.CCV.communityEvaluation.prob(
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.CCV.communityEvaluation.prob", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.CCV.createDataSplitTable")
 ### * ecospat.CCV.createDataSplitTable
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.CCV.createDataSplitTable
 ### Title: Creates a DataSplitTable for usage in ecospat.ccv.modeling.
 ### Aliases: ecospat.CCV.createDataSplitTable
@@ -146,15 +127,12 @@ DataSplitTable <- ecospat.CCV.createDataSplitTable(NbRunEval = 20,
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.CCV.createDataSplitTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.CCV.modeling")
 ### * ecospat.CCV.modeling
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.CCV.modeling
 ### Title: Runs indivudual species distribuion models with SDMs or ESMs
 ### Aliases: ecospat.CCV.modeling
@@ -182,15 +160,12 @@ myCCV.Models <- ecospat.CCV.modeling(sp.data = sp.data,
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.CCV.modeling", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.CommunityEval")
 ### * ecospat.CommunityEval
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.CommunityEval
 ### Title: Community Evaluation
 ### Aliases: ecospat.CommunityEval
@@ -205,15 +180,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ## End(Not run)
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.CommunityEval", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.Cscore")
 ### * ecospat.Cscore
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.Cscore
 ### Title: Pairwise co-occurrence Analysis with calculation of the C-score
 ###   index.
@@ -230,15 +202,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ## End(Not run)
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.Cscore", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.ESM.EnsembleModeling")
 ### * ecospat.ESM.EnsembleModeling
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.ESM.EnsembleModeling
 ### Title: Ensamble of Small Models: Evaluates and Averages Simple
 ###   Bivariate Models To ESMs
@@ -295,15 +264,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ## End(Not run)
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.ESM.EnsembleModeling", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.ESM.EnsembleProjection")
 ### * ecospat.ESM.EnsembleProjection
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.ESM.EnsembleProjection
 ### Title: Ensamble of Small Models: Projects Calibrated ESMs Into New
 ###   Space Or Time.
@@ -364,15 +330,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ## End(Not run)
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.ESM.EnsembleProjection", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.ESM.Modeling")
 ### * ecospat.ESM.Modeling
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.ESM.Modeling
 ### Title: Ensamble of Small Models: Calibration of Simple Bivariate Models
 ### Aliases: ecospat.ESM.Modeling
@@ -427,15 +390,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ## End(Not run)
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.ESM.Modeling", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.ESM.Projection")
 ### * ecospat.ESM.Projection
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.ESM.Projection
 ### Title: Ensamble of Small Models: Projects Simple Bivariate Models Into
 ###   New Space Or Time
@@ -491,15 +451,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ## End(Not run)
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.ESM.Projection", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.Epred")
 ### * ecospat.Epred
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.Epred
 ### Title: Prediction Mean
 ### Aliases: ecospat.Epred
@@ -511,15 +468,12 @@ mean <- ecospat.Epred (x, w=rep(1,ncol(x)), th=0.5)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.Epred", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.SESAM.prr")
 ### * ecospat.SESAM.prr
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.SESAM.prr
 ### Title: SESAM Probability Ranking Rule
 ### Aliases: ecospat.SESAM.prr
@@ -533,15 +487,12 @@ ecospat.SESAM.prr(proba, sr)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.SESAM.prr", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.adj.D2")
 ### * ecospat.adj.D2
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.adj.D2.glm
 ### Title: Calculate An Adjusted D2
 ### Aliases: ecospat.adj.D2.glm
@@ -557,15 +508,12 @@ ecospat.adj.D2.glm(glm.obj)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.adj.D2", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.binary.model")
 ### * ecospat.binary.model
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.binary.model
 ### Title: Generate Binary Models
 ### Aliases: ecospat.binary.model
@@ -613,15 +561,12 @@ points(occ)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.binary.model", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.boyce")
 ### * ecospat.boyce
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.boyce
 ### Title: Calculate Boyce Index
 ### Aliases: ecospat.boyce
@@ -636,15 +581,12 @@ window.w="default", res=100, PEplot = TRUE)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.boyce", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.calculate.pd")
 ### * ecospat.calculate.pd
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.calculate.pd
 ### Title: Calculate Phylogenetic Diversity Measures
 ### Aliases: ecospat.calculate.pd
@@ -662,15 +604,12 @@ plot(pd)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.calculate.pd", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.caleval")
 ### * ecospat.caleval
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.caleval
 ### Title: Calibration And Evaluation Dataset
 ### Aliases: ecospat.caleval
@@ -684,15 +623,12 @@ caleval
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.caleval", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.climan")
 ### * ecospat.climan
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.climan
 ### Title: A climate analogy setection tool for the modeling of species
 ###   distributions
@@ -708,15 +644,12 @@ ecospat.climan(ref,p)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.climan", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.co_occurrences")
 ### * ecospat.co_occurrences
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.co_occurrences
 ### Title: Species Co-Occurrences
 ### Aliases: ecospat.co_occurrences
@@ -729,15 +662,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ## End(Not run)
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.co_occurrences", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.cohen.kappa")
 ### * ecospat.cohen.kappa
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.cohen.kappa
 ### Title: Cohen's Kappa
 ### Aliases: ecospat.cohen.kappa
@@ -753,15 +683,12 @@ ecospat.cohen.kappa(xtab)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.cohen.kappa", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.cons_Cscore")
 ### * ecospat.cons_Cscore
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.cons_Cscore
 ### Title: Constrained Co-Occurrence Analysis.
 ### Aliases: ecospat.cons_Cscore
@@ -777,15 +704,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ## End(Not run)
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.cons_Cscore", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.cor.plot")
 ### * ecospat.cor.plot
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.cor.plot
 ### Title: Correlation Plot
 ### Aliases: ecospat.cor.plot
@@ -797,15 +721,12 @@ ecospat.cor.plot(data)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.cor.plot", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.cv.example")
 ### * ecospat.cv.example
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.cv.example
 ### Title: Cross Validation Example Function
 ### Aliases: ecospat.cv.example
@@ -819,15 +740,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.cv.example", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.cv.gbm")
 ### * ecospat.cv.gbm
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.cv.gbm
 ### Title: GBM Cross Validation
 ### Aliases: ecospat.cv.gbm
@@ -841,15 +759,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.cv.gbm", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.cv.glm")
 ### * ecospat.cv.glm
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.cv.glm
 ### Title: GLM Cross Validation
 ### Aliases: ecospat.cv.glm
@@ -863,15 +778,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.cv.glm", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.cv.me")
 ### * ecospat.cv.me
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.cv.me
 ### Title: Maxent Cross Validation
 ### Aliases: ecospat.cv.me
@@ -886,15 +798,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.cv.me", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.cv.rf")
 ### * ecospat.cv.rf
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.cv.rf
 ### Title: RandomForest Cross Validation
 ### Aliases: ecospat.cv.rf
@@ -908,15 +817,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.cv.rf", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.env")
 ### * ecospat.env
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.env
 ### Title: Package Environment
 ### Aliases: ecospat.env
@@ -927,15 +833,12 @@ ls(envir=ecospat.env)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.env", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.grid.clim.dyn")
 ### * ecospat.grid.clim.dyn
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.grid.clim.dyn
 ### Title: Dynamic Occurrence Densities Grid
 ### Aliases: ecospat.grid.clim.dyn
@@ -995,15 +898,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ## End(Not run)
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.grid.clim.dyn", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.makeDataFrame")
 ### * ecospat.makeDataFrame
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.makeDataFrame
 ### Title: Make Data Frame
 ### Aliases: ecospat.makeDataFrame
@@ -1036,15 +936,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.makeDataFrame", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.mantel.correlogram")
 ### * ecospat.mantel.correlogram
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.mantel.correlogram
 ### Title: Mantel Correlogram
 ### Aliases: ecospat.mantel.correlogram
@@ -1056,15 +953,12 @@ max=1000, nclass=10, nperm=100)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.mantel.correlogram", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.max.kappa")
 ### * ecospat.max.kappa
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.max.kappa
 ### Title: Maximum Kappa
 ### Aliases: ecospat.max.kappa
@@ -1082,15 +976,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.max.kappa", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.max.tss")
 ### * ecospat.max.tss
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.max.tss
 ### Title: Maximum TSS
 ### Aliases: ecospat.max.tss
@@ -1105,15 +996,12 @@ TSS100 <- ecospat.max.tss(Pred, Sp.occ)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.max.tss", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.maxentvarimport")
 ### * ecospat.maxentvarimport
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.maxentvarimport
 ### Title: Maxent Variable Importance
 ### Aliases: ecospat.maxentvarimport
@@ -1129,15 +1017,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.maxentvarimport", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.mdr")
 ### * ecospat.mdr
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.mdr
 ### Title: Minimum Dispersal Routes)
 ### Aliases: ecospat.mdr
@@ -1182,15 +1067,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.mdr", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.mess")
 ### * ecospat.mess
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.mess
 ### Title: MESS
 ### Aliases: ecospat.mess
@@ -1209,15 +1091,12 @@ ecospat.plot.mess (mess.object, cex=1, pch=15)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.mess", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.meva.table")
 ### * ecospat.meva.table
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.meva.table
 ### Title: Model Evaluation For A Given Threshold Value
 ### Aliases: ecospat.meva.table
@@ -1233,15 +1112,12 @@ meva <- ecospat.meva.table (Pred, Sp.occ, 0.39)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.meva.table", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.migclim")
 ### * ecospat.migclim
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.migclim
 ### Title: Implementing Dispersal Into Species Distribution Models
 ### Aliases: ecospat.migclim
@@ -1271,15 +1147,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.migclim", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.mpa")
 ### * ecospat.mpa
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.mpa
 ### Title: Minimal Predicted Area
 ### Aliases: ecospat.mpa
@@ -1294,15 +1167,12 @@ ecospat.mpa(obs,perc=1) ## 100 percent of the presences encompassed
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.mpa", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.niche.dynIndexProjGeo")
 ### * ecospat.niche.dynIndexProjGeo
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.niche.dynIndexProjGeo
 ### Title: Projection of niche dynamic indices to the Geography
 ### Aliases: ecospat.niche.dynIndexProjGeo
@@ -1356,15 +1226,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ## End(Not run)
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.niche.dynIndexProjGeo", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.niche.zProjGeo")
 ### * ecospat.niche.zProjGeo
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.niche.zProjGeo
 ### Title: Projection of Occurrence Densities to the Geography
 ### Aliases: ecospat.niche.zProjGeo
@@ -1408,15 +1275,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ## End(Not run)
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.niche.zProjGeo", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.npred")
 ### * ecospat.npred
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.npred
 ### Title: Number Of Predictors
 ### Aliases: ecospat.npred
@@ -1429,15 +1293,12 @@ ecospat.npred (x, th=0.75)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.npred", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.occ.desaggregation")
 ### * ecospat.occ.desaggregation
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.occ.desaggregation
 ### Title: Species Occurrences Desaggregation
 ### Aliases: ecospat.occ.desaggregation
@@ -1456,15 +1317,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.occ.desaggregation", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.occupied.patch")
 ### * ecospat.occupied.patch
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.occupied.patch
 ### Title: Extract occupied patches of a species in geographic space.)
 ### Aliases: ecospat.occupied.patch
@@ -1541,15 +1399,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.occupied.patch", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.permut.glm")
 ### * ecospat.permut.glm
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.permut.glm
 ### Title: GLM Permutation Function
 ### Aliases: ecospat.permut.glm
@@ -1562,15 +1417,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ## End(Not run)
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.permut.glm", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.plot.kappa")
 ### * ecospat.plot.kappa
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.plot.kappa
 ### Title: Plot Kappa
 ### Aliases: ecospat.plot.kappa
@@ -1586,15 +1438,12 @@ ecospat.plot.kappa(Pred, Sp.occ)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.plot.kappa", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.plot.mess")
 ### * ecospat.plot.mess
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.plot.mess
 ### Title: Plot MESS
 ### Aliases: ecospat.plot.mess
@@ -1615,15 +1464,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.plot.mess", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.plot.tss")
 ### * ecospat.plot.tss
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.plot.tss
 ### Title: Plot True skill statistic (TSS)
 ### Aliases: ecospat.plot.tss
@@ -1637,15 +1483,12 @@ ecospat.plot.tss(Pred, Sp.occ)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.plot.tss", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.rand.pseudoabsences")
 ### * ecospat.rand.pseudoabsences
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.rand.pseudoabsences
 ### Title: Sample Pseudo-Absences
 ### Aliases: ecospat.rand.pseudoabsences
@@ -1660,15 +1503,12 @@ presence= presence, colxypresence=1:2, mindist=20)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.rand.pseudoabsences", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.rangesize")
 ### * ecospat.rangesize
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.rangesize
 ### Title: Quantification of the range size of a species using habitat
 ###   suitability maps and IUCN criteria)
@@ -1769,28 +1609,26 @@ lwd=2)
 ### However, alpha-hulls can easily be included manually (see also the help file of 
 ### the alpha hull package):
 
-require(alphahull)
-  alpha = 2 # alpha value of 2 recommended by IUCN
+#  require(alphahull)
+#  alpha = 2 # alpha value of 2 recommended by IUCN
   
-  del<-delvor(occ)
-  dv<-del$mesh
-  mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^2))*alpha
-  alpha.hull<-ahull(del,alpha=mn) 
+#  del<-delvor(occ)
+#  dv<-del$mesh
+#  mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^2))*alpha
+#  alpha.hull<-ahull(del,alpha=mn) 
   
-  #Size of alpha-hulls
-  areaahull(h)
+#  #Size of alpha-hulls
+#  areaahull(h)
 
 
 # plot alphahulls
-plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
-  main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=F)
-plot(alpha.hull,add=T,lwd=1)
+# plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
+#  main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=F)
+# plot(alpha.hull,add=T,lwd=1)
  
  
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.rangesize", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 cleanEx()
 nameEx("ecospat.rcls.grd")
@@ -1798,7 +1636,6 @@ nameEx("ecospat.rcls.grd")
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.rcls.grd
 ### Title: Reclassifying grids function
 ### Aliases: ecospat.rcls.grd
@@ -1821,15 +1658,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ## End(Not run)
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.rcls.grd", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.recstrat_prop")
 ### * ecospat.recstrat_prop
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.recstrat_prop
 ### Title: Random Ecologically Stratified Sampling of propotional numbers
 ### Aliases: ecospat.recstrat_prop
@@ -1853,15 +1687,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.recstrat_prop", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.recstrat_regl")
 ### * ecospat.recstrat_regl
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.recstrat_regl
 ### Title: Random Ecologically Stratified Sampling of equal numbers
 ### Aliases: ecospat.recstrat_regl
@@ -1884,15 +1715,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.recstrat_regl", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.sample.envar")
 ### * ecospat.sample.envar
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.sample.envar
 ### Title: Sample Environmental Variables
 ### Aliases: ecospat.sample.envar
@@ -1911,15 +1739,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.sample.envar", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.testData")
 ### * ecospat.testData
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.testData
 ### Title: Test Data For The Ecospat package
 ### Aliases: ecospat.testData
@@ -1933,15 +1758,12 @@ names(ecospat.testData)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.testData", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.testEnvRaster")
 ### * ecospat.testEnvRaster
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.testEnvRaster
 ### Title: Test Environmental Rasters for The Ecospat package
 ### Aliases: ecospat.testEnvRaster
@@ -1954,15 +1776,12 @@ plot(env)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.testEnvRaster", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.testMdr")
 ### * ecospat.testMdr
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.testMdr
 ### Title: Test Data For The ecospat.mdr function
 ### Aliases: ecospat.testMdr
@@ -1975,15 +1794,12 @@ dim(ecospat.testMdr)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.testMdr", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.testNiche")
 ### * ecospat.testNiche
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.testNiche
 ### Title: Test Data For The Niche Overlap Analysis
 ### Aliases: ecospat.testNiche
@@ -1996,15 +1812,12 @@ names(ecospat.testNiche)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.testNiche", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.testNiche.inv")
 ### * ecospat.testNiche.inv
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.testNiche.inv
 ### Title: Test Data For The Niche Dynamics Analysis In The Invaded Range
 ###   Of A Hypothetical Species
@@ -2019,15 +1832,12 @@ names(ecospat.testNiche.inv)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.testNiche.inv", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.testNiche.nat")
 ### * ecospat.testNiche.nat
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.testNiche.nat
 ### Title: Test Data For The Niche Dynamics Analysis In The Native Range Of
 ###   A Hypothetical Species
@@ -2042,15 +1852,12 @@ names(ecospat.testNiche.nat)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.testNiche.nat", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.testTree")
 ### * ecospat.testTree
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.testTree
 ### Title: Test Tree For The Ecospat package
 ### Aliases: ecospat.testTree
@@ -2063,15 +1870,12 @@ plot(tree)
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.testTree", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("ecospat.varpart")
 ### * ecospat.varpart
 
 flush(stderr()); flush(stdout())
 
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: ecospat.varpart
 ### Title: Variation Partitioning For GLM Or GAM
 ### Aliases: ecospat.varpart
@@ -2087,8 +1891,6 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 
 
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("ecospat.varpart", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 ### * <FOOTER>
 ###
 cleanEx()

@@ -621,9 +621,9 @@ Overfull \hbox (1.67627pt too wide) in paragraph at lines 3863--3863
  []\OT1/cmtt/m/n/9 ### Alpha-hulls are not included in the function yet because
  of Licence limitations.[] 
 
-Overfull \hbox (34.75089pt too wide) in paragraph at lines 3872--3872
- []  \OT1/cmtt/m/n/9 mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$m
-esh[,4]-del$mesh[,6])^2))*alpha[] 
+Overfull \hbox (39.47583pt too wide) in paragraph at lines 3872--3872
+ []\OT1/cmtt/m/n/9 #  mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$
+mesh[,4]-del$mesh[,6])^2))*alpha[] 
 
 Underfull \vbox (badness 10000) has occurred while \output is active [77]
 Overfull \hbox (92.30693pt too wide) in paragraph at lines 3916--3917
@@ -773,7 +773,7 @@ s/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 tt10.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmtt12.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on Rd2.pdf (94 pages, 344327 bytes).
+Output written on Rd2.pdf (94 pages, 344504 bytes).
 Transcript written on Rd2.log.
 This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex)
  restricted \write18 enabled.
@@ -1398,9 +1398,9 @@ Overfull \hbox (1.67627pt too wide) in paragraph at lines 3863--3863
  []\OT1/cmtt/m/n/9 ### Alpha-hulls are not included in the function yet because
  of Licence limitations.[] 
 
-Overfull \hbox (34.75089pt too wide) in paragraph at lines 3872--3872
- []  \OT1/cmtt/m/n/9 mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$m
-esh[,4]-del$mesh[,6])^2))*alpha[] 
+Overfull \hbox (39.47583pt too wide) in paragraph at lines 3872--3872
+ []\OT1/cmtt/m/n/9 #  mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$
+mesh[,4]-del$mesh[,6])^2))*alpha[] 
 
 Underfull \vbox (badness 10000) has occurred while \output is active [78]
 Overfull \hbox (92.30693pt too wide) in paragraph at lines 3916--3917
@@ -1550,8 +1550,8 @@ s/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 tt10.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmtt12.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on Rd2.pdf (95 pages, 346188 bytes).
+Output written on Rd2.pdf (95 pages, 346365 bytes).
 Transcript written on Rd2.log.
 Saving output to 'ecospat-manual.pdf' ...
 Done
-You may want to clean up by 'rm -Rf C:/Users/obroenni/AppData/Local/Temp/Rtmp27GvF1/Rd2pdfde8b6c73b5'
+You may want to clean up by 'rm -Rf C:/Users/obroenni/AppData/Local/Temp/Rtmp6neycM/Rd2pdf13901b2c968'

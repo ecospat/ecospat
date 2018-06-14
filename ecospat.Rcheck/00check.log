@@ -2,23 +2,9 @@
 * using R version 3.5.0 (2018-04-23)
 * using platform: x86_64-w64-mingw32 (64-bit)
 * using session charset: ISO8859-1
-* using option '--as-cran'
+* using option '--no-vignettes'
 * checking for file 'ecospat/DESCRIPTION' ... OK
 * this is package 'ecospat' version '2.2.1'
-* checking CRAN incoming feasibility ... NOTE
-Maintainer: 'Olivier Broennimann <olivier.broennimann@unil.ch>'
-
-New submission
-
-Package was archived on CRAN
-
-CRAN repository db overrides:
-  X-CRAN-Comment: Archived on 2018-05-03 as check problems were not
-    corrected despite reminders.
-
-Package has a VignetteBuilder field but no prebuilt vignette index.
-
-The build time stamp is missing.
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -26,28 +12,19 @@ The build time stamp is missing.
 * checking for executable files ... OK
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
-* checking serialization versions ... OK
 * checking whether package 'ecospat' can be installed ... OK
 * checking installed package size ... NOTE
-  installed size is 30.7Mb
+  installed size is 31.7Mb
   sub-directories of 1Mb or more:
     Meta      8.0Mb
     R         2.4Mb
     data      4.0Mb
-    doc       3.0Mb
+    doc       4.0Mb
     extdata   2.0Mb
     help      4.3Mb
     html      2.0Mb
 * checking package directory ... OK
 * checking DESCRIPTION meta-information ... NOTE
-Author field differs from that derived from Authors@R
-  Author:    'Olivier Broennimann [cre, aut], Valeria Di Cola [cre, aut], Blaise Petitpierre [ctb], Frank Breiner [ctb], Manuela D`Amen [ctb], Christophe Randin [ctb], Robin Engler [ctb], Wim Hordijk [ctb], Julien Pottier [ctb], Mirko Di Febbraro [ctb], Loic Pellissier [ctb], Dorothea Pio [ctb], Ruben Garcia Mateo [ctb], Anne Dubuis [ctb], Daniel Scherrer [ctb], Luigi Maiorano [ctb], Achilleas Psomas [ctb], Charlotte Ndiribe [ctb], Nicolas Salamin [ctb], Niklaus Zimmermann [ctb], Antoine Guisan [aut]'
-  Authors@R: 'Olivier Broennimann [aut], Valeria Di Cola [cre, aut], Blaise Petitpierre [ctb], Frank Breiner [ctb], Manuela D`Amen [ctb], Christophe Randin [ctb], Robin Engler [ctb], Wim Hordijk [ctb], Julien Pottier [ctb], Mirko Di Febbraro [ctb], Loic Pellissier [ctb], Dorothea Pio [ctb], Ruben Garcia Mateo [ctb], Anne Dubuis [ctb], Daniel Scherrer [ctb], Luigi Maiorano [ctb], Achilleas Psomas [ctb], Charlotte Ndiribe [ctb], Nicolas Salamin [ctb], Niklaus Zimmermann [ctb], Antoine Guisan [aut]'
-
-Maintainer field differs from that derived from Authors@R
-  Maintainer: 'Olivier Broennimann <olivier.broennimann@unil.ch>'
-  Authors@R:  'Valeria Di Cola <valeriadicola@gmail.com>'
-
 Checking should be performed on sources prepared by 'R CMD build'.
 * checking top-level files ... OK
 * checking for left-over files ... OK
@@ -61,7 +38,6 @@ Checking should be performed on sources prepared by 'R CMD build'.
 * checking whether the namespace can be loaded with stated dependencies ... OK
 * checking whether the namespace can be unloaded cleanly ... OK
 * checking loading without being on the library search path ... OK
-* checking use of S3 registration ... OK
 * checking dependencies in R code ... OK
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
@@ -83,36 +59,33 @@ Undefined global functions or variables:
   community.metrics.eval.selected extent<- output poibin
 * checking Rd files ... OK
 * checking Rd metadata ... OK
-* checking Rd line widths ... OK
 * checking Rd cross-references ... WARNING
 Package inconnu 'DOI' dans les xrefs Rd
 * checking for missing documentation entries ... OK
-* checking for code/documentation mismatches ... OK
-* checking Rd \usage sections ... WARNING
-Assignments in \usage in documentation object 'ecospat.CCV.modeling':
-  modeling.id = as.character(format(Sys.time(), "%s"))
+* checking for code/documentation mismatches ... WARNING
+Codoc mismatches from documentation object 'ecospat.CCV.modeling':
+ecospat.CCV.modeling
+  Code: function(sp.data, env.data, xy, DataSplitTable = NULL,
+                 DataSplit = 70, NbRunEval = 25, minNbPredictors = 5,
+                 validation.method = "cross-validation", models.sdm =
+                 c("GLM", "RF"), models.esm = "CTA",
+                 modeling.options.sdm = NULL, modeling.options.esm =
+                 NULL, ensemble.metric = "AUC", ESM = "YES", parallel =
+                 TRUE, cpus = 4, VarImport = 10, modeling.id =
+                 as.character(format(Sys.time(), "%s")))
+  Docs: function(sp.data, env.data, xy, DataSplitTable = NULL,
+                 DataSplit = 70, NbRunEval = 25, minNbPredictors = 5,
+                 validation.method = "cross-validation", models.sdm =
+                 c("GLM", "RF"), models.esm = "CTA",
+                 modeling.options.sdm = NULL, modeling.options.esm =
+                 NULL, ensemble.metric = "AUC", ESM = "YES", parallel =
+                 TRUE, cpus = 4, VarImport = 10, modeling.id = 123456)
+  Mismatches in argument default values:
+    Name: 'modeling.id' Code: as.character(format(Sys.time(), "%s")) Docs: 123456
 
+* checking Rd \usage sections ... WARNING
 Documented arguments not in \usage in documentation object 'ecospat.plot.mess':
   'xy'
-
-Bad \usage lines found in documentation object 'ecospat.CCV.modeling':
-  ecospat.CCV.modeling(sp.data, 
-                       env.data, 
-                       xy,
-                       DataSplitTable=NULL,
-                       DataSplit = 70, 
-                       NbRunEval = 25,
-                       minNbPredictors =5,
-                       validation.method = "cross-validation",
-                       models.sdm = c("GLM","RF"), 
-                       models.esm = "CTA", 
-                       modeling.options.sdm = NULL, 
-                       modeling.options.esm = NULL, 
-                       ensemble.metric = "AUC", 
-                       ESM = "YES",
-                       parallel = TRUE, 
-                       cpus = 4,
-                       VarImport = 10,
 
 Functions with \usage entries need to have the appropriate \alias
 entries, and all their arguments documented.
@@ -120,71 +93,62 @@ The \usage entries must correspond to syntactically valid R code.
 See chapter 'Writing R documentation files' in the 'Writing R
 Extensions' manual.
 * checking Rd contents ... OK
-* checking for unstated dependencies in examples ... WARNING
-'library' or 'require' call not declared from: 'alphahull'
+* checking for unstated dependencies in examples ... OK
 * checking contents of 'data' directory ... OK
 * checking data for non-ASCII characters ... OK
 * checking data for ASCII and uncompressed saves ... OK
-* checking sizes of PDF files under 'inst/doc' ... NOTE
-Unable to find GhostScript executable to run checks on size reduction
+* checking sizes of PDF files under 'inst/doc' ... OK
 * checking installed files from 'inst/doc' ... OK
 * checking files in 'vignettes' ... WARNING
 Files in the 'vignettes' directory newer than all files in 'inst/doc':
   'vignette_ecospat_package.Rmd'
 * checking examples ... ERROR
 Running examples in 'ecospat-Ex.R' failed
-The error occurred in:
+The error most likely occurred in:
 
-
-R version 3.5.0 (2018-04-23) -- "Joy in Playing"
-Copyright (C) 2018 The R Foundation for Statistical Computing
-Platform: x86_64-w64-mingw32/x64 (64-bit)
-
-R is free software and comes with ABSOLUTELY NO WARRANTY.
-You are welcome to redistribute it under certain conditions.
-Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
-
-R is a collaborative project with many contributors.
-Type 'contributors()' for more information and
-'citation()' on how to cite R or R packages in publications.
-
-Type 'demo()' for some demos, 'help()' for on-line help, or
-'help.start()' for an HTML browser interface to help.
-Type 'q()' to quit R.
-
-> pkgname <- "ecospat"
-> source(file.path(R.home("share"), "R", "examples-header.R"))
-> options(warn = 1)
-> options(pager = "console")
-> base::assign(".ExTimings", "ecospat-Ex.timings", pos = 'CheckExEnv')
-> base::cat("name\tuser\tsystem\telapsed\n", file=base::get(".ExTimings", pos = 'CheckExEnv'))
-> base::assign(".format_ptime",
-+ function(x) {
-+   if(!is.na(x[4L])) x[1L] <- x[1L] + x[4L]
-+   if(!is.na(x[5L])) x[2L] <- x[2L] + x[5L]
-+   options(OutDec = '.')
-+   format(x[1L:3L], digits = 7L)
-+ },
-+ pos = 'CheckExEnv')
+> ### Name: ecospat.CCV.communityEvaluation.bin
+> ### Title: Calculates a range of community evaluation metrics based on
+> ###   different thresholding techniques.
+> ### Aliases: ecospat.CCV.communityEvaluation.bin
+> ### Keywords: ~kwd1 ~kwd2
 > 
-> ### * </HEADER>
-> library('ecospat')
-Error in library("ecospat") : there is no package called 'ecospat'
+> ### ** Examples
+> 
+> #Loading species occurence data and remove empty communities
+> testData <- ecospat.testData[,c(24,34,43,45,48,53,55:58,60:63,65:66,68:71)]
+> sp.data <- testData[which(rowSums(testData)>0), sort(colnames(testData))]
+> 
+> #Loading environmental data
+> env.data <- ecospat.testData[which(rowSums(testData)>0),4:8]
+> 
+> #Coordinates for all sites
+> xy <- ecospat.testData[which(rowSums(testData)>0),2:3]
+> 
+> #Running all the models for all species
+> myCCV.Models <- ecospat.CCV.modeling(sp.data = sp.data,
++                                      env.data = env.data,
++                                      xy = xy,
++                                      NbRunEval = 5,
++                                      minNbPredictors = 10,
++                                      VarImport = 3)
+The following species will be run with standard biomod2 models: Agrostis.capillaris, Campanula.scheuchzeri, Carex.sempervirens, Cynosurus.cristatus, Dactylis.glomerata, Festuca.pratensis.sl, Geranium.sylvaticum, Homogyne.alpina, Leontodon.hispidus.sl, Plantago.lanceolata, Polygonum.viviparum, Potentilla.erecta, Prunella.vulgaris, Ranunculus.acris.sl, Rumex.acetosa, Soldanella.alpina, Taraxacum.officinale.aggr, Trifolium.repens.sstr, Veronica.chamaedrys
+
+The following species will be run with ESM models: Galium.anisophyllon
+
+The following species will not be modelled due to limited presence data:
+
+Warning in searchCommandline(parallel, cpus = cpus, type = type, socketHosts = socketHosts,  :
+  Unknown option on commandline: LANGUAGE
+Warning in searchCommandline(parallel, cpus = cpus, type = type, socketHosts = socketHosts,  :
+  Unknown option on commandline: _R_CHECK_INTERNALS2_
+Error in setDefaultClusterOptions(type = .sfOption$type) : 
+  could not find function "setDefaultClusterOptions"
+Calls: ecospat.CCV.modeling -> sfInit
 Execution halted
 * checking for unstated dependencies in vignettes ... OK
 * checking package vignettes in 'inst/doc' ... OK
-* checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-  The vignette engine knitr::rmarkdown is not available, because the rmarkdown package is not installed. Please install it.
-Quitting from lines 34-36 (vignette_ecospat_package.Rmd) 
-Erreur : le traitement de la vignette 'vignette_ecospat_package.Rmd' a échoué avec le diagnostic :
-objet 'ecospat.testData' introuvable
-Exécution arrêtée
-
+* checking running R code from vignettes ... SKIPPED
+* checking re-building of vignette outputs ... SKIPPED
 * checking PDF version of manual ... WARNING
 LaTeX errors when creating PDF version.
 This typically indicates Rd problems.
@@ -202,4 +166,4 @@ l.276 ^^M
 !  ==> Fatal error occurred, no output PDF file produced!
 * checking PDF version of manual without hyperrefs or index ... OK
 * DONE
-Status: 1 ERROR, 6 WARNINGs, 5 NOTEs
+Status: 1 ERROR, 5 WARNINGs, 3 NOTEs
