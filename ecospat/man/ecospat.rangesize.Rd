@@ -171,21 +171,21 @@ lwd=2)
 ### However, alpha-hulls can easily be included manually (see also the help file of 
 ### the alpha hull package):
 
-  #require(alphahull)
-  alpha = 2 # alpha value of 2 recommended by IUCN
+#  require(alphahull)
+#  alpha = 2 # alpha value of 2 recommended by IUCN
   
-  del<-alphahull::delvor(occ)
-  dv<-del$mesh
-  mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^2))*alpha
-  alpha.hull<-alphahull::ahull(del,alpha=mn) 
+#  del<-delvor(occ)
+#  dv<-del$mesh
+#  mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^2))*alpha
+#  alpha.hull<-ahull(del,alpha=mn) 
   
-  #Size of alpha-hulls
-  areaahull(h)
+#  #Size of alpha-hulls
+#  areaahull(h)
 
 
 # plot alphahulls
-plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
-  main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=F)
-plot(alpha.hull,add=T,lwd=1)
+# plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
+#  main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=F)
+# plot(alpha.hull,add=T,lwd=1)
  
  }
