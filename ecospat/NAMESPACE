@@ -17,7 +17,7 @@ importFrom("gtools", mixedsort, combinations)
 importFrom("PresenceAbsence", presence.absence.accuracy, optimal.thresholds, auc)
 importFrom("poibin", dpoibin)
 importFrom("snowfall", sfInit, sfLibrary, sfLapply, sfStop, sfExport)
-importFrom("snow","setDefaultClusterOptions")
+importFrom("snow",setDefaultClusterOptions)
 
 #new suggested by check
 importFrom("grDevices", "colorRampPalette", "dev.new", "dev.off", "gray", "grey")

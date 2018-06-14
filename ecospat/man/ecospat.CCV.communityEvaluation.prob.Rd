@@ -92,7 +92,7 @@ myCCV.communityEvaluation.prob <- ecospat.CCV.communityEvaluation.prob(
       ccv.modeling.data = myCCV.Models,
       community.metrics = c('SR.deviation','community.AUC','probabilistic.Sorensen'),
       se.th = 0.02, 
-      parallel = TRUE,
+      parallel = FALSE,
       cpus = 4)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

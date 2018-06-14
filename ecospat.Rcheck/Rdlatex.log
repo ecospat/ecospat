@@ -1,0 +1,2165 @@
+Hmm ... looks like a package
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./Rd2.tex
+LaTeX2e <2018-04-01> patch level 5
+
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/bk10.clo))
+ (c:/Program Files/R/R-3.5.0/share/texmf/tex/latex/Rd.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
+)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable
+.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/bm.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/alltt.sty)
+
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/verbatim.
+sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/url/url.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/textcomp.s
+ty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ts1enc.def
+
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ts1enc.dfu
+)))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/inconsolata/zi4
+.sty
+`inconsolata-zi4' v1.112, 2017/01/04 Text macros for Inconsolata (msharpe)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval
+.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/xkeyv
+al.tex
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/xkvut
+ils.tex
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/keyva
+l.tex)))))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/color.
+sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/co
+lor.cfg)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pd
+ftex.def))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperr
+ef.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/oberdiek/hobs
+ub-hyperref.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/oberdiek/hobs
+ub-generic.sty))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ifxetex/ifxet
+ex.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/oberdiek/auxhoo
+k.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/oberdiek/kvopti
+ons.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc
+.def)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/hyp
+erref.cfg))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hpdfte
+x.def
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/oberdiek/rerunf
+ilecheck.sty))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 366.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 366.
+
+)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/makeidx.st
+y)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/inputenc.s
+ty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/latin1.def
+))
+Writing index file Rd2.idx
+No file Rd2.aux.
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ts1cmr.fd)
+
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/namere
+f.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/oberdiek/gett
+itlestring.sty))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/inconsolata/ot1
+zi4.fd)
+
+LaTeX Font Warning: Font shape `OML/zi4/m/n' undefined
+(Font)              using `OML/cmm/m/it' instead
+(Font)              for symbol `textless' on input line 40.
+
+[1{c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/
+pdftex.map}]
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (26.44073pt too wide) in paragraph at lines 109--110
+[]\OT1/zi4/m/n/10 ecospat.ESM.EnsembleModeling, ecospat.ESM.Projection, ecospat
+.ESM.EnsembleProjection, 
+[2] [3]
+Overfull \hbox (55.12851pt too wide) in paragraph at lines 198--199
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[4]
+Overfull \hbox (75.43416pt too wide) in paragraph at lines 248--249
+[]\OT1/cmr/m/n/10 Ruben G. Ma-teo \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 rubeng.mateo
+@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Frank Brei
+ner \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 frank.breiner@wsl.ch\OML/zi4/m/n/10 > 
+
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/inconsolata/ts1
+zi4.fd) [5] [6]
+Overfull \hbox (10.53123pt too wide) in paragraph at lines 348--349
+[]\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitp
+ierre@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Frank Breiner \OML/zi4/m/n
+/10 <\OT1/zi4/m/n/10 frank.breiner@unil.ch\OML/zi4/m/n/10 > 
+
+Overfull \hbox (9.7366pt too wide) in paragraph at lines 386--387
+[]\OT1/cmr/m/n/10 Phylogenetic di-ver-sity can ei-ther be rooted or un-rooted. 
+De-tails in Schweiger
+[7]
+Overfull \hbox (41.80905pt too wide) in paragraph at lines 405--406
+[]\OT1/cmr/m/n/10 Nicolas Salamin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 nicolas.sala
+min@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Dorothea Pio \OML/zi4/m/n/10 <
+\OT1/zi4/m/n/10 Dorothea.Pio@fauna-flora.org\OML/zi4/m/n/10 > 
+[8]
+Overfull \hbox (20.24715pt too wide) in paragraph at lines 471--471
+ []\OT1/zi4/m/n/9 caleval <- ecospat.caleval (data = ecospat.testData[53], xy =
+ data[2:3], row.num = 1:nrow(data),[] 
+[9]
+Overfull \hbox (424.13365pt too wide) in paragraph at lines 501--502
+[]\OT1/cmr/m/n/10 a se-lec-tion of thresh-olds (\TS1/zi4/m/n/10 '\OT1/zi4/m/n/1
+0 FIXED\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAX.
+KAPPA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAX.AC
+CURACY\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAX.T
+SS\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 SENS[]SPE
+C\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAX.ROC\TS
+1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 OBS.PREVALENCE
+\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 AVG.PROBABI
+LITY\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MCE\TS1
+/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 PS[]SDM, MEM\TS
+1/zi4/m/n/10 '\OT1/cmr/m/n/10 )
+
+Overfull \hbox (1010.2082pt too wide) in paragraph at lines 502--503
+[]\OT1/cmr/m/n/10 a se-lec-tion of com-mu-nity eval-u-a-tion met-rics (\TS1/zi4
+/m/n/10 '\OT1/zi4/m/n/10 SR.deviation\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi
+4/m/n/10 '\OT1/zi4/m/n/10 community.AUC\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/
+zi4/m/n/10 '\OT1/zi4/m/n/10 community.overprediction\TS1/zi4/m/n/10 ' \OT1/zi4/
+m/n/10 ,\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 community.underprediction\TS1/zi4/m/n/
+10 '\OT1/zi4/m/n/10 ,\TS1/zi4/m/n/10 ' \OT1/zi4/m/n/10 community.accuracy\TS1/z
+i4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 community.sensiti
+vity\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 communi
+ty.specificity\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/
+10 community.kappa\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/
+m/n/10 community.tss\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi
+4/m/n/10 Sorensen\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m
+/n/10 Jaccard\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/1
+0 Simpson\TS1/zi4/m/n/10 '\OT1/cmr/m/n/10 )
+[10] [11]
+Overfull \hbox (9.76044pt too wide) in paragraph at lines 579--579
+ []      \OT1/zi4/m/n/10 community.metrics=c(\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 S
+R.deviation\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 ,\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 c
+ommunity.AUC\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 ,\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 
+probabilistic.Sorensen\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 ),[] 
+
+Overfull \hbox (411.62091pt too wide) in paragraph at lines 589--590
+[]\OT1/cmr/m/n/10 a se-lec-tion of com-mu-nity met-rics to cal-cu-late (\TS1/zi
+4/m/n/10 '\OT1/zi4/m/n/10 SR.deviation\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/z
+i4/m/n/10 '\OT1/zi4/m/n/10 community.AUC\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1
+/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Sorensen\TS1/zi4/m/n/10 '\OT1/zi4/m/
+n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Jaccard\TS1/zi4/m/n/10 '\
+OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Simpson\TS1/zi4
+/m/n/10 '\OT1/cmr/m/n/10 ) 
+[12]
+Overfull \hbox (189.05228pt too wide) in paragraph at lines 628--629
+[]\OT1/cmr/m/n/10 If any of the other com-mu-nity eval-u-a-tion met-rics (\TS1/
+zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Sorensen\TS1/zi4/m/n/10 '\OT1/zi4/m/n
+/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Jaccard\TS1/zi4/m/n/10 '\O
+T1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Simpson\TS1/zi4/
+m/n/10 '\OT1/cmr/m/n/10 )
+[13] [14] [15]
+Overfull \hbox (17.1347pt too wide) in paragraph at lines 808--809
+[]\OT1/cmr/m/n/10 number of cross-validatio/split sam-ple runs (only needed if 
+no \OT1/zi4/m/n/10 DataSplitTable
+
+Overfull \hbox (241.09683pt too wide) in paragraph at lines 811--812
+\OT1/cmr/m/n/10 choosen among \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GLM\TS1/zi4/m/n/
+10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GBM\TS1/zi4/m/n/10 '\OT1
+/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GAM\TS1/zi4/m/n/10 '\OT1/zi4/m/n
+/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 CTA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \T
+S1/zi4/m/n/10 '\OT1/zi4/m/n/10 ANN\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m
+/n/10 '\OT1/zi4/m/n/10 SRE\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\
+OT1/zi4/m/n/10 FDA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/
+m/n/10 MARS\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 
+RF\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAXENT.Ph
+illips\TS1/zi4/m/n/10 ' \OT1/zi4/m/n/10 and \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MA
+XENT.Tsuruoka\TS1/zi4/m/n/10 ' 
+
+Overfull \hbox (204.93011pt too wide) in paragraph at lines 812--813
+\OT1/cmr/m/n/10 among \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GLM\TS1/zi4/m/n/10 '\OT1
+/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GBM\TS1/zi4/m/n/10 '\OT1/zi4/m/n
+/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GAM\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \T
+S1/zi4/m/n/10 '\OT1/zi4/m/n/10 CTA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m
+/n/10 '\OT1/zi4/m/n/10 ANN\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\
+OT1/zi4/m/n/10 SRE\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/
+m/n/10 FDA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 M
+ARS\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 RF\TS1/z
+i4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAXENT.Phillips\T
+S1/zi4/m/n/10 ' \OT1/zi4/m/n/10 and \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAXENT.Tsu
+ruoka\TS1/zi4/m/n/10 ' 
+[16]
+Overfull \hbox (71.0133pt too wide) in paragraph at lines 815--816
+[]\OT1/cmr/m/n/10 evaluation score used to weight sin-gle mod-els to build en-s
+em-bles: \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 AUC\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 ,
+ \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 Kappa\TS1/zi4/m/n/10 ' \OT1/zi4/m/n/10 or \TS
+1/zi4/m/n/10 '\OT1/zi4/m/n/10 TSS\TS1/zi4/m/n/10 ' 
+
+Overfull \hbox (34.30876pt too wide) in paragraph at lines 825--827
+\OT1/cmr/m/n/10 tions with the [][]\OT1/zi4/m/n/10 ecospat.CCV.communityEvaluat
+ion.bin[][][] \OT1/cmr/m/n/10 or [][]\OT1/zi4/m/n/10 ecospat.CCV.communityEvalu
+ation.prob[][][]
+
+Overfull \hbox (107.67657pt too wide) in paragraph at lines 837--838
+[]\OT1/cmr/m/n/10 a 3-dimensional ar-ray of sin-gle species eval-u-a-tion met-r
+ics (\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 Max.KAPPA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10
+ , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 Max.TSS\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \
+TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 AUC of ROC\TS1/zi4/m/n/10 '\OT1/cmr/m/n/10 ) 
+[17]
+Overfull \hbox (130.52164pt too wide) in paragraph at lines 853--854
+[][][]\OT1/zi4/m/n/10 ecospat.CCV.createDataSplitTable[][][]\OT1/cmr/m/n/10 ; [
+][]\OT1/zi4/m/n/10 ecospat.CCV.communityEvaluation.bin[][][]\OT1/cmr/m/n/10 ; [
+][]\OT1/zi4/m/n/10 ecospat.CCV.communityEvaluation.prob[][][] 
+[18] [19]
+Overfull \hbox (2.47565pt too wide) in paragraph at lines 953--954
+\OT1/cmr/m/n/10 mer-mann \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 niklaus.zimmermann@ws
+l.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/zi4/m/n/10 <\O
+T1/zi4/m/n/10 valeria.dicola@unil.ch\OML/zi4/m/n/10 > 
+
+Overfull \hbox (45.6698pt too wide) in paragraph at lines 963--964
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.ts
+s[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.kappa[][][]\OT1/cmr/m
+/n/10 , [][]\OT1/zi4/m/n/10 ecospat.max.kappa[][][] 
+
+Overfull \hbox (10.55145pt too wide) in paragraph at lines 993--994
+[]\OT1/cmr/m/n/10 Logical vari-able in-di-cat-ing whether the pre-dic-tion ma-t
+rix con-tains presences-
+[20]
+Overfull \hbox (76.00357pt too wide) in paragraph at lines 1029--1031
+[]\OT1/cmr/m/n/10 with con-tri-bu-tion of Daniel Scher-rer \OML/zi4/m/n/10 <\OT
+1/zi4/m/n/10 daniel.scherrer@unil.ch\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 , Anne Dub
+uis \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 anne.dubuis@gmail.com\OML/zi4/m/n/10 >
+[21]
+Overfull \hbox (2.89236pt too wide) in paragraph at lines 1083--1084
+[]\OT1/cmr/m/n/10 Anne Dubuis \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 anne.dubuis@gmai
+l.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Manuela D`Amen \OML/zi4/m/n/10 <\OT1
+/zi4/m/n/10 manuela.damen@unil.ch\OML/zi4/m/n/10 > 
+[22]
+Overfull \hbox (15.77475pt too wide) in paragraph at lines 1096--1096
+ []\OT1/zi4/m/n/9 presence <- ecospat.testData[c(53,62,58,70,61,66,65,71,69,43,
+63,56,68,57,55,60,54,67,59,64)][] 
+[23] [24]
+Overfull \hbox (47.9726pt too wide) in paragraph at lines 1229--1230
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 < \OT1/zi4/m/n/10 christoph
+e.randin@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Manuela D'Amen <manuela.da
+men@msn.com> 
+[25]
+Overfull \hbox (43.45844pt too wide) in paragraph at lines 1276--1277
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 < \OT1/zi4/m/n/10 christoph
+e.randin@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4/m
+/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[26]
+Overfull \hbox (55.12851pt too wide) in paragraph at lines 1319--1320
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[27]
+Overfull \hbox (55.12851pt too wide) in paragraph at lines 1369--1370
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[28]
+Overfull \hbox (4.76044pt too wide) in paragraph at lines 1396--1396
+ []\OT1/zi4/m/n/10 ecospat.cv.me (data.cv.me, name.sp, names.pred, K=10, cv.lim
+=10, jack.knife=FALSE)[] 
+
+Overfull \hbox (55.12851pt too wide) in paragraph at lines 1420--1421
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[29]
+Overfull \hbox (40.12851pt too wide) in paragraph at lines 1472--1473
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4/m/
+n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[30] [31]
+Overfull \hbox (35.74593pt too wide) in paragraph at lines 1571--1572
+[]\OT1/cmr/m/n/10 an eval-u-a-tion score used to weight sin-gle mod-els to buil
+d en-sem-bles:"AUC","TSS", 
+[32]
+Overfull \hbox (31.3016pt too wide) in paragraph at lines 1581--1582
+\OT1/cmr/m/n/10 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', "MAX-ENT.T
+suruoka"
+
+Overfull \hbox (55.88185pt too wide) in paragraph at lines 1607--1608
+[]\OT1/cmr/m/n/10 A \OT1/zi4/m/n/10 "[][]BIOMOD.EnsembleModeling.out[][][]"\OT1
+/cmr/m/n/10 . This ob-ject will be later given to [][]\OT1/zi4/m/n/10 ecospat.E
+SM.EnsembleProjection[][][]
+[33]
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 1668--1668
+ []\OT1/zi4/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.sc
+ore=c("SomersD"),threshold=0)[] 
+
+Overfull \hbox (42.77475pt too wide) in paragraph at lines 1675--1675
+ []\OT1/zi4/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.p
+rediction.output=my.ESM_proj_current,[] 
+[34] [35]
+Overfull \hbox (19.8476pt too wide) in paragraph at lines 1746--1747
+[][][]\OT1/zi4/m/n/10 BIOMOD[]Modeling[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/
+10 BIOMOD[]Projection[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 BIOMOD[]Ensemb
+leForecasting[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 BIOMOD[]EnsembleModeli
+ng[][][] 
+
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 1788--1788
+ []\OT1/zi4/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.sc
+ore=c("SomersD"),threshold=0)[] 
+[36]
+Overfull \hbox (42.77475pt too wide) in paragraph at lines 1795--1795
+ []\OT1/zi4/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.p
+rediction.output=my.ESM_proj_current,[] 
+[37]
+Overfull \hbox (26.85715pt too wide) in paragraph at lines 1851--1852
+\OT1/cmr/m/n/10 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', 'MAX-ENT.T
+suruoka'
+
+Overfull \hbox (25.87436pt too wide) in paragraph at lines 1869--1870
+[]\OT1/cmr/m/n/10 numeric. Calls re-moveTmp-Files() to delete all files from ra
+s-terOp-tions()\TS1/cmr/m/n/10 $\OT1/cmr/m/n/10 tmpdir
+
+Overfull \hbox (25.5035pt too wide) in paragraph at lines 1891--1892
+[]\OT1/cmr/m/n/10 Frank Breiner \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 frank.breiner@
+wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Mirko Di Feb-braro \OML/zi4/m/n/10 
+<\OT1/zi4/m/n/10 mirkodifebbraro@gmail.com\OML/zi4/m/n/10 >
+[38]
+Overfull \hbox (15.22534pt too wide) in paragraph at lines 1905--1906
+[][][]\OT1/zi4/m/n/10 ecospat.ESM.EnsembleModeling[][][]\OT1/cmr/m/n/10 , [][]\
+OT1/zi4/m/n/10 ecospat.ESM.Projection[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/1
+0 ecospat.ESM.EnsembleProjection[][][] 
+
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 1944--1944
+ []\OT1/zi4/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.sc
+ore=c("SomersD"),threshold=0)[] 
+[39]
+Overfull \hbox (42.77475pt too wide) in paragraph at lines 1951--1951
+ []\OT1/zi4/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.p
+rediction.output=my.ESM_proj_current,[] 
+
+Overfull \hbox (28.09659pt too wide) in paragraph at lines 1989--1990
+[]\OT1/cmr/m/n/10 Numeric. Calls re-moveTmp-Files() to delete all files from ra
+s-terOp-tions()\TS1/cmr/m/n/10 $\OT1/cmr/m/n/10 tmpdir
+
+Overfull \hbox (26.17012pt too wide) in paragraph at lines 2003--2005
+[]\OT1/cmr/m/n/10 Returns the pro-jec-tions for all se-lected mod-els (same as 
+in \OT1/zi4/m/n/10 biomod2\OT1/cmr/m/n/10 ) See \OT1/zi4/m/n/10 "[][]BIOMOD.pro
+jection.out[][][]"
+[40]
+Overfull \hbox (5.22534pt too wide) in paragraph at lines 2025--2026
+[][][]\OT1/zi4/m/n/10 ecospat.ESM.EnsembleModeling[][][]\OT1/cmr/m/n/10 , [][]\
+OT1/zi4/m/n/10 ecospat.ESM.Modeling[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 
+ecospat.ESM.EnsembleProjection[][][] 
+[41]
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 2064--2064
+ []\OT1/zi4/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.sc
+ore=c("SomersD"),threshold=0)[] 
+
+Overfull \hbox (42.77475pt too wide) in paragraph at lines 2071--2071
+ []\OT1/zi4/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.p
+rediction.output=my.ESM_proj_current,[] 
+[42]
+Overfull \hbox (71.75357pt too wide) in paragraph at lines 2129--2130
+[]\OT1/cmr/m/n/10 Olivier Broen-ni-mann \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 olivie
+r.broennimann@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Blaise Pe-tit-pierre
+ \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitpierre@gmail.com\OML/zi4/m/n/10 > 
+
+Overfull \hbox (20.27475pt too wide) in paragraph at lines 2149--2149
+ []\OT1/zi4/m/n/9 occ.sp_test <- na.exclude(ecospat.sample.envar(dfsp=spp,colsp
+xy=2:3,colspkept=1:3,dfvar=clim,[] 
+[43]
+Overfull \hbox (6.76555pt too wide) in paragraph at lines 2158--2158
+ []\OT1/zi4/m/n/9 for (i in 1:length(sp.list)){sp.nbocc<-c(sp.nbocc,length(whic
+h(occ.sp[,1] == sp.list[i])))}[] 
+[44]
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/omscmr.fd)
+
+Overfull \hbox (28.3294pt too wide) in paragraph at lines 2238--2242
+\OT1/cmr/m/n/10 When se-lect-ing an-other sam-pling type (\OMS/cmsy/m/n/10 n\OT
+1/cmr/m/n/10 'regular\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ', \OMS/cmsy/m/n/10 n\OT
+1/cmr/m/n/10 'stratified\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ', \OMS/cmsy/m/n/10 n
+\OT1/cmr/m/n/10 'nonaligned\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ',
+
+Overfull \hbox (0.70882pt too wide) in paragraph at lines 2242--2245
+[]\OT1/cmr/m/n/10 data.frame or Spa-tial-Points. You can use your own set of Ps
+eudo-Absences
+[45]
+Overfull \hbox (15.77475pt too wide) in paragraph at lines 2274--2274
+ []\OT1/zi4/m/n/9 random.spec <- cbind(as.data.frame(randomPoints(predictors,50
+,extf=1)),species="randomSpec")[] 
+[46] [47]
+Overfull \hbox (97.65643pt too wide) in paragraph at lines 2370--2371
+[]\OT1/cmr/m/n/10 Antoine Guisan \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 antoine.guisa
+n@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Luigi Maio-
+rano \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 luigi.maiorano@gmail.com\OML/zi4/m/n/10 >
+
+
+Overfull \hbox (55.6698pt too wide) in paragraph at lines 2379--2380
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.ts
+s[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cmr/
+m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.kappa[][][] 
+
+Overfull \hbox (97.65643pt too wide) in paragraph at lines 2424--2425
+[]\OT1/cmr/m/n/10 Luigi Maio-rano \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 luigi.maiora
+no@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of An-toine
+ Guisan \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 
+> 
+[48]
+Overfull \hbox (65.6698pt too wide) in paragraph at lines 2432--2433
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.kappa[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.
+tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cm
+r/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.kappa[][][] 
+[49]
+Overfull \hbox (26.42029pt too wide) in paragraph at lines 2495--2495
+ []\OT1/zi4/m/n/10 ecospat.mdr (data, xcol, ycol, datecol, mode, rep, mean.date
+.error, fixed.sources.rows)[] 
+[50] [51]
+Overfull \hbox (27.78088pt too wide) in paragraph at lines 2561--2561
+ []\OT1/zi4/m/n/9 text(data[fixed.sources.rows,2]+0.5,data[fixed.sources.rows,1
+]+0.5,data[fixed.sources.rows,3],[] 
+
+Overfull \hbox (96.6887pt too wide) in paragraph at lines 2605--2606
+[]\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitp
+ierre@gmail.com\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 . Mod-i-fied by Daniel Scher-re
+r \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 daniel.j.a.scherrer@gmail.com\OML/zi4/m/n/10
+ > 
+[52]
+Overfull \hbox (97.65643pt too wide) in paragraph at lines 2664--2665
+[]\OT1/cmr/m/n/10 Antoine Guisan \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 antoine.guisa
+n@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Luigi Maio-
+rano \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 luigi.maiorano@gmail.com\OML/zi4/m/n/10 >
+ 
+
+Overfull \hbox (50.6698pt too wide) in paragraph at lines 2672--2673
+[][][]\OT1/zi4/m/n/10 ecospat.max.kappa[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n
+/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.tss
+[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cmr/m
+/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.kappa[][][] 
+[53]
+Overfull \hbox (4.22568pt too wide) in paragraph at lines 2703--2704
+[]\OT1/cmr/m/n/10 Robin En-gler \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 robin.engler@g
+mail.com\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 , Wim Hordijk \OML/zi4/m/n/10 <\OT1/zi
+4/m/n/10 wim@WorldWideWanderings.net\OML/zi4/m/n/10 >
+[54] [55] [56] [57]
+Overfull \hbox (11.26555pt too wide) in paragraph at lines 2905--2905
+ []\OT1/zi4/m/n/9 #################################### stability S in space ###
+###############################[] 
+[58]
+Overfull \hbox (53.58269pt too wide) in paragraph at lines 2947--2948
+\OT1/cmr/m/n/10 tion. The de-fault value is 1. On mul-ti-core com-put-ers, the 
+op-ti-mal would be \OT1/zi4/m/n/10 ncores = detectCores() - 1\OT1/cmr/m/n/10 . 
+
+[59] [60]
+Overfull \hbox (53.58269pt too wide) in paragraph at lines 3047--3048
+\OT1/cmr/m/n/10 tion. The de-fault value is 1. On mul-ti-core com-put-ers, the 
+op-ti-mal would be \OT1/zi4/m/n/10 ncores = detectCores() - 1\OT1/cmr/m/n/10 . 
+
+[61] [62]
+Overfull \hbox (42.76555pt too wide) in paragraph at lines 3142--3142
+ []\OT1/zi4/m/n/9 #################################### occurrence density in sp
+ace ##################################[] 
+[63] [64] [65] [66] [67]
+Overfull \hbox (39.79515pt too wide) in paragraph at lines 3381--3382
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 , An-toine Guisan \OML/zi4/m/
+n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 >
+[68]
+Overfull \hbox (35.55869pt too wide) in paragraph at lines 3432--3434
+[][][]\OT1/zi4/m/n/10 ecospat.plot.niche.dyn[][][]\OT1/cmr/m/n/10 ,[][]\OT1/zi4
+/m/n/10 ecospat.plot.overlap.test[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ec
+ospat.niche.similarity.test[][][]\OT1/cmr/m/n/10 ,\OT1/zi4/m/n/10 princomp 
+
+Overfull \hbox (98.53142pt too wide) in paragraph at lines 3465--3466
+[]\OT1/cmr/m/n/10 Luigi Maio-rano \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 luigi.maiora
+no@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Va-le-ri
+a Di Cola \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 valeria.dicola@unil.ch\OML/zi4/m/n/1
+0 >\OT1/cmr/m/n/10 . 
+
+Overfull \hbox (50.6698pt too wide) in paragraph at lines 3476--3477
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.ts
+s[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cmr/
+m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.max.kappa[][][] 
+[69] [70]
+Overfull \hbox (29.13347pt too wide) in paragraph at lines 3556--3557
+[]\OT1/cmr/m/n/10 A grid-clim ob-ject for the species dis-tri-bu-tion cre-ated 
+by \OT1/zi4/m/n/10 ecospat.grid.clim.dyn\OT1/cmr/m/n/10 . 
+[71]
+Overfull \hbox (21.16243pt too wide) in paragraph at lines 3601--3602
+[]\OT1/cmr/m/n/10 Choose which den-sity to plot: if \OT1/zi4/m/n/10 interest=1\
+OT1/cmr/m/n/10 , plot na-tive den-sity, if \OT1/zi4/m/n/10 interest=2\OT1/cmr/m
+/n/10 ,
+[72]
+Overfull \hbox (60.6698pt too wide) in paragraph at lines 3690--3691
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.ka
+ppa[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cm
+r/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.max.kappa[][][] 
+[73]
+Overfull \hbox (0.54227pt too wide) in paragraph at lines 3719--3720
+[]\OT1/cmr/m/n/10 The range of columns for the en-vi-ron-men-tal vari-ables in 
+glob. colvar="all"
+[74] [75] [76]
+Underfull \vbox (badness 10000) has occurred while \output is active [77]
+Overfull \hbox (23.28088pt too wide) in paragraph at lines 3913--3913
+ []\OT1/zi4/m/n/9 #plot(rangesize$RangeObjects$model.within.eoo[[i]],col=c("gre
+y","blue","darkgreen"),legend=F)[] 
+
+Overfull \hbox (12.76862pt too wide) in paragraph at lines 3927--3927
+ []\OT1/zi4/m/n/9 #  mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$m
+esh[,4]-del$mesh[,6])^2))*alpha[] 
+[78]
+Overfull \hbox (80.30913pt too wide) in paragraph at lines 3971--3972
+[]\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 achilleas.
+psomas@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \OML
+/zi4/m/n/10 <\OT1/zi4/m/n/10 niklaus.zimmermann@wsl.ch\OML/zi4/m/n/10 > 
+[79]
+Overfull \hbox (80.30913pt too wide) in paragraph at lines 4028--4029
+[]\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 achilleas.
+psomas@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \OML
+/zi4/m/n/10 <\OT1/zi4/m/n/10 niklaus.zimmermann@wsl.ch\OML/zi4/m/n/10 > 
+
+Overfull \hbox (35.26862pt too wide) in paragraph at lines 4046--4046
+ []    \OT1/zi4/m/n/9 points(B3B12.prop_samples$x,B3B12.prop_samples$y,pch=16,c
+ex=0.6,col=B3B12.prop_samples$class)[] 
+[80]
+Overfull \hbox (80.30913pt too wide) in paragraph at lines 4090--4091
+[]\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 achilleas.
+psomas@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \OML
+/zi4/m/n/10 <\OT1/zi4/m/n/10 niklaus.zimmermann@wsl.ch\OML/zi4/m/n/10 > 
+
+Overfull \hbox (35.26862pt too wide) in paragraph at lines 4109--4109
+ []    \OT1/zi4/m/n/9 points(B3B12.regl_samples$x,B3B12.regl_samples$y,pch=16,c
+ex=0.6,col=B3B12.regl_samples$class)[] 
+[81]
+Overfull \hbox (23.27168pt too wide) in paragraph at lines 4158--4158
+ []\OT1/zi4/m/n/9 occ.sp1 <- ecospat.occ.desaggregation(dfvar=sp1,colxy=2:3,col
+var=NULL, min.dist=500,plot=TRUE)[] 
+
+Overfull \hbox (20.27475pt too wide) in paragraph at lines 4161--4161
+ []\OT1/zi4/m/n/9 occ_sp1 <- na.exclude(ecospat.sample.envar(dfsp=occ.sp1,colsp
+xy=1:2,colspkept=1:2,dfvar=clim,[] 
+[82]
+Overfull \hbox (2.89236pt too wide) in paragraph at lines 4200--4201
+[]\OT1/cmr/m/n/10 Manuela D`Amen \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 manuela.damen
+@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Anne Dubuis \OML/zi4/m/n/10 <\OT1
+/zi4/m/n/10 anne.dubuis@gmail.com\OML/zi4/m/n/10 > 
+[83] [84] [85] [86]
+Overfull \hbox (5.00673pt too wide) in paragraph at lines 4374--4375
+\OT1/cmr/m/n/10 Leontodon[]hispidus[]sl, Dactylis[]glomerata, Tri-folium[]repen
+s[]sstr, Gera-nium[]sylvaticum, Ra-
+
+Overfull \hbox (2.46504pt too wide) in paragraph at lines 4374--4375
+\OT1/cmr/m/n/10 nun-cu-lus[]acris[]sl, Prunella[]vulgaris, Veron-ica[]chamaedry
+s, Tarax-acum[]officinale[]aggr, Plan-
+
+Overfull \hbox (14.86508pt too wide) in paragraph at lines 4374--4375
+\OT1/cmr/m/n/10 tago[]lanceolata, Po-ten-tilla[]erecta, Carex[]sempervirens, So
+l-danella[]alpina, Cyno-su-rus[]cristatus,
+[87] [88] [89]
+Overfull \hbox (33.72054pt too wide) in paragraph at lines 4502--4503
+[]\OT1/cmr/m/n/10 Scientific name of the species used in the exmaple: Bro-mus[]
+erectus[]sstr, Sax-ifraga[]oppositifolia,
+[90]
+Overfull \hbox (21.1701pt too wide) in paragraph at lines 4568--4569
+[]\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitp
+ierre@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 valeria.dicola@unil.ch\OML/zi4/m/n/10 > 
+[91]
+Overfull \hbox (21.1701pt too wide) in paragraph at lines 4628--4629
+[]\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitp
+ierre@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 valeria.dicola@unil.ch\OML/zi4/m/n/10 > 
+[92]
+Overfull \hbox (16.70961pt too wide) in paragraph at lines 4657--4707
+[]\OT1/cmr/m/n/10 [1] "Rumex[]acetosa" [2] "Poly-gonum[]bistorta" [3] "Poly-gon
+um[]viviparum" [4] "Rumex[]crispus"
+
+Overfull \hbox (42.66794pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [5] "Cerastium[]latifolium" [6] "Si-lene[]acaulis" [7] "Gyp-sop
+hila[]repens" [8] "Vac-cinium[]gaultherioides"
+
+Overfull \hbox (21.6819pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [9] "Sol-danella[]alpina" [10] "Cru-ci-ata[]laevipes" [11] "Gal
+-ium[]album" [12] "Gal-ium[]anisophyllon"
+
+Overfull \hbox (8.41791pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 tiana[]purpurea" [17] "Gen-tiana[]lutea" [18] "Bart-sia[]alpina
+" [19] "Rhi-nan-thus[]alectorolophus"
+
+Overfull \hbox (29.23746pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [20] "Prunella[]grandiflora" [21] "Aci-nos[]alpinus" [22] "Plan
+-tago[]alpina" [23] "Plan-tago[]lanceolata"
+
+Overfull \hbox (38.32068pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [24] "Veron-ica[]officinalis" [25] "Veron-ica[]aphylla" [26] "V
+eron-ica[]alpina" [27] "Veron-ica[]chamaedrys"
+
+Overfull \hbox (4.35953pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [28] "Veron-ica[]persica" [29] "Glob-u-laria[]cordifolia" [30] 
+"Glob-u-laria[]nudicaulis" [31] "Myoso-
+
+Overfull \hbox (26.54298pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 "Hypochaeris[]radicata" [39] "Achil-lea[]atrata" [40] "Achil-le
+a[]millefolium" [41] "Ho-mog-yne[]alpina"
+
+Overfull \hbox (43.15407pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [42] "Senecio[]doronicum" [43] "Adenos-tyles[]glabra" [44] "Ar-
+nica[]montana" [45] "Aster[]bellidiastrum"
+
+Overfull \hbox (1.69289pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [46] "Bel-lis[]perennis" [47] "Doron-icum[]grandiflorum" [48] "
+Phy-teuma[]orbiculare" [49] "Phy-
+
+Overfull \hbox (30.94795pt too wide) in paragraph at lines 4711--4712
+[]\OT1/cmr/m/n/10 Charlotte Ndiribe \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 charlotte.
+ndiribe@unil.ch\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 , Nico-las Salamin \OML/zi4/m/n
+/10 <\OT1/zi4/m/n/10 nicolas.salamin@unil.ch\OML/zi4/m/n/10 >
+[93] [94]
+No file Rd2.ind.
+[95] (./Rd2.aux)
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.dudi.pca} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.princomp} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.mgram} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.projection.out.Rdash.class} has been ref
+erenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.models.out.Rdash.class} has been referen
+ced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.FormatingData} has been referenced b
+ut does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.EnsembleModeling} has been reference
+d but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.EnsembleForecasting} has been refere
+nced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.Projection} has been referenced but 
+does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.EnsembleModeling.out.Rdash.class} has be
+en referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.Modeling} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.ModelingOptions} has been referenced
+ but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.optimal.thresholds} has been referenced but doe
+s not exist, replaced by a fixed one
+
+{c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/inconsola
+ta/i4-ts1.enc}{c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/d
+vips/inconsolata/i4-ot1-0.enc} <c:/Users/obroenni/.TinyTeX/texmf-var/fonts/pk/l
+jfour/jknappen/ec/tcrm1000.600pk><c:/Users/obroenni/AppData/Roaming/TinyTeX/tex
+mf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><c:/Users/obroenni/
+AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c
+:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmbx12.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmmi10.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/Users/obroenni/AppData/Roam
+ing/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/Users/obroe
+nni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pf
+b><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmss12.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on Rd2.pdf (95 pages, 355824 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.15 [TeX Live 2018/W32TeX] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (215 entries accepted, 0 rejected).
+Sorting entries.....done (1735 comparisons).
+Generating output file Rd2.ind....done (226 lines written, 2 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./Rd2.tex
+LaTeX2e <2018-04-01> patch level 5
+
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/bk10.clo))
+ (c:/Program Files/R/R-3.5.0/share/texmf/tex/latex/Rd.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
+)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable
+.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/bm.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/alltt.sty)
+
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/verbatim.
+sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/url/url.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/textcomp.s
+ty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ts1enc.def
+
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ts1enc.dfu
+)))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/inconsolata/zi4
+.sty
+`inconsolata-zi4' v1.112, 2017/01/04 Text macros for Inconsolata (msharpe)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval
+.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/xkeyv
+al.tex
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/xkvut
+ils.tex
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/keyva
+l.tex)))))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/color.
+sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/co
+lor.cfg)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pd
+ftex.def))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperr
+ef.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/oberdiek/hobs
+ub-hyperref.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/oberdiek/hobs
+ub-generic.sty))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ifxetex/ifxet
+ex.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/oberdiek/auxhoo
+k.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/oberdiek/kvopti
+ons.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc
+.def)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/hyp
+erref.cfg))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hpdfte
+x.def
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/oberdiek/rerunf
+ilecheck.sty))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 366.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 366.
+
+)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/makeidx.st
+y)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/inputenc.s
+ty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/latin1.def
+))
+Writing index file Rd2.idx
+(./Rd2.aux)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ts1cmr.fd)
+
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/namere
+f.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/oberdiek/gett
+itlestring.sty)) (./Rd2.out) (./Rd2.out)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/inconsolata/ot1
+zi4.fd)
+
+LaTeX Font Warning: Font shape `OML/zi4/m/n' undefined
+(Font)              using `OML/cmm/m/it' instead
+(Font)              for symbol `textless' on input line 40.
+
+[1{c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/
+pdftex.map}] (./Rd2.toc [2])
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/utf8.def)
+[3]
+Overfull \hbox (26.44073pt too wide) in paragraph at lines 109--110
+[]\OT1/zi4/m/n/10 ecospat.ESM.EnsembleModeling, ecospat.ESM.Projection, ecospat
+.ESM.EnsembleProjection, 
+[4]
+Overfull \hbox (55.12851pt too wide) in paragraph at lines 198--199
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[5]
+Overfull \hbox (75.43416pt too wide) in paragraph at lines 248--249
+[]\OT1/cmr/m/n/10 Ruben G. Ma-teo \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 rubeng.mateo
+@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Frank Brei
+ner \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 frank.breiner@wsl.ch\OML/zi4/m/n/10 > 
+[6]
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/inconsolata/ts1
+zi4.fd) [7]
+Overfull \hbox (10.53123pt too wide) in paragraph at lines 348--349
+[]\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitp
+ierre@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Frank Breiner \OML/zi4/m/n
+/10 <\OT1/zi4/m/n/10 frank.breiner@unil.ch\OML/zi4/m/n/10 > 
+[8]
+Overfull \hbox (9.7366pt too wide) in paragraph at lines 386--387
+[]\OT1/cmr/m/n/10 Phylogenetic di-ver-sity can ei-ther be rooted or un-rooted. 
+De-tails in Schweiger
+
+Overfull \hbox (41.80905pt too wide) in paragraph at lines 405--406
+[]\OT1/cmr/m/n/10 Nicolas Salamin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 nicolas.sala
+min@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Dorothea Pio \OML/zi4/m/n/10 <
+\OT1/zi4/m/n/10 Dorothea.Pio@fauna-flora.org\OML/zi4/m/n/10 > 
+[9] [10]
+Overfull \hbox (20.24715pt too wide) in paragraph at lines 471--471
+ []\OT1/zi4/m/n/9 caleval <- ecospat.caleval (data = ecospat.testData[53], xy =
+ data[2:3], row.num = 1:nrow(data),[] 
+
+Overfull \hbox (424.13365pt too wide) in paragraph at lines 501--502
+[]\OT1/cmr/m/n/10 a se-lec-tion of thresh-olds (\TS1/zi4/m/n/10 '\OT1/zi4/m/n/1
+0 FIXED\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAX.
+KAPPA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAX.AC
+CURACY\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAX.T
+SS\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 SENS[]SPE
+C\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAX.ROC\TS
+1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 OBS.PREVALENCE
+\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 AVG.PROBABI
+LITY\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MCE\TS1
+/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 PS[]SDM, MEM\TS
+1/zi4/m/n/10 '\OT1/cmr/m/n/10 )
+
+Overfull \hbox (1010.2082pt too wide) in paragraph at lines 502--503
+[]\OT1/cmr/m/n/10 a se-lec-tion of com-mu-nity eval-u-a-tion met-rics (\TS1/zi4
+/m/n/10 '\OT1/zi4/m/n/10 SR.deviation\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi
+4/m/n/10 '\OT1/zi4/m/n/10 community.AUC\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/
+zi4/m/n/10 '\OT1/zi4/m/n/10 community.overprediction\TS1/zi4/m/n/10 ' \OT1/zi4/
+m/n/10 ,\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 community.underprediction\TS1/zi4/m/n/
+10 '\OT1/zi4/m/n/10 ,\TS1/zi4/m/n/10 ' \OT1/zi4/m/n/10 community.accuracy\TS1/z
+i4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 community.sensiti
+vity\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 communi
+ty.specificity\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/
+10 community.kappa\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/
+m/n/10 community.tss\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi
+4/m/n/10 Sorensen\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m
+/n/10 Jaccard\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/1
+0 Simpson\TS1/zi4/m/n/10 '\OT1/cmr/m/n/10 )
+[11] [12]
+Overfull \hbox (9.76044pt too wide) in paragraph at lines 579--579
+ []      \OT1/zi4/m/n/10 community.metrics=c(\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 S
+R.deviation\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 ,\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 c
+ommunity.AUC\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 ,\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 
+probabilistic.Sorensen\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 ),[] 
+
+Overfull \hbox (411.62091pt too wide) in paragraph at lines 589--590
+[]\OT1/cmr/m/n/10 a se-lec-tion of com-mu-nity met-rics to cal-cu-late (\TS1/zi
+4/m/n/10 '\OT1/zi4/m/n/10 SR.deviation\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/z
+i4/m/n/10 '\OT1/zi4/m/n/10 community.AUC\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1
+/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Sorensen\TS1/zi4/m/n/10 '\OT1/zi4/m/
+n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Jaccard\TS1/zi4/m/n/10 '\
+OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Simpson\TS1/zi4
+/m/n/10 '\OT1/cmr/m/n/10 ) 
+[13]
+Overfull \hbox (189.05228pt too wide) in paragraph at lines 628--629
+[]\OT1/cmr/m/n/10 If any of the other com-mu-nity eval-u-a-tion met-rics (\TS1/
+zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Sorensen\TS1/zi4/m/n/10 '\OT1/zi4/m/n
+/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Jaccard\TS1/zi4/m/n/10 '\O
+T1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Simpson\TS1/zi4/
+m/n/10 '\OT1/cmr/m/n/10 )
+[14] [15] [16] [17]
+Overfull \hbox (17.1347pt too wide) in paragraph at lines 808--809
+[]\OT1/cmr/m/n/10 number of cross-validatio/split sam-ple runs (only needed if 
+no \OT1/zi4/m/n/10 DataSplitTable
+
+Overfull \hbox (241.09683pt too wide) in paragraph at lines 811--812
+\OT1/cmr/m/n/10 choosen among \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GLM\TS1/zi4/m/n/
+10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GBM\TS1/zi4/m/n/10 '\OT1
+/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GAM\TS1/zi4/m/n/10 '\OT1/zi4/m/n
+/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 CTA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \T
+S1/zi4/m/n/10 '\OT1/zi4/m/n/10 ANN\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m
+/n/10 '\OT1/zi4/m/n/10 SRE\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\
+OT1/zi4/m/n/10 FDA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/
+m/n/10 MARS\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 
+RF\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAXENT.Ph
+illips\TS1/zi4/m/n/10 ' \OT1/zi4/m/n/10 and \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MA
+XENT.Tsuruoka\TS1/zi4/m/n/10 ' 
+
+Overfull \hbox (204.93011pt too wide) in paragraph at lines 812--813
+\OT1/cmr/m/n/10 among \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GLM\TS1/zi4/m/n/10 '\OT1
+/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GBM\TS1/zi4/m/n/10 '\OT1/zi4/m/n
+/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GAM\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \T
+S1/zi4/m/n/10 '\OT1/zi4/m/n/10 CTA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m
+/n/10 '\OT1/zi4/m/n/10 ANN\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\
+OT1/zi4/m/n/10 SRE\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/
+m/n/10 FDA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 M
+ARS\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 RF\TS1/z
+i4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAXENT.Phillips\T
+S1/zi4/m/n/10 ' \OT1/zi4/m/n/10 and \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAXENT.Tsu
+ruoka\TS1/zi4/m/n/10 ' 
+
+Overfull \hbox (71.0133pt too wide) in paragraph at lines 815--816
+[]\OT1/cmr/m/n/10 evaluation score used to weight sin-gle mod-els to build en-s
+em-bles: \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 AUC\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 ,
+ \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 Kappa\TS1/zi4/m/n/10 ' \OT1/zi4/m/n/10 or \TS
+1/zi4/m/n/10 '\OT1/zi4/m/n/10 TSS\TS1/zi4/m/n/10 ' 
+
+Overfull \hbox (34.30876pt too wide) in paragraph at lines 825--827
+\OT1/cmr/m/n/10 tions with the [][]\OT1/zi4/m/n/10 ecospat.CCV.communityEvaluat
+ion.bin[][][] \OT1/cmr/m/n/10 or [][]\OT1/zi4/m/n/10 ecospat.CCV.communityEvalu
+ation.prob[][][]
+[18]
+Overfull \hbox (107.67657pt too wide) in paragraph at lines 837--838
+[]\OT1/cmr/m/n/10 a 3-dimensional ar-ray of sin-gle species eval-u-a-tion met-r
+ics (\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 Max.KAPPA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10
+ , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 Max.TSS\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \
+TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 AUC of ROC\TS1/zi4/m/n/10 '\OT1/cmr/m/n/10 ) 
+
+Overfull \hbox (130.52164pt too wide) in paragraph at lines 853--854
+[][][]\OT1/zi4/m/n/10 ecospat.CCV.createDataSplitTable[][][]\OT1/cmr/m/n/10 ; [
+][]\OT1/zi4/m/n/10 ecospat.CCV.communityEvaluation.bin[][][]\OT1/cmr/m/n/10 ; [
+][]\OT1/zi4/m/n/10 ecospat.CCV.communityEvaluation.prob[][][] 
+[19] [20]
+Overfull \hbox (2.47565pt too wide) in paragraph at lines 953--954
+\OT1/cmr/m/n/10 mer-mann \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 niklaus.zimmermann@ws
+l.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/zi4/m/n/10 <\O
+T1/zi4/m/n/10 valeria.dicola@unil.ch\OML/zi4/m/n/10 > 
+
+Overfull \hbox (45.6698pt too wide) in paragraph at lines 963--964
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.ts
+s[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.kappa[][][]\OT1/cmr/m
+/n/10 , [][]\OT1/zi4/m/n/10 ecospat.max.kappa[][][] 
+[21]
+Overfull \hbox (10.55145pt too wide) in paragraph at lines 993--994
+[]\OT1/cmr/m/n/10 Logical vari-able in-di-cat-ing whether the pre-dic-tion ma-t
+rix con-tains presences-
+[22]
+Overfull \hbox (76.00357pt too wide) in paragraph at lines 1029--1031
+[]\OT1/cmr/m/n/10 with con-tri-bu-tion of Daniel Scher-rer \OML/zi4/m/n/10 <\OT
+1/zi4/m/n/10 daniel.scherrer@unil.ch\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 , Anne Dub
+uis \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 anne.dubuis@gmail.com\OML/zi4/m/n/10 >
+[23]
+Overfull \hbox (2.89236pt too wide) in paragraph at lines 1083--1084
+[]\OT1/cmr/m/n/10 Anne Dubuis \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 anne.dubuis@gmai
+l.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Manuela D`Amen \OML/zi4/m/n/10 <\OT1
+/zi4/m/n/10 manuela.damen@unil.ch\OML/zi4/m/n/10 > 
+
+Overfull \hbox (15.77475pt too wide) in paragraph at lines 1096--1096
+ []\OT1/zi4/m/n/9 presence <- ecospat.testData[c(53,62,58,70,61,66,65,71,69,43,
+63,56,68,57,55,60,54,67,59,64)][] 
+[24] [25] [26]
+Overfull \hbox (47.9726pt too wide) in paragraph at lines 1229--1230
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 < \OT1/zi4/m/n/10 christoph
+e.randin@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Manuela D'Amen <manuela.da
+men@msn.com> 
+
+Overfull \hbox (43.45844pt too wide) in paragraph at lines 1276--1277
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 < \OT1/zi4/m/n/10 christoph
+e.randin@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4/m
+/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[27]
+Overfull \hbox (55.12851pt too wide) in paragraph at lines 1319--1320
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[28]
+Overfull \hbox (55.12851pt too wide) in paragraph at lines 1369--1370
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[29]
+Overfull \hbox (4.76044pt too wide) in paragraph at lines 1396--1396
+ []\OT1/zi4/m/n/10 ecospat.cv.me (data.cv.me, name.sp, names.pred, K=10, cv.lim
+=10, jack.knife=FALSE)[] 
+
+Overfull \hbox (55.12851pt too wide) in paragraph at lines 1420--1421
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[30] [31]
+Overfull \hbox (40.12851pt too wide) in paragraph at lines 1472--1473
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4/m/
+n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[32]
+Overfull \hbox (35.74593pt too wide) in paragraph at lines 1571--1572
+[]\OT1/cmr/m/n/10 an eval-u-a-tion score used to weight sin-gle mod-els to buil
+d en-sem-bles:"AUC","TSS", 
+[33]
+Overfull \hbox (31.3016pt too wide) in paragraph at lines 1581--1582
+\OT1/cmr/m/n/10 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', "MAX-ENT.T
+suruoka"
+
+Overfull \hbox (55.88185pt too wide) in paragraph at lines 1607--1608
+[]\OT1/cmr/m/n/10 A \OT1/zi4/m/n/10 "[][]BIOMOD.EnsembleModeling.out[][][]"\OT1
+/cmr/m/n/10 . This ob-ject will be later given to [][]\OT1/zi4/m/n/10 ecospat.E
+SM.EnsembleProjection[][][]
+[34]
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 1668--1668
+ []\OT1/zi4/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.sc
+ore=c("SomersD"),threshold=0)[] 
+
+Overfull \hbox (42.77475pt too wide) in paragraph at lines 1675--1675
+ []\OT1/zi4/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.p
+rediction.output=my.ESM_proj_current,[] 
+[35] [36]
+Overfull \hbox (19.8476pt too wide) in paragraph at lines 1746--1747
+[][][]\OT1/zi4/m/n/10 BIOMOD[]Modeling[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/
+10 BIOMOD[]Projection[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 BIOMOD[]Ensemb
+leForecasting[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 BIOMOD[]EnsembleModeli
+ng[][][] 
+[37]
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 1788--1788
+ []\OT1/zi4/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.sc
+ore=c("SomersD"),threshold=0)[] 
+
+Overfull \hbox (42.77475pt too wide) in paragraph at lines 1795--1795
+ []\OT1/zi4/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.p
+rediction.output=my.ESM_proj_current,[] 
+[38]
+Overfull \hbox (26.85715pt too wide) in paragraph at lines 1851--1852
+\OT1/cmr/m/n/10 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', 'MAX-ENT.T
+suruoka'
+
+Overfull \hbox (25.87436pt too wide) in paragraph at lines 1869--1870
+[]\OT1/cmr/m/n/10 numeric. Calls re-moveTmp-Files() to delete all files from ra
+s-terOp-tions()\TS1/cmr/m/n/10 $\OT1/cmr/m/n/10 tmpdir
+
+Overfull \hbox (25.5035pt too wide) in paragraph at lines 1891--1892
+[]\OT1/cmr/m/n/10 Frank Breiner \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 frank.breiner@
+wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Mirko Di Feb-braro \OML/zi4/m/n/10 
+<\OT1/zi4/m/n/10 mirkodifebbraro@gmail.com\OML/zi4/m/n/10 >
+[39]
+Overfull \hbox (15.22534pt too wide) in paragraph at lines 1905--1906
+[][][]\OT1/zi4/m/n/10 ecospat.ESM.EnsembleModeling[][][]\OT1/cmr/m/n/10 , [][]\
+OT1/zi4/m/n/10 ecospat.ESM.Projection[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/1
+0 ecospat.ESM.EnsembleProjection[][][] 
+
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 1944--1944
+ []\OT1/zi4/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.sc
+ore=c("SomersD"),threshold=0)[] 
+[40]
+Overfull \hbox (42.77475pt too wide) in paragraph at lines 1951--1951
+ []\OT1/zi4/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.p
+rediction.output=my.ESM_proj_current,[] 
+
+Overfull \hbox (28.09659pt too wide) in paragraph at lines 1989--1990
+[]\OT1/cmr/m/n/10 Numeric. Calls re-moveTmp-Files() to delete all files from ra
+s-terOp-tions()\TS1/cmr/m/n/10 $\OT1/cmr/m/n/10 tmpdir
+
+Overfull \hbox (26.17012pt too wide) in paragraph at lines 2003--2005
+[]\OT1/cmr/m/n/10 Returns the pro-jec-tions for all se-lected mod-els (same as 
+in \OT1/zi4/m/n/10 biomod2\OT1/cmr/m/n/10 ) See \OT1/zi4/m/n/10 "[][]BIOMOD.pro
+jection.out[][][]"
+[41]
+Overfull \hbox (5.22534pt too wide) in paragraph at lines 2025--2026
+[][][]\OT1/zi4/m/n/10 ecospat.ESM.EnsembleModeling[][][]\OT1/cmr/m/n/10 , [][]\
+OT1/zi4/m/n/10 ecospat.ESM.Modeling[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 
+ecospat.ESM.EnsembleProjection[][][] 
+[42]
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 2064--2064
+ []\OT1/zi4/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.sc
+ore=c("SomersD"),threshold=0)[] 
+
+Overfull \hbox (42.77475pt too wide) in paragraph at lines 2071--2071
+ []\OT1/zi4/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.p
+rediction.output=my.ESM_proj_current,[] 
+[43]
+Overfull \hbox (71.75357pt too wide) in paragraph at lines 2129--2130
+[]\OT1/cmr/m/n/10 Olivier Broen-ni-mann \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 olivie
+r.broennimann@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Blaise Pe-tit-pierre
+ \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitpierre@gmail.com\OML/zi4/m/n/10 > 
+
+Overfull \hbox (20.27475pt too wide) in paragraph at lines 2149--2149
+ []\OT1/zi4/m/n/9 occ.sp_test <- na.exclude(ecospat.sample.envar(dfsp=spp,colsp
+xy=2:3,colspkept=1:3,dfvar=clim,[] 
+[44]
+Overfull \hbox (6.76555pt too wide) in paragraph at lines 2158--2158
+ []\OT1/zi4/m/n/9 for (i in 1:length(sp.list)){sp.nbocc<-c(sp.nbocc,length(whic
+h(occ.sp[,1] == sp.list[i])))}[] 
+[45]
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/omscmr.fd)
+
+Overfull \hbox (28.3294pt too wide) in paragraph at lines 2238--2242
+\OT1/cmr/m/n/10 When se-lect-ing an-other sam-pling type (\OMS/cmsy/m/n/10 n\OT
+1/cmr/m/n/10 'regular\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ', \OMS/cmsy/m/n/10 n\OT
+1/cmr/m/n/10 'stratified\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ', \OMS/cmsy/m/n/10 n
+\OT1/cmr/m/n/10 'nonaligned\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ',
+
+Overfull \hbox (0.70882pt too wide) in paragraph at lines 2242--2245
+[]\OT1/cmr/m/n/10 data.frame or Spa-tial-Points. You can use your own set of Ps
+eudo-Absences
+[46]
+Overfull \hbox (15.77475pt too wide) in paragraph at lines 2274--2274
+ []\OT1/zi4/m/n/9 random.spec <- cbind(as.data.frame(randomPoints(predictors,50
+,extf=1)),species="randomSpec")[] 
+[47] [48]
+Overfull \hbox (97.65643pt too wide) in paragraph at lines 2370--2371
+[]\OT1/cmr/m/n/10 Antoine Guisan \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 antoine.guisa
+n@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Luigi Maio-
+rano \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 luigi.maiorano@gmail.com\OML/zi4/m/n/10 >
+
+
+Overfull \hbox (55.6698pt too wide) in paragraph at lines 2379--2380
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.ts
+s[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cmr/
+m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.kappa[][][] 
+
+Overfull \hbox (97.65643pt too wide) in paragraph at lines 2424--2425
+[]\OT1/cmr/m/n/10 Luigi Maio-rano \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 luigi.maiora
+no@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of An-toine
+ Guisan \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 
+> 
+[49]
+Overfull \hbox (65.6698pt too wide) in paragraph at lines 2432--2433
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.kappa[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.
+tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cm
+r/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.kappa[][][] 
+[50]
+Overfull \hbox (26.42029pt too wide) in paragraph at lines 2495--2495
+ []\OT1/zi4/m/n/10 ecospat.mdr (data, xcol, ycol, datecol, mode, rep, mean.date
+.error, fixed.sources.rows)[] 
+[51] [52]
+Overfull \hbox (27.78088pt too wide) in paragraph at lines 2561--2561
+ []\OT1/zi4/m/n/9 text(data[fixed.sources.rows,2]+0.5,data[fixed.sources.rows,1
+]+0.5,data[fixed.sources.rows,3],[] 
+
+Overfull \hbox (96.6887pt too wide) in paragraph at lines 2605--2606
+[]\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitp
+ierre@gmail.com\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 . Mod-i-fied by Daniel Scher-re
+r \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 daniel.j.a.scherrer@gmail.com\OML/zi4/m/n/10
+ > 
+[53]
+Overfull \hbox (97.65643pt too wide) in paragraph at lines 2664--2665
+[]\OT1/cmr/m/n/10 Antoine Guisan \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 antoine.guisa
+n@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Luigi Maio-
+rano \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 luigi.maiorano@gmail.com\OML/zi4/m/n/10 >
+ 
+
+Overfull \hbox (50.6698pt too wide) in paragraph at lines 2672--2673
+[][][]\OT1/zi4/m/n/10 ecospat.max.kappa[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n
+/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.tss
+[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cmr/m
+/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.kappa[][][] 
+[54]
+Overfull \hbox (4.22568pt too wide) in paragraph at lines 2703--2704
+[]\OT1/cmr/m/n/10 Robin En-gler \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 robin.engler@g
+mail.com\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 , Wim Hordijk \OML/zi4/m/n/10 <\OT1/zi
+4/m/n/10 wim@WorldWideWanderings.net\OML/zi4/m/n/10 >
+[55] [56] [57] [58]
+Overfull \hbox (11.26555pt too wide) in paragraph at lines 2905--2905
+ []\OT1/zi4/m/n/9 #################################### stability S in space ###
+###############################[] 
+[59]
+Overfull \hbox (53.58269pt too wide) in paragraph at lines 2947--2948
+\OT1/cmr/m/n/10 tion. The de-fault value is 1. On mul-ti-core com-put-ers, the 
+op-ti-mal would be \OT1/zi4/m/n/10 ncores = detectCores() - 1\OT1/cmr/m/n/10 . 
+
+[60] [61]
+Overfull \hbox (53.58269pt too wide) in paragraph at lines 3047--3048
+\OT1/cmr/m/n/10 tion. The de-fault value is 1. On mul-ti-core com-put-ers, the 
+op-ti-mal would be \OT1/zi4/m/n/10 ncores = detectCores() - 1\OT1/cmr/m/n/10 . 
+
+[62] [63]
+Overfull \hbox (42.76555pt too wide) in paragraph at lines 3142--3142
+ []\OT1/zi4/m/n/9 #################################### occurrence density in sp
+ace ##################################[] 
+[64] [65] [66] [67] [68]
+Overfull \hbox (39.79515pt too wide) in paragraph at lines 3381--3382
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 , An-toine Guisan \OML/zi4/m/
+n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 >
+[69]
+Overfull \hbox (35.55869pt too wide) in paragraph at lines 3432--3434
+[][][]\OT1/zi4/m/n/10 ecospat.plot.niche.dyn[][][]\OT1/cmr/m/n/10 ,[][]\OT1/zi4
+/m/n/10 ecospat.plot.overlap.test[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ec
+ospat.niche.similarity.test[][][]\OT1/cmr/m/n/10 ,\OT1/zi4/m/n/10 princomp 
+
+Overfull \hbox (98.53142pt too wide) in paragraph at lines 3465--3466
+[]\OT1/cmr/m/n/10 Luigi Maio-rano \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 luigi.maiora
+no@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Va-le-ri
+a Di Cola \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 valeria.dicola@unil.ch\OML/zi4/m/n/1
+0 >\OT1/cmr/m/n/10 . 
+
+Overfull \hbox (50.6698pt too wide) in paragraph at lines 3476--3477
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.ts
+s[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cmr/
+m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.max.kappa[][][] 
+[70] [71]
+Overfull \hbox (29.13347pt too wide) in paragraph at lines 3556--3557
+[]\OT1/cmr/m/n/10 A grid-clim ob-ject for the species dis-tri-bu-tion cre-ated 
+by \OT1/zi4/m/n/10 ecospat.grid.clim.dyn\OT1/cmr/m/n/10 . 
+[72]
+Overfull \hbox (21.16243pt too wide) in paragraph at lines 3601--3602
+[]\OT1/cmr/m/n/10 Choose which den-sity to plot: if \OT1/zi4/m/n/10 interest=1\
+OT1/cmr/m/n/10 , plot na-tive den-sity, if \OT1/zi4/m/n/10 interest=2\OT1/cmr/m
+/n/10 ,
+[73]
+Overfull \hbox (60.6698pt too wide) in paragraph at lines 3690--3691
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.ka
+ppa[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cm
+r/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.max.kappa[][][] 
+[74]
+Overfull \hbox (0.54227pt too wide) in paragraph at lines 3719--3720
+[]\OT1/cmr/m/n/10 The range of columns for the en-vi-ron-men-tal vari-ables in 
+glob. colvar="all"
+[75] [76] [77]
+Underfull \vbox (badness 10000) has occurred while \output is active [78]
+Overfull \hbox (23.28088pt too wide) in paragraph at lines 3913--3913
+ []\OT1/zi4/m/n/9 #plot(rangesize$RangeObjects$model.within.eoo[[i]],col=c("gre
+y","blue","darkgreen"),legend=F)[] 
+
+Overfull \hbox (12.76862pt too wide) in paragraph at lines 3927--3927
+ []\OT1/zi4/m/n/9 #  mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$m
+esh[,4]-del$mesh[,6])^2))*alpha[] 
+[79]
+Overfull \hbox (80.30913pt too wide) in paragraph at lines 3971--3972
+[]\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 achilleas.
+psomas@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \OML
+/zi4/m/n/10 <\OT1/zi4/m/n/10 niklaus.zimmermann@wsl.ch\OML/zi4/m/n/10 > 
+[80]
+Overfull \hbox (80.30913pt too wide) in paragraph at lines 4028--4029
+[]\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 achilleas.
+psomas@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \OML
+/zi4/m/n/10 <\OT1/zi4/m/n/10 niklaus.zimmermann@wsl.ch\OML/zi4/m/n/10 > 
+
+Overfull \hbox (35.26862pt too wide) in paragraph at lines 4046--4046
+ []    \OT1/zi4/m/n/9 points(B3B12.prop_samples$x,B3B12.prop_samples$y,pch=16,c
+ex=0.6,col=B3B12.prop_samples$class)[] 
+[81]
+Overfull \hbox (80.30913pt too wide) in paragraph at lines 4090--4091
+[]\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 achilleas.
+psomas@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \OML
+/zi4/m/n/10 <\OT1/zi4/m/n/10 niklaus.zimmermann@wsl.ch\OML/zi4/m/n/10 > 
+
+Overfull \hbox (35.26862pt too wide) in paragraph at lines 4109--4109
+ []    \OT1/zi4/m/n/9 points(B3B12.regl_samples$x,B3B12.regl_samples$y,pch=16,c
+ex=0.6,col=B3B12.regl_samples$class)[] 
+[82]
+Overfull \hbox (23.27168pt too wide) in paragraph at lines 4158--4158
+ []\OT1/zi4/m/n/9 occ.sp1 <- ecospat.occ.desaggregation(dfvar=sp1,colxy=2:3,col
+var=NULL, min.dist=500,plot=TRUE)[] 
+
+Overfull \hbox (20.27475pt too wide) in paragraph at lines 4161--4161
+ []\OT1/zi4/m/n/9 occ_sp1 <- na.exclude(ecospat.sample.envar(dfsp=occ.sp1,colsp
+xy=1:2,colspkept=1:2,dfvar=clim,[] 
+[83]
+Overfull \hbox (2.89236pt too wide) in paragraph at lines 4200--4201
+[]\OT1/cmr/m/n/10 Manuela D`Amen \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 manuela.damen
+@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Anne Dubuis \OML/zi4/m/n/10 <\OT1
+/zi4/m/n/10 anne.dubuis@gmail.com\OML/zi4/m/n/10 > 
+[84] [85] [86] [87]
+Overfull \hbox (5.00673pt too wide) in paragraph at lines 4374--4375
+\OT1/cmr/m/n/10 Leontodon[]hispidus[]sl, Dactylis[]glomerata, Tri-folium[]repen
+s[]sstr, Gera-nium[]sylvaticum, Ra-
+
+Overfull \hbox (2.46504pt too wide) in paragraph at lines 4374--4375
+\OT1/cmr/m/n/10 nun-cu-lus[]acris[]sl, Prunella[]vulgaris, Veron-ica[]chamaedry
+s, Tarax-acum[]officinale[]aggr, Plan-
+
+Overfull \hbox (14.86508pt too wide) in paragraph at lines 4374--4375
+\OT1/cmr/m/n/10 tago[]lanceolata, Po-ten-tilla[]erecta, Carex[]sempervirens, So
+l-danella[]alpina, Cyno-su-rus[]cristatus,
+[88] [89] [90]
+Overfull \hbox (33.72054pt too wide) in paragraph at lines 4502--4503
+[]\OT1/cmr/m/n/10 Scientific name of the species used in the exmaple: Bro-mus[]
+erectus[]sstr, Sax-ifraga[]oppositifolia,
+[91]
+Overfull \hbox (21.1701pt too wide) in paragraph at lines 4568--4569
+[]\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitp
+ierre@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 valeria.dicola@unil.ch\OML/zi4/m/n/10 > 
+[92]
+Overfull \hbox (21.1701pt too wide) in paragraph at lines 4628--4629
+[]\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitp
+ierre@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 valeria.dicola@unil.ch\OML/zi4/m/n/10 > 
+[93]
+Overfull \hbox (16.70961pt too wide) in paragraph at lines 4657--4707
+[]\OT1/cmr/m/n/10 [1] "Rumex[]acetosa" [2] "Poly-gonum[]bistorta" [3] "Poly-gon
+um[]viviparum" [4] "Rumex[]crispus"
+
+Overfull \hbox (42.66794pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [5] "Cerastium[]latifolium" [6] "Si-lene[]acaulis" [7] "Gyp-sop
+hila[]repens" [8] "Vac-cinium[]gaultherioides"
+
+Overfull \hbox (21.6819pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [9] "Sol-danella[]alpina" [10] "Cru-ci-ata[]laevipes" [11] "Gal
+-ium[]album" [12] "Gal-ium[]anisophyllon"
+
+Overfull \hbox (8.41791pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 tiana[]purpurea" [17] "Gen-tiana[]lutea" [18] "Bart-sia[]alpina
+" [19] "Rhi-nan-thus[]alectorolophus"
+
+Overfull \hbox (29.23746pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [20] "Prunella[]grandiflora" [21] "Aci-nos[]alpinus" [22] "Plan
+-tago[]alpina" [23] "Plan-tago[]lanceolata"
+
+Overfull \hbox (38.32068pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [24] "Veron-ica[]officinalis" [25] "Veron-ica[]aphylla" [26] "V
+eron-ica[]alpina" [27] "Veron-ica[]chamaedrys"
+
+Overfull \hbox (4.35953pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [28] "Veron-ica[]persica" [29] "Glob-u-laria[]cordifolia" [30] 
+"Glob-u-laria[]nudicaulis" [31] "Myoso-
+
+Overfull \hbox (26.54298pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 "Hypochaeris[]radicata" [39] "Achil-lea[]atrata" [40] "Achil-le
+a[]millefolium" [41] "Ho-mog-yne[]alpina"
+
+Overfull \hbox (43.15407pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [42] "Senecio[]doronicum" [43] "Adenos-tyles[]glabra" [44] "Ar-
+nica[]montana" [45] "Aster[]bellidiastrum"
+
+Overfull \hbox (1.69289pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [46] "Bel-lis[]perennis" [47] "Doron-icum[]grandiflorum" [48] "
+Phy-teuma[]orbiculare" [49] "Phy-
+
+Overfull \hbox (30.94795pt too wide) in paragraph at lines 4711--4712
+[]\OT1/cmr/m/n/10 Charlotte Ndiribe \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 charlotte.
+ndiribe@unil.ch\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 , Nico-las Salamin \OML/zi4/m/n
+/10 <\OT1/zi4/m/n/10 nicolas.salamin@unil.ch\OML/zi4/m/n/10 >
+[94] [95] (./Rd2.ind [96]
+Overfull \hbox (8.63449pt too wide) in paragraph at lines 4--6
+[]| \OT1/zi4/m/n/10 ecospat.CCV.communityEvaluation.bin\OT1/cmr/m/n/10 , 
+
+Overfull \hbox (13.63449pt too wide) in paragraph at lines 6--8
+[]| \OT1/zi4/m/n/10 ecospat.CCV.communityEvaluation.prob\OT1/cmr/m/n/10 , 
+
+Overfull \hbox (8.63449pt too wide) in paragraph at lines 12--14
+[]| \OT1/zi4/m/n/10 ecospat.CCV.communityEvaluation.bin\OT1/cmr/m/n/10 , 
+
+Overfull \hbox (13.63449pt too wide) in paragraph at lines 14--16
+[]| \OT1/zi4/m/n/10 ecospat.CCV.communityEvaluation.prob\OT1/cmr/m/n/10 , 
+
+LaTeX Font Warning: Font shape `OT1/zi4/m/it' undefined
+(Font)              using `OT1/zi4/m/n' instead on input line 63.
+
+[97] [98]) (./Rd2.aux)
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.dudi.pca} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.princomp} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.mgram} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.projection.out.Rdash.class} has been ref
+erenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.models.out.Rdash.class} has been referen
+ced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.FormatingData} has been referenced b
+ut does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.EnsembleModeling} has been reference
+d but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.EnsembleForecasting} has been refere
+nced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.Projection} has been referenced but 
+does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.EnsembleModeling.out.Rdash.class} has be
+en referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.Modeling} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.ModelingOptions} has been referenced
+ but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.optimal.thresholds} has been referenced but doe
+s not exist, replaced by a fixed one
+
+{c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/inconsola
+ta/i4-ts1.enc}{c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/d
+vips/inconsolata/i4-ot1-0.enc} <c:/Users/obroenni/.TinyTeX/texmf-var/fonts/pk/l
+jfour/jknappen/ec/tcrm1000.600pk><c:/Users/obroenni/AppData/Roaming/TinyTeX/tex
+mf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><c:/Users/obroenni/
+AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><
+c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmbx10.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmbx12.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/Users/obroenni/AppData/Ro
+aming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/Users/obr
+oenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.p
+fb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmsl10.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmss10.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/obroenni/AppDat
+a/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/User
+s/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ti10.pfb>
+Output written on Rd2.pdf (98 pages, 392304 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.15 [TeX Live 2018/W32TeX] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (215 entries accepted, 0 rejected).
+Sorting entries.....done (1729 comparisons).
+Generating output file Rd2.ind....done (226 lines written, 3 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./Rd2.tex
+LaTeX2e <2018-04-01> patch level 5
+
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/bk10.clo))
+ (c:/Program Files/R/R-3.5.0/share/texmf/tex/latex/Rd.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
+)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable
+.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/bm.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/alltt.sty)
+
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/verbatim.
+sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/url/url.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/textcomp.s
+ty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ts1enc.def
+
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ts1enc.dfu
+)))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/inconsolata/zi4
+.sty
+`inconsolata-zi4' v1.112, 2017/01/04 Text macros for Inconsolata (msharpe)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval
+.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/xkeyv
+al.tex
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/xkvut
+ils.tex
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/keyva
+l.tex)))))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/color.
+sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/co
+lor.cfg)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pd
+ftex.def))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperr
+ef.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/oberdiek/hobs
+ub-hyperref.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/oberdiek/hobs
+ub-generic.sty))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ifxetex/ifxet
+ex.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/oberdiek/auxhoo
+k.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/oberdiek/kvopti
+ons.sty)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc
+.def)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/hyp
+erref.cfg))
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hpdfte
+x.def
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/oberdiek/rerunf
+ilecheck.sty))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 366.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 366.
+
+)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/makeidx.st
+y)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/inputenc.s
+ty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/latin1.def
+))
+Writing index file Rd2.idx
+(./Rd2.aux)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ts1cmr.fd)
+
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/namere
+f.sty
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/oberdiek/gett
+itlestring.sty)) (./Rd2.out) (./Rd2.out)
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/inconsolata/ot1
+zi4.fd)
+
+LaTeX Font Warning: Font shape `OML/zi4/m/n' undefined
+(Font)              using `OML/cmm/m/it' instead
+(Font)              for symbol `textless' on input line 40.
+
+[1{c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/
+pdftex.map}] (./Rd2.toc [2])
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/utf8.def)
+[3]
+Overfull \hbox (26.44073pt too wide) in paragraph at lines 109--110
+[]\OT1/zi4/m/n/10 ecospat.ESM.EnsembleModeling, ecospat.ESM.Projection, ecospat
+.ESM.EnsembleProjection, 
+[4]
+Overfull \hbox (55.12851pt too wide) in paragraph at lines 198--199
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[5]
+Overfull \hbox (75.43416pt too wide) in paragraph at lines 248--249
+[]\OT1/cmr/m/n/10 Ruben G. Ma-teo \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 rubeng.mateo
+@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Frank Brei
+ner \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 frank.breiner@wsl.ch\OML/zi4/m/n/10 > 
+[6]
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/inconsolata/ts1
+zi4.fd) [7]
+Overfull \hbox (10.53123pt too wide) in paragraph at lines 348--349
+[]\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitp
+ierre@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Frank Breiner \OML/zi4/m/n
+/10 <\OT1/zi4/m/n/10 frank.breiner@unil.ch\OML/zi4/m/n/10 > 
+[8]
+Overfull \hbox (9.7366pt too wide) in paragraph at lines 386--387
+[]\OT1/cmr/m/n/10 Phylogenetic di-ver-sity can ei-ther be rooted or un-rooted. 
+De-tails in Schweiger
+
+Overfull \hbox (41.80905pt too wide) in paragraph at lines 405--406
+[]\OT1/cmr/m/n/10 Nicolas Salamin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 nicolas.sala
+min@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Dorothea Pio \OML/zi4/m/n/10 <
+\OT1/zi4/m/n/10 Dorothea.Pio@fauna-flora.org\OML/zi4/m/n/10 > 
+[9] [10]
+Overfull \hbox (20.24715pt too wide) in paragraph at lines 471--471
+ []\OT1/zi4/m/n/9 caleval <- ecospat.caleval (data = ecospat.testData[53], xy =
+ data[2:3], row.num = 1:nrow(data),[] 
+
+Overfull \hbox (424.13365pt too wide) in paragraph at lines 501--502
+[]\OT1/cmr/m/n/10 a se-lec-tion of thresh-olds (\TS1/zi4/m/n/10 '\OT1/zi4/m/n/1
+0 FIXED\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAX.
+KAPPA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAX.AC
+CURACY\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAX.T
+SS\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 SENS[]SPE
+C\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAX.ROC\TS
+1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 OBS.PREVALENCE
+\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 AVG.PROBABI
+LITY\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MCE\TS1
+/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 PS[]SDM, MEM\TS
+1/zi4/m/n/10 '\OT1/cmr/m/n/10 )
+
+Overfull \hbox (1010.2082pt too wide) in paragraph at lines 502--503
+[]\OT1/cmr/m/n/10 a se-lec-tion of com-mu-nity eval-u-a-tion met-rics (\TS1/zi4
+/m/n/10 '\OT1/zi4/m/n/10 SR.deviation\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi
+4/m/n/10 '\OT1/zi4/m/n/10 community.AUC\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/
+zi4/m/n/10 '\OT1/zi4/m/n/10 community.overprediction\TS1/zi4/m/n/10 ' \OT1/zi4/
+m/n/10 ,\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 community.underprediction\TS1/zi4/m/n/
+10 '\OT1/zi4/m/n/10 ,\TS1/zi4/m/n/10 ' \OT1/zi4/m/n/10 community.accuracy\TS1/z
+i4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 community.sensiti
+vity\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 communi
+ty.specificity\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/
+10 community.kappa\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/
+m/n/10 community.tss\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi
+4/m/n/10 Sorensen\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m
+/n/10 Jaccard\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/1
+0 Simpson\TS1/zi4/m/n/10 '\OT1/cmr/m/n/10 )
+[11] [12]
+Overfull \hbox (9.76044pt too wide) in paragraph at lines 579--579
+ []      \OT1/zi4/m/n/10 community.metrics=c(\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 S
+R.deviation\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 ,\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 c
+ommunity.AUC\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 ,\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 
+probabilistic.Sorensen\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 ),[] 
+
+Overfull \hbox (411.62091pt too wide) in paragraph at lines 589--590
+[]\OT1/cmr/m/n/10 a se-lec-tion of com-mu-nity met-rics to cal-cu-late (\TS1/zi
+4/m/n/10 '\OT1/zi4/m/n/10 SR.deviation\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/z
+i4/m/n/10 '\OT1/zi4/m/n/10 community.AUC\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1
+/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Sorensen\TS1/zi4/m/n/10 '\OT1/zi4/m/
+n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Jaccard\TS1/zi4/m/n/10 '\
+OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Simpson\TS1/zi4
+/m/n/10 '\OT1/cmr/m/n/10 ) 
+[13]
+Overfull \hbox (189.05228pt too wide) in paragraph at lines 628--629
+[]\OT1/cmr/m/n/10 If any of the other com-mu-nity eval-u-a-tion met-rics (\TS1/
+zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Sorensen\TS1/zi4/m/n/10 '\OT1/zi4/m/n
+/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Jaccard\TS1/zi4/m/n/10 '\O
+T1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 probabilistic.Simpson\TS1/zi4/
+m/n/10 '\OT1/cmr/m/n/10 )
+[14] [15] [16] [17]
+Overfull \hbox (17.1347pt too wide) in paragraph at lines 808--809
+[]\OT1/cmr/m/n/10 number of cross-validatio/split sam-ple runs (only needed if 
+no \OT1/zi4/m/n/10 DataSplitTable
+
+Overfull \hbox (241.09683pt too wide) in paragraph at lines 811--812
+\OT1/cmr/m/n/10 choosen among \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GLM\TS1/zi4/m/n/
+10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GBM\TS1/zi4/m/n/10 '\OT1
+/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GAM\TS1/zi4/m/n/10 '\OT1/zi4/m/n
+/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 CTA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \T
+S1/zi4/m/n/10 '\OT1/zi4/m/n/10 ANN\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m
+/n/10 '\OT1/zi4/m/n/10 SRE\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\
+OT1/zi4/m/n/10 FDA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/
+m/n/10 MARS\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 
+RF\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAXENT.Ph
+illips\TS1/zi4/m/n/10 ' \OT1/zi4/m/n/10 and \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MA
+XENT.Tsuruoka\TS1/zi4/m/n/10 ' 
+
+Overfull \hbox (204.93011pt too wide) in paragraph at lines 812--813
+\OT1/cmr/m/n/10 among \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GLM\TS1/zi4/m/n/10 '\OT1
+/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GBM\TS1/zi4/m/n/10 '\OT1/zi4/m/n
+/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 GAM\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \T
+S1/zi4/m/n/10 '\OT1/zi4/m/n/10 CTA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m
+/n/10 '\OT1/zi4/m/n/10 ANN\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\
+OT1/zi4/m/n/10 SRE\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/
+m/n/10 FDA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 M
+ARS\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 RF\TS1/z
+i4/m/n/10 '\OT1/zi4/m/n/10 , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAXENT.Phillips\T
+S1/zi4/m/n/10 ' \OT1/zi4/m/n/10 and \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 MAXENT.Tsu
+ruoka\TS1/zi4/m/n/10 ' 
+
+Overfull \hbox (71.0133pt too wide) in paragraph at lines 815--816
+[]\OT1/cmr/m/n/10 evaluation score used to weight sin-gle mod-els to build en-s
+em-bles: \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 AUC\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 ,
+ \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 Kappa\TS1/zi4/m/n/10 ' \OT1/zi4/m/n/10 or \TS
+1/zi4/m/n/10 '\OT1/zi4/m/n/10 TSS\TS1/zi4/m/n/10 ' 
+
+Overfull \hbox (34.30876pt too wide) in paragraph at lines 825--827
+\OT1/cmr/m/n/10 tions with the [][]\OT1/zi4/m/n/10 ecospat.CCV.communityEvaluat
+ion.bin[][][] \OT1/cmr/m/n/10 or [][]\OT1/zi4/m/n/10 ecospat.CCV.communityEvalu
+ation.prob[][][]
+[18]
+Overfull \hbox (107.67657pt too wide) in paragraph at lines 837--838
+[]\OT1/cmr/m/n/10 a 3-dimensional ar-ray of sin-gle species eval-u-a-tion met-r
+ics (\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 Max.KAPPA\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10
+ , \TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 Max.TSS\TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 , \
+TS1/zi4/m/n/10 '\OT1/zi4/m/n/10 AUC of ROC\TS1/zi4/m/n/10 '\OT1/cmr/m/n/10 ) 
+
+Overfull \hbox (130.52164pt too wide) in paragraph at lines 853--854
+[][][]\OT1/zi4/m/n/10 ecospat.CCV.createDataSplitTable[][][]\OT1/cmr/m/n/10 ; [
+][]\OT1/zi4/m/n/10 ecospat.CCV.communityEvaluation.bin[][][]\OT1/cmr/m/n/10 ; [
+][]\OT1/zi4/m/n/10 ecospat.CCV.communityEvaluation.prob[][][] 
+[19] [20]
+Overfull \hbox (2.47565pt too wide) in paragraph at lines 953--954
+\OT1/cmr/m/n/10 mer-mann \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 niklaus.zimmermann@ws
+l.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/zi4/m/n/10 <\O
+T1/zi4/m/n/10 valeria.dicola@unil.ch\OML/zi4/m/n/10 > 
+
+Overfull \hbox (45.6698pt too wide) in paragraph at lines 963--964
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.ts
+s[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.kappa[][][]\OT1/cmr/m
+/n/10 , [][]\OT1/zi4/m/n/10 ecospat.max.kappa[][][] 
+[21]
+Overfull \hbox (10.55145pt too wide) in paragraph at lines 993--994
+[]\OT1/cmr/m/n/10 Logical vari-able in-di-cat-ing whether the pre-dic-tion ma-t
+rix con-tains presences-
+[22]
+Overfull \hbox (76.00357pt too wide) in paragraph at lines 1029--1031
+[]\OT1/cmr/m/n/10 with con-tri-bu-tion of Daniel Scher-rer \OML/zi4/m/n/10 <\OT
+1/zi4/m/n/10 daniel.scherrer@unil.ch\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 , Anne Dub
+uis \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 anne.dubuis@gmail.com\OML/zi4/m/n/10 >
+[23]
+Overfull \hbox (2.89236pt too wide) in paragraph at lines 1083--1084
+[]\OT1/cmr/m/n/10 Anne Dubuis \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 anne.dubuis@gmai
+l.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Manuela D`Amen \OML/zi4/m/n/10 <\OT1
+/zi4/m/n/10 manuela.damen@unil.ch\OML/zi4/m/n/10 > 
+
+Overfull \hbox (15.77475pt too wide) in paragraph at lines 1096--1096
+ []\OT1/zi4/m/n/9 presence <- ecospat.testData[c(53,62,58,70,61,66,65,71,69,43,
+63,56,68,57,55,60,54,67,59,64)][] 
+[24] [25] [26]
+Overfull \hbox (47.9726pt too wide) in paragraph at lines 1229--1230
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 < \OT1/zi4/m/n/10 christoph
+e.randin@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Manuela D'Amen <manuela.da
+men@msn.com> 
+
+Overfull \hbox (43.45844pt too wide) in paragraph at lines 1276--1277
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 < \OT1/zi4/m/n/10 christoph
+e.randin@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4/m
+/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[27]
+Overfull \hbox (55.12851pt too wide) in paragraph at lines 1319--1320
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[28]
+Overfull \hbox (55.12851pt too wide) in paragraph at lines 1369--1370
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[29]
+Overfull \hbox (4.76044pt too wide) in paragraph at lines 1396--1396
+ []\OT1/zi4/m/n/10 ecospat.cv.me (data.cv.me, name.sp, names.pred, K=10, cv.lim
+=10, jack.knife=FALSE)[] 
+
+Overfull \hbox (55.12851pt too wide) in paragraph at lines 1420--1421
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[30] [31]
+Overfull \hbox (40.12851pt too wide) in paragraph at lines 1472--1473
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and An-toine Guisan \OML/zi4/m/
+n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 > 
+[32]
+Overfull \hbox (35.74593pt too wide) in paragraph at lines 1571--1572
+[]\OT1/cmr/m/n/10 an eval-u-a-tion score used to weight sin-gle mod-els to buil
+d en-sem-bles:"AUC","TSS", 
+[33]
+Overfull \hbox (31.3016pt too wide) in paragraph at lines 1581--1582
+\OT1/cmr/m/n/10 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', "MAX-ENT.T
+suruoka"
+
+Overfull \hbox (55.88185pt too wide) in paragraph at lines 1607--1608
+[]\OT1/cmr/m/n/10 A \OT1/zi4/m/n/10 "[][]BIOMOD.EnsembleModeling.out[][][]"\OT1
+/cmr/m/n/10 . This ob-ject will be later given to [][]\OT1/zi4/m/n/10 ecospat.E
+SM.EnsembleProjection[][][]
+[34]
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 1668--1668
+ []\OT1/zi4/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.sc
+ore=c("SomersD"),threshold=0)[] 
+
+Overfull \hbox (42.77475pt too wide) in paragraph at lines 1675--1675
+ []\OT1/zi4/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.p
+rediction.output=my.ESM_proj_current,[] 
+[35] [36]
+Overfull \hbox (19.8476pt too wide) in paragraph at lines 1746--1747
+[][][]\OT1/zi4/m/n/10 BIOMOD[]Modeling[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/
+10 BIOMOD[]Projection[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 BIOMOD[]Ensemb
+leForecasting[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 BIOMOD[]EnsembleModeli
+ng[][][] 
+[37]
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 1788--1788
+ []\OT1/zi4/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.sc
+ore=c("SomersD"),threshold=0)[] 
+
+Overfull \hbox (42.77475pt too wide) in paragraph at lines 1795--1795
+ []\OT1/zi4/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.p
+rediction.output=my.ESM_proj_current,[] 
+[38]
+Overfull \hbox (26.85715pt too wide) in paragraph at lines 1851--1852
+\OT1/cmr/m/n/10 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', 'MAX-ENT.T
+suruoka'
+
+Overfull \hbox (25.87436pt too wide) in paragraph at lines 1869--1870
+[]\OT1/cmr/m/n/10 numeric. Calls re-moveTmp-Files() to delete all files from ra
+s-terOp-tions()\TS1/cmr/m/n/10 $\OT1/cmr/m/n/10 tmpdir
+
+Overfull \hbox (25.5035pt too wide) in paragraph at lines 1891--1892
+[]\OT1/cmr/m/n/10 Frank Breiner \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 frank.breiner@
+wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Mirko Di Feb-braro \OML/zi4/m/n/10 
+<\OT1/zi4/m/n/10 mirkodifebbraro@gmail.com\OML/zi4/m/n/10 >
+[39]
+Overfull \hbox (15.22534pt too wide) in paragraph at lines 1905--1906
+[][][]\OT1/zi4/m/n/10 ecospat.ESM.EnsembleModeling[][][]\OT1/cmr/m/n/10 , [][]\
+OT1/zi4/m/n/10 ecospat.ESM.Projection[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/1
+0 ecospat.ESM.EnsembleProjection[][][] 
+
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 1944--1944
+ []\OT1/zi4/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.sc
+ore=c("SomersD"),threshold=0)[] 
+[40]
+Overfull \hbox (42.77475pt too wide) in paragraph at lines 1951--1951
+ []\OT1/zi4/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.p
+rediction.output=my.ESM_proj_current,[] 
+
+Overfull \hbox (28.09659pt too wide) in paragraph at lines 1989--1990
+[]\OT1/cmr/m/n/10 Numeric. Calls re-moveTmp-Files() to delete all files from ra
+s-terOp-tions()\TS1/cmr/m/n/10 $\OT1/cmr/m/n/10 tmpdir
+
+Overfull \hbox (26.17012pt too wide) in paragraph at lines 2003--2005
+[]\OT1/cmr/m/n/10 Returns the pro-jec-tions for all se-lected mod-els (same as 
+in \OT1/zi4/m/n/10 biomod2\OT1/cmr/m/n/10 ) See \OT1/zi4/m/n/10 "[][]BIOMOD.pro
+jection.out[][][]"
+[41]
+Overfull \hbox (5.22534pt too wide) in paragraph at lines 2025--2026
+[][][]\OT1/zi4/m/n/10 ecospat.ESM.EnsembleModeling[][][]\OT1/cmr/m/n/10 , [][]\
+OT1/zi4/m/n/10 ecospat.ESM.Modeling[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 
+ecospat.ESM.EnsembleProjection[][][] 
+[42]
+Overfull \hbox (6.77475pt too wide) in paragraph at lines 2064--2064
+ []\OT1/zi4/m/n/9 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.sc
+ore=c("SomersD"),threshold=0)[] 
+
+Overfull \hbox (42.77475pt too wide) in paragraph at lines 2071--2071
+ []\OT1/zi4/m/n/9 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.p
+rediction.output=my.ESM_proj_current,[] 
+[43]
+Overfull \hbox (71.75357pt too wide) in paragraph at lines 2129--2130
+[]\OT1/cmr/m/n/10 Olivier Broen-ni-mann \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 olivie
+r.broennimann@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Blaise Pe-tit-pierre
+ \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitpierre@gmail.com\OML/zi4/m/n/10 > 
+
+Overfull \hbox (20.27475pt too wide) in paragraph at lines 2149--2149
+ []\OT1/zi4/m/n/9 occ.sp_test <- na.exclude(ecospat.sample.envar(dfsp=spp,colsp
+xy=2:3,colspkept=1:3,dfvar=clim,[] 
+[44]
+Overfull \hbox (6.76555pt too wide) in paragraph at lines 2158--2158
+ []\OT1/zi4/m/n/9 for (i in 1:length(sp.list)){sp.nbocc<-c(sp.nbocc,length(whic
+h(occ.sp[,1] == sp.list[i])))}[] 
+[45]
+(c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/omscmr.fd)
+
+Overfull \hbox (28.3294pt too wide) in paragraph at lines 2238--2242
+\OT1/cmr/m/n/10 When se-lect-ing an-other sam-pling type (\OMS/cmsy/m/n/10 n\OT
+1/cmr/m/n/10 'regular\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ', \OMS/cmsy/m/n/10 n\OT
+1/cmr/m/n/10 'stratified\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ', \OMS/cmsy/m/n/10 n
+\OT1/cmr/m/n/10 'nonaligned\OMS/cmsy/m/n/10 n\OT1/cmr/m/n/10 ',
+
+Overfull \hbox (0.70882pt too wide) in paragraph at lines 2242--2245
+[]\OT1/cmr/m/n/10 data.frame or Spa-tial-Points. You can use your own set of Ps
+eudo-Absences
+[46]
+Overfull \hbox (15.77475pt too wide) in paragraph at lines 2274--2274
+ []\OT1/zi4/m/n/9 random.spec <- cbind(as.data.frame(randomPoints(predictors,50
+,extf=1)),species="randomSpec")[] 
+[47] [48]
+Overfull \hbox (97.65643pt too wide) in paragraph at lines 2370--2371
+[]\OT1/cmr/m/n/10 Antoine Guisan \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 antoine.guisa
+n@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Luigi Maio-
+rano \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 luigi.maiorano@gmail.com\OML/zi4/m/n/10 >
+
+
+Overfull \hbox (55.6698pt too wide) in paragraph at lines 2379--2380
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.ts
+s[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cmr/
+m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.kappa[][][] 
+
+Overfull \hbox (97.65643pt too wide) in paragraph at lines 2424--2425
+[]\OT1/cmr/m/n/10 Luigi Maio-rano \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 luigi.maiora
+no@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of An-toine
+ Guisan \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 
+> 
+[49]
+Overfull \hbox (65.6698pt too wide) in paragraph at lines 2432--2433
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.kappa[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.
+tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cm
+r/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.kappa[][][] 
+[50]
+Overfull \hbox (26.42029pt too wide) in paragraph at lines 2495--2495
+ []\OT1/zi4/m/n/10 ecospat.mdr (data, xcol, ycol, datecol, mode, rep, mean.date
+.error, fixed.sources.rows)[] 
+[51] [52]
+Overfull \hbox (27.78088pt too wide) in paragraph at lines 2561--2561
+ []\OT1/zi4/m/n/9 text(data[fixed.sources.rows,2]+0.5,data[fixed.sources.rows,1
+]+0.5,data[fixed.sources.rows,3],[] 
+
+Overfull \hbox (96.6887pt too wide) in paragraph at lines 2605--2606
+[]\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitp
+ierre@gmail.com\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 . Mod-i-fied by Daniel Scher-re
+r \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 daniel.j.a.scherrer@gmail.com\OML/zi4/m/n/10
+ > 
+[53]
+Overfull \hbox (97.65643pt too wide) in paragraph at lines 2664--2665
+[]\OT1/cmr/m/n/10 Antoine Guisan \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 antoine.guisa
+n@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Luigi Maio-
+rano \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 luigi.maiorano@gmail.com\OML/zi4/m/n/10 >
+ 
+
+Overfull \hbox (50.6698pt too wide) in paragraph at lines 2672--2673
+[][][]\OT1/zi4/m/n/10 ecospat.max.kappa[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n
+/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.tss
+[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cmr/m
+/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.kappa[][][] 
+[54]
+Overfull \hbox (4.22568pt too wide) in paragraph at lines 2703--2704
+[]\OT1/cmr/m/n/10 Robin En-gler \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 robin.engler@g
+mail.com\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 , Wim Hordijk \OML/zi4/m/n/10 <\OT1/zi
+4/m/n/10 wim@WorldWideWanderings.net\OML/zi4/m/n/10 >
+[55] [56] [57] [58]
+Overfull \hbox (11.26555pt too wide) in paragraph at lines 2905--2905
+ []\OT1/zi4/m/n/9 #################################### stability S in space ###
+###############################[] 
+[59]
+Overfull \hbox (53.58269pt too wide) in paragraph at lines 2947--2948
+\OT1/cmr/m/n/10 tion. The de-fault value is 1. On mul-ti-core com-put-ers, the 
+op-ti-mal would be \OT1/zi4/m/n/10 ncores = detectCores() - 1\OT1/cmr/m/n/10 . 
+
+[60] [61]
+Overfull \hbox (53.58269pt too wide) in paragraph at lines 3047--3048
+\OT1/cmr/m/n/10 tion. The de-fault value is 1. On mul-ti-core com-put-ers, the 
+op-ti-mal would be \OT1/zi4/m/n/10 ncores = detectCores() - 1\OT1/cmr/m/n/10 . 
+
+[62] [63]
+Overfull \hbox (42.76555pt too wide) in paragraph at lines 3142--3142
+ []\OT1/zi4/m/n/9 #################################### occurrence density in sp
+ace ##################################[] 
+[64] [65] [66] [67] [68]
+Overfull \hbox (39.79515pt too wide) in paragraph at lines 3381--3382
+[]\OT1/cmr/m/n/10 Christophe Randin \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 christophe
+.randin@unibas.ch\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 , An-toine Guisan \OML/zi4/m/
+n/10 <\OT1/zi4/m/n/10 antoine.guisan@unil.ch\OML/zi4/m/n/10 >
+[69]
+Overfull \hbox (35.55869pt too wide) in paragraph at lines 3432--3434
+[][][]\OT1/zi4/m/n/10 ecospat.plot.niche.dyn[][][]\OT1/cmr/m/n/10 ,[][]\OT1/zi4
+/m/n/10 ecospat.plot.overlap.test[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ec
+ospat.niche.similarity.test[][][]\OT1/cmr/m/n/10 ,\OT1/zi4/m/n/10 princomp 
+
+Overfull \hbox (98.53142pt too wide) in paragraph at lines 3465--3466
+[]\OT1/cmr/m/n/10 Luigi Maio-rano \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 luigi.maiora
+no@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 with con-tri-bu-tions of Va-le-ri
+a Di Cola \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 valeria.dicola@unil.ch\OML/zi4/m/n/1
+0 >\OT1/cmr/m/n/10 . 
+
+Overfull \hbox (50.6698pt too wide) in paragraph at lines 3476--3477
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.ts
+s[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cmr/
+m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.max.kappa[][][] 
+[70] [71]
+Overfull \hbox (29.13347pt too wide) in paragraph at lines 3556--3557
+[]\OT1/cmr/m/n/10 A grid-clim ob-ject for the species dis-tri-bu-tion cre-ated 
+by \OT1/zi4/m/n/10 ecospat.grid.clim.dyn\OT1/cmr/m/n/10 . 
+[72]
+Overfull \hbox (21.16243pt too wide) in paragraph at lines 3601--3602
+[]\OT1/cmr/m/n/10 Choose which den-sity to plot: if \OT1/zi4/m/n/10 interest=1\
+OT1/cmr/m/n/10 , plot na-tive den-sity, if \OT1/zi4/m/n/10 interest=2\OT1/cmr/m
+/n/10 ,
+[73]
+Overfull \hbox (60.6698pt too wide) in paragraph at lines 3690--3691
+[][][]\OT1/zi4/m/n/10 ecospat.meva.table[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/
+n/10 ecospat.max.tss[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.plot.ka
+ppa[][][]\OT1/cmr/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.cohen.kappa[][][]\OT1/cm
+r/m/n/10 , [][]\OT1/zi4/m/n/10 ecospat.max.kappa[][][] 
+[74]
+Overfull \hbox (0.54227pt too wide) in paragraph at lines 3719--3720
+[]\OT1/cmr/m/n/10 The range of columns for the en-vi-ron-men-tal vari-ables in 
+glob. colvar="all"
+[75] [76] [77]
+Underfull \vbox (badness 10000) has occurred while \output is active [78]
+Overfull \hbox (23.28088pt too wide) in paragraph at lines 3913--3913
+ []\OT1/zi4/m/n/9 #plot(rangesize$RangeObjects$model.within.eoo[[i]],col=c("gre
+y","blue","darkgreen"),legend=F)[] 
+
+Overfull \hbox (12.76862pt too wide) in paragraph at lines 3927--3927
+ []\OT1/zi4/m/n/9 #  mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$m
+esh[,4]-del$mesh[,6])^2))*alpha[] 
+[79]
+Overfull \hbox (80.30913pt too wide) in paragraph at lines 3971--3972
+[]\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 achilleas.
+psomas@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \OML
+/zi4/m/n/10 <\OT1/zi4/m/n/10 niklaus.zimmermann@wsl.ch\OML/zi4/m/n/10 > 
+[80]
+Overfull \hbox (80.30913pt too wide) in paragraph at lines 4028--4029
+[]\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 achilleas.
+psomas@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \OML
+/zi4/m/n/10 <\OT1/zi4/m/n/10 niklaus.zimmermann@wsl.ch\OML/zi4/m/n/10 > 
+
+Overfull \hbox (35.26862pt too wide) in paragraph at lines 4046--4046
+ []    \OT1/zi4/m/n/9 points(B3B12.prop_samples$x,B3B12.prop_samples$y,pch=16,c
+ex=0.6,col=B3B12.prop_samples$class)[] 
+[81]
+Overfull \hbox (80.30913pt too wide) in paragraph at lines 4090--4091
+[]\OT1/cmr/m/n/10 Achilleas Pso-mas \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 achilleas.
+psomas@wsl.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Niklaus E. Zim-mer-mann \OML
+/zi4/m/n/10 <\OT1/zi4/m/n/10 niklaus.zimmermann@wsl.ch\OML/zi4/m/n/10 > 
+
+Overfull \hbox (35.26862pt too wide) in paragraph at lines 4109--4109
+ []    \OT1/zi4/m/n/9 points(B3B12.regl_samples$x,B3B12.regl_samples$y,pch=16,c
+ex=0.6,col=B3B12.regl_samples$class)[] 
+[82]
+Overfull \hbox (23.27168pt too wide) in paragraph at lines 4158--4158
+ []\OT1/zi4/m/n/9 occ.sp1 <- ecospat.occ.desaggregation(dfvar=sp1,colxy=2:3,col
+var=NULL, min.dist=500,plot=TRUE)[] 
+
+Overfull \hbox (20.27475pt too wide) in paragraph at lines 4161--4161
+ []\OT1/zi4/m/n/9 occ_sp1 <- na.exclude(ecospat.sample.envar(dfsp=occ.sp1,colsp
+xy=1:2,colspkept=1:2,dfvar=clim,[] 
+[83]
+Overfull \hbox (2.89236pt too wide) in paragraph at lines 4200--4201
+[]\OT1/cmr/m/n/10 Manuela D`Amen \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 manuela.damen
+@unil.ch\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Anne Dubuis \OML/zi4/m/n/10 <\OT1
+/zi4/m/n/10 anne.dubuis@gmail.com\OML/zi4/m/n/10 > 
+[84] [85] [86] [87]
+Overfull \hbox (5.00673pt too wide) in paragraph at lines 4374--4375
+\OT1/cmr/m/n/10 Leontodon[]hispidus[]sl, Dactylis[]glomerata, Tri-folium[]repen
+s[]sstr, Gera-nium[]sylvaticum, Ra-
+
+Overfull \hbox (2.46504pt too wide) in paragraph at lines 4374--4375
+\OT1/cmr/m/n/10 nun-cu-lus[]acris[]sl, Prunella[]vulgaris, Veron-ica[]chamaedry
+s, Tarax-acum[]officinale[]aggr, Plan-
+
+Overfull \hbox (14.86508pt too wide) in paragraph at lines 4374--4375
+\OT1/cmr/m/n/10 tago[]lanceolata, Po-ten-tilla[]erecta, Carex[]sempervirens, So
+l-danella[]alpina, Cyno-su-rus[]cristatus,
+[88] [89] [90]
+Overfull \hbox (33.72054pt too wide) in paragraph at lines 4502--4503
+[]\OT1/cmr/m/n/10 Scientific name of the species used in the exmaple: Bro-mus[]
+erectus[]sstr, Sax-ifraga[]oppositifolia,
+[91]
+Overfull \hbox (21.1701pt too wide) in paragraph at lines 4568--4569
+[]\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitp
+ierre@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 valeria.dicola@unil.ch\OML/zi4/m/n/10 > 
+[92]
+Overfull \hbox (21.1701pt too wide) in paragraph at lines 4628--4629
+[]\OT1/cmr/m/n/10 Blaise Pe-tit-pierre \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 bpetitp
+ierre@gmail.com\OML/zi4/m/n/10 > \OT1/cmr/m/n/10 and Va-le-ria Di Cola \OML/zi4
+/m/n/10 <\OT1/zi4/m/n/10 valeria.dicola@unil.ch\OML/zi4/m/n/10 > 
+[93]
+Overfull \hbox (16.70961pt too wide) in paragraph at lines 4657--4707
+[]\OT1/cmr/m/n/10 [1] "Rumex[]acetosa" [2] "Poly-gonum[]bistorta" [3] "Poly-gon
+um[]viviparum" [4] "Rumex[]crispus"
+
+Overfull \hbox (42.66794pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [5] "Cerastium[]latifolium" [6] "Si-lene[]acaulis" [7] "Gyp-sop
+hila[]repens" [8] "Vac-cinium[]gaultherioides"
+
+Overfull \hbox (21.6819pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [9] "Sol-danella[]alpina" [10] "Cru-ci-ata[]laevipes" [11] "Gal
+-ium[]album" [12] "Gal-ium[]anisophyllon"
+
+Overfull \hbox (8.41791pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 tiana[]purpurea" [17] "Gen-tiana[]lutea" [18] "Bart-sia[]alpina
+" [19] "Rhi-nan-thus[]alectorolophus"
+
+Overfull \hbox (29.23746pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [20] "Prunella[]grandiflora" [21] "Aci-nos[]alpinus" [22] "Plan
+-tago[]alpina" [23] "Plan-tago[]lanceolata"
+
+Overfull \hbox (38.32068pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [24] "Veron-ica[]officinalis" [25] "Veron-ica[]aphylla" [26] "V
+eron-ica[]alpina" [27] "Veron-ica[]chamaedrys"
+
+Overfull \hbox (4.35953pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [28] "Veron-ica[]persica" [29] "Glob-u-laria[]cordifolia" [30] 
+"Glob-u-laria[]nudicaulis" [31] "Myoso-
+
+Overfull \hbox (26.54298pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 "Hypochaeris[]radicata" [39] "Achil-lea[]atrata" [40] "Achil-le
+a[]millefolium" [41] "Ho-mog-yne[]alpina"
+
+Overfull \hbox (43.15407pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [42] "Senecio[]doronicum" [43] "Adenos-tyles[]glabra" [44] "Ar-
+nica[]montana" [45] "Aster[]bellidiastrum"
+
+Overfull \hbox (1.69289pt too wide) in paragraph at lines 4657--4707
+\OT1/cmr/m/n/10 [46] "Bel-lis[]perennis" [47] "Doron-icum[]grandiflorum" [48] "
+Phy-teuma[]orbiculare" [49] "Phy-
+
+Overfull \hbox (30.94795pt too wide) in paragraph at lines 4711--4712
+[]\OT1/cmr/m/n/10 Charlotte Ndiribe \OML/zi4/m/n/10 <\OT1/zi4/m/n/10 charlotte.
+ndiribe@unil.ch\OML/zi4/m/n/10 >\OT1/cmr/m/n/10 , Nico-las Salamin \OML/zi4/m/n
+/10 <\OT1/zi4/m/n/10 nicolas.salamin@unil.ch\OML/zi4/m/n/10 >
+[94] [95] (./Rd2.ind [96]
+Overfull \hbox (8.63449pt too wide) in paragraph at lines 4--6
+[]| \OT1/zi4/m/n/10 ecospat.CCV.communityEvaluation.bin\OT1/cmr/m/n/10 , 
+
+Overfull \hbox (13.63449pt too wide) in paragraph at lines 6--8
+[]| \OT1/zi4/m/n/10 ecospat.CCV.communityEvaluation.prob\OT1/cmr/m/n/10 , 
+
+Overfull \hbox (8.63449pt too wide) in paragraph at lines 12--14
+[]| \OT1/zi4/m/n/10 ecospat.CCV.communityEvaluation.bin\OT1/cmr/m/n/10 , 
+
+Overfull \hbox (13.63449pt too wide) in paragraph at lines 14--16
+[]| \OT1/zi4/m/n/10 ecospat.CCV.communityEvaluation.prob\OT1/cmr/m/n/10 , 
+
+LaTeX Font Warning: Font shape `OT1/zi4/m/it' undefined
+(Font)              using `OT1/zi4/m/n' instead on input line 63.
+
+[97] [98]) (./Rd2.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.dudi.pca} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.princomp} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.mgram} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.projection.out.Rdash.class} has been ref
+erenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.models.out.Rdash.class} has been referen
+ced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.FormatingData} has been referenced b
+ut does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.EnsembleModeling} has been reference
+d but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.EnsembleForecasting} has been refere
+nced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.Projection} has been referenced but 
+does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.EnsembleModeling.out.Rdash.class} has be
+en referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.Modeling} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.BIOMOD.Rul.ModelingOptions} has been referenced
+ but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.optimal.thresholds} has been referenced but doe
+s not exist, replaced by a fixed one
+
+{c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/inconsola
+ta/i4-ts1.enc}{c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/d
+vips/inconsolata/i4-ot1-0.enc} <c:/Users/obroenni/.TinyTeX/texmf-var/fonts/pk/l
+jfour/jknappen/ec/tcrm1000.600pk><c:/Users/obroenni/AppData/Roaming/TinyTeX/tex
+mf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><c:/Users/obroenni/
+AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><
+c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmbx10.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmbx12.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/Users/obroenni/AppData/Ro
+aming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/Users/obr
+oenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.p
+fb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmsl10.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmss10.pfb><c:/Users/obroenni/AppData/Roaming/TinyTeX
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/obroenni/AppDat
+a/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/User
+s/obroenni/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ti10.pfb>
+Output written on Rd2.pdf (98 pages, 392326 bytes).
+Transcript written on Rd2.log.
+Saving output to 'ecospat-manual.pdf' ...
+Done
+You may want to clean up by 'rm -Rf C:/Users/obroenni/AppData/Local/Temp/RtmpoJwZY5/Rd2pdf1cc825e173a4'
