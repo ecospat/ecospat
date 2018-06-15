@@ -39,14 +39,6 @@ Freeman, E.A. and G.G. Moisen. 2008. A comparison of the performance of threshol
 \examples{
 library(dismo)
 
-
-# only run if the maxent.jar file is available, in the right folder
-jar <- paste(system.file(package="dismo"), "/java/maxent.jar", sep='')
-
-# checking if maxent can be run (normally not part of your script)
-file.exists(jar)
-require(rJava)
-
 # get predictor variables
 fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
                      pattern='grd', full.names=TRUE )
@@ -58,11 +50,12 @@ occurence <- paste(system.file(package="dismo"), '/ex/bradypus.csv', sep='')
 occ <- read.table(occurence, header=TRUE, sep=',')[,-1]
 colnames(occ) <- c("x","y")
 
-# fit model, biome is a categorical variable
-me <- maxent(predictors, occ, factors='biome')
+# fit a domain model, biome is a categorical variable
+
+do <- domain(predictors, occ, factors='biome')
 
 # predict to entire dataset
-pred <- predict(me, predictors) 
+pred <- predict(do, predictors) 
 
 plot(pred)
 points(occ)
