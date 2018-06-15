@@ -1,0 +1,161 @@
+* using log directory 'W:/40_tools/Ecospat R Package/obroenni/ecospat/ecospat.Rcheck'
+* using R version 3.5.0 (2018-04-23)
+* using platform: x86_64-w64-mingw32 (64-bit)
+* using session charset: ISO8859-1
+* using option '--no-vignettes'
+* checking for file 'ecospat/DESCRIPTION' ... OK
+* this is package 'ecospat' version '3.0'
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking whether package 'ecospat' can be installed ... OK
+* checking installed package size ... NOTE
+  installed size is 31.3Mb
+  sub-directories of 1Mb or more:
+    Meta      8.0Mb
+    R         3.0Mb
+    data      4.0Mb
+    doc       4.0Mb
+    extdata   2.0Mb
+    help      4.3Mb
+    html      2.0Mb
+* checking package directory ... OK
+* checking 'build' directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+ecospat.CCV.communityEvaluation.bin: no visible binding for global
+  variable 'community.metrics.cali.selected'
+ecospat.CCV.communityEvaluation.bin: no visible binding for global
+  variable 'community.metrics.eval.selected'
+ecospat.CCV.communityEvaluation.prob: no visible binding for global
+  variable 'poibin'
+ecospat.CCV.communityEvaluation.prob: no visible binding for global
+  variable 'PresenceAbsence'
+ecospat.CCV.modeling: no visible binding for global variable 'output'
+ecospat.niche.dynIndexProjGeo: no visible global function definition
+  for 'extent<-'
+Undefined global functions or variables:
+  PresenceAbsence community.metrics.cali.selected
+  community.metrics.eval.selected extent<- output poibin
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of 'data' directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking sizes of PDF files under 'inst/doc' ... OK
+* checking installed files from 'inst/doc' ... OK
+* checking files in 'vignettes' ... OK
+* checking examples ... ERROR
+Running examples in 'ecospat-Ex.R' failed
+The error most likely occurred in:
+
+> ### Name: ecospat.rangesize
+> ### Title: Quantification of the range size of a species using habitat
+> ###   suitability maps and IUCN criteria)
+> ### Aliases: ecospat.rangesize
+> ### Keywords: file
+> 
+> ### ** Examples
+> 
+>  library(dismo)
+Loading required package: raster
+
+Attaching package: 'raster'
+
+The following objects are masked from 'package:ape':
+
+    rotate, zoom
+
+> 
+> # get predictor variables
+> fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
++                      pattern='grd', full.names=TRUE )
+> predictors <- stack(fnames)
+> #plot(predictors)
+> 
+> # file with presence points
+> occurence <- paste(system.file(package="dismo"), '/ex/bradypus.csv', sep='')
+> occ <- read.table(occurence, header=TRUE, sep=',')[,-1]
+> colnames(occ) <- c("x","y")
+> occ <- ecospat.occ.desaggregation(occ,min.dist=1)
+$initial
+[1] 116
+
+$kept
+[1] 60
+
+$out
+[1] 56
+
+> 
+> # fit a domain model, biome is a categorical variable
+> do <- domain(predictors, occ, factors='biome')
+> 
+> # predict to entire dataset
+> pred <- predict(do, predictors) 
+> 
+> plot(pred)
+> points(occ)
+> 
+> 
+> # use MPA to convert suitability to binary map
+> mpa.cutoff <- ecospat.mpa(pred,occ)
+> 
+> # use Boyce index to convert suitability to binary map
+> boyce <- ecospat.boyce(pred,  occ)
+> ### use the boyce index to find a threshold
+> pred.bin.arbitrary <- ecospat.binary.model(pred,0.5)
+> 
+> 
+> pred.bin.mpa <- ecospat.binary.model(pred,mpa.cutoff)
+> names(pred.bin.mpa) <- "me.mpa"
+> pred.bin.arbitrary <- ecospat.binary.model(pred,0.5)
+> names(pred.bin.arbitrary) <- "me.arbitrary"
+> 
+> rangesize <- ecospat.rangesize(stack(pred.bin.mpa,pred.bin.arbitrary),
++                                xy=occ,
++                                resol=c(1,1),
++                                eoo.around.modelocp =TRUE,
++                                AOO.circles = TRUE,
++                                d=200000,
++                                lonlat =TRUE)
+Loading required namespace: rgeos
+Failed with error:  'there is no package called 'rgeos''
+Loading required namespace: igraph
+Error in match(x, table, nomatch = 0L) : 
+  'match' requires vector arguments
+Calls: ecospat.rangesize -> ecospat.occupied.patch -> %in%
+Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in 'inst/doc' ... OK
+* checking running R code from vignettes ... SKIPPED
+* checking re-building of vignette outputs ... SKIPPED
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 2 NOTEs
