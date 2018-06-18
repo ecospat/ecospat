@@ -51,6 +51,7 @@ Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
 \code{\link{ecospat.CCV.createDataSplitTable}}; \code{\link{ecospat.CCV.communityEvaluation.prob}}
 }
 \examples{
+\dontrun{
 #Loading species occurence data and remove empty communities
 testData <- ecospat.testData[,c(24,34,43,45,48,53,55:58,60:63,65:66,68:71)]
 sp.data <- testData[which(rowSums(testData)>0), sort(colnames(testData))]
@@ -76,6 +77,8 @@ myCCV.communityEvaluation.bin <- ecospat.CCV.communityEvaluation.bin(
       community.metrics= c('SR.deviation','Sorensen'),
       parallel = FALSE,
       cpus = 4)
+
+}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

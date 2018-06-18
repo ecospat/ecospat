@@ -79,7 +79,8 @@ Pateiro-Lopez, B., and A. Rodriguez-Casal. 2010. Generalizing the Convex Hull of
 \keyword{file}
   
  \examples{
- library(dismo)
+
+library(dismo)
 
 # get predictor variables
 fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
@@ -102,7 +103,6 @@ pred <- predict(do, predictors)
 plot(pred)
 points(occ)
 
-
 # use MPA to convert suitability to binary map
 mpa.cutoff <- ecospat.mpa(pred,occ)
 
@@ -117,6 +117,7 @@ names(pred.bin.mpa) <- "me.mpa"
 pred.bin.arbitrary <- ecospat.binary.model(pred,0.5)
 names(pred.bin.arbitrary) <- "me.arbitrary"
 
+\dontrun{
 rangesize <- ecospat.rangesize(stack(pred.bin.mpa,pred.bin.arbitrary),
                                xy=occ,
                                resol=c(1,1),
@@ -130,7 +131,6 @@ rangesize <- ecospat.rangesize(stack(pred.bin.mpa,pred.bin.arbitrary),
 rangesize$RangeSize
 
 names(rangesize$RangeObjects)
-
 
 par(mfrow=c(1,3))
 
@@ -163,21 +163,21 @@ lwd=2)
 ### However, alpha-hulls can easily be included manually (see also the help file of 
 ### the alpha hull package):
 
-#  require(alphahull)
-#  alpha = 2 # alpha value of 2 recommended by IUCN
+require(alphahull)
+alpha = 2 # alpha value of 2 recommended by IUCN
   
-#  del<-delvor(occ)
-#  dv<-del$mesh
-#  mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^2))*alpha
-#  alpha.hull<-ahull(del,alpha=mn) 
+del<-delvor(occ)
+dv<-del$mesh
+mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^2))*alpha
+alpha.hull<-ahull(del,alpha=mn) 
   
-#  #Size of alpha-hulls
-#  areaahull(h)
+#Size of alpha-hulls
+areaahull(h)
 
 
-# plot alphahulls
-# plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
-#  main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=FALSE)
-# plot(alpha.hull,add=TRUE,lwd=1)
- 
- }
+plot alphahulls
+plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
+main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=FALSE)
+plot(alpha.hull,add=TRUE,lwd=1)
+}
+}

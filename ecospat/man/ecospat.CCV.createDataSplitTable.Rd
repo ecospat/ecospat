@@ -51,6 +51,7 @@ Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+\dontrun{
 #Creating a DataSplitTable for 200 sites, 25 runs with an 
 #80/20 calibration/evaluation cross-validation
 
@@ -72,6 +73,8 @@ DataSplitTable <- ecospat.CCV.createDataSplitTable(NbRunEval = 20,
                                                    minNbPresence = 15, 
                                                    minNbAbsences = 15, 
                                                    maxNbTry = 250)
+}
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
