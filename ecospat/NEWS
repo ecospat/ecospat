@@ -103,8 +103,7 @@ ecospat_2.2.0 (08.11.17)
 
 NEW FEATURES
 
-* Updated the functions "ecospat.occ.desaggregation()", "ecospat.binary.model()" and "ecospat.boyce()".
-* Added new function "ecospat.rangesize()" to estimate the range.size of a species using standard IUCN criteria. 
+* Added new function "ecospat.rangesize" to estimate the range.size of a species using standard IUCN criteria. 
 * Added new function "ecospat.occupied.patch()" to determine the occupied patch of a species.
 * Added new function "ecospat.mdr()" to implement a minimum cost arborescence analysis.
 * Added new dataset "ecospat.testMrd.nat" to exemplify the minimum cost arborescence analysis.
@@ -114,10 +113,11 @@ CHANGES
 * Re-named the function "ecospat.exdet()" to "ecospat.climan()".
 
 FIXES
+* Updated the functions "ecospat.occ.desaggregation()", "ecospat.binary.model()" and "ecospat.boyce()".
 * Fixed bug in "ecospat.grid.clim.dyn()" that shifted the gridded distribution one pixel away from the observed points. 
 
 
-ecospat_2.2.1 (only on gitHub)
+ecospat_3.0 (19.06.18)
 =============
 
 
@@ -125,7 +125,11 @@ NEW FEATURES
 
 * Added new funtions "ecospat.niche.zProjGeo" and "ecospat.niche.dynIndexProjGeo" to project niche quantification (calculated with ecospat.grid.clim.dyn) onto the geographical space
 * Added a new dataset ecospat.testEnvRaster including a stack of 5 topoclimatic rasters at 250m resolution for the Western Swiss Alps
+* Added new functions "ecospat.CCV.modeling", "ecospat.CCV.createDataSplitTable", "ecospat.CCV.communityEvaluation.bin", and "ecospat.CCV.communityEvaluation.prob" to perform community cross-validation (CCV) as in Scherrer et al. 2018.
 
+CHANGES
+
+* Maintainance of the package transfered from valeriadicola@gmail.com to olivier.broennimann@unil.ch
 
 FIXES
 

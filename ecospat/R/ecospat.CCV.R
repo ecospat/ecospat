@@ -1780,8 +1780,8 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
     sfInit(parallel=TRUE, cpus=cpus)
     sfExport("prob.community.metics", "composition.prob", "Jaccard.mean.sd", "Community.AUC", "Simpson.mean.sd", "Sorensen.mean.sd", "SR.mean.sd", "SR.prob")
     sfExport("ccv.modeling.data", "community.metrics", "se.th")
-    sfLibrary(poibin)
-    sfLibrary(PresenceAbsence)
+    sfLibrary("poibin", character.only=TRUE )
+    sfLibrary("PresenceAbsence", character.only=TRUE )
     
     #Calibration data
     temp <- sfLapply(1:dim(ccv.modeling.data$speciesData.calibration)[3], 

@@ -42,7 +42,7 @@ ecospat.niche.dynIndexProjGeo <- function(z1,z2,env,index=NULL){
   if(index=="unfilling") ind<-raster(ecospat.niche.dyn.index(z1,z2)$dyn==-1) 
   if(index=="expansion") ind<-raster(ecospat.niche.dyn.index(z1,z2)$dyn==1) 
   if(index!="stability"&index!="unfilling"&index!="expansion") stop("set index as stability,unfilling or expansion")
-  extent(ind) <- extent(z1$z.uncor)
+  ind@extent <- z1$z.uncor@extent
 
   ZS<-extract(ind,z1$glob)
   XYZS<-cbind(XY,ZS)
