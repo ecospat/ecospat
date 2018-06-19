@@ -80,28 +80,41 @@ Pateiro-Lopez, B., and A. Rodriguez-Casal. 2010. Generalizing the Convex Hull of
   
  \examples{
 
+
 library(dismo)
 
-# get predictor variables
-fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
+### make a maxent model
+
+# copy maxent.jar file in the right folder
+path.from<-system.file("extdata", "maxent.jar", package="ecospat")
+path.to <- paste0(system.file(package="dismo"), "/java/maxent.jar")
+file.copy(path.from,path.to,overwrite = TRUE)
+
+if (file.exists(path.to) & require(rJava)) {
+
+  # get predictor variables
+  fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
                      pattern='grd', full.names=TRUE )
-predictors <- stack(fnames)
-#plot(predictors)
+  predictors <- stack(fnames)
+  #plot(predictors)
 
-# file with presence points
-occurence <- paste(system.file(package="dismo"), '/ex/bradypus.csv', sep='')
-occ <- read.table(occurence, header=TRUE, sep=',')[,-1]
-colnames(occ) <- c("x","y")
-occ <- ecospat.occ.desaggregation(occ,min.dist=1)
+  # file with presence points
+  occurence <- paste(system.file(package="dismo"), '/ex/bradypus.csv', sep='')
+  occ <- read.table(occurence, header=TRUE, sep=',')[,-1]
+  colnames(occ) <- c("x","y")
+  occ <- ecospat.occ.desaggregation(occ,min.dist=1)
 
-# fit a domain model, biome is a categorical variable
-do <- domain(predictors, occ, factors='biome')
+  # fit a domain model, biome is a categorical variable
+  me <- maxent(predictors, occ, factors='biome')
 
-# predict to entire dataset
-pred <- predict(do, predictors) 
+  # predict to entire dataset
+  pred <- predict(me, predictors) 
 
-plot(pred)
-points(occ)
+  plot(pred)
+  points(occ)
+}
+
+### make binary maps
 
 # use MPA to convert suitability to binary map
 mpa.cutoff <- ecospat.mpa(pred,occ)
@@ -111,11 +124,12 @@ boyce <- ecospat.boyce(pred,  occ)
 ### use the boyce index to find a threshold
 pred.bin.arbitrary <- ecospat.binary.model(pred,0.5)
 
-
 pred.bin.mpa <- ecospat.binary.model(pred,mpa.cutoff)
 names(pred.bin.mpa) <- "me.mpa"
 pred.bin.arbitrary <- ecospat.binary.model(pred,0.5)
 names(pred.bin.arbitrary) <- "me.arbitrary"
+
+### rangesize calculations
 
 \dontrun{
 rangesize <- ecospat.rangesize(stack(pred.bin.mpa,pred.bin.arbitrary),
@@ -125,9 +139,6 @@ rangesize <- ecospat.rangesize(stack(pred.bin.mpa,pred.bin.arbitrary),
                                AOO.circles = TRUE,
                                d=200000,
                                lonlat =TRUE)
-
-
-## Range size quantification
 rangesize$RangeSize
 
 names(rangesize$RangeObjects)
@@ -135,30 +146,36 @@ names(rangesize$RangeObjects)
 par(mfrow=c(1,3))
 
 plot(ecospat.binary.model(pred,0),legend=FALSE, main="IUCN criteria")
-## IUCN criteria & derivates
+
+### IUCN criteria & derivates
+
 # plot AOO
 plot(rangesize$RangeObjects$AOO,add=TRUE, col="red",legend=FALSE)
+
 # plot EOO
 plot(rangesize$RangeObjects$EOO@polygons,add=TRUE, border="red", lwd=2)
+
 # plot circles around occurrences
 plot(rangesize$RangeObjects$AOO.circle@polygons,add=TRUE,border="blue")
 
 for(i in 1:2){
-## plot the occupied patches of the model
-plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
-main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=FALSE)
-points(occ,col="red",cex=0.5,pch=19)
-## plot EOO around model
-plot(rangesize$RangeObjects$eoo.around.model[[i]]@polygons,add=TRUE,border="blue",lwd=2)
-## plot EOO around occupied patches
-plot(rangesize$RangeObjects$eoo.around.mo.ocp[[i]]@polygons,add=TRUE,border="darkgreen",
-lwd=2)
-## plot the modeled area within EOO
-#plot(rangesize$RangeObjects$model.within.eoo[[i]],col=c("grey","blue","darkgreen"),legend=FALSE)
-#points(occ,col="red",cex=0.5,pch=19)
-#plot(rangesize$RangeObjects$EOO@polygons,add=TRUE, border="red", lwd=2)
+  ## plot the occupied patches of the model
+  plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
+  main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=FALSE)
+  points(occ,col="red",cex=0.5,pch=19)
+  ## plot EOO around model
+  plot(rangesize$RangeObjects$eoo.around.model[[i]]@polygons,add=TRUE,border="blue",lwd=2)
+  ## plot EOO around occupied patches
+  plot(rangesize$RangeObjects$eoo.around.mo.ocp[[i]]@polygons,add=TRUE,border="darkgreen",
+  lwd=2)
+  ## plot the modeled area within EOO
+  #plot(rangesize$RangeObjects$model.within.eoo[[i]],col=c("grey","blue","darkgreen"),legend=FALSE)
+  #points(occ,col="red",cex=0.5,pch=19)
+  #plot(rangesize$RangeObjects$EOO@polygons,add=TRUE, border="red", lwd=2)
+}
 }
 
+\dontrun{
 ### Alpha-hulls are not included in the function yet because of Licence limitations.
 ### However, alpha-hulls can easily be included manually (see also the help file of 
 ### the alpha hull package):
@@ -173,7 +190,6 @@ alpha.hull<-ahull(del,alpha=mn)
   
 #Size of alpha-hulls
 areaahull(h)
-
 
 plot alphahulls
 plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
