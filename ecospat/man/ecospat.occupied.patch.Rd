@@ -40,34 +40,47 @@ IUCN Standards and Petitions Subcommittee. 2016. Guidelines for Using the IUCN R
 
 library(dismo)
 
-# get predictor variables
-fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
+### make a maxent model
+
+# copy maxent.jar file in the right folder
+path.from<-system.file("extdata", "maxent.jar", package="ecospat")
+path.to <- paste0(system.file(package="dismo"), "/java/maxent.jar")
+file.copy(path.from,path.to,overwrite = TRUE)
+
+if (file.exists(path.to) & require(rJava)) {
+
+  # get predictor variables
+  fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
                      pattern='grd', full.names=TRUE )
-predictors <- stack(fnames)
-#plot(predictors)
+  predictors <- stack(fnames)
+  #plot(predictors)
 
-# file with presence points
-occurence <- paste(system.file(package="dismo"), '/ex/bradypus.csv', sep='')
-occ <- read.table(occurence, header=TRUE, sep=',')[,-1]
-colnames(occ) <- c("x","y")
-occ <- ecospat.occ.desaggregation(occ,min.dist=1)
+  # file with presence points
+  occurence <- paste(system.file(package="dismo"), '/ex/bradypus.csv', sep='')
+  occ <- read.table(occurence, header=TRUE, sep=',')[,-1]
+  colnames(occ) <- c("x","y")
+  occ <- ecospat.occ.desaggregation(occ,min.dist=1)
 
-# fit a domain model, biome is a categorical variable
-do <- domain(predictors, occ, factors='biome')
+  # fit a domain model, biome is a categorical variable
+  me <- maxent(predictors, occ, factors='biome')
 
-# predict to entire dataset
-pred <- predict(do, predictors) 
+  # predict to entire dataset
+  pred <- predict(me, predictors) 
 
-plot(pred)
-points(occ)
+  plot(pred)
+  points(occ)
+}
 
-# use MPA to convert suitability to binary map
+### to convert suitability to binary map
+
 mpa.cutoff <- ecospat.mpa(pred,occ)
 
 pred.bin.mpa <- ecospat.binary.model(pred,mpa.cutoff)
 names(pred.bin.mpa) <- "me.mpa"
 pred.bin.arbitrary <- ecospat.binary.model(pred,0.5)
 names(pred.bin.arbitrary) <- "me.arbitrary"
+
+### calculate occupied patch
 
 mpa.ocp  <- ecospat.occupied.patch(pred.bin.mpa,occ)
 arbitrary.ocp  <- ecospat.occupied.patch(pred.bin.arbitrary,occ)
