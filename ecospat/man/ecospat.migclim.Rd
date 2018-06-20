@@ -28,6 +28,7 @@ ecospat.migclim()
 ### Run the example as follows (set the current working directory to the
 ### folder where the example data files are located):
 ###
+library(MigClim)
 data(MigClim.testData)
 ### Run MigClim with a data frame type input.
 n <- MigClim.migrate (iniDist=MigClim.testData[,1:3],
@@ -37,6 +38,6 @@ barrier=MigClim.testData[,9], barrierType="strong",
 iniMatAge=1, propaguleProd=c(0.01,0.08,0.5,0.92),
 lddFreq=0.1, lddMinDist=6, lddMaxDist=15,
 simulName="MigClimTest", replicateNb=1, overWrite=TRUE,
-testMode=FALSE, fullOutput=FALSE, keepTempFiles=FALSE)}
-
+testMode=FALSE, fullOutput=FALSE, keepTempFiles=FALSE)
+}
 }

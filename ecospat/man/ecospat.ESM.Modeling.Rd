@@ -87,7 +87,7 @@ Lomba, A., L. Pellissier, C.F. Randin, J. Vicente, F. Moreira, J. Honrado and A.
 
 Breiner F.T., A. Guisan, A. Bergamini and M.P. Nobis. 2015. Overcoming limitations of modelling rare species by using ensembles of small models. \emph{Methods in Ecology and Evolution}, \bold{6},1210-1218.
 
-Breiner F.T., Nobis M.P., Bergamini A., Guisan A. 2018. Optimizing ensembles of small models for predicting the distribution of species with few occurrences. \emph{Methods in Ecology and Evolution}. \doi{https://doi.org/10.1111/2041-210X.12957}
+Breiner F.T., Nobis M.P., Bergamini A., Guisan A. 2018. Optimizing ensembles of small models for predicting the distribution of species with few occurrences. \emph{Methods in Ecology and Evolution}. \doi{10.1111/2041-210X.12957}
           }
 
 \seealso{
@@ -109,7 +109,6 @@ sp_occ <- inv[11]
 current <- inv[3:10]
 
 
-
 ### Formating the data with the BIOMOD_FormatingData() function from the package biomod2
 sp <- 1
 myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
@@ -122,7 +121,7 @@ my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
                                 models=c('GLM','RF'),
                                 NbRunEval=2,
                                 DataSplit=70,
-                                Prevalence=0.5
+                                Prevalence=0.5,
                                 weighting.score=c("AUC"),
                                 parallel=FALSE)  
 

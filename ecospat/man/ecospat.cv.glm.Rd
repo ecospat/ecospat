@@ -28,7 +28,10 @@ Pearman, P.B., C.F. Randin, O. Broennimann, P. Vittoz, W.O. van der Knaap, R. En
 
 \examples{
 \dontrun{
-glm <- ecospat.cv.glm (glm.obj = get ("glm.Agrostis_capillaris", envir=ecospat.env), 
+
+ecospat.cv.example() #generates data
+glm <- ecospat.cv.glm (glm.obj = get ("glm.Achillea_atrata", envir=ecospat.env), 
 K=10, cv.lim=10, jack.knife=FALSE)
+glm
 }
 }

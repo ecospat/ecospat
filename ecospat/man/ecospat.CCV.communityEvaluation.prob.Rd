@@ -71,6 +71,7 @@ For detailed descriptions of the null models see Scherrer et al. .....
 \examples{
 \dontrun{
 #Loading species occurence data and remove empty communities
+data(ecospat.testData)
 testData <- ecospat.testData[,c(24,34,43,45,48,53,55:58,60:63,65:66,68:71)]
 sp.data <- testData[which(rowSums(testData)>0), sort(colnames(testData))]
 

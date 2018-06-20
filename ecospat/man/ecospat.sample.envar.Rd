@@ -28,6 +28,7 @@ colvarxy, colvar = "all", resolution)}
 
 \examples{
 \dontrun{
+data("ecospat.testNiche")
 spp <- ecospat.testNiche
 sp1 <- spp[1:32,1:3]
 occ.sp1 <- ecospat.occ.desaggregation(dfvar=sp1,colxy=2:3,colvar=NULL, min.dist=500,plot=TRUE)

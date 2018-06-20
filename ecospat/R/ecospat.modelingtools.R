@@ -12,7 +12,7 @@ ecospat.maxentvarimport <- function(model, dfvar, nperm) {
     VarImp <- c(VarImp, round(mean(refi), 3))
   }
   names(VarImp) <- names(dfvar)
-  return <- VarImp
+  return(VarImp)
 }
 
 ##

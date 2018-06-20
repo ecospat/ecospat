@@ -24,8 +24,10 @@
 
 \examples{
 \dontrun{
+ecospat.cv.example()
 model <- get ("me.Achillea_millefolium", envir=ecospat.env)
 dfvar <- ecospat.testData[4:8]
 nperm <- 5
-ecospat.maxentvarimport (model, cal, nperm)}
+ecospat.maxentvarimport (model, dfvar, nperm)
+}
 }

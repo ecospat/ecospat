@@ -29,7 +29,8 @@ Pearman, P.B., C.F. Randin, O. Broennimann, P. Vittoz, W.O. van der Knaap, R. En
     
 \examples{
 \dontrun{
-rf <- ecospat.cv.rf(get("rf.Agrostis_capillaris", envir = ecospat.env), 
+ecospat.cv.example() #generates data
+rf <- ecospat.cv.rf(get("glm.Achillea_atrata", envir = ecospat.env), 
 ecospat.testData[, c(53, 4:8)], K = 10, cv.lim = 10, jack.knife = FALSE)
 }
 }

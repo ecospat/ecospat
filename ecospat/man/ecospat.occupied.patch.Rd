@@ -36,8 +36,6 @@ IUCN Standards and Petitions Subcommittee. 2016. Guidelines for Using the IUCN R
 }
 \examples{
 
-\dontrun{
-
 library(dismo)
 
 ### make a maxent model
@@ -99,7 +97,6 @@ plot(mpa.ocp) ## occupied patches: green area
 points(occ,col="red",cex=0.5,pch=19)
 plot(arbitrary.ocp)
 points(occ,col="red",cex=0.5,pch=19)
-}
 
 }
 \keyword{file}

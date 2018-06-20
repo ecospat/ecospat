@@ -89,8 +89,8 @@ ecospat.max.tss <- function(Pred, Sp.occ) # Pred: vector of predicted probabilit
     tss <- tss + 0.01
     i <- i + 1
   }
-  maxtss <- max(na.omit(evatss$tss))
-  maxtssthrshold <- evatss[evatss$tss == max(na.omit(evatss$tss)), 2]
+  maxtss <- max(evatss$tss,na.rm = TRUE)
+  maxtssthrshold <-evatss[which(evatss$tss==maxtss)[1], 2]
   maxtsscol1 <- c("Maximum TSS", "Correspondent threshold")
   maxtsscol2 <- c(round(maxtss, digits = 4), maxtssthrshold)
   maxtssmatrix <- matrix(c(maxtsscol1, maxtsscol2), nrow = 2, ncol = 2)

@@ -26,5 +26,6 @@ Legendre, P. and L. Legendre. 1998. \emph{Numerical Ecology}, 2nd English editio
 \examples{
 
 \dontrun{
+ecospat.cv.example()
 ecospat.permut.glm (get ("glm.Achillea_atrata", envir=ecospat.env), 1000)
 }}

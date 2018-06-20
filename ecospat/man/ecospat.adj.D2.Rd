@@ -32,6 +32,7 @@ Guisan, A. and N.E. Zimmermann. 2000. Predictive habitat distribution models in 
 
 \examples{
 
+data(ecospat.testData)
 glm.obj<-glm(Achillea_millefolium~ddeg+mind+srad+slp+topo, 
 family = binomial, data=ecospat.testData)
 

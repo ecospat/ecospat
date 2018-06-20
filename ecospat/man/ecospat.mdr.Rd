@@ -39,6 +39,7 @@ Broennimann, O., P. Mraz, B. Petitpierre, A. Guisan, and H. Muller-Scharer. 2014
 \examples{
    \dontrun{
 library(maps)
+data(ecospat.testMdr)
 data<- ecospat.testMdr
 
 fixed.sources.rows<-order(data$date)[1:2] #first introductions

@@ -33,6 +33,7 @@ Liu, C., P.M. Berry, T.P. Dawson, and R.G. Pearson. 2005. Selecting thresholds o
 }
 \examples{
 
+data(ecospat.testData)
 Pred <- ecospat.testData$glm_Agrostis_capillaris
 Sp.occ <- ecospat.testData$Agrostis_capillaris
 TSS100 <- ecospat.max.tss(Pred, Sp.occ)

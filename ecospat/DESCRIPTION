@@ -4,7 +4,7 @@ Date: 2018-06-013
 Title: Spatial Ecology Miscellaneous Methods
 Authors@R: c(
 	person("Olivier", "Broennimann", role = c("cre","aut","ctb"), email = "olivier.broennimann@unil.ch"),
-	person("Valeria", "Di Cola", role = c("aut", "ctb"), email = "valeriadicola@gmail.com"),
+	person("Valeria", "Di Cola", role = c("aut","ctb"), email = "valeriadicola@gmail.com"),
 	person("Blaise", "Petitpierre", role = "ctb"),
 	person("Frank", "Breiner", role = "ctb"),
 	person("Manuela", "D`Amen", role = "ctb"),
@@ -24,8 +24,8 @@ Authors@R: c(
 	person("Nicolas", "Salamin", role = "ctb"),
 	person("Niklaus", "Zimmermann", role = "ctb"),
 	person("Antoine", "Guisan", role = "aut", email = "antoine.guisan@unil.ch"))
-Author: Olivier Broennimann [cre,aut,ctb],
-        Valeria Di Cola [aut,ctb],
+Author: Olivier Broennimann [cre, aut, ctb],
+        Valeria Di Cola [aut, ctb],
         Blaise Petitpierre [ctb],
         Frank Breiner [ctb],
         Manuela D`Amen [ctb],
@@ -48,8 +48,8 @@ Author: Olivier Broennimann [cre,aut,ctb],
 Maintainer: Olivier Broennimann <olivier.broennimann@unil.ch>
 VignetteBuilder: knitr
 Depends: ade4 (>= 1.6-2), ape (>= 3.2), gbm (>= 2.1.1), sp (>= 1.0-15)
-Imports: adehabitatHR (>= 0.4.11), adehabitatMA (>= 0.3.8), biomod2 (>= 3.1-64), dismo (>= 0.9-3), ecodist (>= 1.2.9), maptools (>= 0.8-39), randomForest (>= 4.6-7), spatstat (>= 1.37-0), raster (>= 2.5-8), rms (>= 4.5-0), MigClim (>= 1.6), gtools (>= 3.4.1), PresenceAbsence (>= 1.1.9), methods (>= 3.1.1), doParallel (>= 1.0.10), foreach (>= 1.4.3), iterators (>= 1.0.8), parallel, classInt (>= 0.1-23), vegan (>= 2.4-1), poibin (>= 1.3), snowfall (>= 1.61), snow,
-Suggests: rgdal (>= 1.2-15), rJava (>= 0.9-6), XML (>= 3.98-1.1), knitr (>= 1.14)
+Imports: adehabitatHR (>= 0.4.11), adehabitatMA (>= 0.3.8), biomod2 (>= 3.1-64), dismo (>= 0.9-3), ecodist (>= 1.2.9), maptools (>= 0.8-39), randomForest (>= 4.6-7), spatstat (>= 1.37-0), raster (>= 2.5-8), rms (>= 4.5-0), MigClim (>= 1.6), gtools (>= 3.4.1), PresenceAbsence (>= 1.1.9), methods (>= 3.1.1), doParallel (>= 1.0.10), foreach (>= 1.4.3), iterators (>= 1.0.8), parallel, classInt (>= 0.1-23), vegan (>= 2.4-1), poibin (>= 1.3), snowfall (>= 1.61)
+Suggests: rgdal (>= 1.2-15), rJava (>= 0.9-6), XML (>= 3.98-1.1), knitr (>= 1.14), snow, alphahull, rgeos, igraph
 LazyData: true
 URL: http://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
 Description: Collection of R functions and data sets for the support of spatial ecology analyses with a focus on pre-, core and post- modelling analyses of species distribution, niche quantification and community assembly. Written by current and former members and collaborators of the ecospat group of Antoine Guisan, Department of Ecology and Evolution (DEE) & Institute of Earth Surface Dynamics (IDYST), University of Lausanne, Switzerland.

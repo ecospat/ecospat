@@ -80,7 +80,6 @@ Pateiro-Lopez, B., and A. Rodriguez-Casal. 2010. Generalizing the Convex Hull of
   
  \examples{
 
-
 library(dismo)
 
 ### make a maxent model
@@ -131,7 +130,8 @@ names(pred.bin.arbitrary) <- "me.arbitrary"
 
 ### rangesize calculations
 
-\dontrun{
+library(rgeos)
+
 rangesize <- ecospat.rangesize(stack(pred.bin.mpa,pred.bin.arbitrary),
                                xy=occ,
                                resol=c(1,1),
@@ -173,9 +173,8 @@ for(i in 1:2){
   #points(occ,col="red",cex=0.5,pch=19)
   #plot(rangesize$RangeObjects$EOO@polygons,add=TRUE, border="red", lwd=2)
 }
-}
+par(mfrow=c(1,1))
 
-\dontrun{
 ### Alpha-hulls are not included in the function yet because of Licence limitations.
 ### However, alpha-hulls can easily be included manually (see also the help file of 
 ### the alpha hull package):
@@ -189,11 +188,10 @@ mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^
 alpha.hull<-ahull(del,alpha=mn) 
   
 #Size of alpha-hulls
-areaahull(h)
+#areaahull(alpha.hull) #works but uses a deprecated function in alphahull 2.1
 
-plot alphahulls
+#plot alphahulls
 plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
 main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=FALSE)
 plot(alpha.hull,add=TRUE,lwd=1)
-}
 }

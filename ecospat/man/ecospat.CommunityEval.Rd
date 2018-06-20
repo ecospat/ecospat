@@ -48,8 +48,10 @@ and Manuela D'Amen \email{manuela.damen@unil.ch}}
 
 \examples{
 \dontrun{
-eval <- Data[c(53,62,58,70,61,66,65,71,69,43,63,56,68,57,55,60,54,67,59,64)]
-pred <- Data[c(73:92)]
+
+data(ecospat.testData)
+eval <- ecospat.testData[c(53,62,58,70,61,66,65,71,69,43,63,56,68,57,55,60,54,67,59,64)]
+pred <- ecospat.testData[c(73:92)]
 
 ecospat.CommunityEval (eval, pred, proba=TRUE, ntir=10)
 }}
