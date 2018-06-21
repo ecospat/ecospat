@@ -66,7 +66,6 @@ ecospat.rangesize <- function(bin.map = NULL,
   
   if(AOO){
     aoo.obj <- bin.map[[1]]
-    #res(aoo.obj) <- resol
     res(aoo.obj) = resol
     aoo.obj[] <- 0
     

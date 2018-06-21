@@ -126,6 +126,7 @@ NEW FEATURES
 * Added new funtions "ecospat.niche.zProjGeo" and "ecospat.niche.dynIndexProjGeo" to project niche quantification (calculated with ecospat.grid.clim.dyn) onto the geographical space
 * Added a new dataset ecospat.testEnvRaster including a stack of 5 topoclimatic rasters at 250m resolution for the Western Swiss Alps
 * Added new functions "ecospat.CCV.modeling", "ecospat.CCV.createDataSplitTable", "ecospat.CCV.communityEvaluation.bin", and "ecospat.CCV.communityEvaluation.prob" to perform community cross-validation (CCV) as in Scherrer et al. 2018.
+# Added a new function "ecospat.ESM.VarContrib" to calculate the variable contribution of each variable and method in an ESM model
 
 CHANGES
 
