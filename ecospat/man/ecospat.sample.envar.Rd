@@ -30,7 +30,8 @@ colvarxy, colvar = "all", resolution)}
 \dontrun{
 data("ecospat.testNiche")
 spp <- ecospat.testNiche
-sp1 <- spp[1:32,1:3]
+sp1 <- spp[1:32,2:3]
+names(sp1)<-c("x","y")
 occ.sp1 <- ecospat.occ.desaggregation(xy=sp1,min.dist=500)
 clim <- ecospat.testData[2:8]
 

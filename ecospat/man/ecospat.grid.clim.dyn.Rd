@@ -50,6 +50,10 @@ Petitpierre, B., C. Kueffer, O. Broennimann, C. Randin, C. Daehler and A. Guisan
 
 \examples{
 \dontrun{
+
+data(ecospat.testNiche)
+data(ecospat.testData)
+
 spp <- ecospat.testNiche
 clim <- ecospat.testData[2:8]
 

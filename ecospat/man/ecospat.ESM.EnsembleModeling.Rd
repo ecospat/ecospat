@@ -76,6 +76,9 @@ Breiner F.T., Nobis M.P., Bergamini A., Guisan A. 2018. Optimizing ensembles of 
 }
 \examples{
    \dontrun{
+   
+library(biomod2)
+
 # Loading test data
 data(ecospat.testNiche.inv)
 inv <- ecospat.testNiche.inv

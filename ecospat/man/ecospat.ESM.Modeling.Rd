@@ -98,7 +98,10 @@ Breiner F.T., Nobis M.P., Bergamini A., Guisan A. 2018. Optimizing ensembles of 
 }
 \examples{
    \dontrun{
+library(biomod2)
+
 # Loading test data
+data(ecospat.testNiche.inv)
 inv <- ecospat.testNiche.inv
 
 # species occurrences
@@ -109,19 +112,21 @@ sp_occ <- inv[11]
 current <- inv[3:10]
 
 
+
 ### Formating the data with the BIOMOD_FormatingData() function from the package biomod2
+
 sp <- 1
 myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
                                       expl.var = current,
                                       resp.xy = xy,
                                       resp.name = colnames(sp_occ)[sp])
 
+
 ### Calibration of simple bivariate models
 my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
                                 models=c('GLM','RF'),
                                 NbRunEval=2,
                                 DataSplit=70,
-                                Prevalence=0.5,
                                 weighting.score=c("AUC"),
                                 parallel=FALSE)  
 
@@ -141,4 +146,7 @@ my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.prediction.output=my
 my.ESM_EF$ESM.evaluations
 ## get the weights of the single bivariate models used to build the ESMs
 my.ESM_EF$weights
+
+## get the variable contributions of ESMs
+ecospat.ESM.VarContrib(my.ESM,my.ESM_EF,scaling="01")
 }}
