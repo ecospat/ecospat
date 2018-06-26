@@ -80,6 +80,8 @@ Pateiro-Lopez, B., and A. Rodriguez-Casal. 2010. Generalizing the Convex Hull of
   
  \examples{
 
+\dontrun{
+
 library(dismo)
 
 ### make a maxent model
@@ -194,4 +196,5 @@ alpha.hull<-ahull(del,alpha=mn)
 plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
 main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=FALSE)
 plot(alpha.hull,add=TRUE,lwd=1)
+}
 }

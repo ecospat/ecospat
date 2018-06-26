@@ -43,23 +43,23 @@
 ##################################################################################################
 
 ecospat.niche.overlap <- function(z1, z2, cor) {
-
+  
   # z1 = species 1 occurrence density grid created by grid.clim
   # z2 = species 2 occurrence density
   # grid created by grid.clim cor= TRUE correct occurrence densities of each species by the prevalence of the environments in their range
-
+  
   l <- list()
-
+  
   if (cor == FALSE) {
     p1 <- as.matrix(z1$z.uncor)/sum(as.matrix(z1$z.uncor))  # rescale occurence densities so that the sum of densities is the same for both species
     p2 <- as.matrix(z2$z.uncor)/sum(as.matrix(z2$z.uncor))  # rescale occurence densities so that the sum of densities is the same for both species
   }
-
+  
   if (cor == TRUE) {
     p1 <- as.matrix(z1$z.cor)/sum(as.matrix(z1$z.cor))  # rescale occurence densities so that the sum of densities is the same for both species
     p2 <- as.matrix(z2$z.cor)/sum(as.matrix(z2$z.cor))  # rescale occurence densities so that the sum of densities is the same for both species
   }
-
+  
   D <- 1 - (0.5 * (sum(abs(p1 - p2))))  # overlap metric D
   H <- sqrt(sum((sqrt(p1) - sqrt(p2))^2))
   I <- 1 - (H^2)/2  # corrected overlap metric I http://enmtools.blogspot.com.au/2010_09_01_archive.html
@@ -72,26 +72,26 @@ ecospat.niche.overlap <- function(z1, z2, cor) {
 overlap.eq.gen <- function(repi, z1, z2) {
   if (is.null(z1$y)) {
     # overlap on one axis
-
+    
     occ.pool <- c(z1$sp, z2$sp)  # pool of random occurrences
     rand.row <- sample(1:length(occ.pool), length(z1$sp))  # random reallocation of occurrences to datasets
     sp1.sim <- occ.pool[rand.row]
     sp2.sim <- occ.pool[-rand.row]
   }
-
+  
   if (!is.null(z1$y)) {
     # overlap on two axes
-
+    
     occ.pool <- rbind(z1$sp, z2$sp)  # pool of random occurrences
     row.names(occ.pool)<-c()  # remove the row names
     rand.row <- sample(1:nrow(occ.pool), nrow(z1$sp))  # random reallocation of occurrences to datasets
     sp1.sim <- occ.pool[rand.row, ]
     sp2.sim <- occ.pool[-rand.row, ]
   }
-
+  
   z1.sim <- ecospat.grid.clim.dyn(z1$glob, z1$glob1, data.frame(sp1.sim), R = length(z1$x))  # gridding
   z2.sim <- ecospat.grid.clim.dyn(z2$glob, z2$glob1, data.frame(sp2.sim), R = length(z2$x))
-
+  
   o.i <- ecospat.niche.overlap(z1.sim, z2.sim, cor = TRUE)  # overlap between random and observed niches
   sim.o.D <- o.i$D  # storage of overlaps
   sim.o.I <- o.i$I
@@ -100,27 +100,27 @@ overlap.eq.gen <- function(repi, z1, z2) {
 
 
 ecospat.niche.equivalency.test <- function(z1, z2, rep, alternative = "greater", ncores=1) {
-
+  
   R <- length(z1$x)
   l <- list()
-
+  
   obs.o <- ecospat.niche.overlap(z1, z2, cor = TRUE)  #observed niche overlap
-
+  
   if (ncores == 1){
     sim.o <- as.data.frame(matrix(unlist(lapply(1:rep, overlap.eq.gen, z1, z2)), byrow = TRUE,
-      ncol = 2))  #simulate random overlap
-    }else{
-  #number of cores attributed for the permutation test
-  cl <- makeCluster(ncores)  #open a cluster for parallelization
-  invisible(clusterEvalQ(cl))  #import the internal function into the cluster
-  sim.o <- as.data.frame(matrix(unlist(parLapply(cl, 1:rep, overlap.eq.gen, z1, z2)), byrow = TRUE,
-    ncol = 2))  #simulate random overlap
-  stopCluster(cl)  #shutdown the cluster
-    }
+                                  ncol = 2))  #simulate random overlap
+  }else{
+    #number of cores attributed for the permutation test
+    cl <- makeCluster(ncores)  #open a cluster for parallelization
+    invisible(clusterEvalQ(cl))  #import the internal function into the cluster
+    sim.o <- as.data.frame(matrix(unlist(parLapply(cl, 1:rep, overlap.eq.gen, z1, z2)), byrow = TRUE,
+                                  ncol = 2))  #simulate random overlap
+    stopCluster(cl)  #shutdown the cluster
+  }
   colnames(sim.o) <- c("D", "I")
   l$sim <- sim.o  # storage
   l$obs <- obs.o  # storage
-
+  
   if (alternative == "greater") {
     l$p.D <- (sum(sim.o$D >= obs.o$D) + 1)/(length(sim.o$D) + 1)  # storage of p-values alternative hypothesis = greater -> test for niche conservatism/convergence
     l$p.I <- (sum(sim.o$I >= obs.o$I) + 1)/(length(sim.o$I) + 1)  # storage of p-values alternative hypothesis = greater -> test for niche conservatism/convergence
@@ -129,7 +129,7 @@ ecospat.niche.equivalency.test <- function(z1, z2, rep, alternative = "greater",
     l$p.D <- (sum(sim.o$D <= obs.o$D) + 1)/(length(sim.o$D) + 1)  # storage of p-values alternative hypothesis = lower -> test for niche divergence
     l$p.I <- (sum(sim.o$I <= obs.o$I) + 1)/(length(sim.o$I) + 1)  # storage of p-values alternative hypothesis = lower -> test for niche divergence
   }
-
+  
   return(l)
 }
 
@@ -161,11 +161,11 @@ overlap.sim.gen <- function(repi, z1, z2, rand.type = rand.type) {
       z1.sim$z.uncor <- z1.sim$z/max(z1.sim$z, na.rm = TRUE)
       z1.sim$z.uncor[which(is.na(z1.sim$z.uncor))] <- 0
     }
-
+    
     center.z2 <- which(z2$z.uncor == 1)  # define the centroid of the observed niche
     Z2 <- z2$Z/max(z2$Z)
     rand.center.z2 <- sample(1:R2, size = 1, replace = FALSE, prob = Z2)  # randomly (weighted by environment prevalence) define the new centroid for the niche
-
+    
     xshift.z2 <- rand.center.z2 - center.z2  # shift on x axis
     z2.sim <- z2
     z2.sim$z <- rep(0, R2)  # set intial densities to 0
@@ -181,7 +181,7 @@ overlap.sim.gen <- function(repi, z1, z2, rand.type = rand.type) {
     z2.sim$z.uncor <- z2.sim$z/max(z2.sim$z, na.rm = TRUE)
     z2.sim$z.uncor[which(is.na(z2.sim$z.uncor))] <- 0
   }
-
+  
   if (!is.null(z2$y) & !is.null(z1$y)) {
     if (rand.type == 1) {
       # if rand.type = 1, both z1 and z2 are randomly shifted, if rand.type =2, only z2 is randomly
@@ -191,7 +191,7 @@ overlap.sim.gen <- function(repi, z1, z2, rand.type = rand.type) {
       rand.centroids.z1 <- which(Z1 > 0, arr.ind = TRUE)  # all pixels with existing environments in the study area
       weight.z1 <- Z1[Z1 > 0]
       rand.centroid.z1 <- rand.centroids.z1[sample(1:nrow(rand.centroids.z1), size = 1, replace = FALSE,
-        prob = weight.z1), ]  # randomly (weighted by environment prevalence) define the new centroid for the niche
+                                                   prob = weight.z1), ]  # randomly (weighted by environment prevalence) define the new centroid for the niche
       xshift.z1 <- rand.centroid.z1[1] - centroid.z1[1]  # shift on x axis
       yshift.z1 <- rand.centroid.z1[2] - centroid.z1[2]  # shift on y axis
       z1.sim <- z1
@@ -200,10 +200,10 @@ overlap.sim.gen <- function(repi, z1, z2, rand.type = rand.type) {
         for (j in 1:R1) {
           i.trans.z1 <- i + xshift.z1
           j.trans.z1 <- j + yshift.z1
-          if (i.trans.z1 > R1 | i.trans.z1 < 0)
-          (next)()  # densities falling out of the env space are not considered
-          if (j.trans.z1 > R1 | j.trans.z1 < 0)
-          (next)()
+          if (i.trans.z1 > R1 | i.trans.z1 < 0 | j.trans.z1 > R1 | j.trans.z1 < 0)
+            (next)()  # densities falling out of the env space are not considered
+          #if (j.trans.z1 > R1 | j.trans.z1 < 0)
+          #  (next)()
           z1.sim$z[i.trans.z1, j.trans.z1] <- z1$z[i, j]  # shift of pixels
         }
       }
@@ -218,7 +218,7 @@ overlap.sim.gen <- function(repi, z1, z2, rand.type = rand.type) {
     rand.centroids.z2 <- which(Z2 > 0, arr.ind = TRUE)  # all pixels with existing environments in the study area
     weight.z2 <- Z2[Z2 > 0]
     rand.centroid.z2 <- rand.centroids.z2[sample(1:nrow(rand.centroids.z2), size = 1, replace = FALSE,
-      prob = weight.z2), ]  # randomly (weighted by environment prevalence) define the new centroid for the niche
+                                                 prob = weight.z2), ]  # randomly (weighted by environment prevalence) define the new centroid for the niche
     xshift.z2 <- rand.centroid.z2[1] - centroid.z2[1]  # shift on x axis
     yshift.z2 <- rand.centroid.z2[2] - centroid.z2[2]  # shift on y axis
     z2.sim <- z2
@@ -227,10 +227,11 @@ overlap.sim.gen <- function(repi, z1, z2, rand.type = rand.type) {
       for (j in 1:R2) {
         i.trans.z2 <- i + xshift.z2
         j.trans.z2 <- j + yshift.z2
-        if (i.trans.z2 > R2 | i.trans.z2 < 0)
+        #if (i.trans.z2 > R2 | i.trans.z2 < 0)
+        if (i.trans.z2 > R2 | i.trans.z2 < 0 | j.trans.z2 > R2 | j.trans.z2 < 0)
           (next)()  # densities falling out of the env space are not considered
-        if (j.trans.z2 > R2 | j.trans.z2 < 0)
-          (next)()
+        #if (j.trans.z2 > R2 | j.trans.z2 < 0)
+        #  (next)()
         z2.sim$z[i.trans.z2, j.trans.z2] <- z2$z[i, j]  # shift of pixels
       }
     }
@@ -240,21 +241,21 @@ overlap.sim.gen <- function(repi, z1, z2, rand.type = rand.type) {
     z2.sim$z.uncor <- z2.sim$z/max(z2.sim$z, na.rm = TRUE)
     z2.sim$z.uncor[which(is.na(z2.sim$z.uncor))] <- 0
   }
-
+  
   if (rand.type == 1) {
     o.i <- ecospat.niche.overlap(z1.sim, z2.sim, cor = TRUE)
   }
   if (rand.type == 2)
-    {
-      o.i <- ecospat.niche.overlap(z1, z2.sim, cor = TRUE)
-    }  # overlap between random and observed niches
+  {
+    o.i <- ecospat.niche.overlap(z1, z2.sim, cor = TRUE)
+  }  # overlap between random and observed niches
   sim.o.D <- o.i$D  # storage of overlaps
   sim.o.I <- o.i$I
   return(c(sim.o.D, sim.o.I))
 }
 
 ecospat.niche.similarity.test <- function(z1, z2, rep, alternative = "greater", rand.type = 1, ncores = 1) {
-
+  
   R <- length(z1$x)
   l <- list()
   obs.o <- ecospat.niche.overlap(z1, z2, cor = TRUE)  #observed niche overlap
@@ -264,21 +265,21 @@ ecospat.niche.similarity.test <- function(z1, z2, rep, alternative = "greater", 
   z2$z.uncor <- as.matrix(z2$z.uncor)
   z2$Z <- as.matrix(z2$Z)
   z2$z <- as.matrix(z2$z)
-
+  
   if (ncores==1) {
     sim.o <- as.data.frame(matrix(unlist(lapply(1:rep, overlap.sim.gen, z1, z2, rand.type = rand.type)),
                                   byrow = TRUE, ncol = 2))  #simulate random overlap  
-    } else {
-  cl <- makeCluster(ncores)  #open a cluster for parallelization
-  invisible(clusterEvalQ(cl))  #import the internal function into the cluster
-  sim.o <- as.data.frame(matrix(unlist(parLapply(cl, 1:rep, overlap.sim.gen, z1, z2, rand.type = rand.type)),
-    byrow = TRUE, ncol = 2))  #simulate random overlap
-  stopCluster(cl)  #shutdown the cluster
-    }
+  } else {
+    cl <- makeCluster(ncores)  #open a cluster for parallelization
+    invisible(clusterEvalQ(cl))  #import the internal function into the cluster
+    sim.o <- as.data.frame(matrix(unlist(parLapply(cl, 1:rep, overlap.sim.gen, z1, z2, rand.type = rand.type)),
+                                  byrow = TRUE, ncol = 2))  #simulate random overlap
+    stopCluster(cl)  #shutdown the cluster
+  }
   colnames(sim.o) <- c("D", "I")
   l$sim <- sim.o  # storage
   l$obs <- obs.o  # storage
-
+  
   if (alternative == "greater") {
     l$p.D <- (sum(sim.o$D >= obs.o$D) + 1)/(length(sim.o$D) + 1)  # storage of p-values alternative hypothesis = greater -> test for niche conservatism/convergence
     l$p.I <- (sum(sim.o$I >= obs.o$I) + 1)/(length(sim.o$I) + 1)  # storage of p-values alternative hypothesis = greater -> test for niche conservatism/convergence
@@ -287,7 +288,7 @@ ecospat.niche.similarity.test <- function(z1, z2, rep, alternative = "greater", 
     l$p.D <- (sum(sim.o$D <= obs.o$D) + 1)/(length(sim.o$D) + 1)  # storage of p-values alternative hypothesis = lower -> test for niche divergence
     l$p.I <- (sum(sim.o$I <= obs.o$I) + 1)/(length(sim.o$I) + 1)  # storage of p-values alternative hypothesis = lower -> test for niche divergence
   }
-
+  
   return(l)
 }
 
@@ -312,13 +313,13 @@ ecospat.plot.niche <- function(z, title = "", name.axis1 = "Axis 1", name.axis2 
   if (!is.null(z$y)) {
     if (cor == FALSE)
       image(x=z$x,y=z$y,z=t(as.matrix(z$z.uncor))[,nrow(as.matrix(z$z.uncor)):1], col = gray(100:0/100), zlim = c(1e-06, cellStats(z$z.uncor,"max")),
-        xlab = name.axis1, ylab = name.axis2)
+            xlab = name.axis1, ylab = name.axis2)
     if (cor == TRUE)
       image(x=z$x,y=z$y,z=t(as.matrix(z$z.uncor))[,nrow(as.matrix(z$z.uncor)):1], col = gray(100:0/100), zlim = c(1e-06, cellStats(z$z.cor,"max")), 
-      xlab = name.axis1, ylab = name.axis2)
+            xlab = name.axis1, ylab = name.axis2)
     z$Z<-t(as.matrix(z$Z))[,nrow(as.matrix(z$Z)):1]
     contour(x=z$x,y=z$y,z$Z, add = TRUE, levels = quantile(z$Z[z$Z > 0], c(0, 0.5)), drawlabels = FALSE,
-      lty = c(1, 2))
+            lty = c(1, 2))
   }
   title(title)
 }
@@ -326,7 +327,7 @@ ecospat.plot.niche <- function(z, title = "", name.axis1 = "Axis 1", name.axis2 
 
 
 ecospat.plot.contrib <- function(contrib, eigen) {
-
+  
   if (ncol(contrib) == 1) {
     h <- c(unlist(contrib))
     n <- row.names(contrib)
@@ -336,7 +337,7 @@ ecospat.plot.contrib <- function(contrib, eigen) {
   if (ncol(contrib) == 2) {
     s.corcircle(contrib[, 1:2]/max(abs(contrib[, 1:2])), grid = FALSE)
     title(main = "correlation circle", sub = paste("axis1 = ", round(eigen[1]/sum(eigen) *
-      100, 2), "%", "axis2 = ", round(eigen[2]/sum(eigen) * 100, 2), "%"))
+                                                                       100, 2), "%", "axis2 = ", round(eigen[2]/sum(eigen) * 100, 2), "%"))
   }
 }
 
@@ -359,7 +360,7 @@ ecospat.plot.overlap.test <- function(x, type, title) {
   h0 <- hist(sim, plot = FALSE, nclass = 10)
   y0 <- max(h0$counts)
   hist(sim, plot = TRUE, nclass = 10, xlim = xlim0, col = grey(0.8), main = title, xlab = type,
-    sub = paste("p.value = ", round(p, 5)))
+       sub = paste("p.value = ", round(p, 5)))
   lines(c(obs, obs), c(y0/2, 0), col = "red")
   points(obs, y0/2, pch = 18, cex = 2, col = "red")
   invisible()

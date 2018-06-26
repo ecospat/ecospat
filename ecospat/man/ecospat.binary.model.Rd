@@ -37,6 +37,8 @@ Freeman, E.A. and G.G. Moisen. 2008. A comparison of the performance of threshol
 \author{Ruben G. Mateo \email{rubeng.mateo@gmail.com} with contributions of Frank Breiner \email{frank.breiner@wsl.ch}}
 
 \examples{
+
+\dontrun{
 library(dismo)
 
 ### make a maxent model
@@ -76,5 +78,6 @@ pred.bin.mpa <- ecospat.binary.model(pred,mpa.cutoff)
 
 plot(pred.bin.mpa)
 points(occ)
+}
 }
 }

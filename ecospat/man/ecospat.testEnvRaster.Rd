@@ -25,7 +25,10 @@
 }
 
 \examples{
+\dontrun{
 fpath <- system.file("extdata", "ecospat.testEnvRaster.RData", package="ecospat")
 load(fpath)
 plot(env)
+}
+
 }
