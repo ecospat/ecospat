@@ -9,40 +9,46 @@
 \description{
 Collection of methods, utilities and data sets for the support of spatial ecology analyses with a focus on pre-, core and post- modelling analyses of species distribution, niche quantification and community assembly. The \code{ecospat} package was written by current and former members and collaborators of the ecospat group of Antoine Guisan, Department of Ecology and Evolution (DEE) & Institute of Earth Surface Dynamics (IDYST), University of Lausanne, Switzerland. 
 
-\bold{-Pre-modelling:}
+\bold{Pre-modelling:}
 
-Spatial autocorrelation:
-  \code{\link{ecospat.mantel.correlogram}}
+\itemize{
 
-Variable selection --> \code{\link{ecospat.npred}}
+\item Spatial autocorrelation:\code{\link{ecospat.mantel.correlogram}}
 
-Climate Analalogy --> \code{\link{ecospat.climan, ecospat.mess, ecospat.plot.mess}}
+\item Variable selection: \code{\link{ecospat.npred}}
 
-Phylogenetic diversity measures --> \code{\link{ecospat.calculate.pd}}
+\item Climate Analalogy: \code{\link{ecospat.climan}, \link{ ecospat.mess}, \link{ ecospat.plot.mess}}
 
-Biotic Interactions --> \code{\link{ecospat.co-occurrences,ecospat.Cscore}}
+\item Phylogenetic diversity measures: \code{\link{ecospat.calculate.pd}}
 
-Minimum Dispersal routes --> \code{\link{ecospat.mdr}}
+\item Biotic Interactions: \code{\link{ecospat.co-occurrences}, \link{ecospat.Cscore}}
 
-Niche Quantification --> \code{\link{ecospat.grid.clim.dyn, ecospat.niche.equivalency.test,ecospat.niche.similarity.test, ecospat.plot.niche, ecospat.plot.niche.dyn,ecospat.plot.contrib, ecospat.niche.overlap, ecospat.plot.overlap.test,ecospat.niche.dyn.index,ecospat.shift.centroids}}
+\item Minimum Dispersal routes: \code{\link{ecospat.mdr}}
 
-Data Preparation --> \code{\link{ecospat.caleval, ecospat.cor.plot, ecospat.makeDataFrame,ecospat.occ.desaggregation, ecospat.rand.pseudoabsences, ecospat.rcls.grd,ecospat.recstrat_prop, ecospat.recstrat_regl,ecospat.sample.envar}}
+\item Niche Quantification: \code{\link{ecospat.grid.clim.dyn}, \link{ecospat.niche.equivalency.test}, \link{ecospat.niche.similarity.test}, \link{ecospat.plot.niche}, \link{ecospat.plot.niche.dyn}, \link{ecospat.plot.contrib}, \link{ecospat.niche.overlap}, \link{ecospat.plot.overlap.test}, \link{ecospat.niche.dyn.index}, \link{ecospat.shift.centroids}, \link{ecospat.niche.dynIndexProjGeo}, \link{ecospat.niche.zProjGeo}}
 
-\bold{-Core Niche Modelling:}}
+\item Data Preparation: \code{\link{ecospat.caleval}, \link{ecospat.cor.plot}, \link{ecospat.makeDataFrame}, \link{ecospat.occ.desaggregation}, \link{ecospat.rand.pseudoabsences}, \link{ecospat.rcls.grd}, \link{ecospat.recstrat_prop}, \link{ecospat.recstrat_regl}, \link{ecospat.sample.envar}}
+}
 
-Model evaluation --> \code{\link{ecospat.cv.glm, ecospat.permut.glm, ecospat.cv.gbm,ecospat.cv.me, ecospat.cv.rf, ecospat.boyce, ecospat.CommunityEval,ecospat.cohen.kappa, ecospat.max.kappa, ecospat.max.tss, ecospat.meva.table, ecospat.plot.kappa, ecospat.plot.tss, ecospat.adj.D2.glm}}
+\bold{Core Niche Modelling:}
 
-Spatial predictions and projections --> \code{\link{ecospat.ESM.Modeling,ecospat.ESM.EnsembleModeling, ecospat.ESM.Projection, ecospat.ESM.EnsembleProjection,ecospat.SESAM.prr, ecospat.migclim, ecospat.binary.model, ecospat.Epred, ecospat.mpa}}
+\itemize{
 
-Variable Importance --> \code{\link{ecospat.maxentvarimport}}
+\item Model evaluation: \code{\link{ecospat.cv.glm}, \link{ecospat.permut.glm}, \link{ecospat.cv.gbm}, \link{ecospat.cv.me}, \link{ecospat.cv.rf}, \link{ecospat.boyce}, \link{ecospat.CommunityEval}, \link{ecospat.cohen.kappa}, \link{ecospat.max.kappa}, \link{ecospat.max.tss}, \link{ecospat.meva.table}, \link{ecospat.plot.kappa}, \link{ecospat.plot.tss}, \link{ecospat.adj.D2.glm}, \link{ecospat.CCV.createDataSplitTable}, \link{ecospat.CCV.modeling}, \link{ecospat.CCV.communityEvaluation.bin}, \link{ecospat.CCV.communityEvaluation.prob}}
 
-\bold{-Post Modelling:}}
+\item Spatial predictions and projections: \code{\link{ecospat.ESM.Modeling}, \link{ecospat.ESM.EnsembleModeling}, \link{ecospat.ESM.Projection}, \link{ecospat.ESM.EnsembleProjection}, \link{ecospat.SESAM.prr}, \link{ecospat.migclim}, \link{ecospat.binary.model}, \link{ecospat.Epred}, \link{ecospat.mpa}}
 
-Variance Partition --> \code{\link{ecospat.varpart}}
+\item Variable Importance: \code{\link{ecospat.maxentvarimport}, \link{ecospat.ESM.VarContrib}}
+}
 
-Spatial predictions of species assemblages --> \code{\link{ecospat.cons_Cscore}}
+\bold{Post Modelling:}
 
-Range size quantification --> \code{\link{ecospat.rangesize, ecospat.occupied.patch}}
+\itemize{
+\item Variance Partition: \code{\link{ecospat.varpart}}
 
+\item Spatial predictions of species assemblages: \code{\link{ecospat.cons_Cscore}}
+
+\item Range size quantification: \code{\link{ecospat.rangesize}, \link{ ecospat.occupied.patch}}
+}
 }
 
