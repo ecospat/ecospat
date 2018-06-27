@@ -39,16 +39,19 @@ Freeman, E.A. and G.G. Moisen. 2008. A comparison of the performance of threshol
 \examples{
 
 \dontrun{
+library(raster)
 library(dismo)
 
 ### make a maxent model
 
 # copy maxent.jar file in the right folder
-path.from<-system.file("extdata", "maxent.jar", package="ecospat")
-path.to <- paste0(system.file(package="dismo"), "/java/maxent.jar")
+path.from<-system.file("extdata", "maxent.txt", package="ecospat")
+path.to <- paste0(system.file(package="dismo"), "/java/maxent.txt")
+path.to.renamed <- paste0(system.file(package="dismo"), "/java/maxent.jar")
 file.copy(path.from,path.to,overwrite = TRUE)
+file.rename(path.to, path.to.renamed)
 
-if (file.exists(path.to) & require(rJava)) {
+if (file.exists(path.to.renamed) & require(rJava)) {
 
   # get predictor variables
   fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
@@ -70,6 +73,7 @@ if (file.exists(path.to) & require(rJava)) {
 
   plot(pred)
   points(occ)
+}
 
 ### convert suitability to binary map
 
@@ -78,6 +82,5 @@ pred.bin.mpa <- ecospat.binary.model(pred,mpa.cutoff)
 
 plot(pred.bin.mpa)
 points(occ)
-}
 }
 }

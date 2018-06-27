@@ -82,16 +82,19 @@ Pateiro-Lopez, B., and A. Rodriguez-Casal. 2010. Generalizing the Convex Hull of
 
 \dontrun{
 
+library(raster)
 library(dismo)
 
 ### make a maxent model
 
 # copy maxent.jar file in the right folder
-path.from<-system.file("extdata", "maxent.jar", package="ecospat")
-path.to <- paste0(system.file(package="dismo"), "/java/maxent.jar")
+path.from<-system.file("extdata", "maxent.txt", package="ecospat")
+path.to <- paste0(system.file(package="dismo"), "/java/maxent.txt")
+path.to.renamed <- paste0(system.file(package="dismo"), "/java/maxent.jar")
 file.copy(path.from,path.to,overwrite = TRUE)
+file.rename(path.to, path.to.renamed)
 
-if (file.exists(path.to) & require(rJava)) {
+if (file.exists(path.to.renamed) & require(rJava)) {
 
   # get predictor variables
   fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
