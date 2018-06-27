@@ -17,11 +17,11 @@ Collection of methods, utilities and data sets for the support of spatial ecolog
 
 \item Variable selection: \code{\link{ecospat.npred}}
 
-\item Climate Analalogy: \code{\link{ecospat.climan}, \link{ ecospat.mess}, \link{ ecospat.plot.mess}}
+\item Climate Analalogy: \code{\link{ecospat.climan}, \link{ecospat.mess}, \link{ecospat.plot.mess}}
 
 \item Phylogenetic diversity measures: \code{\link{ecospat.calculate.pd}}
 
-\item Biotic Interactions: \code{\link{ecospat.co-occurrences}, \link{ecospat.Cscore}}
+\item Biotic Interactions: \code{\link{ecospat.cons_Cscore}, \link{ecospat.Cscore}, \link{ecospat.co_occurrences}} 
 
 \item Minimum Dispersal routes: \code{\link{ecospat.mdr}}
 
@@ -48,7 +48,7 @@ Collection of methods, utilities and data sets for the support of spatial ecolog
 
 \item Spatial predictions of species assemblages: \code{\link{ecospat.cons_Cscore}}
 
-\item Range size quantification: \code{\link{ecospat.rangesize}, \link{ ecospat.occupied.patch}}
+\item Range size quantification: \code{\link{ecospat.rangesize}, \link{ecospat.occupied.patch}}
 }
 }
 
