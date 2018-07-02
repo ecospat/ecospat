@@ -299,7 +299,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
 # ecospat.ESM.Modeling; ecospat.ESM.EnsembleModeling; ecospat.ESM.EnsembleProjection
 
 
-ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALSE, cleanup = FALSE) {
+ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL, parallel = FALSE, cleanup = FALSE) {
   
   iniwd <- getwd()
   setwd(ESM.modeling.output$wd)
@@ -310,7 +310,8 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
   which.biva <- ESM.modeling.output$which.biva
   NbRunEval <- ESM.modeling.output$NbRunEval
   modeling.id <- ESM.modeling.output$modeling.id
-  name.env <- deparse(substitute(new.env))
+  if(is.null(name.env)){
+  name.env <- deparse(substitute(new.env))}
   ## detach package GAM if('GAM'%in%models){
   ## detach(package:ecospat,force=TRUE);detach(package:gam,force=TRUE);unloadNamespace('ecospat')}
   
