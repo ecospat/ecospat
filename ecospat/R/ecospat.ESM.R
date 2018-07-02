@@ -1074,17 +1074,13 @@ ecospat.ESM.MergeModels <- function(ESM.modeling.output) {
 ## FUNCTION'S ARGUMENTS
 ## ESM.modeling.output:   BIOMOD.formated.data object returned by BIOMOD_modeling
 ## ESM_EF.output:   BIOMOD.formated.data object returned by ecospat.ESM.EnsembleModeling
-## scaling: rescaling method: 'plusminus1','plusminus1bymodel','01','01bymodel' or 'none'. 
 
 ## Details:
-# Calculates the difference in bivariate model weights were a focal variable was used compared to all bivariate model weights. 
-# It gives an indication on the contribution of the variable in the final ensemble model. Without rescaling the contributions 
-# are in the scale of the bivariate model weights. They can be rescale between 0 and 1 (scaling='01') or multiplied to a maximum 
-# of 1 (or -1 if the biggest contribution is negative; scaling ='plusminus1'). Scaling methods with 'bymodel' do the same 
-# but within each modeling techiques.
+# Calculates the proportion of bivariate model weights were a focal variable was used compared to all bivariate model weights per method. 
+# It gives an indication on the contribution of the variable in the final ensemble model. 
 
 ## Values:
-# Returns a dataframe with contribution values by variable and model
+# Returns a dataframe with contribution values (i.e. proportion of weights) by variable and model
 
 ## Authors:
 # Olivier Broennimann <Olivier.Broennimann@unil.ch>
@@ -1092,14 +1088,13 @@ ecospat.ESM.MergeModels <- function(ESM.modeling.output) {
 ##See Also
 # ecospat.ESM.Modeling; ecospat.ESM.EnsembleModeling; ecospat.ESM.EnsembleProjection
 
-ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output,scaling="plusminus1") {
-  
-  if(!scaling %in% c("plusminus1","plusminus1bymodel","01","01bymodel","none")) stop("scaling should be 'plusminus1','plusminus1bymodel','01','01bymodel' or 'none'")
+ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
   
   var<-colnames(ESM.modeling.output$data@data.env.var)
   models<-ESM.modeling.output$models
-  contrib<-data.frame(matrix(nrow=length(var),ncol=length(models),dimnames=list(var,models)))
+  contrib<-data.frame(matrix(nrow=length(var),ncol=length(models)+1,dimnames=list(var,c(models, "ENS"))))
   weights<-ESM_EF.output$weights
+  if(length(models > 1)) { weights.method <- ESM_EF.output$weights.EF }
   
   cb1<-rep(combn(var,2)[1,],each=length(models))
   cb2<-rep(combn(var,2)[2,],each=length(models))
@@ -1115,31 +1110,8 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output,scaling="pl
     pos_models <- grep(m,names(weights.reordered))
     pos_cb<-c(which(cb1==v),which(cb2==v))
     pos<-intersect(pos_models,pos_cb)
-    contrib[which(var==v),which(names(contrib)==m)]<-mean(weights.reordered[pos])-mean(weights.reordered[pos_models])
+    contrib[which(var==v),which(names(contrib)==m)]<-sum(weights.reordered[pos])-(2*sum(weights.reordered[pos_models]))
     }
   }
   
-  # rescaling 
-  contrib[which(is.na(contrib)),]<-0 #to remove variables with no contribution NA
   
-  rescale01 = function(x) { 
-    xMin = min(x)
-    xMax = max(x)
-    x. = (x - xMin) / (xMax - xMin)
-    return(x.)
-  }
-  
-  rescale.plusminus1 = function(x) { 
-    xMin = min(x)
-    xMax = max(x)
-    x. = x / max(abs(xMin),xMax)
-    return(x.)
-  }
-  
-  if(scaling=="01bymodel") contrib<-apply(contrib,2,rescale01)
-  if(scaling=="plusminus1bymodel") contrib<-apply(contrib,2,rescale.plusminus1) 
-  if(scaling=="01") contrib<-(contrib-min(contrib))/(max(contrib)-min(contrib))
-  if(scaling=="plusminus1") contrib<-contrib/max(abs(min(contrib)),max(contrib))
-  
-  return(contrib)
-}
