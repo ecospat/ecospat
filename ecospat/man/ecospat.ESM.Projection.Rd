@@ -20,6 +20,9 @@ This function projects simple bivariate models on new.env
     \item{new.env}{
 A set of explanatory variables onto which models will be projected. It could be a \code{data.frame}, a \code{matrix}, or a \code{rasterStack} object. Make sure the column names (\code{data.frame} or \code{matrix}) or layer Names (\code{rasterStack}) perfectly match with the names of variables used to build the models in the previous steps.
     }
+    \item{name.env}{
+A name for the new.env object. If not specified (default) the name of the new.env object will be used. It is necessary to specify a unique name when projecting various new.env objects in a loop. 
+    }
     \item{parallel}{
 Logical. If TRUE, the parallel computing is enabled}
     \item{cleanup}{
