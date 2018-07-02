@@ -9,25 +9,21 @@ calculates the variable contribution of each variable and method in an ESM model
 }
 \usage{
     ecospat.ESM.VarContrib(ESM.modeling.output,
-                           ESM_EF.output,
-                           scaling)
+                           ESM_EF.output)
 }
 
 \arguments{
     \item{ESM.modeling.output}{\code{BIOMOD.formated.data} object returned by \code{\link[ecospat]{ecospat.ESM.Modeling}}}
     \item{ESM_EF.output}{\code{BIOMOD.formated.data} object returned by \code{\link[ecospat]{ecospat.ESM.EnsembleModeling}}}
-    \item{scaling}{rescaling method: 'plusminus1','plusminus1bymodel','01','01bymodel' or 'none'. See details. default is "plusminus1"}
 }
 \details{
-Calculates the difference in bivariate model weights were a focal variable was used compared to all bivariate model weights. 
-It gives an indication on the contribution of the variable in the final ensemble model. Without rescaling the contributions 
-are in the scale of the bivariate model weights. They can be rescale between 0 and 1 (scaling='01') or multiplied to a maximum 
-of 1 (or -1 if the biggest contribution is negative; scaling ='plusminus1'). Scaling methods with 'bymodel' do the same 
-but within each modeling techiques.
+Calculates the ration between sum of weights of bivariate models where a focal variable was used and sum of weights of all bivariate models. This gives an indication on the proportional contribution of the variable in the final ensemble model.
+In the case of multiple methods (e.g., GLM, GAM...), the contributions are counted per method. For ensemble model, the contributions are then weighted means (based on the weighting score as chosen in ecospat.ESM.EnsembleModeling()) of single methods
+    
 }
 
 \value{
-A dataframe with contribution values by variable and model
+Returns a dataframe with contribution values (i.e. proportional contribution) by variable and model
 
 }
 \author{
@@ -79,7 +75,6 @@ my.ESM_EF$ESM.evaluations
 my.ESM_EF$weights
 
 ## get the variable contributions of ESMs
-ecospat.ESM.VarContrib(my.ESM,my.ESM_EF,scaling="01")
-ecospat.ESM.VarContrib(my.ESM,my.ESM_EF,scaling="01bymodel")
+ecospat.ESM.VarContrib(my.ESM,my.ESM_EF)
 
 }}
