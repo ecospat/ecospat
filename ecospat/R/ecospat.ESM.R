@@ -1076,11 +1076,11 @@ ecospat.ESM.MergeModels <- function(ESM.modeling.output) {
 ## ESM_EF.output:   BIOMOD.formated.data object returned by ecospat.ESM.EnsembleModeling
 
 ## Details:
-# Calculates the proportion of bivariate model weights were a focal variable was used compared to all bivariate model weights per method. 
-# It gives an indication on the contribution of the variable in the final ensemble model. 
+# Calculates the ration between 'sum of bivariate models' weights were a focal variable was used' and 'sum of all bivariate models' weights'. This gives an indication on the proportional contribution of the variable in the final ensemble model. 
+# In the case of multiple methods (e.g., GLM, GAM...), the contributions are counted per method. For ensemble model, the contributions are then weighted means (based on the weighting score as chosen in ecospat.ESM.EnsembleModeling()) of single methods
 
 ## Values:
-# Returns a dataframe with contribution values (i.e. proportion of weights) by variable and model
+# Returns a dataframe with contribution values (i.e. proportional contribution) by variable and model
 
 ## Authors:
 # Olivier Broennimann <Olivier.Broennimann@unil.ch>
@@ -1094,7 +1094,6 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
   models<-ESM.modeling.output$models
   contrib<-data.frame(matrix(nrow=length(var),ncol=length(models)+1,dimnames=list(var,c(models, "ENS"))))
   weights<-ESM_EF.output$weights
-  if(length(models > 1)) { weights.method <- ESM_EF.output$weights.EF }
   
   cb1<-rep(combn(var,2)[1,],each=length(models))
   cb2<-rep(combn(var,2)[2,],each=length(models))
@@ -1113,5 +1112,16 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
     contrib[which(var==v),which(names(contrib)==m)]<-sum(weights.reordered[pos])-(2*sum(weights.reordered[pos_models]))
     }
   }
+  
+  #contributions of final ensemble model
+  if(length(models > 1)) { 
+    weights.method <- ESM_EF.output$weights.EF 
+    contrib[, "ENS"] <- rowWeightedMeans(x=contirb[, models], w=weights.method, na.rm=TRUE) }  else {
+    contrib[, "ENS"] <- contrib[, models] }
+    
+  return(contrib)
+}
+                                                                         
+                                                                         
   
   
