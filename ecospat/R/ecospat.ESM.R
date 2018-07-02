@@ -1116,7 +1116,7 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
   #contributions of final ensemble model
   if(length(models > 1)) { 
     weights.method <- ESM_EF.output$weights.EF 
-    contrib[, "ENS"] <- matrixdStats::rowWeightedMeans(x=contirb[, models], w=weights.method, na.rm=TRUE) }  else {
+    contrib[, "ENS"] <- matrixStats::rowWeightedMeans(x=contirb[, models], w=weights.method, na.rm=TRUE) }  else {
     contrib[, "ENS"] <- contrib[, models] }
     
   return(contrib)
