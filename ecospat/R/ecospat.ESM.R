@@ -1109,14 +1109,14 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
     pos_models <- grep(m,names(weights.reordered))
     pos_cb<-c(which(cb1==v),which(cb2==v))
     pos<-intersect(pos_models,pos_cb)
-    contrib[which(var==v),which(names(contrib)==m)]<-sum(weights.reordered[pos])-(2*sum(weights.reordered[pos_models]))
+    contrib[which(var==v),which(names(contrib)==m)]<-sum(weights.reordered[pos])/(2*sum(weights.reordered[pos_models]))
     }
   }
   
   #contributions of final ensemble model
   if(length(models > 1)) { 
-    weights.method <- ESM_EF.output$weights.EF 
-    contrib[, "ENS"] <- matrixStats::rowWeightedMeans(x=contirb[, models], w=weights.method, na.rm=TRUE) }  else {
+    weights.method <- ESM_EF.output$weights.EF$x
+    contrib[, "ENS"] <- matrixStats::rowWeightedMeans(x=data.matrix(contrib[, models]), w=weights.method, na.rm=TRUE) }  else {
     contrib[, "ENS"] <- contrib[, models] }
     
   return(contrib)
