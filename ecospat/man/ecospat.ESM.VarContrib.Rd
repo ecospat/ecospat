@@ -35,7 +35,8 @@ Olivier Broennimann <Olivier.Broennimann@unil.ch> with contributions of Heidi Mo
 
 }
 \examples{
-   \dontrun{
+   \dontrun{       
+require(biomod2)
 # Loading test data
 data(ecospat.testNiche.inv)
 inv <- ecospat.testNiche.inv
@@ -46,7 +47,6 @@ sp_occ <- inv[11]
 
 # env
 current <- inv[3:10]
-
 
 ### Formating the data with the BIOMOD_FormatingData() function from the package biomod2
 sp <- 1
@@ -64,7 +64,6 @@ my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
                                 weighting.score=c("AUC"),
                                 parallel=FALSE)  
 
-
 ### Evaluation and average of simple bivariate models to ESMs
 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.score=c("SomersD"),threshold=0)
 
@@ -76,5 +75,5 @@ my.ESM_EF$weights
 
 ## get the variable contributions of ESMs
 ecospat.ESM.VarContrib(my.ESM,my.ESM_EF)
-
-}}
+}
+}
