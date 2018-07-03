@@ -1076,8 +1076,8 @@ ecospat.ESM.MergeModels <- function(ESM.modeling.output) {
 ## ESM_EF.output:   BIOMOD.formated.data object returned by ecospat.ESM.EnsembleModeling
 
 ## Details:
-# Calculates the ration between sum of weights of bivariate models where a focal variable was used and sum of weights of all bivariate models. This gives an indication on the proportional contribution of the variable in the final ensemble model. 
-# In the case of multiple methods (e.g., GLM, GAM...), the contributions are counted per method. For ensemble model, the contributions are then weighted means (based on the weighting score as chosen in ecospat.ESM.EnsembleModeling()) of single methods
+# Calculates the ratio between sum of weights of bivariate models where a focal variable was used and sum of weights of all bivariate models. This gives an indication on the proportional contribution of the variable in the final ensemble model. 
+# In the case of multiple methods (e.g., GLM, GAM...), the contributions are counted per method, and for the final ensemble model, the contributions are then weighted means of single methods (based on the weighting score as chosen in ecospat.ESM.EnsembleModeling()).
 
 ## Values:
 # Returns a dataframe with contribution values (i.e., proportional contribution) by variable and model
@@ -1121,7 +1121,3 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
     
   return(contrib)
 }
-                                                                         
-                                                                         
-  
-  
