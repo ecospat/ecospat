@@ -870,7 +870,9 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
                                         "singleSpecies.ensembleEvaluationScore",
                                         "singleSpecies.ensembleVariableImportance",
                                         "singleSpecies.calibrationSites.ensemblePredictions",
-                                        "singleSpecies.evaluationSites.ensemblePredictions"))
+                                        "singleSpecies.evaluationSites.ensemblePredictions",
+                                        "allSites.averagePredictions.cali.RData",
+                                        "allSites.averagePredictions.eval.RData"))
   possible.thresholds <- c("FIXED", 
                            "MAX.KAPPA",
                            "MAX.ACCURACY",
@@ -1556,7 +1558,9 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
                                         "singleSpecies.ensembleEvaluationScore",
                                         "singleSpecies.ensembleVariableImportance",
                                         "singleSpecies.calibrationSites.ensemblePredictions",
-                                        "singleSpecies.evaluationSites.ensemblePredictions"))
+                                        "singleSpecies.evaluationSites.ensemblePredictions",
+                                        "allSites.averagePredictions.cali.RData",
+                                        "allSites.averagePredictions.eval.RData"))
   
   stopifnot(community.metrics %in% c("SR.deviation","community.AUC","probabilistic.Sorensen","probabilistic.Jaccard","probabilistic.Simpson"))
   
