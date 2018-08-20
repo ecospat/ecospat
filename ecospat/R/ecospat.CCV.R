@@ -741,7 +741,29 @@ ecospat.CCV.modeling <- function(sp.data,
       }
     }
   }
-
+  
+  #Creating the average probability predictions for each site  ############################################################################
+  all.predictions.caliSites <- array(data=NA, 
+                                     dim=c(dim(sp.data),dim(DataSplitTable)[2]),
+                                     dimnames=list(unlist(dimnames(sp.data)[1]),
+                                                   unlist(dimnames(sp.data)[2]),
+                                                   1:dim(DataSplitTable)[2]))
+  all.predictions.evalSites <- array(data=NA, 
+                                     dim=c(dim(sp.data),dim(DataSplitTable)[2]),
+                                     dimnames=list(unlist(dimnames(sp.data)[1]),
+                                                   unlist(dimnames(sp.data)[2]),
+                                                   1:dim(DataSplitTable)[2]))
+  
+  #Extracting the data from the CCV.Modelling output
+  for(i in 1:dim(DataSplitTable)[2]){
+    all.predictions.caliSites[DataSplitTable[,i],,i] <- na.omit(t(singleSpecies.calibrationSites.ensemblePredictions[,,i]))
+    all.predictions.evalSites[!DataSplitTable[,i],,i] <- na.omit(t(singleSpecies.evaluationSites.ensemblePredictions[,,i]))
+  }
+  
+  #Making the average prediction per site
+  allSites.averagePredictions.cali <- apply(all.predictions.caliSites, 1:2, mean, na.rm=T)
+  allSites.averagePredictions.eval <- apply(all.predictions.evalSites, 1:2, mean, na.rm=T)
+  
   #Writing the final output files ##############################################################################################
   save(singleSpecies.ensembleEvaluationScore, file="singleSpecies.ensembleEvaluationScore.RData")
   save(singleSpecies.calibrationSites.ensemblePredictions, file="singleSpecies.calibrationSites.ensemblePredictions.RData")
@@ -750,6 +772,8 @@ ecospat.CCV.modeling <- function(sp.data,
   save(DataSplitTable, file="DataSplitTable.RData")
   save(speciesData.calibration, file="speciesData.calibration.RData")
   save(speciesData.evaluation, file="speciesData.evaluation.RData")
+  save(allSites.averagePredictions.cali, file="allSites.averagePredictions.cali.RData")
+  save(allSites.averagePredictions.eval, file="allSites.averagePredictions.eval.RData")
   ccv.modeling.data <- list(modeling.id = modeling.id,
                             output.files = c("singleSpecies.ensembleEvaluationScore.RData",
                                              "singleSpecies.calibrationSites.ensemblePredictions.RData",
@@ -757,7 +781,9 @@ ecospat.CCV.modeling <- function(sp.data,
                                              "singleSpecies.ensembleVariableImportance.RData",
                                              "DataSplitTable.RData",
                                              "speciesData.calibration.RData",
-                                             "speciesData.evaluation.RData"),
+                                             "speciesData.evaluation.RData",
+                                             "allSites.averagePredictions.cali.RData",
+                                             "allSites.averagePredictions.eval.RData"),
                             speciesData.calibration = speciesData.calibration,
                             speciesData.evaluation = speciesData.evaluation,
                             speciesData.full = sp.data,
@@ -765,7 +791,9 @@ ecospat.CCV.modeling <- function(sp.data,
                             singleSpecies.ensembleEvaluationScore = singleSpecies.ensembleEvaluationScore,
                             singleSpecies.ensembleVariableImportance = singleSpecies.ensembleVariableImportance,
                             singleSpecies.calibrationSites.ensemblePredictions=singleSpecies.calibrationSites.ensemblePredictions,
-                            singleSpecies.evaluationSites.ensemblePredictions=singleSpecies.evaluationSites.ensemblePredictions)
+                            singleSpecies.evaluationSites.ensemblePredictions=singleSpecies.evaluationSites.ensemblePredictions,
+                            allSites.averagePredictions.cali=allSites.averagePredictions.cali,
+                            allSites.averagePredictions.eval=allSites.averagePredictions.eval)
   save(ccv.modeling.data, file=paste("../",modeling.id,".ccv.modeling.RData", sep=""))
   setwd("../")
   return(ccv.modeling.data)
