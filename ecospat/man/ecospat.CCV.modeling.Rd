@@ -65,6 +65,8 @@ The output of the ecospat.CCV.modeling function can then be used to evaluate the
   \item{singleSpecies.ensembleVariableImportance}{a 3-dimensional array of single species variable importance for all predictors}
   \item{singleSpecies.calibrationSites.ensemblePredictions}{a 3-dimensional array of the predictions for each species and run at the calibration sites}
   \item{singleSpecies.evaluationSites.ensemblePredictions}{a 3-dimensional array of the predictions for each species and run at the evaluation sites}
+  \item{allSites.averagePredictions.cali}{a matrix with the average predicted probabilities for each site across all the runs the sites were used for model calibration}
+  \item{allSites.averagePredictions.eval}{a matrix with the average predicted probabilities for each site across all the runs the sites were used as independent evaluation sites}
 }
 \references{
 Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2018) How to best threshold and validate stacked species assemblages? Community optimisation might hold the answer. Methods in Ecology and Evolution, in review
