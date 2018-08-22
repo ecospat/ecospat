@@ -756,8 +756,8 @@ ecospat.CCV.modeling <- function(sp.data,
   
   #Extracting the data from the CCV.Modelling output
   for(i in 1:dim(DataSplitTable)[2]){
-    all.predictions.caliSites[DataSplitTable[,i],,i] <- na.omit(t(singleSpecies.calibrationSites.ensemblePredictions[,,i]))
-    all.predictions.evalSites[!DataSplitTable[,i],,i] <- na.omit(t(singleSpecies.evaluationSites.ensemblePredictions[,,i]))
+    all.predictions.caliSites[DataSplitTable[,i],,i] <- t(singleSpecies.calibrationSites.ensemblePredictions[,,i])[1:dim(all.predictions.caliSites[DataSplitTable[,i],,i])[1]]
+    all.predictions.evalSites[!DataSplitTable[,i],,i] <- t(singleSpecies.evaluationSites.ensemblePredictions[,,i])[1:dim(all.predictions.evalSites[!DataSplitTable[,i],,i])[1]]
   }
   
   #Making the average prediction per site
