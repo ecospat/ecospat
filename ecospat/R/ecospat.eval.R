@@ -1,5 +1,5 @@
 ################ MEVA.TABLE: Function originally from A. Guisan (Unil-ECOSPAT, Switzerland)
-################ Modified from L. Maiorano (Unil-ECOSPAT, Switzerland)
+################ Modified from L. Maiorano and O. Broennimann (Unil-ECOSPAT, Switzerland)
 ecospat.meva.table <- function(Pred, Sp.occ, th) # Pred: vector of predicted probabilities Sp.occ: vector of binary observations
 # th: threshold used to cut the probability to binary values
 {
@@ -41,62 +41,46 @@ ecospat.meva.table <- function(Pred, Sp.occ, th) # Pred: vector of predicted pro
 
 
 ############### MAX-KAPPA ## Function originally from A. Guisan (Unil-ECOSPAT, Switzerland)
-############### Modified from L. Maiorano (Unil-ECOSPAT, Switzerland)
+############### Modified from L. Maiorano (Unil-ECOSPAT, Switzerland) and Olivier Broennimann
 ecospat.max.kappa <- function(Pred, Sp.occ) # Pred: vector of predicted probabilities Sp.occ: vector of binary observations
 {
-  k <- 0.01
-  i <- 1
-  evak <- data.frame(k)
-  while (k < 1) {
-    a <- table(Pred >= k, Sp.occ)[4]
-    b <- table(Pred >= k, Sp.occ)[2]
-    c <- table(Pred >= k, Sp.occ)[3]
-    d <- table(Pred >= k, Sp.occ)[1]
-    N <- a + b + c + d
-    tab <- table(Pred >= k, Sp.occ)
-    evak[i, "THRESHOLD"] <- k
-    evak[i, "k"] <- ecospat.cohen.kappa(tab)$kap
-    # evak[i,'k'] <- ecospat.cohen.kappa(table(Pred >= k, Sp.occ))$kap
-    k <- k + 0.01
-    i <- i + 1
+  FUN<-function(thresh){
+    xtab<-table(Pred >= thresh, Sp.occ)
+    return(ecospat.cohen.kappa(xtab)$kap )
   }
-  maxk <- max(na.omit(evak$k))
-  maxkthrshold <- evak[evak$k == max(na.omit(evak$k)), 2]
-  maxkcol1 <- c("Maximum K", "Correspondent threshold")
-  maxkcol2 <- c(round(maxk, digits = 4), maxkthrshold)
-  maxkmatrix <- matrix(c(maxkcol1, maxkcol2), nrow = 2, ncol = 2)
-  return(list(evak, maxkmatrix))
+  
+  threshold<-(1:100)/100
+  k<-sapply(threshold,FUN)
+  table<-data.frame(cbind(threshold,k))
+  
+  max.Kappa <- max(table$k,na.rm = TRUE)
+  max.threshold <- table$threshold[which.max(table$k)][1]
+  return(list(table=table,max.Kappa=max.Kappa,max.threshold=max.threshold))
 }
 
 
 ############### MAX-TSS ## Function originally from L. Maiorano (Unil-ECOSPAT, Switzerland)
-############### modyfying MAX-KAPPA from A. Guisan (Unil-ECOSPAT, Switzerland)
+############### modyfying MAX-KAPPA from A. Guisan (Unil-ECOSPAT, Switzerland), modified by Olivier Broennimann
 ecospat.max.tss <- function(Pred, Sp.occ) # Pred: vector of predicted probabilities Sp.occ: vector of binary observations
 {
-  tss <- 0.01
-  i <- 1
-  evatss <- data.frame(tss)
-  while (tss < 1) {
-    a <- table(Pred >= tss, Sp.occ)[4]
-    b <- table(Pred >= tss, Sp.occ)[2]
-    c <- table(Pred >= tss, Sp.occ)[3]
-    d <- table(Pred >= tss, Sp.occ)[1]
-    N <- a + b + c + d
+  FUN<-function(thresh){
+    xtab<-table(Pred >= thresh, Sp.occ)
+    a <- xtab[4]
+    b <- xtab[2]
+    c <- xtab[3]
+    d <- xtab[1]
     se <- a/(a + c)
     sp <- d/(b + d)
-    evatss[i, "THRESHOLD"] <- tss
-    evatss[i, "tss"] <- se + sp - 1
-    tss <- tss + 0.01
-    i <- i + 1
+    return(se + sp - 1)
   }
-  maxtss <- max(evatss$tss,na.rm = TRUE)
-  maxtssthrshold <-evatss[which(evatss$tss==maxtss)[1], 2]
-  maxtsscol1 <- c("Maximum TSS", "Correspondent threshold")
-  maxtsscol2 <- c(round(maxtss, digits = 4), maxtssthrshold)
-  maxtssmatrix <- matrix(c(maxtsscol1, maxtsscol2), nrow = 2, ncol = 2)
-  return(list(evatss, maxtssmatrix))
+  threshold<-(1:100)/100
+  tss<-sapply(threshold,FUN)
+  table<-data.frame(cbind(threshold,tss))
+  
+  max.TSS <- max(table$tss,na.rm = TRUE)
+  max.threshold <- table$threshold[which.max(table$tss)][1]
+  return(list(table=table,max.TSS=max.TSS,max.threshold=max.threshold))
 }
-
 
 ################## PLOT-K ## Function originally from L. Maiorano (Unil-ECOSPAT, Switzerland)
 ecospat.plot.kappa <- function(Pred, Sp.occ) # Pred: vector of predicted probabilities Sp.occ: vector of binary observations
