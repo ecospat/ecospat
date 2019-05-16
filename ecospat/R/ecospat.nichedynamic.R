@@ -289,6 +289,7 @@ ecospat.shift.centroids <- function(sp1, sp2, clim1, clim2, col = "red") {
 ##################################################################################################
 
 ecospat.niche.dyn.index <- function(z1, z2, intersection = NA) {
+  rotate <- function(x) t(apply(x, 2, rev))
   w1 <- as.matrix(z1$w)  # native environmental distribution mask
   w2 <- as.matrix(z2$w)  # invaded environmental distribution mask
   glob1 <- as.matrix(z1$Z)  # Native environmental extent densities
@@ -328,7 +329,7 @@ ecospat.niche.dyn.index <- function(z1, z2, intersection = NA) {
   stability.index.w <- sum(obs.stab)/sum(obs.stab + obs.exp)  # stability
   restriction.index.w <- sum(obs.res)/sum(obs.res + (z.stable.cat * as.matrix(z1$z.uncor)))  #unfilling
   part <- list()
-  part$dyn <- dyn
+  part$dyn <- rotate(dyn)
   part$dynamic.index.w <- c(expansion.index.w, stability.index.w, restriction.index.w)
   names(part$dynamic.index.w) <- c("expansion", "stability", "unfilling")
   return(part)
