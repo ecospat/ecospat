@@ -873,6 +873,9 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
     colnames(pred.ESM) <- models
   }
   
+  if(length(models)==1){
+    names(weights) <- paste0(models,names(weights))
+  }
   if (new.env.raster) {
     pred.ESM <- raster::stack(biva.proj)
     
