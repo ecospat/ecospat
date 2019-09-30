@@ -29,9 +29,9 @@
 #
 #
 # REFERENCES:
-# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2018) 
+# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2019) 
 #   How to best threshold and validate stacked species assemblages? Community optimisation might hold the answer. 
-#   Methods in Ecology and Evolution, in review
+#   Methods in Ecology and Evolution, 9(10): 2155-2166.
 # Thuiller, W., Georges, D., Engler, R. & Breiner, F. (2016) 
 #   biomod2: Ensemble Platform for Species Distribution Modeling.
 # Breiner, F.T., Guisan, A., Bergamini, A. & Nobis, M.P. (2015) 
@@ -228,9 +228,9 @@ ecospat.CCV.createDataSplitTable <- function(NbRunEval,
 
 
 #REFERENCES
-# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2018) 
+# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2019) 
 #   How to best threshold and validate stacked species assemblages? Community optimisation might hold the answer. 
-#   Methods in Ecology and Evolution, in review
+#   Methods in Ecology and Evolution, 9(10): 2155-2166.
 # Thuiller, W., Georges, D., Engler, R. & Breiner, F. (2016) 
 #   biomod2: Ensemble Platform for Species Distribution Modeling.
 # Breiner, F.T., Guisan, A., Bergamini, A. & Nobis, M.P. (2015) 
@@ -838,9 +838,9 @@ ecospat.CCV.modeling <- function(sp.data,
 
 
 #REFERENCES
-# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2018) 
+# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2019) 
 #   How to best threshold and validate stacked species assemblages? Community optimisation might hold the answer. 
-#   Methods in Ecology and Evolution, in review
+#   Methods in Ecology and Evolution, 9(10): 2155-2166.
 
 
 #SEE ALSO
@@ -1508,8 +1508,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
 
 #FUNCTION'S ARGUMENTS
 #cvv.modeling.data     an output from ecospat.CCV.modeling function
-#community.metric      probabilistic community metrics to calculate ("SR.deviation","community.AUC","probabilistic.Sorensen","probabilistic.Jaccard","probabilistic.Simpson")
-#se.th                 precission used for community metric (standard error of mean)
+#community.metric      probabilistic community metrics to calculate ("SR.deviation","community.AUC","Max.Sorensen","Max.Jaccard","probabilistic.Sorensen","probabilistic.Jaccard")
 #parallel              binary variable if parallel computing is allowed
 #cpus                  if parallel true the number of cpus to use
 
@@ -1529,24 +1528,27 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
 
 
 #REFERENCES
-# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2018) 
+# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2019) 
 #   How to best threshold and validate stacked species assemblages? Community optimisation might hold the answer. 
-#   Methods in Ecology and Evolution, in review
+#   Methods in Ecology and Evolution, 9(10): 2155-2166.
+# Scherrer, D., Mod, H.K., Guisan, A. (2019)
+#   How to evaluate community predictions without thresholding?
+#   Methods in Ecology and Evolution, in press
 
 
 #SEE ALSO
 # ecospat.CCV.modelling
+
 ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data, 
-                                                 community.metrics=c("SR.deviation","community.AUC","probabilistic.Sorensen"), 
-                                                 se.th=0.01, 
+                                                 community.metrics=c("SR.deviation","community.AUC","probabilistic.Sorensen","Max.Sorensen"), 
                                                  parallel = TRUE, 
                                                  cpus = 4){
   
   
   #Loading the packages needed (they should all be installed by ecospat library)
-  #require(PresenceAbsence)
-  #require(poibin)
-  #require(snowfall)
+  require(PresenceAbsence)
+  require(poibin)
+  require(snowfall)
   
   #Checking all the input data
   stopifnot(names(ccv.modeling.data)==c("modeling.id",
@@ -1562,7 +1564,7 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
                                         "allSites.averagePredictions.cali",
                                         "allSites.averagePredictions.eval"))
   
-  stopifnot(community.metrics %in% c("SR.deviation","community.AUC","probabilistic.Sorensen","probabilistic.Jaccard","probabilistic.Simpson"))
+  stopifnot(community.metrics %in% c("SR.deviation","community.AUC","Max.Sorensen","Max.Jaccard","probabilistic.Sorensen","probabilistic.Jaccard"))
   
   #############################################################################################################
   #SUBFUNCTIONS################################################################################################
@@ -1583,7 +1585,11 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
     SR.mean <- sum(data[-1])
     SR.dev <- SR.mean - data[[1]]
     SR.sd <- sqrt(sum((1-data[-1])*data[-1]))
-    SR.prob <- pnorm(abs(SR.dev/SR.sd), lower.tail=FALSE)*2
+    if(SR.dev >= 0){
+      SR.prob <- ppoibin(data[[1]], data[-1])
+    }else{
+      SR.prob <- 1-ppoibin(data[[1]]-1, data[-1])
+    }
     return(unlist(c(SR.mean=SR.mean,SR.dev=SR.dev,SR.sd=SR.sd, SR.prob=SR.prob)))
   }
   
@@ -1627,79 +1633,76 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
     return(prod(prob.list))
   }
   
-  #For Sorensen mean and sd
-  Sorensen.mean.sd <- function(data, se.th=0.01){
+  #For the Max.Sorensen
+  MaxSorensen <- function(data){
     obs.data <- as.numeric(data[1:(length(data)/2)])
     pred.data <- as.numeric(data[((length(data)/2)+1):length(data)])
-    obs.data <- obs.data[!is.na(pred.data)]
-    pred.data <- pred.data[!is.na(pred.data)]
-    if(sum(obs.data)==0){
-      return(c(Sorensen.mean=0, Sorensen.sd=NA, Sorensen.CI=NA, nb.it=0))
-    }else{ 
-      sim <- NULL
-      se <- 1
-      i <- 1
-      while((i<100 | se>se.th) & i<10000){
-        bin.random <- rbinom(length(pred.data),1,as.numeric(pred.data))
-        errors <- 2 * bin.random  + obs.data
-        sim <- c(sim, (2 * sum(errors == 3))/(2 * sum(errors == 3) + sum(errors == 2) + sum(errors == 1)))
-        se <- 1.96*sd(sim, na.rm=TRUE)/sqrt(i)
-        i <- i+1
+    temp.Sorensen <- rep(NA,101)
+    th <- seq(0,1,0.01)
+    for(i in 1:101){
+      pred.temp <- pred.data
+      pred.temp[pred.temp>=th[i]] <- 1
+      pred.temp[pred.temp<th[i]] <- 0
+      errors <- 2*pred.temp+obs.data
+      a <- length(which(errors == 3)) #True Positives
+      b <- length(which(errors == 2)) #False Positives
+      c <- length(which(errors == 1)) #False Negatives
+      if(a==0 & b==0 & c==0){
+        Sorensen <- 1
+      }else{
+        Sorensen <- round((2 * a)/(2 * a + b + c), digits=3)
       }
-      return(c(Sorensen.mean=mean(sim, na.rm=TRUE), Sorensen.sd=sd(sim, na.rm=TRUE), Sorensen.CI=1.96*sd(sim, na.rm=TRUE)/sqrt(i-1), nb.it=i-1))
+      temp.Sorensen[i] <- Sorensen
     }
+    return(max(temp.Sorensen))
   }
   
-  #For Jaccard mean and sd
-  Jaccard.mean.sd <- function(data, se.th=0.01){
+  #For the Max.Jaccard
+  MaxJaccard <- function(data){
     obs.data <- as.numeric(data[1:(length(data)/2)])
     pred.data <- as.numeric(data[((length(data)/2)+1):length(data)])
-    obs.data <- obs.data[!is.na(pred.data)]
-    pred.data <- pred.data[!is.na(pred.data)]
-    if(sum(obs.data)==0){
-      return(c(Jaccard.mean=0, Jaccard.sd=NA, Jaccard.CI=NA, nb.it=0))
-    }else{ 
-      sim <- NULL
-      se <- 1
-      i <- 1
-      while((i<100 | se>se.th) & i<10000){
-        bin.random <- rbinom(length(pred.data),1,as.numeric(pred.data))
-        errors <- 2 * bin.random  + obs.data
-        sim <- c(sim, (sum(errors == 3))/(sum(errors == 3) + sum(errors == 2) + sum(errors == 1)))
-        se <- 1.96*sd(sim, na.rm=TRUE)/sqrt(i)
-        i <- i+1
+    temp.Jaccard <- rep(NA,101)
+    th <- seq(0,1,0.01)
+    for(i in 1:101){
+      pred.temp <- pred.data
+      pred.temp[pred.temp>=th[i]] <- 1
+      pred.temp[pred.temp<th[i]] <- 0
+      errors <- 2*pred.temp+obs.data
+      a <- length(which(errors == 3)) #True Positives
+      b <- length(which(errors == 2)) #False Positives
+      c <- length(which(errors == 1)) #False Negatives
+      if(a==0 & b==0 & c==0){
+       Jaccard <- 1
+      }else{
+        Jaccard <- round((a)/(a + b + c), digits=3)
       }
-      return(c(Jaccard.mean=mean(sim, na.rm=TRUE), Jaccard.sd=sd(sim, na.rm=TRUE), Jaccard.CI=1.96*sd(sim, na.rm=TRUE)/sqrt(i-1), nb.it=i-1))
+      temp.Jaccard[i] <- Jaccard
     }
+    return(max(temp.Jaccard))
   }
   
-  #For Simpson mean and sd
-  Simpson.mean.sd <- function(data, se.th=0.01){
-    obs.data <- as.numeric(data[1:(length(data)/2)])
-    pred.data <- as.numeric(data[((length(data)/2)+1):length(data)])
-    obs.data <- obs.data[!is.na(pred.data)]
-    pred.data <- pred.data[!is.na(pred.data)]
-    if(sum(obs.data)==0){
-      return(c(Simpson.mean=0, Simpson.sd=NA, Simpson.CI=NA, nb.it=0))
-    }else{ 
-      sim <- NULL
-      se <- 1
-      i <- 1
-      while((i<100 | se>se.th) & i<10000){
-        bin.random <- rbinom(length(pred.data),1,as.numeric(pred.data))
-        errors <- 2 * bin.random  + obs.data
-        sim <- c(sim, (sum(errors == 3))/(sum(errors == 3) + min(c(sum(errors == 2), sum(errors == 1)))))
-        se <- 1.96*sd(sim, na.rm=TRUE)/sqrt(i)
-        i <- i+1
-      }
-      return(c(Simpson.mean=mean(sim, na.rm=TRUE), Simpson.sd=sd(sim, na.rm=TRUE), Simpson.CI=1.96*sd(sim, na.rm=TRUE)/sqrt(i-1), nb.it=i-1))
-    }
+  #For probabilistic Sorensen
+  probabilisticSorensen <- function(data){
+    temp.df <- data.frame(obs=as.numeric(data[1:(length(data)/2)]),pred=as.numeric(data[((length(data)/2)+1):length(data)]))
+    temp.df <- temp.df[order(-temp.df$pred),]
+    AnB <- 2* sum(temp.df$pred[temp.df$obs==1])
+    AuB <- sum(temp.df$pred[temp.df$pred>=min(temp.df$pred[temp.df$obs==1])]) + sum(temp.df$pred[temp.df$obs==1])
+    return(AnB/AuB)
+  }
+  
+  #For probabilistic Jaccard
+  probabilisticJaccard <- function(data){
+    temp.df <- data.frame(obs=as.numeric(data[1:(length(data)/2)]),pred=as.numeric(data[((length(data)/2)+1):length(data)]))
+    temp.df <- temp.df[order(-temp.df$pred),]
+    AnB <- sum(temp.df$pred[temp.df$obs==1])
+    AuB <- sum(temp.df$pred[temp.df$pred>=min(temp.df$pred[temp.df$obs==1])])
+    return(AnB/AuB)
   }
   
   #################################################################################################
   #The main sub-function to calculate the metrics##################################################
   #################################################################################################
-  prob.community.metics <- function(obs, pred, metrics, se.th){
+  prob.community.metics <- function(obs, pred, metrics){
     
     #Some basic arrangements
     obs <- obs[,order(colnames(obs))]
@@ -1737,7 +1740,7 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
     }
     
     #Calculating the composition metrics
-    if(length(intersect(metrics,c("community.AUC","probabilistic.Sorensen","probabilistic.Jaccard","probabilistic.Simpson")))>0){
+    if(length(intersect(metrics,c("community.AUC","Max.Sorensen","Max.Jaccard","probabilistic.Sorensen","probabilistic.Jaccard")))>0){
       
       #The two NULL predictions
       composition.Null.pred.05 <- rep(0.5^dim(Null.pred.05)[2], dim(Null.pred.05)[1])
@@ -1748,22 +1751,28 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
       composition.pred <- apply(data.frame(obs, pred),1, composition.prob)
       composition.results <- signif(data.frame(composition.imp.05 = composition.pred/composition.Null.pred.05, composition.imp.average.SR = composition.pred/composition.Null.pred.average.SR, composition.imp.prevalence = composition.pred/composition.Null.pred.prevalence),3)
       
-      #The mean and sd Sorensen
+      #The probabilistic.Sorensen
       if("probabilistic.Sorensen" %in% metrics){
-        Sorensen.stat <- data.frame(t(apply(data.frame(obs, pred),1, Sorensen.mean.sd, se.th=se.th)))
-        composition.results <- signif(data.frame(Sorensen.stat, composition.results),3)
+        Sorensen.stat <- data.frame(t(apply(data.frame(obs, pred),1, probabilisticSorensen)))
+        composition.results <- signif(data.frame(probabilistic.Sorensen=unlist(Sorensen.stat), composition.results),3)
       }
       
-      #The mean and sd Jaccard
+      #The probabilistic.Jaccard
       if("probabilistic.Jaccard" %in% metrics){
-        Jaccard.stat <- data.frame(t(apply(data.frame(obs, pred),1, Jaccard.mean.sd, se.th=se.th)))
-        composition.results <- signif(data.frame(Jaccard.stat, composition.results),3)
+        Jaccard.stat <- data.frame(t(apply(data.frame(obs, pred),1, probabilisticJaccard)))
+        composition.results <- signif(data.frame(probabilistic.Jaccard=unlist(Jaccard.stat), composition.results),3)
       }
       
-      #The mean and sd Simpson
-      if("probabilistic.Simpson" %in% metrics){
-        Simpson.stat <- data.frame(t(apply(data.frame(obs, pred),1, Simpson.mean.sd, se.th=se.th)))
-        composition.results <- signif(data.frame(Simpson.stat, composition.results),3)
+      #The Max.Sorensen
+      if("Max.Sorensen" %in% metrics){
+        Sorensen.stat <- data.frame(t(apply(data.frame(obs, pred),1, MaxSorensen)))
+        composition.results <- signif(data.frame(Max.Sorensen=unlist(Sorensen.stat), composition.results),3)
+      }
+      
+      #The Max.Jaccard
+      if("Max.Jaccard" %in% metrics){
+        Jaccard.stat <- data.frame(t(apply(data.frame(obs, pred),1, MaxJaccard)))
+        composition.results <- signif(data.frame(Max.Jaccard=unlist(Jaccard.stat), composition.results),3)
       }
       
       #The mean and sd AUC
@@ -1774,13 +1783,13 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
     }
     
     #Returning the results
-    if("SR.deviation" %in% metrics & length(intersect(metrics,c("community.AUC","probabilistic.Sorensen","probabilistic.Jaccard","probabilistic.Simpson")))==0){
+    if("SR.deviation" %in% metrics & length(intersect(metrics,c("community.AUC","Max.Sorensen","Max.Jaccard","probabilistic.Sorensen","probabilistic.Jaccard")))==0){
       return(SR.results)
     }
-    if(!("SR.deviation" %in% metrics) & length(intersect(metrics,c("community.AUC","probabilistic.Sorensen","probabilistic.Jaccard","probabilistic.Simpson")))>0){
+    if(!("SR.deviation" %in% metrics) & length(intersect(metrics,c("community.AUC","Max.Sorensen","Max.Jaccard","probabilistic.Sorensen","probabilistic.Jaccard")))>0){
       return(composition.results)
     }
-    if("SR.deviation" %in% metrics & length(intersect(metrics,c("community.AUC","probabilistic.Sorensen","probabilistic.Jaccard","probabilistic.Simpson")))>0){
+    if("SR.deviation" %in% metrics & length(intersect(metrics,c("community.AUC","Max.Sorensen","Max.Jaccard","probabilistic.Sorensen","probabilistic.Jaccard")))>0){
       return(data.frame(SR.results,composition.results))
     }
   }
@@ -1793,21 +1802,25 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
   if("SR.deviation" %in% community.metrics){
     nb.mes <- nb.mes+8
   }
-  if(length(intersect(community.metrics,c("community.AUC","probabilistic.Sorensen","probabilistic.Jaccard","probabilistic.Simpson")))>0){
+  if(length(intersect(community.metrics,c("community.AUC","Max.Sorensen","Max.Jaccard","probabilistic.Sorensen","probabilistic.Jaccard")))>0){
     nb.mes <- nb.mes+3  
   }
   if("community.AUC" %in% community.metrics){
     nb.mes <- nb.mes+1 
   }
+  if("Max.Sorensen" %in% community.metrics){
+    nb.mes <- nb.mes+1 
+  }
+  if("Max.Jaccard" %in% community.metrics){
+    nb.mes <- nb.mes+1 
+  }
   if("probabilistic.Sorensen" %in% community.metrics){
-    nb.mes <- nb.mes+4 
+    nb.mes <- nb.mes+1 
   }
   if("probabilistic.Jaccard" %in% community.metrics){
-    nb.mes <- nb.mes+4 
+    nb.mes <- nb.mes+1 
   }
-  if("probabilistic.Simpson" %in% community.metrics){
-    nb.mes <- nb.mes+4 
-  }
+
   
   #Array to save data
   ccv.cali <- array(data=NA, dim=c(dim(ccv.modeling.data$speciesData.calibration)[2],nb.mes, dim(ccv.modeling.data$speciesData.calibration)[3]))
@@ -1816,10 +1829,10 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
   #Making the computations
   if(parallel){
     sfInit(parallel=TRUE, cpus=cpus)
-    sfExport("prob.community.metics", "composition.prob", "Jaccard.mean.sd", "Community.AUC", "Simpson.mean.sd", "Sorensen.mean.sd", "SR.mean.sd", "SR.prob")
-    sfExport("ccv.modeling.data", "community.metrics", "se.th")
-    sfLibrary("poibin", character.only=TRUE )
-    sfLibrary("PresenceAbsence", character.only=TRUE )
+    sfExport("SR.mean.sd", "SR.prob","prob.community.metics", "composition.prob","Community.AUC", "MaxJaccard", "MaxSorensen", "probabilisticJaccard", "probabilisticSorensen")
+    sfExport("ccv.modeling.data", "community.metrics")
+    sfLibrary(poibin)
+    sfLibrary(PresenceAbsence)
     
     #Calibration data
     temp <- sfLapply(1:dim(ccv.modeling.data$speciesData.calibration)[3], 
@@ -1829,8 +1842,7 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
                        stopifnot(dim(obs.temp)==dim(pred.temp))
                        prob.community.metics(obs=obs.temp, 
                                              pred=pred.temp, 
-                                             metrics=community.metrics,
-                                             se.th=se.th)
+                                             metrics=community.metrics)
                      })
     for(i in 1:dim(ccv.modeling.data$speciesData.calibration)[3]){
       ccv.cali[1:dim(temp[[i]])[1],,i] <- unlist(temp[[i]])
@@ -1845,8 +1857,7 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
                        stopifnot(dim(obs.temp)==dim(pred.temp))
                        prob.community.metics(obs=obs.temp, 
                                              pred=pred.temp, 
-                                             metrics=community.metrics,
-                                             se.th=se.th)
+                                             metrics=community.metrics)
                      })
     for(i in 1:dim(ccv.modeling.data$speciesData.evaluation)[3]){
       ccv.eval[1:dim(temp[[i]])[1],,i] <- unlist(temp[[i]])
@@ -1863,8 +1874,7 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
                      stopifnot(dim(obs.temp)==dim(pred.temp))
                      prob.community.metics(obs=obs.temp, 
                                            pred=pred.temp, 
-                                           metrics=community.metrics,
-                                           se.th=se.th)
+                                           metrics=community.metrics)
                    })
     for(i in 1:dim(ccv.modeling.data$speciesData.calibration)[3]){
       ccv.cali[1:dim(temp[[i]])[1],,i] <- unlist(temp[[i]])
@@ -1879,8 +1889,7 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
                      stopifnot(dim(obs.temp)==dim(pred.temp))
                      prob.community.metics(obs=obs.temp, 
                                            pred=pred.temp, 
-                                           metrics=community.metrics,
-                                           se.th=se.th)
+                                           metrics=community.metrics)
                    })
     for(i in 1:dim(ccv.modeling.data$speciesData.evaluation)[3]){
       ccv.eval[1:dim(temp[[i]])[1],,i] <- unlist(temp[[i]])
