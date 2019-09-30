@@ -29,7 +29,7 @@
 #
 #
 # REFERENCES:
-# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2019) 
+# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2018) 
 #   How to best threshold and validate stacked species assemblages? Community optimisation might hold the answer. 
 #   Methods in Ecology and Evolution, 9(10): 2155-2166.
 # Thuiller, W., Georges, D., Engler, R. & Breiner, F. (2016) 
@@ -228,7 +228,7 @@ ecospat.CCV.createDataSplitTable <- function(NbRunEval,
 
 
 #REFERENCES
-# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2019) 
+# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2018) 
 #   How to best threshold and validate stacked species assemblages? Community optimisation might hold the answer. 
 #   Methods in Ecology and Evolution, 9(10): 2155-2166.
 # Thuiller, W., Georges, D., Engler, R. & Breiner, F. (2016) 
@@ -838,7 +838,7 @@ ecospat.CCV.modeling <- function(sp.data,
 
 
 #REFERENCES
-# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2019) 
+# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2018) 
 #   How to best threshold and validate stacked species assemblages? Community optimisation might hold the answer. 
 #   Methods in Ecology and Evolution, 9(10): 2155-2166.
 
@@ -1528,7 +1528,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
 
 
 #REFERENCES
-# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2019) 
+# Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2018) 
 #   How to best threshold and validate stacked species assemblages? Community optimisation might hold the answer. 
 #   Methods in Ecology and Evolution, 9(10): 2155-2166.
 # Scherrer, D., Mod, H.K., Guisan, A. (2019)
