@@ -850,7 +850,7 @@ ecospat.CCV.modeling <- function(sp.data,
 ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
                                                 thresholds= c("MAX.KAPPA", "MAX.ROC","PS_SDM"),
                                                 community.metrics=c("SR.deviation","Sorensen"),
-                                                parallel=TRUE,
+                                                parallel=FALSE,
                                                 cpus=4,
                                                 fix.threshold=0.5,
                                                 MCE=5,
@@ -1541,7 +1541,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
 
 ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data, 
                                                  community.metrics=c("SR.deviation","community.AUC","probabilistic.Sorensen","Max.Sorensen"), 
-                                                 parallel = TRUE, 
+                                                 parallel = FALSE, 
                                                  cpus = 4){
   
   
