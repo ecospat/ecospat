@@ -871,7 +871,9 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
     pred.ESM <- round(as.data.frame(do.call(cbind, pred.ESM)))
     colnames(pred.ESM) <- models
   }
-  
+   if(length(models)==1){
+    names(weights) <- paste0(models,names(weights))
+  }
   if (new.env.raster) {
     pred.ESM <- raster::stack(biva.proj)
     
@@ -1095,6 +1097,9 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
   contrib<-data.frame(matrix(nrow=length(var),ncol=length(models)+1,dimnames=list(var,c(models, "ENS"))))
   weights<-ESM_EF.output$weights
   
+  if(length(models)==1){
+    names(weights) <- paste0(models,names(weights))
+  }
   cb1<-rep(combn(var,2)[1,],each=length(models))
   cb2<-rep(combn(var,2)[2,],each=length(models))
   
