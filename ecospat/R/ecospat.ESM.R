@@ -117,11 +117,6 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
     }
   }
   
-  if ("MAXENT.Phillips" %in% models) {
-    if (!file.exists(paste(models.options@MAXENT.Phillips$path_to_maxent.jar, "maxent.jar", sep = "/"))) {
-      stop("maxent.jar file not found!")
-    }
-  }
   
   if (weighting.score == "AUC" | weighting.score == "SomersD") {
     models.eval.meth <- "ROC"
@@ -150,6 +145,12 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
   models.options@MAXENT.Phillips$threshold <- FALSE
   models.options@MAXENT.Phillips$betamultiplier <- 0.5
   models.options@GLM$test <- 'none'}
+  
+  if ("MAXENT.Phillips" %in% models) {
+    if (!file.exists(paste(models.options@MAXENT.Phillips$path_to_maxent.jar, "maxent.jar", sep = "/"))) {
+      stop("maxent.jar file not found!")
+    }
+  }
   
   models <- sort(models)
   
