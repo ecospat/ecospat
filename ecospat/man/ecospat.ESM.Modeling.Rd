@@ -121,6 +121,8 @@ myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
                                       resp.xy = xy,
                                       resp.name = colnames(sp_occ)[sp])
 
+## There are multiple packages that can be used for parallel computation (if parallel = TRUE). One option is:
+# library(doParallel);cl<-makeCluster(4);doParallel::registerDoParallel(cl) 
 
 ### Calibration of simple bivariate models
 my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
