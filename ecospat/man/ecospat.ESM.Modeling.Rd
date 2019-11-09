@@ -70,7 +70,7 @@ The ESM set of functions could be used to build ESMs using simple bivariate mode
 
 The argument \code{which.biva} allows to split model runs, e.g. if \code{which.biva} is 1:3, only the three first bivariate variable combinations will be modeled. This allows to run different biva splits on different computers. However, it is better not to use this option if all models are run on a single computer.
 Default: running all biva models. 
-NOTE: Make sure to give each of your biva runs a unique \code{modeling.id}.
+NOTE: Make sure to give each of your biva runs a unique \code{modeling.id}. Please avoid space characters in your working directory path if you are using MAXENT.Phillips because this can cause an error.
 }
 
 \value{
