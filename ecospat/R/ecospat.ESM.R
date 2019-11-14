@@ -213,7 +213,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
         models.options <-BIOMOD_tuning(data=mydata, 
                                        models=models[models!="RF"],
                                        models.options = models.options,
-                                       Yweights = NULL)$models.options
+                                       Yweights = Yweights)$models.options
       }
       
       #######       
@@ -231,7 +231,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
   
   if (parallel == TRUE) {
     
-    mymodels <- foreach(k = which.biva, .packages = c("biomod2","raster","caret")) %dopar% {
+    mymodels <- foreach(k = which.biva, .packages = c("biomod2","raster")) %dopar% {
       setwd(newwd)
       mydata@data.env.var <- data@data.env.var[, colnames(data@data.env.var) %in% combinations[,
                                                                                                k]]
@@ -246,13 +246,13 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
         models.options <-BIOMOD_tuning(data=mydata, 
                                        models=models[models!="RF"],
                                        models.options = models.options,
-                                       Yweights = NULL)$models.options
+                                       Yweights = Yweights)$models.options
       }
       #######       
       
       BIOMOD_Modeling(data = mydata, models = models, models.options = models.options, models.eval.meth = models.eval.meth,
                       DataSplitTable = as.matrix(calib.lines), Prevalence = Prevalence, rescal.all.models = TRUE, do.full.models = TRUE,
-                      VarImport = 0, modeling.id = modeling.id, Yweights = NULL)
+                      VarImport = 0, modeling.id = modeling.id, Yweights = Yweights)
       
     }
   }
