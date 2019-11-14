@@ -20,7 +20,8 @@ This function calibrates simple bivariate models as in Lomba et al. 2010 and Bre
                           models.options, 
                           which.biva, 
                           parallel, 
-                          cleanup)
+                          cleanup,
+                          Yweights)
 }
 
 \arguments{
@@ -52,6 +53,9 @@ character, the ID (=name) of modeling procedure. A random number by default.
     }
     \item{models.options}{
 BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in \code{biomod2})
+    }
+    \item{Yweights}{
+response points weights. This argument will only affect models that allow case weights. 
     }
     \item{which.biva}{
 integer. which bivariate combinations should be used for modeling? Default: all
