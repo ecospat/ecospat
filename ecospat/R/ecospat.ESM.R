@@ -63,7 +63,7 @@
 ## new.env:             A set of explanatory variables onto which models will be projected . It could be a data.frame, a matrix, or a rasterStack object. Make sure the column names (data.frame or matrix) or layer Names (rasterStack) perfectly match with the names of variables used to build the models in the previous steps.
 ## parallel:            logical. If TRUE, the parallel computing is enabled (highly recommended)
 ## cleanup:             numeric. Calls removeTmpFiles() to delete all files from rasterOptions()$tmpdir which are older than the given time (in hours). This is might be necessary to prevent running over quota. No cleanup is used by default.
-
+## Yweights:            response points weights. This argument will only affect models that allow case weights. 
 
 ## Details:
 # which biva allows to split model runs, e.g. if which.biva is 1:3, only the three first bivariate variable combinations will be modeled. This allows to run different biva splits on different computers.
@@ -97,7 +97,7 @@
 
 ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTable = NULL, Prevalence = 0.5, weighting.score,
                                  models, tune = FALSE, modeling.id = as.character(format(Sys.time(), "%s")), models.options = NULL, which.biva = NULL,
-                                 parallel, cleanup = FALSE) {
+                                 parallel, cleanup = FALSE, Yweights = NULL) {
   
   # if(!require(biomod2)){stop('biomod2 package required!')} if(!require(gtools)){stop('gtools package
   # required!')}
@@ -212,14 +212,15 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
       if(tune == TRUE){
         models.options <-BIOMOD_tuning(data=mydata, 
                                        models=models[models!="RF"],
-                                       models.options = models.options)$models.options
+                                       models.options = models.options,
+                                       Yweights = NULL)$models.options
       }
       
       #######       
       mymodels[[k]] <- "failed"
       try(mymodels[[k]] <- BIOMOD_Modeling(data = mydata, models = models, models.options = models.options,
                                            models.eval.meth = models.eval.meth, DataSplitTable = as.matrix(calib.lines), Prevalence = Prevalence,
-                                           rescal.all.models = TRUE, do.full.models = TRUE, VarImport = 0, modeling.id = modeling.id))
+                                           rescal.all.models = TRUE, do.full.models = TRUE, VarImport = 0, modeling.id = modeling.id, Yweights = NULL))
       
       if (cleanup != FALSE) {
         removeTmpFiles(h = cleanup)
@@ -244,13 +245,14 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
       if(tune == TRUE){
         models.options <-BIOMOD_tuning(data=mydata, 
                                        models=models[models!="RF"],
-                                       models.options = models.options)$models.options
+                                       models.options = models.options,
+                                       Yweights = NULL)$models.options
       }
       #######       
       
       BIOMOD_Modeling(data = mydata, models = models, models.options = models.options, models.eval.meth = models.eval.meth,
                       DataSplitTable = as.matrix(calib.lines), Prevalence = Prevalence, rescal.all.models = TRUE, do.full.models = TRUE,
-                      VarImport = 0, modeling.id = modeling.id)
+                      VarImport = 0, modeling.id = modeling.id, Yweights = NULL)
       
     }
   }
