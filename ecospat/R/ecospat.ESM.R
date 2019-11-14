@@ -243,10 +243,14 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
       
       ##### Tune the bivariate models   
       if(tune == TRUE){
-        models.options <-BIOMOD_tuning(data=mydata, 
+        # For unknown reasons Yweights does not work with model tuning and parallel computation. --> turned off
+        #models.options <-BIOMOD_tuning(data=mydata, 
+        #                               models=models[models!="RF"],
+        #                               models.options = models.options,
+        #                               Yweights = Yweights)$models.options
+                models.options <-BIOMOD_tuning(data=mydata, 
                                        models=models[models!="RF"],
-                                       models.options = models.options,
-                                       Yweights = Yweights)$models.options
+                                       models.options = models.options)$models.options
       }
       #######       
       
