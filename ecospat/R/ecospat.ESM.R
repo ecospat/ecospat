@@ -317,7 +317,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
   combinations <- combn(colnames(ESM.modeling.output$data@data.env.var), 2)
   which.biva <- ESM.modeling.output$which.biva
   NbRunEval <- ESM.modeling.output$NbRunEval
-  if(is.null(proj.name){
+  if(is.null(proj.name)){
   proj.name <- ESM.modeling.output$modeling.id}
   name.env <- deparse(substitute(new.env))
   ## detach package GAM if('GAM'%in%models){
