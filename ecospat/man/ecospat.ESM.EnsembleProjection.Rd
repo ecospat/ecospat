@@ -19,7 +19,6 @@ This function projects calibrated ESMs into new space or time.
     \item{ESM.EnsembleModeling.output}{
             a list object returned by \code{\link[ecospat]{ecospat.ESM.EnsembleModeling}}}
      \item{chosen.models}{a character vector (either 'all' or a sub-selection of model names, e.g. c(GLM, GBM)) to remove models from the ensemble. Default is 'all'.}
-    \item{proj.name}{a character defining the projection name. If nothing is specified the modelling.id given in \code{\link[ecospat]{ecospat.ESM.Modeling}} will be used. NOTE: This will lead to overwriting if models are projected several times.}
 }
 
 \details{
