@@ -391,7 +391,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
   
   
   output <- list(proj.name = name.env, modeling.id = modeling.id, models. = grep(modeling.id, mixedsort(list.files(getwd(),
-                                                                                             "models.out", recursive = TRUE, full.names = TRUE)), value = TRUE), models = models, pred.biva = grep(proj.name,
+                                                                                             "models.out", recursive = TRUE, full.names = TRUE)), value = TRUE), models = models, pred.biva = grep(modeling.id,
                                                                                                                                                                                                    mixedsort(list.files(getwd(), paste("proj_", name.env, sep = ""), recursive = TRUE, full.names = TRUE)),
                                                                                                                                                                                                    value = TRUE), NbRunEval = NbRunEval, name.env = name.env, new.env.raster = class(new.env) ==
                    "RasterStack", wd = getwd(), which.biva = which.biva)
