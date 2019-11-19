@@ -281,6 +281,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
 ## new.env:               A set of explanatory variables onto which models will be projected . It could be a data.frame, a matrix, or a rasterStack object. Make sure the column names (data.frame or matrix) or layer Names (rasterStack) perfectly match with the names of variables used to build the models in the previous steps.
 ## parallel:              logical. If TRUE, the parallel computing is enabled
 ## cleanup:               numeric. Calls removeTmpFiles() to delete all files from rasterOptions()$tmpdir which are older than the given time (in hours). This might be necessary to prevent running over quota. No cleanup is used by default.
+## proj.name:             a character defining the projection name. If nothing is specified the modelling.id given in ecospat.ESM.Modeling will be used. NOTE: This will lead to overwriting if models are projected several times.
 
 ## Details:
 # The basic idea of ensemble of small models (ESMs) is to model a species distribution based on
@@ -316,7 +317,8 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
   combinations <- combn(colnames(ESM.modeling.output$data@data.env.var), 2)
   which.biva <- ESM.modeling.output$which.biva
   NbRunEval <- ESM.modeling.output$NbRunEval
-  modeling.id <- ESM.modeling.output$modeling.id
+  if(is.null(proj.name){
+  proj.name <- ESM.modeling.output$modeling.id}
   name.env <- deparse(substitute(new.env))
   ## detach package GAM if('GAM'%in%models){
   ## detach(package:ecospat,force=TRUE);detach(package:gam,force=TRUE);unloadNamespace('ecospat')}
@@ -337,7 +339,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
       # paste('RUN',NbRunEval+1,sep='')
       if (is.data.frame(new.env)) {
         BIOMOD_Projection(modeling.output = mymodel, new.env = new.env[, colnames(new.env) %in%
-                                                                         combinations[, k]], proj.name = paste(name.env, "ESM.BIOMOD", k, mymodel@modeling.id,
+                                                                         combinations[, k]], proj.name = paste(name.env, "ESM.BIOMOD", k, proj.name,
                                                                                                                sep = "."), selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
                                                                                                                                                grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
                           do.stack = FALSE, build.clamping.mask = FALSE)
@@ -346,7 +348,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
       # paste('RUN',NbRunEval+1,sep='')
       if (class(new.env) == "RasterStack") {
         BIOMOD_Projection(modeling.output = mymodel, new.env = new.env[[which(names(new.env) %in%
-                                                                                combinations[, k])]], proj.name = paste(name.env, "ESM.BIOMOD", k, mymodel@modeling.id,
+                                                                                combinations[, k])]], proj.name = paste(name.env, "ESM.BIOMOD", k, proj.name,
                                                                                                                         sep = "."), selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
                                                                                                                                                         grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
                           do.stack = TRUE, build.clamping.mask = F)
@@ -366,7 +368,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
         # paste('RUN',NbRunEval+1,sep='')
         if (is.data.frame(new.env)) {
           BIOMOD_Projection(modeling.output = mymodel, new.env = new.env[, colnames(new.env) %in%
-                                                                           combinations[, k]], proj.name = paste(name.env, "ESM.BIOMOD", k, mymodel@modeling.id,
+                                                                           combinations[, k]], proj.name = paste(name.env, "ESM.BIOMOD", k, proj.name,
                                                                                                                  sep = "."), selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
                                                                                                                                                  grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
                             do.stack = FALSE, build.clamping.mask = FALSE)
@@ -375,7 +377,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
         # paste('RUN',NbRunEval+1,sep='')
         if (class(new.env) == "RasterStack") {
           BIOMOD_Projection(modeling.output = mymodel, new.env = new.env[[which(names(new.env) %in%
-                                                                                  combinations[, k])]], proj.name = paste(name.env, "ESM.BIOMOD", k, mymodel@modeling.id,
+                                                                                  combinations[, k])]], proj.name = paste(name.env, "ESM.BIOMOD", k, proj.name,
                                                                                                                           sep = "."), selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
                                                                                                                                                           grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
                             do.stack = TRUE, build.clamping.mask = F)
@@ -390,13 +392,13 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
   }
   
   
-  output <- list(modeling.id = modeling.id, models. = grep(modeling.id, mixedsort(list.files(getwd(),
-                                                                                             "models.out", recursive = TRUE, full.names = TRUE)), value = TRUE), models = models, pred.biva = grep(modeling.id,
+  output <- list(proj.name = proj.name, models. = grep(modeling.id, mixedsort(list.files(getwd(),
+                                                                                             "models.out", recursive = TRUE, full.names = TRUE)), value = TRUE), models = models, pred.biva = grep(proj.name,
                                                                                                                                                                                                    mixedsort(list.files(getwd(), paste("proj_", name.env, sep = ""), recursive = TRUE, full.names = TRUE)),
                                                                                                                                                                                                    value = TRUE), NbRunEval = NbRunEval, name.env = name.env, new.env.raster = class(new.env) ==
                    "RasterStack", wd = getwd(), which.biva = which.biva)
   
-  save(output, file = paste("ESM_Projections", modeling.id, "out", sep = "."))
+  save(output, file = paste("ESM_Projections", proj.name, "out", sep = "."))
   
   setwd(iniwd)
   return(output)
