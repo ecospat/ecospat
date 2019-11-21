@@ -11,7 +11,8 @@ This function projects simple bivariate models on new.env
     ecospat.ESM.Projection(ESM.modeling.output, 
                            new.env, 
                            parallel,
-                           cleanup)
+                           cleanup,
+                           wd)
 }
 \arguments{
     \item{ESM.modeling.output}{
@@ -24,6 +25,7 @@ A set of explanatory variables onto which models will be projected. It could be 
 Logical. If TRUE, the parallel computing is enabled}
     \item{cleanup}{
 Numeric. Calls removeTmpFiles() to delete all files from rasterOptions()$tmpdir which are older than the given time (in hours). This might be necessary to prevent running over quota. No cleanup is used by default}
+ \item{wd}{path to directory where models are stored. This option is useful if output directories where shifted, e.g. to an external hard drive.}
 
 }
 \details{
