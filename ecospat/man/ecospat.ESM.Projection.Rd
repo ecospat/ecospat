@@ -11,8 +11,7 @@ This function projects simple bivariate models on new.env
     ecospat.ESM.Projection(ESM.modeling.output, 
                            new.env, 
                            parallel,
-                           cleanup,
-                           wd)
+                           cleanup)
 }
 \arguments{
     \item{ESM.modeling.output}{
@@ -25,8 +24,6 @@ A set of explanatory variables onto which models will be projected. It could be 
 Logical. If TRUE, the parallel computing is enabled}
     \item{cleanup}{
 Numeric. Calls removeTmpFiles() to delete all files from rasterOptions()$tmpdir which are older than the given time (in hours). This might be necessary to prevent running over quota. No cleanup is used by default}
- \item{wd}{path to directory where models are stored. This option is useful if output directories where shifted, e.g. to an external hard drive.}
-
 }
 \details{
 The basic idea of ensemble of small models (ESMs) is to model a species distribution based on small, simple models, for example all possible bivariate models (i.e. models that contain only two predictors at a time out of a larger set of predictors), and then combine all possible bivariate models into an ensemble (Lomba et al. 2010; Breiner et al. 2015).
