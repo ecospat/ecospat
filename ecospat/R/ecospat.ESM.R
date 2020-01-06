@@ -309,6 +309,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
 ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALSE, cleanup = FALSE) {
   
   iniwd <- getwd()
+  setwd(ESM.modeling.output$wd)
   models <- ESM.modeling.output$models
   models. <- ESM.modeling.output$models.
   mymodels <- ESM.modeling.output$mymodels
