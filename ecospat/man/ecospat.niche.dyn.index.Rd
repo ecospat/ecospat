@@ -16,7 +16,18 @@
 
 \details{If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in http://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html}
 
-\value{A list of dynamic indices: dynamic.index.w [expansion.index.w, stability.index.w, restriction.index.w]}
+\value{A list with two elements:
+
+\itemize{
+  \item \code{dyn} A matrix, where each cell represents a pixel in the environment space of the study area (i.e., the ordination). Pixel values represent the classification of that cell, 0: unoccupied in z1 and z2; -1: expansion (occupied only in z2); 1: unfilling (occupied only in z1); and 2: stability (or overlap, occupied in both z1 and z2).
+  \item \code{dynamic.index.w}, a vector containing the index values for expansion, stability, and unfilling.
+}
+
+Expansion is calculated as the number of cells occupied only in z2 divided by the total number of cells occupied in z2 (i.e., including cells occupied in both z1 and z2). This number is weighted by the occupancy density estimate for cells in z2.
+
+Stability is calculated as the number of cells occupied in z2 and z1, divided by the total number of cells occupied in z2. This is also weighted by the occupancy density estimate for cells in z2.
+
+Unfilling is calculated as the number of cells occupied only in z1, divided by the total number of cells occupied in z1 (including those shared with z2). This value is weighted by the occupancy density for cells in z1.
 
 \author{Blaise Petitpierre \email{bpetitpierre@gmail.com}}
 

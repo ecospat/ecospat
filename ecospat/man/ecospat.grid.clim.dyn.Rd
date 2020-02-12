@@ -22,7 +22,7 @@
 
 }
 
-\details{Using the scores of an ordination (or SDM prediction), create a grid z of RxR pixels (or a vector of R pixels when using scores of dimension 1 or SDM predictions) with occurrence densities. Only scores of one, or two dimensions can be used.
+\details{Using the scores of an ordination (or SDM prediction), create a grid z of RxR pixels (or a vector of R pixels when using scores of dimension 1 or SDM predictions) with occurrence densities. Only scores of one or two dimensions can be used.
 \code{th.sp} is the quantile of the distribution of species density at occurrence sites. 
 For example, if \code{th.sp} is set to 0.05, the the species niche is drawn by including 95 percent of the species occurrences, removing the more marginal populations. 
 Similarly, \code{th.env} is the quantile of the distribution of the environmental density at all sites of the study area. 
@@ -34,7 +34,19 @@ The argument \code{geomask} can be a SpatialPolygon or a raster object.
 Note that the CRS should be the same as the one used for the points.
 }
 
-\value{A grid z of RxR pixels (or a vector of R pixels) with z.uncor being the density of occurrence of the species, and z.cor the occupancy of the environment by the species (density of occurrences divided by the desinty of environment in the study area.}
+\value{A list containing RxR \code{RasterLayer} objects. Each object is the kernel density estimate of species occurrences or environmental values, with different scalings applied. Densities are calculated using the function \code{stats::density} for one-dimensional data, and \code{adehabitat::kernelUD} for two-dimensional data.
+
+\itemize{
+\item \code{z}: Species occurrences, scaled such that the sum of the density estimates for all cells is equal to the total number of presences in the original data.
+\item \code{z.uncor}: Species occurrence estimates rescaled to 0:1, to facilitate comparisons with other species. 
+\item \code{w}: \code{z.uncor}, coded as presence/absence
+\item \code{Z}: Environmental values, scaled such that the sum of density estimates for all cells is equal to the total number of cells in the original \code{glob1}
+\item \code{z.cor}: Species occurrences, scaled to correct for environment prevalence (i.e., \code{z/Z}).
+}
+
+In addition, the objects provided as \code{glob}, \code{glob1}, \code{sp} are returned as matrices. The bins along the first and second axes are returned as the vectors \code{x} and \code{y}.
+
+}
 
 \author{Olivier Broennimann \email{olivier.broennimann@unil.ch} and Blaise Petitpierre \email{bpetitpierre@gmail.com}}
 
