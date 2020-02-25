@@ -1,5 +1,5 @@
 # Import
-import("ade4", "gbm", "sp", "MigClim", "doParallel", "foreach", "iterators", "parallel")
+import("ade4", "gbm", "sp", "doParallel", "foreach", "iterators", "parallel")
 import(ape, except=c(complement))
 #import("alphahull")#import("gam")
 
