@@ -9,7 +9,8 @@ This function projects simple bivariate models on new.env
 }
 \usage{
     ecospat.ESM.Projection(ESM.modeling.output, 
-                           new.env, 
+                           new.env,
+                           name.env,
                            parallel,
                            cleanup)
 }
