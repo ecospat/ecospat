@@ -15,7 +15,7 @@ CHANGES
 
 
 
-ecospat_2.0 (26.05.16)
+ecospat_2.0 (26.05.2016)
 ===========
 
 NEW FEATURES
@@ -53,7 +53,7 @@ FIXES
 
 
 
-ecospat_2.0.1 (09.06.16)
+ecospat_2.0.1 (09.06.2016)
 =============
  
 FIXES
@@ -67,7 +67,7 @@ FIXES
 
 
 
-ecospat_2.1.0 (23.09.16)
+ecospat_2.1.0 (23.09.2016)
 =============
  
 FIXES
@@ -89,7 +89,7 @@ NEW FEATURES
 
 
 
-ecospat_2.1.1 (02.11.16)
+ecospat_2.1.1 (02.11.2016)
 =============
  
 FIXES
@@ -98,7 +98,7 @@ FIXES
 
 
 
-ecospat_2.2.0 (08.11.17)
+ecospat_2.2.0 (08.11.2017)
 =============
 
 NEW FEATURES
@@ -117,7 +117,7 @@ FIXES
 * Fixed bug in "ecospat.grid.clim.dyn()" that shifted the gridded distribution one pixel away from the observed points. 
 
 
-ecospat_3.0 (19.06.18)
+ecospat_3.0 (19.06.2018)
 =============
 
 
@@ -139,9 +139,11 @@ FIXES
 
 
 
+ecospat_3.0 (19.06.2018)
+=============
 
+CHANGES
 
-
-
+* ecospat.migclim function has been removed
 
 
