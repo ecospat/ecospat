@@ -50,7 +50,7 @@ Author: Olivier Broennimann [cre, aut, ctb],
 Maintainer: Olivier Broennimann <olivier.broennimann@unil.ch>
 VignetteBuilder: knitr
 Depends: ade4 (>= 1.6-2), ape (>= 3.2), gbm (>= 2.1.1), sp (>= 1.0-15)
-Imports: adehabitatHR (>= 0.4.11), adehabitatMA (>= 0.3.8), biomod2 (>= 3.1-64), dismo (>= 0.9-3), ecodist (>= 1.2.9), maptools (>= 0.8-39), randomForest (>= 4.6-7), spatstat (>= 1.37-0), raster (>= 2.5-8), rms (>= 4.5-0), MigClim (>= 1.6), gtools (>= 3.4.1), PresenceAbsence (>= 1.1.9), methods (>= 3.1.1), doParallel (>= 1.0.10), foreach (>= 1.4.3), iterators (>= 1.0.8), parallel, classInt (>= 0.1-23), vegan (>= 2.4-1), poibin (>= 1.3), snowfall (>= 1.61)
+Imports: adehabitatHR (>= 0.4.11), adehabitatMA (>= 0.3.8), biomod2 (>= 3.1-64), dismo (>= 0.9-3), ecodist (>= 1.2.9), maptools (>= 0.8-39), randomForest (>= 4.6-7), spatstat (>= 1.37-0), raster (>= 2.5-8), rms (>= 4.5-0), gtools (>= 3.4.1), PresenceAbsence (>= 1.1.9), methods (>= 3.1.1), doParallel (>= 1.0.10), foreach (>= 1.4.3), iterators (>= 1.0.8), parallel, classInt (>= 0.1-23), vegan (>= 2.4-1), poibin (>= 1.3), snowfall (>= 1.61)
 Suggests: rgdal (>= 1.2-15), rJava (>= 0.9-6), XML (>= 3.98-1.1), knitr (>= 1.14), alphahull (>= 2.1), rgeos (>= 0.3-28), igraph (>= 1.2.1)
 LazyData: true
 URL: http://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
