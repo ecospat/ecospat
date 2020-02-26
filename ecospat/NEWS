@@ -139,11 +139,11 @@ FIXES
 
 
 
-ecospat_3.0 (19.06.2018)
+ecospat_3.01 (25.02.2020)
 =============
 
 CHANGES
 
-* ecospat.migclim function has been removed
+* ecospat.migclim function and dependencies to migclim package have been removed 
 
 
