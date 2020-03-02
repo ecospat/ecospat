@@ -14,13 +14,11 @@ This function creates response plots (evaluation strips) for Ensmebles of Small 
                               fixed.var.metric = 'median'))
 }
 \arguments{
-
     \item{ESM.modeling.output}{a list object returned by \code{\link[ecospat]{ecospat.ESM.Modeling}}}
     \item{ESM.EnsembleModeling.output}{a list object returned by \code{\link[ecospat]{ecospat.ESM.EnsembleModeling}}}
-    
-    \item{fixed.var.metric}{either 'median' (default), 'mean', 'min' or 'max' specifying the statistic used to fix as constant the remaining variables when the predicted response is estimated for one of the variables. (same as in \code{"\link[biomod2]{response.plot2}}} 
-
+    \item{fixed.var.metric}{either 'median' (default), 'mean', 'min' or 'max' specifying the statistic used to fix as constant the remaining variables when the predicted response is estimated for one of the variables. (same as in \code{\link[biomod2]{response.plot2}}} 
 }
+
 \details{
 This function plots the response curves of a model for each variable, while keeping the remianing variables constant. This is an adaptation of the Evaluation Strip method proposed by Elith et al.(2005)
 }
@@ -55,8 +53,6 @@ sp_occ <- inv[11]
 # env
 current <- inv[3:10]
 
-
-
 ### Formating the data with the BIOMOD_FormatingData() function from the package biomod2
 
 sp <- 1
@@ -71,12 +67,11 @@ my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
                                 models=c('GLM','CTA'),
                                 NbRunEval=2,
                                 DataSplit=70,
-                                weighting.score=c("AUC"),
+                                weighting.score=c('AUC'),
                                 parallel=FALSE)  
 
 ### Evaluation and average of simple bivariate models to ESMs
-my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.score=c("SomersD"),threshold=0)
-
+my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.score=c('SomersD'),threshold=0)
 output.plot <- ecospat.ESM.responsePlot(ESM.EnsembleModeling.output = my.ESM_EF,
                          ESM.modeling.output = my.ESM)
 
