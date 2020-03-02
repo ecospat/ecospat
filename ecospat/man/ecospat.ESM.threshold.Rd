@@ -13,10 +13,8 @@ This function evaluates the full model which is used for projections and provide
                            PEplot = FALSE)
 }
 \arguments{
-
     \item{ESM.EnsembleModeling.output}{a list object returned by \code{\link[ecospat]{ecospat.ESM.EnsembleModeling}}}
-    
-    \item{PEplot}{logical. Should the predicted to expected ratio along the suitability class from the boyce index be plotted. Default FALSE (see \code{"\link[ecospat]{ecospat.boyce}}} 
+    \item{PEplot}{logical. Should the predicted to expected ratio along the suitability class from the boyce index be plotted. Default FALSE (see \code{\link[ecospat]{ecospat.boyce}}} 
 
 }
 \details{
@@ -25,18 +23,18 @@ This function provides evaluation scores of the full model (no split sampling) a
 
 \value{
 A data.frame with evluation scores and thresholds.
-
 }
+
 \author{
 Frank Breiner \email{frank.breiner@unil.ch}
 
 }
 \references{
-Hirzel, Alexandre H., et al. "Evaluating the ability of habitat suitability models to predict species presences." \emph{Ecological modelling}, \bold{199.2} (2006): 142-152.
+Hirzel, Alexandre H., et al. Evaluating the ability of habitat suitability models to predict species presences. \emph{Ecological modelling}, \bold{199.2} (2006): 142-152.
 
-Engler, Robin, Antoine Guisan, and Luca Rechsteiner. "An improved approach for predicting the distribution of rare and endangered species from occurrence and pseudo-absence data." \emph{Journal of applied ecology}, \bold{41.2} (2004): 263-274.
+Engler, Robin, Antoine Guisan, and Luca Rechsteiner. An improved approach for predicting the distribution of rare and endangered species from occurrence and pseudo-absence data. \emph{Journal of applied ecology}, \bold{41.2} (2004): 263-274.
 
-Fielding, Alan H., and John F. Bell. "A review of methods for the assessment of prediction errors in conservation presence/absence models." \emph{Environmental conservation}, \bold{24.1} (1997): 38-49.
+Fielding, Alan H., and John F. Bell. A review of methods for the assessment of prediction errors in conservation presence/absence models." \emph{Environmental conservation}, \bold{24.1} (1997): 38-49.
           }
 
 \seealso{
@@ -58,8 +56,6 @@ sp_occ <- inv[11]
 # env
 current <- inv[3:10]
 
-
-
 ### Formating the data with the BIOMOD_FormatingData() function from the package biomod2
 
 sp <- 1
@@ -68,18 +64,16 @@ myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
                                       resp.xy = xy,
                                       resp.name = colnames(sp_occ)[sp])
 
-
 ### Calibration of simple bivariate models
 my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
                                 models=c('GLM','CTA'),
                                 NbRunEval=2,
                                 DataSplit=70,
-                                weighting.score=c("AUC"),
+                                weighting.score=c('AUC'),
                                 parallel=FALSE)  
 
-
 ### Evaluation and average of simple bivariate models to ESMs
-my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.score=c("SomersD"),threshold=0)
+my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.score=c('SomersD'),threshold=0)
 
 
 output.TH <- ecospat.ESM.threshold(ESM_EF,PEplot = T)
