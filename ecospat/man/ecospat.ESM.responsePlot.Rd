@@ -27,8 +27,8 @@ This function plots the response curves of a model for each variable, while keep
 
 \value{
 A plot of the response curves is produced (red line Ensemble, grey lines single algorithms) and a list with the output is provided.
-
 }
+
 \author{
 Frank Breiner \email{frank.breiner@unil.ch}
 
