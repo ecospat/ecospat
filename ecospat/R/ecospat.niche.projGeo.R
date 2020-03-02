@@ -24,8 +24,8 @@ ecospat.niche.zProjGeo <- function(z1,env,cor=FALSE){
 
   XY <- rasterToPoints(env)[,1:2] #geographical coordinates of each point of the background
 
-  if (cor==FALSE) Z1<-extract(z1$z.uncor,z1$glob) # occurrence density (niche) for each point of the background
-  if (cor==TRUE) Z1<-extract(z1$z.cor,z1$glob)
+  if (cor==FALSE) Z1<-extract(z1$z.uncor,z1$glob1) # occurrence density (niche) for each point of the background
+  if (cor==TRUE) Z1<-extract(z1$z.cor,z1$glob1)
   XYZ1<-cbind(XY,Z1)
   geoz1<-rasterFromXYZ(XYZ1)
 

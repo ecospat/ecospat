@@ -25,6 +25,7 @@ importFrom("utils", "combn", "packageVersion", "setTxtProgressBar", "txtProgress
 importFrom("classInt", "classIntervals")
 importFrom("vegan", "permatswap")
 importFrom("stats", "pnorm")
+importFrom("matrixStats", rowWeightedMeans) 
 #importFrom("alphahull","ahull","delvor")
 #importFrom("snow",setDefaultClusterOptions)
 
