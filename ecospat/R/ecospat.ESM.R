@@ -306,7 +306,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
 # ecospat.ESM.Modeling; ecospat.ESM.EnsembleModeling; ecospat.ESM.EnsembleProjection
 
 
-ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALSE, cleanup = FALSE) {
+ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL, parallel = FALSE, cleanup = FALSE) {
   
   iniwd <- getwd()
   setwd(ESM.modeling.output$wd)
@@ -317,7 +317,8 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, parallel = FALS
   which.biva <- ESM.modeling.output$which.biva
   NbRunEval <- ESM.modeling.output$NbRunEval
   modeling.id <- ESM.modeling.output$modeling.id
-    if(is.matrix(new.env)){
+  
+  if(is.matrix(new.env)){
     new.env <- as.data.frame(new.env)
   }
   name.env <- deparse(substitute(new.env))
@@ -881,7 +882,8 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
     pred.ESM <- round(as.data.frame(do.call(cbind, pred.ESM)))
     colnames(pred.ESM) <- models
   }
-   if(length(models)==1){
+                               
+  if(length(models)==1){
     names(weights) <- paste0(models,names(weights))
   }
   if (new.env.raster) {
@@ -1106,6 +1108,9 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
   models<-ESM.modeling.output$models
   contrib<-data.frame(matrix(nrow=length(var),ncol=length(models)+1,dimnames=list(var,c(models, "ENS"))))
   weights<-ESM_EF.output$weights
+    if(length(models)==1){
+    names(weights) <- paste0(models,names(weights))
+  }
   
   if(length(models)==1){
     names(weights) <- paste0(models,names(weights))
