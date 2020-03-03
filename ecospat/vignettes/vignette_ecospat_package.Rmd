@@ -418,7 +418,7 @@ myBiomodOption@GBM$interaction.depth = 2
 ```{r ESM.Modeling}
 ### Calibration of simple bivariate models
 my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
-                                models=c('GLM','RF'),
+                                models=c('GLM'),
                                 models.options=myBiomodOption,
                                 NbRunEval=1,
                                 DataSplit=70,

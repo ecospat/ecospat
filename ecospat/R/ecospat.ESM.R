@@ -220,7 +220,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
       mymodels[[k]] <- "failed"
       try(mymodels[[k]] <- BIOMOD_Modeling(data = mydata, models = models, models.options = models.options,
                                            models.eval.meth = models.eval.meth, DataSplitTable = as.matrix(calib.lines), Prevalence = Prevalence,
-                                           rescal.all.models = TRUE, do.full.models = TRUE, VarImport = 0, modeling.id = modeling.id, Yweights = NULL))
+                                           rescal.all.models = FALSE, do.full.models = TRUE, VarImport = 0, modeling.id = modeling.id, Yweights = NULL))
       
       if (cleanup != FALSE) {
         removeTmpFiles(h = cleanup)
