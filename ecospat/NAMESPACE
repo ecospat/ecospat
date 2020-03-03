@@ -28,6 +28,7 @@ importFrom("stats", "pnorm")
 importFrom("matrixStats", rowWeightedMeans) 
 #importFrom("alphahull","ahull","delvor")
 #importFrom("snow",setDefaultClusterOptions)
+importFrom("graphics", "rug")
 
 # Export
 export(ecospat.adj.D2.glm)

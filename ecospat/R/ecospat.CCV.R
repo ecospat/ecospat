@@ -812,7 +812,7 @@ ecospat.CCV.modeling <- function(sp.data,
 
 
 #FUNCTION'S ARGUMENTS
-#cvv.modeling.data     an output from ecospat.CCV.modeling function
+#ccv.modeling.data     an output from ecospat.CCV.modeling function
 #thresholds            a selection of thresholding methods used for the community building (FIXED, MAX.KAPPA, MAX.ACCURACY, MAX.TSS, SENS_SPEC, MAX.ROC, OBS.PREVALENCE, AVG.PROBABILITY, MCE, PS_SDM, MEM)
 #community.metrics     a selection of community evaluation metrics to be calculated for each selected threshold (SR.deviation, community.AUC, community.overprediction ,community.underprediction, community.accuracy, community.sensitivity, community.specificity, community.kappa, community.tss, Sorensen, Jaccard, Simpson)
 #parallel              binary variable if parallel computing is allowed
@@ -1507,7 +1507,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
 
 
 #FUNCTION'S ARGUMENTS
-#cvv.modeling.data     an output from ecospat.CCV.modeling function
+#ccv.modeling.data     an output from ecospat.CCV.modeling function
 #community.metric      probabilistic community metrics to calculate ("SR.deviation","community.AUC","Max.Sorensen","Max.Jaccard","probabilistic.Sorensen","probabilistic.Jaccard")
 #parallel              binary variable if parallel computing is allowed
 #cpus                  if parallel true the number of cpus to use
@@ -1546,9 +1546,9 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
   
   
   #Loading the packages needed (they should all be installed by ecospat library)
-  require(PresenceAbsence)
-  require(poibin)
-  require(snowfall)
+  #require(PresenceAbsence)
+  #require(poibin)
+  #require(snowfall)
   
   #Checking all the input data
   stopifnot(names(ccv.modeling.data)==c("modeling.id",

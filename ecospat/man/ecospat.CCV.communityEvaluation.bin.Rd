@@ -11,7 +11,7 @@ The function uses the output of \code{\link{ecospat.CCV.modeling}} to calculate 
 ecospat.CCV.communityEvaluation.bin(ccv.modeling.data,
                                     thresholds= c('MAX.KAPPA', 'MAX.ROC','PS_SDM'),
                                     community.metrics=c('SR.deviation','Sorensen'),
-                                    parallel=TRUE,
+                                    parallel=FALSE,
                                     cpus=4,
                                     fix.threshold=0.5,
                                     MCE=5,
