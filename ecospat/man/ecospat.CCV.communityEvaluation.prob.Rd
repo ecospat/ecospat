@@ -9,11 +9,11 @@ This function generates a number of community evaluation metrics directly based 
 }
 \usage{
 ecospat.CCV.communityEvaluation.prob(ccv.modeling.data, 
-                                     community.metrics=c('SR.deviation','community.AUC','probabilistic.Sorensen','Max.Sorensen')
-                                     parallel = TRUE, 
+                                     community.metrics=c('SR.deviation','community.AUC',
+                                     'probabilistic.Sorensen','Max.Sorensen')
+                                     parallel = FALSE, 
                                      cpus = 4)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{ccv.modeling.data}{a \code{'ccv.modeling.data'} object returned by \code{\link{ecospat.CCV.modeling}}}
   \item{community.metrics}{a selection of community metrics to calculate (\code{'SR.deviation','community.AUC','Max.Sorensen','Max.Jaccard','probabilistic.Sorensen','probabilistic.Jaccard')})}
@@ -85,13 +85,13 @@ xy <- ecospat.testData[which(rowSums(testData)>0),2:3]
 myCCV.Models <- ecospat.CCV.modeling(sp.data = sp.data,
                                      env.data = env.data,
                                      xy = xy,
-                                     NbRunEval = 5,
+                                     NbRunEval = 2,
                                      minNbPredictors = 10,
-                                     VarImport = 3)
+                                     VarImport = 2)
                                      
 #Calculating the probabilistic community metrics
-myCCV.communityEvaluation.prob <- ecospat.CCV.communityEvaluation.prob(ccv.modeling.data = myCCV.Models, 
-                                                                       community.metrics = c('SR.deviation','community.AUC','probabilistic.Sorensen','Max.Sorensen'),
-                                                                       parallel = TRUE, 
-                                                                       cpus = 4)
+metrics = c('SR.deviation','community.AUC','probabilistic.Sorensen','Max.Sorensen')
+myCCV.Eval.prob <- ecospat.CCV.communityEvaluation.prob(
+          ccv.modeling.data = myCCV.Models, 
+          community.metrics = metrics)
 }
