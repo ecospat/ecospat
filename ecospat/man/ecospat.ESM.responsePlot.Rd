@@ -9,9 +9,9 @@ This function creates response plots (evaluation strips) for Ensmebles of Small 
 
 }
 \usage{
-    ecospat.ESM.responsePlot( ESM.modeling.output,
-                              ESM.EnsembleModeling.output, 
-                              fixed.var.metric = 'median'))
+    ecospat.ESM.responsePlot( ESM.EnsembleModeling.output,
+                              ESM.modeling.output,
+                              fixed.var.metric = 'median')
 }
 \arguments{
     \item{ESM.modeling.output}{a list object returned by \code{\link[ecospat]{ecospat.ESM.Modeling}}}

@@ -15,7 +15,7 @@ importFrom("raster", cellFromXY, extract, nlayers, projection, stack, reclassify
 importFrom("rms", pol)
 importFrom("gtools", mixedsort, combinations)
 importFrom("PresenceAbsence", presence.absence.accuracy, optimal.thresholds, auc)
-importFrom("poibin", dpoibin)
+importFrom("poibin", dpoibin, ppoibin)
 importFrom("snowfall", sfInit, sfLibrary, sfLapply, sfStop, sfExport)
 importFrom("grDevices", "colorRampPalette", "dev.new", "dev.off", "gray", "grey")
 importFrom("graphics", "abline", "arrows", "barplot", "boxplot", "contour", "hist", "image", "lines", "pairs", "par", "plot.new", "points", "polygon", "rect", "segments", "strwidth", "text", "title")

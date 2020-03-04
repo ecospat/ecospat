@@ -139,11 +139,20 @@ FIXES
 
 
 
-ecospat_3.01 (25.02.2020)
+ecospat_3.1 (03.03.2020)
 =============
+
+NEW FEATURES
+
+* Added new function "ecospat.ESM.responsePlot" to create response plots (evaluation strips) for Ensemble of Small Models (ESMs).
+* Added new function "ecospat.ESM.threshold" to evaluates the full model which is used for projections and provides thresholds to produce binary maps.
 
 CHANGES
 
-* ecospat.migclim function and dependencies to migclim package have been removed 
+* ecospat.migclim function and dependencies to migclim package have been removed
+
+FIXES
+
+* Fixed several bugs in "ecospat.CCV.communityEvaluation.prob" and "ecospat.ESM.Modeling()"
 
 

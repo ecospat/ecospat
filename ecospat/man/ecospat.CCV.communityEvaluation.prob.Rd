@@ -8,15 +8,17 @@ Evaluates community predictions directly on the probabilities (i.e., threshold i
 This function generates a number of community evaluation metrics directly based on the probability returned by the individual models. Instead of thresholding the predictions (\code{\link{ecospat.CCV.communityEvaluation.bin}} this function directly uses the probability and compares its outcome to null models or average expectations.)
 }
 \usage{
-ecospat.CCV.communityEvaluation.prob(ccv.modeling.data, 
-                                     community.metrics=c('SR.deviation','community.AUC',
-                                     'probabilistic.Sorensen','Max.Sorensen')
-                                     parallel = FALSE, 
-                                     cpus = 4)
+ecospat.CCV.communityEvaluation.prob(ccv.modeling.data,
+    community.metrics=c('SR.deviation','community.AUC','Max.Sorensen',
+                         'Max.Jaccard','probabilistic.Sorensen',
+                         'probabilistic.Jaccard'),
+    parallel = FALSE, 
+    cpus = 4)
 }
 \arguments{
   \item{ccv.modeling.data}{a \code{'ccv.modeling.data'} object returned by \code{\link{ecospat.CCV.modeling}}}
-  \item{community.metrics}{a selection of community metrics to calculate (\code{'SR.deviation','community.AUC','Max.Sorensen','Max.Jaccard','probabilistic.Sorensen','probabilistic.Jaccard')})}
+  \item{community.metrics}{a selection of community metrics to calculate (\code{'SR.deviation','community.AUC','Max.Sorensen','Max.Jaccard',
+  'probabilistic.Sorensen','probabilistic.Jaccard')})}
   \item{parallel}{should parallel computing be allowed (\code{TRUE/FALSE})}
   \item{cpus}{number of cpus to use in parallel computing}
 }
@@ -71,27 +73,29 @@ For detailed descriptions of the null models see Scherrer et al. 2019
 \code{\link{ecospat.CCV.createDataSplitTable}}; \code{\link{ecospat.CCV.communityEvaluation.bin}};
 }
 \examples{
-#Loading species occurence data and remove empty communities
-testData <- ecospat.testData[,c(24,34,43,45,48,53,55:58,60:63,65:66,68:71)]
-sp.data <- testData[which(rowSums(testData)>0), sort(colnames(testData))]
+  \dontrun{
+  #Loading species occurence data and remove empty communities
+  testData <- ecospat.testData[,c(24,34,43,45,48,53,55:58,60:63,65:66,68:71)]
+  sp.data <- testData[which(rowSums(testData)>0), sort(colnames(testData))]
 
-#Loading environmental data
-env.data <- ecospat.testData[which(rowSums(testData)>0),4:8]
+  #Loading environmental data
+  env.data <- ecospat.testData[which(rowSums(testData)>0),4:8]
 
-#Coordinates for all sites
-xy <- ecospat.testData[which(rowSums(testData)>0),2:3]
+  #Coordinates for all sites
+  xy <- ecospat.testData[which(rowSums(testData)>0),2:3]
 
-#Running all the models for all species
-myCCV.Models <- ecospat.CCV.modeling(sp.data = sp.data,
+  #Running all the models for all species
+  myCCV.Models <- ecospat.CCV.modeling(sp.data = sp.data,
                                      env.data = env.data,
                                      xy = xy,
                                      NbRunEval = 2,
                                      minNbPredictors = 10,
                                      VarImport = 2)
                                      
-#Calculating the probabilistic community metrics
-metrics = c('SR.deviation','community.AUC','probabilistic.Sorensen','Max.Sorensen')
-myCCV.Eval.prob <- ecospat.CCV.communityEvaluation.prob(
+  #Calculating the probabilistic community metrics
+  metrics = c('SR.deviation','community.AUC','probabilistic.Sorensen','Max.Sorensen')
+  myCCV.Eval.prob <- ecospat.CCV.communityEvaluation.prob(
           ccv.modeling.data = myCCV.Models, 
           community.metrics = metrics)
+}
 }

@@ -1540,7 +1540,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
 # ecospat.CCV.modelling
 
 ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data, 
-                                                 community.metrics=c("SR.deviation","community.AUC","probabilistic.Sorensen","Max.Sorensen"), 
+                                                 community.metrics=c('SR.deviation','community.AUC','Max.Sorensen','Max.Jaccard','probabilistic.Sorensen','probabilistic.Jaccard'), 
                                                  parallel = FALSE, 
                                                  cpus = 4){
   
@@ -1831,8 +1831,8 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
     sfInit(parallel=TRUE, cpus=cpus)
     sfExport("SR.mean.sd", "SR.prob","prob.community.metics", "composition.prob","Community.AUC", "MaxJaccard", "MaxSorensen", "probabilisticJaccard", "probabilisticSorensen")
     sfExport("ccv.modeling.data", "community.metrics")
-    sfLibrary(poibin)
-    sfLibrary(PresenceAbsence)
+    sfLibrary("poibin", character.only=TRUE )
+    sfLibrary("PresenceAbsence", character.only=TRUE )
     
     #Calibration data
     temp <- sfLapply(1:dim(ccv.modeling.data$speciesData.calibration)[3], 
