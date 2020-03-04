@@ -48,8 +48,6 @@ ecospat.SESAM.prr <- function(proba, sr) {
     new.prob.prr[i, ] <- predcom
   }
   
-  # return(community.prediction.prr<-new.prob.prr)
-  print(new.prob.prr)
-  
-  write.table(new.prob.prr, "community.prediction.prr.txt", sep = "\t")  #final outcome of SESAM: community prediction
+  return(new.prob.prr)
+
 }
