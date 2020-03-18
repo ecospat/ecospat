@@ -22,7 +22,7 @@
 ####Probability Ranking Rule ###
 ################################
 
-ecospat.SESAM.prr <- function(proba, sr) {
+ecospat.SESAM.prr <- function(proba, sr, verbose = FALSE) {
   
   projSR <- round(round(as.vector(sr[[1]])))
   
@@ -31,7 +31,7 @@ ecospat.SESAM.prr <- function(proba, sr) {
   
   for (i in 1:nrow(proba)) {
     
-    print(paste("test.prr, processing row ", i, sep = ""))
+    if(verbose) cat(paste("test.prr, processing row ", i, sep = ""))
     
     SR <- projSR[i]  # values of species richeness     
     if (SR > 0) {

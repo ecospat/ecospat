@@ -309,6 +309,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
 ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL, parallel = FALSE, cleanup = FALSE) {
   
   iniwd <- getwd()
+  on.exit(setwd(iniwd)) 
   setwd(ESM.modeling.output$wd)
   models <- ESM.modeling.output$models
   models. <- ESM.modeling.output$models.
@@ -701,8 +702,8 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
     if (!is.null(threshold)) {
       weights.double[weights.double <= threshold] <- 0
       if (sum(weights.double == 0) > 0) {
-        cat(paste("\n\n\n################################\n", paste("The following ESM model(s) is (are) not included for building the 'double ensemble'\n because evaluation score is smaller or equal to the given threshold:\n",
-                                                                    list(weights.double[weights.double[, 2] == 0, 1]), sep = " ", "\n################################\n")))
+        warning(cat(paste("\n\n\n################################\n", paste("The following ESM model(s) is (are) not included for building the 'double ensemble'\n because evaluation score is smaller or equal to the given threshold:\n",
+                                                                    list(weights.double[weights.double[, 2] == 0, 1]), sep = " ", "\n################################\n"))))
       }
     }
     
@@ -832,7 +833,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
     weigths.rm <- NULL
     for (i in 1:length(weights)) {
       weigths.rm <- c(weigths.rm, which(grepl(paste(names(weights), ".", sep = "")[i], pred.biva,
-                                              fixed = T)))
+                                              fixed = TRUE)))
     }
     pred.biva <- pred.biva[weigths.rm]
     pred.biva <- sort(pred.biva)
@@ -842,7 +843,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   
   if (new.env.raster)
     #pred.biva <- pred.biva[seq(2,length(pred.biva),2)]
-    pred.biva <- grep("\\.gri\\b", pred.biva, value = T)
+    pred.biva <- grep("\\.gri\\b", pred.biva, value = TRUE)
   if (!new.env.raster)
     pred.biva <- grep("RData", pred.biva, value = TRUE)
   

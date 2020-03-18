@@ -51,7 +51,7 @@ Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-\dontrun{
+\donttest{
 #Creating a DataSplitTable for 200 sites, 25 runs with an 
 #80/20 calibration/evaluation cross-validation
 

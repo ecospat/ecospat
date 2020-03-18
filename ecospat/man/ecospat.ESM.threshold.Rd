@@ -41,8 +41,7 @@ Fielding, Alan H., and John F. Bell. A review of methods for the assessment of p
 \code{\link[ecospat]{ecospat.ESM.EnsembleProjection}}, \code{\link[ecospat]{ecospat.boyce}}, \code{\link[ecospat]{ecospat.mpa}},\code{\link[ecospat]{ecospat.binary.model}}
 }
 \examples{
-   \dontrun{
-   ## Not run: 
+   \donttest{
 library(biomod2)
 
 # Loading test data
@@ -76,7 +75,7 @@ my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.score=c('SomersD'),threshold=0)
 
 
-output.TH <- ecospat.ESM.threshold(ESM_EF,PEplot = T)
+output.TH <- ecospat.ESM.threshold(my.ESM_EF,PEplot = TRUE)
 
 }}
 

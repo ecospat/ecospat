@@ -75,7 +75,7 @@ Breiner F.T., Nobis M.P., Bergamini A., Guisan A. 2018. Optimizing ensembles of 
 
 }
 \examples{
-   \dontrun{
+   \donttest{
    
 library(biomod2)
 
@@ -127,6 +127,6 @@ my.ESM_EF$ESM.evaluations
 my.ESM_EF$weights
 
 ## get the variable contributions of ESMs
-ecospat.ESM.VarContrib(my.ESM,my.ESM_EF,scaling="01")
+ecospat.ESM.VarContrib(my.ESM,my.ESM_EF)
 }}
 

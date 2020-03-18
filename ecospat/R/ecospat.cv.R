@@ -35,7 +35,7 @@ globalVariables("ecospat.testData")
 
 glm.gbm.me.rf.fit.model <- function(data, p.pred, p.resp, me.args = c("-J", "-P",
   "threshold=FALSE", "product=FALSE", "quadratic=FALSE", "linear=FALSE"), me.path = outpath,
-  outpath) {
+  outpath, verbose = FALSE) {
 
     # ###############
   # ## SCOPE.GAM ##
@@ -109,10 +109,8 @@ glm.gbm.me.rf.fit.model <- function(data, p.pred, p.resp, me.args = c("-J", "-P"
 ###########################################################
 ########################## LOOP FOR SPECIES COMPUTATION ##
   for (i in p.resp:ncol(data)) {
-
-    cat("Computations", (i - p.resp + 1), "for species ", names(data[i]), "is starting now...",
-      "\n", append = FALSE)
-    cat(".............", "\n", append = FALSE)
+    if(verbose) cat("Computations", (i - p.resp + 1), "for species ", names(data[i]), "is starting now...","\n", append = FALSE)
+    if(verbose) cat(".............", "\n", append = FALSE)  
 
     name.tmp.sp <- names(data[i])
 
@@ -127,8 +125,8 @@ glm.gbm.me.rf.fit.model <- function(data, p.pred, p.resp, me.args = c("-J", "-P"
     df.tmp.input <<- na.exclude(df.tmp.input)
 
     ########### GLM FIT #
-    cat("GLM", "\n", append = FALSE)
-    cat("> calibration", "\n", append = FALSE)
+    if(verbose) cat("GLM", "\n", append = FALSE)
+    if(verbose) cat("> calibration", "\n", append = FALSE)
     glm.tmp.step <- step(glm(eval(parse(text = paste(name.tmp.sp, "~", fmula.pred.glm,
       collapse = ""))), data = df.tmp.input, family = binomial, maxit = 100),
       trace = FALSE, direction = "both")
@@ -149,13 +147,11 @@ glm.gbm.me.rf.fit.model <- function(data, p.pred, p.resp, me.args = c("-J", "-P"
 
     ########### GBM FIT #
 
-    cat("GBM", "\n", append = FALSE)
-    cat("> calibration", "\n", append = FALSE)
+    if(verbose) cat("GBM", "\n", append = FALSE)
+    if(verbose) cat("> calibration", "\n", append = FALSE)
 
     gbm.fmula <- eval(parse(text = paste(paste(name.tmp.sp), "~", fmula.pred.gbm,
       collapse = "")))
-
-
 
     gbm.tmp <- gbm(gbm.fmula, data = df.tmp.input, var.monotone = rep(0, length = n.pred),
       n.trees = 2000, interaction.depth = 3, n.minobsinnode = 10, shrinkage = 0.01,
@@ -170,8 +166,8 @@ glm.gbm.me.rf.fit.model <- function(data, p.pred, p.resp, me.args = c("-J", "-P"
 
     ########## ME FIT #
 
-    cat("ME", "\n", append = FALSE)
-    cat("> calibration", "\n", append = FALSE)
+    if(verbose) cat("ME", "\n", append = FALSE)
+    if(verbose) cat("> calibration", "\n", append = FALSE)
 
     Sys.setenv(NOAWT = TRUE)
     jar <- paste(system.file(package = "dismo"), "/java/maxent.jar", sep = "")
@@ -185,8 +181,8 @@ glm.gbm.me.rf.fit.model <- function(data, p.pred, p.resp, me.args = c("-J", "-P"
 
     ########## RF FIT #
 
-    cat("RF", "\n", append = FALSE)
-    cat("> calibration", "\n", append = FALSE)
+    if(verbose) cat("RF", "\n", append = FALSE)
+    if(verbose) cat("> calibration", "\n", append = FALSE)
 
     rf.tmp <- randomForest(x = df.tmp.input[, 2:ncol(df.tmp.input)], y = as.factor(df.tmp.input[,
       1]), ntree = 1000, importance = TRUE)
@@ -195,8 +191,8 @@ glm.gbm.me.rf.fit.model <- function(data, p.pred, p.resp, me.args = c("-J", "-P"
 
     #########################################################################################################################################
 
-    cat(".............", "\n", append = FALSE)
-    cat(".............", "\n", append = FALSE)
+    if(verbose) cat(".............", "\n", append = FALSE)
+    if(verbose) cat(".............", "\n", append = FALSE)
 
     rm(df.tmp.input)
     # END SPECIES LOOP
@@ -215,7 +211,7 @@ glm.gbm.me.rf.fit.model <- function(data, p.pred, p.resp, me.args = c("-J", "-P"
 
 ############ CV-GLM ##
 
-ecospat.cv.glm <- function(glm.obj, K = 10, cv.lim = 10, jack.knife = FALSE) {
+ecospat.cv.glm <- function(glm.obj, K = 10, cv.lim = 10, jack.knife = FALSE, verbose = FALSE) {
   # CONTROL IF THE NUMBER OF OBSERVATIONS IS SUFFICIENT
   data.cv <- glm.obj$data
   # data.cv <<- glm.obj$data
@@ -235,8 +231,7 @@ ecospat.cv.glm <- function(glm.obj, K = 10, cv.lim = 10, jack.knife = FALSE) {
   if (jack.knife == FALSE && n.1 < cv.lim || jack.knife == FALSE && n.1 < K ||
     jack.knife == TRUE) {
     K <- nrow(data.cv)
-    cat("K has been set to ", K, " -> Jack-Knife Cross-validation enabled!",
-      "\n", append = FALSE)
+    if(verbose) cat("K has been set to ", K, " -> Jack-Knife Cross-validation enabled!","\n", append = FALSE)
 
     for (i in 1:K) {
       temp.glm <- update(glm.obj, data = data.cv[-i, ])
@@ -267,7 +262,7 @@ ecospat.cv.glm <- function(glm.obj, K = 10, cv.lim = 10, jack.knife = FALSE) {
       K.lst.0 <- kvals.0[temp.0 == min(temp.0)][1]
     }
     if (K.lst.0 != K.0) {
-      cat("K.0 has been set to", K.lst.0, "\n", append = FALSE)
+      if(verbose) cat("K.0 has been set to", K.lst.0, "\n", append = FALSE)
     }
 
     id.1 <- as.vector(row.names(data.cv[glm.obj$y > 0, ]), mode = "numeric")
@@ -279,16 +274,16 @@ ecospat.cv.glm <- function(glm.obj, K = 10, cv.lim = 10, jack.knife = FALSE) {
       K.lst.1 <- kvals.1[temp.1 == min(temp.1)][1]
     }
     if (K.lst.1 != K.1) {
-      cat("K.1 has been set to", K.lst.1, "\n", append = FALSE)
+      if(verbose) cat("K.1 has been set to", K.lst.1, "\n", append = FALSE)
     }
     if (K.lst.0 != K.lst.1) {
-      cat("P/A stratifications have not the same values!", "\n", append = FALSE)
+      if(verbose) cat("P/A stratifications have not the same values!", "\n", append = FALSE)
       min.K <- min(K.lst.0, K.lst.1)
       K.lst.0 <- min.K
       K.lst.1 <- min.K
     }
 
-    cat("K has been finally set to", K.lst.0, "\n", append = FALSE)
+    if(verbose) cat("K has been finally set to", K.lst.0, "\n", append = FALSE)
     K.lst <- K.lst.0
 
     # P/A STRATIFICATION
@@ -476,7 +471,7 @@ ecospat.cv.glm <- function(glm.obj, K = 10, cv.lim = 10, jack.knife = FALSE) {
 ############ CV-GBM ##
 
 
-ecospat.cv.gbm <- function(gbm.obj, data.cv, K = 10, cv.lim = 10, jack.knife = FALSE) {
+ecospat.cv.gbm <- function(gbm.obj, data.cv, K = 10, cv.lim = 10, jack.knife = FALSE, verbose = FALSE) {
 
 
   best.itr.temp <- gbm.perf(gbm.obj, method = "cv", plot.it = FALSE)
@@ -497,32 +492,21 @@ ecospat.cv.gbm <- function(gbm.obj, data.cv, K = 10, cv.lim = 10, jack.knife = F
     jack.knife == TRUE) {
     df.res <- data.frame(id = NA, predicted = NA)
     K <- nrow(data.cv)
-    cat("K has been set to ", K, " -> Jack-Knife Cross-validation enabled!",
-      "\n", append = FALSE)
+    if(verbose) cat("K has been set to ", K, " -> Jack-Knife Cross-validation enabled!","\n", append = FALSE)
 
     for (i in 1:K) {
-      gbm.temp <- gbm.more(gbm.obj, n.new.trees = best.itr.temp, data = data.cv[-i,
-        ])
-
-
+      gbm.temp <- gbm.more(gbm.obj, n.new.trees = best.itr.temp, data = data.cv[-i,])
 
       if (i == 1) {
         vect.id <- i
-        vect.predicted <- as.double(predict.gbm(gbm.temp, data.cv[i, ], best.itr.temp,
-          type = "response"))
+        vect.predicted <- as.double(predict.gbm(gbm.temp, data.cv[i, ], best.itr.temp,type = "response"))
       } else if (i > 1) {
         vect.id <- append(vect.id, i, after = length(vect.id))
-        vect.predicted <- append(vect.predicted, as.double(predict.gbm(gbm.temp,
-          data.cv[i, ], best.itr.temp, type = "response")), after = length(vect.predicted))
+        vect.predicted <- append(vect.predicted, as.double(predict.gbm(gbm.temp,data.cv[i, ], best.itr.temp, type = "response")), after = length(vect.predicted))
       }
-
     }
-    df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0),
-      predictions = as.numeric(vect.predicted))[order(vect.id), ])
-
-    df.res <- data.frame(id = df.tmp.res[, 1], obs = as.vector(gbm.obj$data$y),
-      predictions = df.tmp.res[, 2])
-
+    df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0),predictions = as.numeric(vect.predicted))[order(vect.id), ])
+    df.res <- data.frame(id = df.tmp.res[, 1], obs = as.vector(gbm.obj$data$y),predictions = df.tmp.res[, 2])
 
   } else {
 
@@ -535,7 +519,7 @@ ecospat.cv.gbm <- function(gbm.obj, data.cv, K = 10, cv.lim = 10, jack.knife = F
       K.lst.0 <- kvals.0[temp.0 == min(temp.0)][1]
     }
     if (K.lst.0 != K.0) {
-      cat("K.0 has been set to", K.lst.0, "\n", append = FALSE)
+      if(verbose) cat("K.0 has been set to", K.lst.0, "\n", append = FALSE)
     }
 
     id.1 <- as.vector(names(gbm.obj$data$y)[gbm.obj$data$y == 1], mode = "numeric")
@@ -547,16 +531,16 @@ ecospat.cv.gbm <- function(gbm.obj, data.cv, K = 10, cv.lim = 10, jack.knife = F
       K.lst.1 <- kvals.1[temp.1 == min(temp.1)][1]
     }
     if (K.lst.1 != K.1) {
-      cat("K.1 has been set to", K.lst.1, "\n", append = FALSE)
+      if(verbose) cat("K.1 has been set to", K.lst.1, "\n", append = FALSE)
     }
     if (K.lst.0 != K.lst.1) {
-      cat("P/A stratifications have not the same values", "\n", append = FALSE)
+      if(verbose) cat("P/A stratifications have not the same values", "\n", append = FALSE)
       min.K <- min(K.lst.0, K.lst.1)
       K.lst.0 <- min.K
       K.lst.1 <- min.K
     }
 
-    cat("K has been finally set to", K.lst.0, "\n", append = FALSE)
+    if(verbose) cat("K has been finally set to", K.lst.0, "\n", append = FALSE)
     K.lst <- K.lst.0
 
     # P/A STRATIFICATION
@@ -583,10 +567,7 @@ ecospat.cv.gbm <- function(gbm.obj, data.cv, K = 10, cv.lim = 10, jack.knife = F
       j.in <- append(j.in, id.1[(s.1 != i)], after = length(j.in))
       j.in <- sort(j.in)
 
-
-      gbm.cal <- gbm.more(gbm.obj, n.new.trees = best.itr.temp, data = data.cv[j.in,
-        ])
-
+      gbm.cal <- gbm.more(gbm.obj, n.new.trees = best.itr.temp, data = data.cv[j.in,])
 
       gbm.val <- predict.gbm(gbm.cal, data.cv[j.out, ], best.itr.temp, type = "response")
       if (i == 1) {
@@ -596,16 +577,11 @@ ecospat.cv.gbm <- function(gbm.obj, data.cv, K = 10, cv.lim = 10, jack.knife = F
         vect.id <- append(vect.id, j.out, after = length(vect.id))
         vect.predicted <- append(vect.predicted, as.vector(gbm.val), after = length(vect.predicted))
       }
-
     }
-    df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0),
-      predictions = as.numeric(vect.predicted))[order(vect.id), ])
-
-    df.res <- data.frame(id = df.tmp.res[, 1], obs = as.vector(gbm.obj$data$y),
-      predictions = df.tmp.res[, 2])
-
-
-
+    
+    df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0),predictions = as.numeric(vect.predicted))[order(vect.id), ])
+    df.res <- data.frame(id = df.tmp.res[, 1], obs = as.vector(gbm.obj$data$y),predictions = df.tmp.res[, 2])
+    
   }
   df.res[df.res[, 3] > 1, 3] <- 1
   df.res[df.res[, 3] < 0, 3] <- 0
@@ -619,7 +595,8 @@ ecospat.cv.gbm <- function(gbm.obj, data.cv, K = 10, cv.lim = 10, jack.knife = F
 ############### CV-MaxEnt ##
 
 
-ecospat.cv.me <- function(data.cv.me, name.sp, names.pred, K = 10, cv.lim = 10, jack.knife = FALSE) {
+ecospat.cv.me <- function(data.cv.me, name.sp, names.pred, K = 10, cv.lim = 10, jack.knife = FALSE, verbose = FALSE) {
+  
   jar <- paste(system.file(package = "dismo"), "/java/maxent.jar", sep = "")
   Sys.setenv(NOAWT = TRUE)
 
@@ -637,13 +614,10 @@ ecospat.cv.me <- function(data.cv.me, name.sp, names.pred, K = 10, cv.lim = 10, 
   n.1 <- nrow(data.cv.me[data.cv.me[, name.sp] == 0, ])
 
 
-  if (jack.knife == FALSE && n.1 < cv.lim || jack.knife == FALSE && n.1 < K ||
-    jack.knife == TRUE) {
+  if (jack.knife == FALSE && n.1 < cv.lim || jack.knife == FALSE && n.1 < K ||jack.knife == TRUE) {
     df.res <- data.frame(id = NA, predicted = NA)
     K <- nrow(data.cv.me)
-    cat("K has been set to ", K, " -> Jack-Knife Cross-validation enabled!",
-      "\n", append = FALSE)
-
+    if(verbose) cat("K has been set to ", K, " -> Jack-Knife Cross-validation enabled!","\n", append = FALSE)
 
     for (i in 1:K) {
 
@@ -659,15 +633,12 @@ ecospat.cv.me <- function(data.cv.me, name.sp, names.pred, K = 10, cv.lim = 10, 
         vect.predicted <- append(vect.predicted, round(predict(me.cal.jk,
           data.cv.me[i, names.pred]), 3), after = length(vect.predicted))
       }
-
     }
-    df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0),
-      predictions = as.numeric(vect.predicted))[order(vect.id), ])
+    
+    df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0),predictions = as.numeric(vect.predicted))[order(vect.id), ])
 
     # To correct
-    df.res <- data.frame(id = df.tmp.res[, 1], obs = as.vector(data.cv.me[, name.sp]),
-      predictions = df.tmp.res[, 2])
-
+    df.res <- data.frame(id = df.tmp.res[, 1], obs = as.vector(data.cv.me[, name.sp]),predictions = df.tmp.res[, 2])
 
   } else {
 
@@ -680,7 +651,7 @@ ecospat.cv.me <- function(data.cv.me, name.sp, names.pred, K = 10, cv.lim = 10, 
       K.lst.0 <- kvals.0[temp.0 == min(temp.0)][1]
     }
     if (K.lst.0 != K.0) {
-      cat("K.0 has been set to", K.lst.0, "\n", append = FALSE)
+      if(verbose) cat("K.0 has been set to", K.lst.0, "\n", append = FALSE)
     }
 
     id.1 <- as.vector(row.names(data.cv.me)[data.cv.me[, name.sp] == 1], mode = "numeric")
@@ -692,16 +663,16 @@ ecospat.cv.me <- function(data.cv.me, name.sp, names.pred, K = 10, cv.lim = 10, 
       K.lst.1 <- kvals.1[temp.1 == min(temp.1)][1]
     }
     if (K.lst.1 != K.1) {
-      cat("K.1 has been set to", K.lst.1, "\n", append = FALSE)
+      if(verbose) cat("K.1 has been set to", K.lst.1, "\n", append = FALSE)
     }
     if (K.lst.0 != K.lst.1) {
-      cat("P/A stratifications have not the same values", "\n", append = FALSE)
+      if(verbose) cat("P/A stratifications have not the same values", "\n", append = FALSE)
       min.K <- min(K.lst.0, K.lst.1)
       K.lst.0 <- min.K
       K.lst.1 <- min.K
     }
 
-    cat("K has been finally set to", K.lst.0, "\n", append = FALSE)
+    if(verbose) cat("K has been finally set to", K.lst.0, "\n", append = FALSE)
     K.lst <- K.lst.0
 
     # P/A STRATIFICATION
@@ -729,9 +700,7 @@ ecospat.cv.me <- function(data.cv.me, name.sp, names.pred, K = 10, cv.lim = 10, 
       j.in <- sort(j.in)
 
 
-      me.cal.cv <- maxent(data.cv.me[j.in, names.pred], as.vector(data.cv.me[j.in,
-        name.sp]))
-
+      me.cal.cv <- maxent(data.cv.me[j.in, names.pred], as.vector(data.cv.me[j.in,name.sp]))
       me.val <- round(predict(me.cal.cv, data.cv.me[j.out, names.pred]), 3)
 
       if (i == 1) {
@@ -741,17 +710,12 @@ ecospat.cv.me <- function(data.cv.me, name.sp, names.pred, K = 10, cv.lim = 10, 
         vect.id <- append(vect.id, j.out, after = length(vect.id))
         vect.predicted <- append(vect.predicted, as.vector(me.val), after = length(vect.predicted))
       }
-
     }
-    df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0),
-      predictions = as.numeric(vect.predicted))[order(vect.id), ])
-
-    df.res <- data.frame(id = df.tmp.res[, 1], obs = as.vector(data.cv.me[, name.sp]),
-      predictions = df.tmp.res[, 2])
-
-
-
+    
+    df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0),predictions = as.numeric(vect.predicted))[order(vect.id), ])
+    df.res <- data.frame(id = df.tmp.res[, 1], obs = as.vector(data.cv.me[, name.sp]),predictions = df.tmp.res[, 2])
   }
+  
   df.res[df.res[, 3] > 1, 3] <- 1
   df.res[df.res[, 3] < 0, 3] <- 0
 
@@ -763,7 +727,7 @@ ecospat.cv.me <- function(data.cv.me, name.sp, names.pred, K = 10, cv.lim = 10, 
 
 ########### CV-RF ##
 
-ecospat.cv.rf <- function(rf.obj, data.cv, K = 10, cv.lim = 10, jack.knife = FALSE) {
+ecospat.cv.rf <- function(rf.obj, data.cv, K = 10, cv.lim = 10, jack.knife = FALSE, verbose = FALSE) {
 
   # CONTROL IF THE NUMBER OF OBSERVATIONS IS SUFFICIENT
 
@@ -776,18 +740,13 @@ ecospat.cv.rf <- function(rf.obj, data.cv, K = 10, cv.lim = 10, jack.knife = FAL
 
   n.1 <- length(rf.obj$y[rf.obj$y == 1])
 
-  if (jack.knife == FALSE && n.1 < cv.lim || jack.knife == FALSE && n.1 < K ||
-    jack.knife == TRUE) {
+  if (jack.knife == FALSE && n.1 < cv.lim || jack.knife == FALSE && n.1 < K || jack.knife == TRUE) {
     df.res <- data.frame(id = NA, predicted = NA)
     K <- nrow(data.cv)
-    cat("K has been set to", K, "(leave-one-out CV is enabled!)", "\n", append = FALSE)
-
-
+    if(verbose) cat("K has been set to", K, "(leave-one-out CV is enabled!)", "\n", append = FALSE)
 
     for (i in 1:K) {
-      rf.tmp.cal <- randomForest(x = data.cv[-i, 2:ncol(data.cv)], y = as.factor(data.cv[-i,
-        1]), ntree = 1000, importance = TRUE)
-
+      rf.tmp.cal <- randomForest(x = data.cv[-i, 2:ncol(data.cv)], y = as.factor(data.cv[-i,1]), ntree = 1000, importance = TRUE)
       rf.tmp.eval <- predict(rf.tmp.cal, data.cv[i, 2:ncol(data.cv)], type = "prob")
       if (i == 1) {
         vect.id <- i
@@ -797,17 +756,12 @@ ecospat.cv.rf <- function(rf.obj, data.cv, K = 10, cv.lim = 10, jack.knife = FAL
         vect.predicted <- append(vect.predicted, as.double(rf.tmp.eval[,
           2]), after = length(vect.predicted))
       }
-
     }
 
-    df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0),
-      predictions = as.numeric(vect.predicted))[order(vect.id), ])
+    df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0), predictions = as.numeric(vect.predicted))[order(vect.id), ])
+    df.res <- data.frame(id = df.tmp.res[, 1], obs = as.vector(rf.obj$y), predictions = df.tmp.res[,2])
 
-    df.res <- data.frame(id = df.tmp.res[, 1], obs = as.vector(rf.obj$y), predictions = df.tmp.res[,
-      2])
-
-
-  } else {
+    } else {
 
     id.0 <- as.vector(row.names(data.cv)[data.cv[, 1] == 0], mode = "numeric")
     K.0 <- K
@@ -818,7 +772,7 @@ ecospat.cv.rf <- function(rf.obj, data.cv, K = 10, cv.lim = 10, jack.knife = FAL
       K.lst.0 <- kvals.0[temp.0 == min(temp.0)][1]
     }
     if (K.lst.0 != K.0) {
-      cat("K.0 has been set to", K.lst.0, "\n", append = FALSE)
+      if(verbose) cat("K.0 has been set to", K.lst.0, "\n", append = FALSE)
     }
 
     id.1 <- as.vector(row.names(data.cv)[data.cv[, 1] == 1], mode = "numeric")
@@ -830,16 +784,16 @@ ecospat.cv.rf <- function(rf.obj, data.cv, K = 10, cv.lim = 10, jack.knife = FAL
       K.lst.1 <- kvals.1[temp.1 == min(temp.1)][1]
     }
     if (K.lst.1 != K.1) {
-      cat("K.1 has been set to", K.lst.1, "\n", append = FALSE)
+      if(verbose) cat("K.1 has been set to", K.lst.1, "\n", append = FALSE)
     }
     if (K.lst.0 != K.lst.1) {
-      cat("P/A stratifications have not the same values", "\n", append = FALSE)
+      if(verbose) cat("P/A stratifications have not the same values", "\n", append = FALSE)
       min.K <- min(K.lst.0, K.lst.1)
       K.lst.0 <- min.K
       K.lst.1 <- min.K
     }
 
-    cat("K has been finally set to", K.lst.0, "\n", append = FALSE)
+    if(verbose) cat("K has been finally set to", K.lst.0, "\n", append = FALSE)
     K.lst <- K.lst.0
 
     # P/A STRATIFICATION
@@ -883,14 +837,10 @@ ecospat.cv.rf <- function(rf.obj, data.cv, K = 10, cv.lim = 10, jack.knife = FAL
 
 
     }
-    df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0),
-      predictions = as.numeric(vect.predicted))[order(vect.id), ])
-
-    df.res <- data.frame(id = df.tmp.res[, 1], obs = as.vector(rf.obj$y), predictions = df.tmp.res[,
-      2])
-
-
+    df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0), predictions = as.numeric(vect.predicted))[order(vect.id), ])
+    df.res <- data.frame(id = df.tmp.res[, 1], obs = as.vector(rf.obj$y), predictions = df.tmp.res[,2])
   }
+  
   df.res[df.res[, 3] > 1, 3] <- 1
   df.res[df.res[, 3] < 0, 3] <- 0
 
@@ -901,7 +851,7 @@ ecospat.cv.rf <- function(rf.obj, data.cv, K = 10, cv.lim = 10, jack.knife = FAL
 
 ################ Permut-GLM ##
 
-ecospat.permut.glm <- function(glm.obj, nperm) {
+ecospat.permut.glm <- function(glm.obj, nperm, verbose = FALSE) {
   D2 <- function(glmobj) {
     go <- glmobj
     d2 <- (go$null.deviance - go$deviance)/go$null.deviance
@@ -952,7 +902,7 @@ ecospat.permut.glm <- function(glm.obj, nperm) {
     dev[i, 1] <- round(D2(mc.glm.obj), 5)
     dev[i, 2] <- round(adj.D2(mc.glm.obj), 5)
     if (i%%100 == 0) {
-      cat("Permutation ", i, "is starting now...", "\n", append = FALSE)
+      if(verbose) cat("Permutation ", i, "is starting now...", "\n", append = FALSE)
     }
   }
   vect.names <- v.coef
@@ -964,9 +914,9 @@ ecospat.permut.glm <- function(glm.obj, nperm) {
 
   # CALCULATES P-VALUES BASED ON RANDOM DISTRIBUTIONS
   mat.pval <- matrix(0, length(vect.names), 1, dimnames = list(vect.names, "pval"))
-  cat("...", "\n", append = FALSE)
-  cat("Conmputing pvalues by permutations...", "\n", append = FALSE)
-  cat("...", "\n", append = FALSE)
+  if(verbose) cat("...", "\n", append = FALSE)
+  if(verbose) cat("Conmputing pvalues by permutations...", "\n", append = FALSE)
+  if(verbose) cat("...", "\n", append = FALSE)
   for (j in 1:ncol(mat.permut)) {
     vect.delta.quantile.coeff <- abs(quantile(mat.permut[, j], probs = seq(0,
       1, 1e-05)) - vect.coeff[j])
@@ -1035,19 +985,16 @@ ecospat.varpart <- function(model.1, model.2, model.12) {
 
 
 ecospat.cv.example <- function() {
-  # Position of the first predictor
+  
+  #Position of the first predictor
   p.pred <- 4
 
-  # Position of the first species (i.e. respone variable)
+  #Position of the first species (i.e. respone variable)
   p.resp <- 9
 
   # Argument for Maxent calibration
-  me.args = c("-J", "-P", "threshold=FALSE", "product=FALSE", "quadratic=FALSE",
-    "linear=FALSE")
+  me.args = c("-J", "-P", "threshold=FALSE", "product=FALSE", "quadratic=FALSE","linear=FALSE")
 
-  # Input and Output folders inpath.data <-
-  # '/Users/crandin/1_Projets/16_BIOASSEMBLE/ECOSPAT/' outpath <-
-  # '/Users/crandin/1_Projets/16_BIOASSEMBLE/ECOSPAT/'
   outpath <- getwd()
 
   # Path for Maxent output
@@ -1056,18 +1003,12 @@ ecospat.cv.example <- function() {
   # IMPORTING DATASET
 
   # Read directly from the package data folder.
-  # data('ecospat.testData',envir=ecospat.env) data <- get('ecospat.testData',
-  # envir = ecospat.env)[,1:10]
-  data <- ecospat.testData[, 1:10]
+   data('ecospat.testData',envir=ecospat.env) 
+   data <- get('ecospat.testData',envir = ecospat.env)[,1:10]
+   data <- ecospat.testData[, 1:10]
 
   # Run the code with the ECOSPAT example dataset
-  glm.gbm.me.rf.fit.model(data, p.pred, p.resp, me.args = c("-J", "-P", "threshold=FALSE",
-    "product=FALSE", "quadratic=FALSE", "linear=FALSE"), me.path = outpath, outpath)
-
-  #########################################################################################################################################
-
-
-
+  glm.gbm.me.rf.fit.model(data, p.pred, p.resp, me.args = c("-J", "-P", "threshold=FALSE", "product=FALSE", "quadratic=FALSE", "linear=FALSE"), me.path = outpath, outpath)
 
   #########################################################################################################################################
 
@@ -1076,36 +1017,31 @@ ecospat.cv.example <- function() {
   ######################## GLM MODEL EVALUATION #
 
   # STRATIFIED-CV FOR GLM
-  df.out.cv.glm.achatr <- ecospat.cv.glm(get("glm.Achillea_atrata", envir = ecospat.env),
-    K = 10, cv.lim = 10, jack.knife = FALSE)
+  df.out.cv.glm.achatr <- ecospat.cv.glm(get("glm.Achillea_atrata", envir = ecospat.env),  K = 10, cv.lim = 10, jack.knife = FALSE)
 
 
-  # permut.glm.saopp <- ecospat.permut.glm(glm.SAOPP,100)
+  #permut.glm.saopp <- ecospat.permut.glm(glm.SAOPP,100)
 
 
   # ######################## # GAM MODEL EVALUATION # ######################## #
   # STRATIFIED-CV FOR GAM df.out.cv.gam.achatr <-
-  # ecospat.cv.gam(get('gam.Achillea_atrata',envir = ecospat.env), K = 10, cv.lim =
+  #ecospat.cv.gam(get('gam.Achillea_atrata',envir = ecospat.env), K = 10, cv.lim =
   # 10, jack.knife = FALSE)
 
   ######################## GBM MODEL EVALUATION #
 
   # STRATIFIED-CV FOR GBM
-  df.out.cv.gbm.achatr <- ecospat.cv.gbm(get("gbm.Achillea_atrata", envir = ecospat.env),
-    data, K = 10, cv.lim = 10, jack.knife = FALSE)
+  df.out.cv.gbm.achatr <- ecospat.cv.gbm(get("gbm.Achillea_atrata", envir = ecospat.env),  data, K = 10, cv.lim = 10, jack.knife = FALSE)
 
   ####################### ME MODEL EVALUATION #
 
   # STRATIFIED-CV FOR ME df.out.cv.me <-
-  # ecospat.cv.me(df.tmp.input,names(df.tmp.input[1]),names(df.tmp.input[2:ncol(df.tmp.input)]),K=10,
-  # cv.lim = 10, jack.knife = FALSE)
+  #ecospat.cv.me(df.tmp.input,names(df.tmp.input[1]),names(df.tmp.input[2:ncol(df.tmp.input)]),K=10, cv.lim = 10, jack.knife = FALSE)
 
-  df.out.cv.me.achatr <- ecospat.cv.me(data, names(data)[9], names(data)[4:8],
-    K = 10, cv.lim = 10, jack.knife = FALSE)
+  df.out.cv.me.achatr <- ecospat.cv.me(data, names(data)[9], names(data)[4:8],  K = 10, cv.lim = 10, jack.knife = FALSE)
 
   ####################### RF MODEL EVALUATION #
 
   # STRATIFIED-CV FOR RF
-  df.out.cv.rf.achatr <- ecospat.cv.rf(get("rf.Achillea_atrata", envir = ecospat.env),
-    data[, c(9, 4:8)], K = 10, cv.lim = 10, jack.knife = FALSE)
+  df.out.cv.rf.achatr <- ecospat.cv.rf(get("rf.Achillea_atrata", envir = ecospat.env),data[, c(9, 4:8)], K = 10, cv.lim = 10, jack.knife = FALSE)
 }

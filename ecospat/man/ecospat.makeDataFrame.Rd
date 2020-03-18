@@ -51,7 +51,7 @@ ext=expl.var, tryf=5)}
 \author{Frank Breiner \email{frank.breiner@unil.ch}}
 
 \examples{
-\dontrun{
+\donttest{
 files <- list.files(path=paste(system.file(package="dismo"),
                                '/ex', sep=''), pattern='grd', full.names=TRUE )
 predictors <- raster::stack(files[c(9,1:8)])   #file 9 has more NA values than

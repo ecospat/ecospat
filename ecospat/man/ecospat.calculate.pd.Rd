@@ -7,7 +7,7 @@
 \description{Calculate all phylogenetic diversity measures listed in Schweiger et al., 2008 (see full reference below).}
 
 \usage{ecospat.calculate.pd (tree, data, method="spanning", type="clade", root=FALSE, 
-average=FALSE, verbose=TRUE)}
+average=FALSE, verbose=FALSE)}
 
 \arguments{
   \item{tree}{The phylogenetic tree}
@@ -16,7 +16,7 @@ average=FALSE, verbose=TRUE)}
   \item{type}{Phylogenetic measure from those listed in Schweiger et al 2008. Options are "Q", "P", "W", "clade", "species", "J", "F", "AvTD","TTD", "Dd". Default is "clade".}
   \item{root}{Phylogenetic diversity can either be rooted or unrooted. Details in Schweiger et al 2008. Default is FALSE.}
   \item{average}{Phylogenetic diversity can either be averaged or not averaged. Details in Schweiger et al 2008. Default is FALSE.}
-  \item{verbose}{Boolean indicating whether to print progress output during calculation. Default is TRUE.}
+  \item{verbose}{Boolean indicating whether to print progress output during calculation. Default is FALSE.}
 }
 
 \details{Given a phylogenetic tree and a presence/absence matrix this script calculates phylogenetic diversity of a group of species across a given set of grid cells or locations. The library "ape" is required to read the tree in R. Command is "read.tree" or "read.nexus".

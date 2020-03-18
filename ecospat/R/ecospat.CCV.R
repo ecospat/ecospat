@@ -172,7 +172,7 @@ ecospat.CCV.createDataSplitTable <- function(NbRunEval,
       
       trys <- trys+1
     }
-    cat(paste("The following species will not have the desired minimum number of presence/absence data in each run: ", paste(sp.names.droped.best, sep="", collapse=", "),"\n\n",sep=""))
+    message(paste("The following species will not have the desired minimum number of presence/absence data in each run: ", paste(sp.names.droped.best, sep="", collapse=", "),"\n\n",sep=""))
     return(DataSplitTable.final)
   }
 }
@@ -313,6 +313,8 @@ ecospat.CCV.modeling <- function(sp.data,
   
   #Create the folder to write the data output
   dir.create(modeling.id)
+  oldwd <- getwd() 
+  on.exit(setwd(oldwd)) 
   setwd(modeling.id)
   
   #############################################################################################################
@@ -461,7 +463,7 @@ ecospat.CCV.modeling <- function(sp.data,
     sp.names.all <- rownames(SpRunMatrix)
     sp.names.ok <- intersect(names(which(apply(SpRunMatrix,1,min) >= minNbPredictors*NbPredictors)), names(which(apply(min(colSums(DataSplitTable))-SpRunMatrix,1,min) >= minNbPredictors*NbPredictors)))
     sp.names.droped <- setdiff(sp.names.all, sp.names.ok) 
-    cat(paste("The following species will not be modelled due to limited presence data: ", paste(sp.names.droped, sep="", collapse=", "),"\n\n",sep=""))
+    message(paste("The following species will not be modelled due to limited presence data: ", paste(sp.names.droped, sep="", collapse=", "),"\n\n",sep=""))
     
     #Creating the speciesData.calibration and speciesData.evaluation
     speciesData.calibration <- array(data=NA, dim=c(length(sp.names.ok), max(colSums(DataSplitTable)),  NbRunEval), dimnames=list(sp.names.ok, paste("c",1:max(colSums(DataSplitTable)),sep="_"), 1:NbRunEval))
@@ -540,7 +542,7 @@ ecospat.CCV.modeling <- function(sp.data,
     sp.names.all <- rownames(SpRunMatrix)
     sp.names.ok <- intersect(names(which(apply(SpRunMatrix,1,min) >= minNbPredictors*2)), names(which(apply(min(colSums(DataSplitTable))-SpRunMatrix,1,min) >= minNbPredictors*2)))
     sp.names.droped <- setdiff(sp.names.all, sp.names.ok) 
-    cat(paste("The following species will not be modelled due to limited presence data: ", paste(sp.names.droped, sep="", collapse=", "),"\n\n",sep=""))
+    message(paste("The following species will not be modelled due to limited presence data: ", paste(sp.names.droped, sep="", collapse=", "),"\n\n",sep=""))
     
     #Creating the speciesData.calibration and speciesData.evaluation
     speciesData.calibration <- array(data=NA, dim=c(length(sp.names.ok), max(colSums(DataSplitTable)),  NbRunEval), dimnames=list(sp.names.ok, paste("c",1:max(colSums(DataSplitTable)),sep="_"), 1:NbRunEval))
@@ -610,25 +612,25 @@ ecospat.CCV.modeling <- function(sp.data,
     #Selecting the species than can be run (enough data)
     sp.names.all <- rownames(SpRunMatrix)
     sp.names.bm.ok <- intersect(names(which(apply(SpRunMatrix,1, min) >= minNbPredictors*NbPredictors)), names(which(apply(min(colSums(DataSplitTable))-SpRunMatrix,1,min) >= minNbPredictors*NbPredictors)))
-    cat(paste("The following species will be run with standard biomod2 models: ", paste(sp.names.bm.ok, sep="", collapse=", "),"\n\n",sep=""))
+    message(paste("The following species will be run with standard biomod2 models: ", paste(sp.names.bm.ok, sep="", collapse=", "),"\n\n",sep=""))
     sp.names.bm.droped <- setdiff(sp.names.all, sp.names.bm.ok)
     if(length(sp.names.bm.droped)>1){
       sp.names.esm.ok <- intersect(names(which(apply(SpRunMatrix[sp.names.bm.droped,],1,min) >= minNbPredictors*2)), names(which(apply(min(colSums(DataSplitTable))-SpRunMatrix[sp.names.bm.droped,],1,min) >= minNbPredictors*2)))
-      cat(paste("The following species will be run with ESM models: ", paste(sp.names.esm.ok, sep="", collapse=", "),"\n\n",sep=""))
+      message(paste("The following species will be run with ESM models: ", paste(sp.names.esm.ok, sep="", collapse=", "),"\n\n",sep=""))
       sp.names.droped <- setdiff(sp.names.all, c(sp.names.bm.ok, sp.names.esm.ok))
-      cat(paste("The following species will not be modelled due to limited presence data: ", paste(sp.names.droped, sep="", collapse=", "),"\n\n",sep=""))
+      message(paste("The following species will not be modelled due to limited presence data: ", paste(sp.names.droped, sep="", collapse=", "),"\n\n",sep=""))
       sp.names.ok <- sort(c(sp.names.bm.ok, sp.names.esm.ok))
     }else{
       if(length(sp.names.bm.droped==1)){
         if(min(SpRunMatrix[sp.names.bm.droped,]) >= minNbPredictors*2 & min(colSums(DataSplitTable))-min(SpRunMatrix[sp.names.bm.droped,])>= minNbPredictors*2)
         sp.names.esm.ok <- sp.names.bm.droped
-        cat(paste("The following species will be run with ESM models: ", paste(sp.names.esm.ok, sep="", collapse=", "),"\n\n",sep=""))
-        cat(paste("The following species will not be modelled due to limited presence data:","\n\n", sep=""))
+        message(paste("The following species will be run with ESM models: ", paste(sp.names.esm.ok, sep="", collapse=", "),"\n\n",sep=""))
+        message(paste("The following species will not be modelled due to limited presence data:","\n\n", sep=""))
         sp.names.ok <- sort(c(sp.names.bm.ok, sp.names.esm.ok))
       }else{
         sp.names.esm.ok <- NULL
-        cat(paste("The following species will be run with ESM models:","\n\n", sep=""))
-        cat(paste("The following species will not be modelled due to limited presence data:","\n\n", sep=""))
+        message(paste("The following species will be run with ESM models:","\n\n", sep=""))
+        message(paste("The following species will not be modelled due to limited presence data:","\n\n", sep=""))
         sp.names.ok <- sort(sp.names.bm.ok)
       }
     }
@@ -1609,7 +1611,7 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
       }else{
         auc.return <- unlist(auc(DATA=data.frame(id=1:length(obs.data),
                                                  obs=obs.data,
-                                                 pred=pred.data), na.rm = T))[1]
+                                                 pred=pred.data), na.rm = TRUE))[1]
         return(auc.return)
       }
     }

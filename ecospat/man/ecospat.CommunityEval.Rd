@@ -6,13 +6,14 @@
 
 \description{Calculate several indices of accuracy of community predictions.}
 
-\usage{ecospat.CommunityEval (eval, pred, proba, ntir)}
+\usage{ecospat.CommunityEval (eval, pred, proba, ntir, verbose = FALSE)}
 
 \arguments{
   \item{eval}{A matrix of observed presence-absence (ideally independent from the dataset used to fit species distribution models) of the species with n rows for the sites and s columns for the species.}
   \item{pred}{A matrix of predictions for the s species in the n sites. Should have the same dimension as eval.}
   \item{proba}{Logical variable indicating whether the prediction matrix contains presences-absences (FALSE) or probabilities (TRUE).}
   \item{ntir}{Number of trials of presence-absence predictions if pred is a probability matrix.}
+  \item{verbose}{Boolean indicating whether to print progress output during calculation. Default is FALSE.}
 }
 
 \details{This function calculates several indices of accuracy of community predictions based on stacked predictions of species ditribution models. In case proba is set to FALSE the function returns one value per index and per site. In case proba is set to TRUE the function generates presences-absences based on the predicted probabilities and returns one value per index, per site and per trial.}
@@ -47,7 +48,7 @@ with contribution of Daniel Scherrer \email{daniel.scherrer@unil.ch}, Anne Dubui
 and Manuela D'Amen \email{manuela.damen@unil.ch}}
 
 \examples{
-\dontrun{
+\donttest{
 
 data(ecospat.testData)
 eval <- ecospat.testData[c(53,62,58,70,61,66,65,71,69,43,63,56,68,57,55,60,54,67,59,64)]

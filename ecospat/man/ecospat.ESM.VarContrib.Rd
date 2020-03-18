@@ -35,7 +35,7 @@ Olivier Broennimann <Olivier.Broennimann@unil.ch> with contributions of Heidi Mo
 
 }
 \examples{
-   \dontrun{       
+   \donttest{       
 require(biomod2)
 # Loading test data
 data(ecospat.testNiche.inv)

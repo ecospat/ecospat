@@ -37,8 +37,7 @@ Elith, J., Ferrier, S., Huettmann, FALSE. & Leathwick, J. R. 2005 The evaluation
 
 
 \examples{
-   \dontrun{
-## Not run: 
+   \donttest{
 
 library(biomod2)
 

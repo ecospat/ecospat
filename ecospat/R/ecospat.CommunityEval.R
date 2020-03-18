@@ -1,4 +1,4 @@
-ecospat.CommunityEval <- function(eval, pred, proba, ntir) {
+ecospat.CommunityEval <- function(eval, pred, proba, ntir, verbose = FALSE) {
   if (proba == FALSE) {
     ntir <- 1
     pred2 <- pred
@@ -40,7 +40,7 @@ ecospat.CommunityEval <- function(eval, pred, proba, ntir) {
       sim[j, i] <- (2 * a)/(2 * a + b + c)
       jac[j, i] <- a/(a + b + c)
     }
-    cat("trial", i, "on", ntir, "\n")
+    if(verbose) cat("trial", i, "on", ntir, "\n")
   }
   res <- list(Rdev, over, under, succ, sens, spec, kappa, tss, sim, jac)
   names(res) <- c("deviation.rich.pred", "overprediction", 

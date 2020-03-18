@@ -35,7 +35,7 @@
   \code{\link{ecospat.rcls.grd}}
 }
 \examples{
-  \dontrun{
+  \donttest{
     bio3<- raster(system.file("external/bioclim/current/bio3.grd",package="biomod2"))
     bio12<- raster(system.file("external/bioclim/current/bio12.grd",package="biomod2"))
     B3.rcl<-ecospat.rcls.grd(bio3,9) 

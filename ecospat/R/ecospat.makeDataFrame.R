@@ -82,15 +82,15 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
       if (!is.null(precision)) {
         prec.na <- is.na(spec.gbif$coordUncertaintyM)
         if (sum(is.na(spec.gbif$coordUncertaintyM)) == nrow(spec.gbif)) {
-          cat(paste("\n##########\n", "There are no precise presences available at GBIF for speciesfospecnames[i],rmatio n about precision.",
-          "\n##########\n"))
+          warning(cat(paste("\n##########\n", "There are no precise presences available at GBIF for species", sp.name[i],", no information about precision.",
+          "\n##########\n")))
         }
 
         spec.gbif <- spec.gbif[!prec.na, ]
         minprec <- spec.gbif$coordUncertaintyM <= precision
         if (sum(minprec) == 0) {
-          cat(paste("\n##########\n", "There are no presences available at GBIF with the selected precision.",
-          "\n##########\n"))
+          warning(cat(paste("\n##########\n", "There are no presences available at GBIF with the selected precision.",
+          "\n##########\n")))
         }
         spec.gbif <- spec.gbif[minprec, ]
       }
@@ -131,8 +131,8 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
     if (remdups) {
       spec.x <- spec.x[!dup, ]
     } else if (sum(dup) > 0) {
-      cat(paste("\n################################\n", specnames[i], "Warning: There are",
-        sum(dup), "cells with more than one Presence Points", "\n################################"))
+      warning(cat(paste("\n################################\n", specnames[i], "Warning: There are",
+        sum(dup), "cells with more than one Presence Points", "\n################################")))
     }
 
     # set a minimum distance between your presences to the nearest neighbour
@@ -166,27 +166,26 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
 
     # Print warning massages and summary
 
-    cat(paste("\n\n\n################################\n", specnames[i]))
+    message(cat(paste("\n\n\n################################\n", specnames[i])))
     if (use.gbif == TRUE) {
-      cat(paste("\n##########\n", "Occurrence data of following species where added from GBIF:",
-        "\n"))
-      cat(paste(levels(as.factor(spec.x[, 3])), "\n"))
+      message(cat(paste("\n##########\n", "Occurrence data of following species were added from GBIF:","\n")))
+      message(cat(paste(levels(as.factor(spec.x[, 3])), "\n")))
     }
 
-    cat(paste("\n##########\n", "Dataframe created with ", nrow(spec.x), " Presence Points and ",
-      sum(PApoint$PA, na.rm = TRUE), " Pseudo-Absence Points."))
+    message(cat(paste("\n##########\n", "Dataframe created with ", nrow(spec.x), " Presence Points and ",
+      sum(PApoint$PA, na.rm = TRUE), " Pseudo-Absence Points.")))
 
 
     if (nrow(spec.x) < 20) {
-      cat(paste("\n##########\n", "Warning: You only have", nrow(spec.x), " Presence Points for modeling."))
+      warning(cat(paste("\n##########\n", "Warning: You only have", nrow(spec.x), " Presence Points for modeling.")))
     }
 
 
     if (nrow(spec.x) < nlayers(expl.var) * 10) {
-      cat(paste("\n##########\n", "Warning: Number of presence points is less than 10 x number of predictors. Be aware of overparametrization. You only have",
-        nrow(spec.x), "Presences but", nlayers(expl.var), "predictors."))
+      warning(cat(paste("\n##########\n", "Warning: Number of presence points is less than 10 x number of predictors. Be aware of overparametrization. You only have",
+        nrow(spec.x), "Presences but", nlayers(expl.var), "predictors.")))
     }
-    cat(paste("\n################################\n"))
+    message(cat(paste("\n################################\n")))
 
 ## Combine Pseudo-Absences and Species data to one data.frame
 
@@ -220,10 +219,10 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
   if(nlayers(expl.var)>1){
     if (sum(abs(as.dist(cor(mydataframe[, (ncol(mydataframe) - nlayers(expl.var) +
       1):(ncol(mydataframe))]))) >= 0.7) > 0) {
-      cat(paste("\n\n\n################################\n", "Warning: There are",
+      warning(cat(paste("\n\n\n################################\n", "Warning: There are",
         sum(abs(as.dist(cor(mydataframe[, (ncol(mydataframe) - nlayers(expl.var) +
         1):(ncol(mydataframe))]))) >= 0.7), " predictor variable pairs with a correlation coefficients of |r| > 0.7. Be aware of collinearity!",
-        "\n################################\n"))
+        "\n################################\n")))
       print(abs(as.dist(round(cor(mydataframe[, (ncol(mydataframe) - nlayers(expl.var) +
         1):(ncol(mydataframe))]), 2))))
     }}

@@ -49,7 +49,7 @@ Petitpierre, B., C. Kueffer, O. Broennimann, C. Randin, C. Daehler and A. Guisan
 \seealso{\code{\link{ecospat.plot.niche.dyn}}}
 
 \examples{
-\dontrun{
+\donttest{
 
 data(ecospat.testNiche)
 data(ecospat.testData)

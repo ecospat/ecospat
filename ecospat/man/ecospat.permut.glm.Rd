@@ -6,11 +6,12 @@
 
 \description{A permutation function to get p-values on GLM coefficients and deviance.}
 
-\usage{ecospat.permut.glm (glm.obj, nperm)}
+\usage{ecospat.permut.glm (glm.obj, nperm, verbose = FALSE)}
 
 \arguments{
   \item{glm.obj}{Any calibrated GLM or GAM object with a binomial error distribution.}
   \item{nperm}{The number of permutations in the randomization process.}
+  \item{verbose}{Boolean indicating whether to print progress output during calculation. Default is FALSE.}
 }
 
 \details{Rows of the response variable are permuted and a new GLM is calibrated as well as deviance, adjusted deviance and coefficients are calculated. These random parameters are compared to the true parameters in order to derive p-values.}
@@ -25,7 +26,7 @@ Legendre, P. and L. Legendre. 1998. \emph{Numerical Ecology}, 2nd English editio
 
 \examples{
 
-\dontrun{
+\donttest{
 ecospat.cv.example()
 ecospat.permut.glm (get ("glm.Achillea_atrata", envir=ecospat.env), 1000)
 }}

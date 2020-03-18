@@ -32,7 +32,7 @@ Petitpierre, B., C. Kueffer, O. Broennimann, C. Randin, C. Daehler and A. Guisan
 \seealso{\code{\link{ecospat.plot.niche.dyn}},\code{\link{ecospat.niche.dyn.index}}, \code{\link{ecospat.niche.zProjGeo}}}
 
 \examples{
-\dontrun{
+\donttest{
 
 library(raster)
 

@@ -6,7 +6,7 @@
 
 \description{K-fold and leave-one-out cross validation for GBM.}
 
-\usage{ecospat.cv.gbm (gbm.obj, data.cv, K=10, cv.lim=10, jack.knife=FALSE)}
+\usage{ecospat.cv.gbm (gbm.obj, data.cv, K=10, cv.lim=10, jack.knife=FALSE, verbose = FALSE)}
 
 \arguments{
   \item{gbm.obj}{A calibrated GBM object with a binomial error distribution. Attention: users have to tune model input parameters according to their study!}
@@ -14,6 +14,7 @@
   \item{K}{Number of folds. 10 is recommended; 5 for small data sets.}
   \item{cv.lim}{Minimum number of presences required to perform the K-fold cross-validation.}
   \item{jack.knife}{If TRUE, then the leave-one-out / jacknife cross-validation is performed instead of the 10-fold cross-validation.}
+  \item{verbose}{Boolean indicating whether to print progress output during calculation. Default is FALSE.}
 }
 
 \details{This function takes a calibrated GBM object with a binomial error distribution and returns predictions from a stratified 10-fold cross-validation or a leave-one-out / jack-knived cross-validation. Stratified means that the original prevalence of the presences and absences in the full dataset is conserved in each fold.}
@@ -29,7 +30,7 @@ Pearman, P.B., C.F. Randin, O. Broennimann, P. Vittoz, W.O. van der Knaap, R. En
 
 
 \examples{
-\dontrun{
+\donttest{
 ecospat.cv.example() #generates data
 gbm <- ecospat.cv.gbm (gbm.obj= get("gbm.Achillea_atrata", envir=ecospat.env), 
 ecospat.testData, K=10, cv.lim=10, jack.knife=FALSE)

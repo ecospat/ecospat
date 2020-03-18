@@ -24,7 +24,7 @@
 
 
 \examples{
-\dontrun{
+\donttest{
 ecospat.cv.example()
 ecospat.varpart (model.1= get ("glm.Achillea_atrata", envir=ecospat.env), 
 model.2= get ("glm.Achillea_millefolium", envir=ecospat.env), 
