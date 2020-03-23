@@ -1,6 +1,6 @@
 ecospat.ESM.threshold <- function(ESM.EnsembleModeling.output, PEplot=FALSE){
 
-  Full.models <- grep('Full',colnames(ESM.EnsembleModeling.output$ESM.fit),value=T)
+  Full.models <- grep('Full',colnames(ESM.EnsembleModeling.output$ESM.fit),value = TRUE)
   
   EVAL <- NULL
   for(i in Full.models){

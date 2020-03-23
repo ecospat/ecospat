@@ -27,189 +27,189 @@
 # Columns 4-8: Predicting variables
 # Columns 9-10: Species presences / absences
 
-ecospat.env <- new.env()
-globalVariables("ecospat.testData")
-
-
-###### Auxiliary function for examples.
-
-glm.gbm.me.rf.fit.model <- function(data, p.pred, p.resp, me.args = c("-J", "-P",
-  "threshold=FALSE", "product=FALSE", "quadratic=FALSE", "linear=FALSE"), me.path = outpath,
-  outpath, verbose = FALSE) {
-
-    # ###############
-  # ## SCOPE.GAM ##
-  # ###############
-  #
-  # scope.gam <- function(data.pred,smoother= "s", degree="4")
-  # {
-  #   scope.list.gam <- as.list(data.pred)
-  #   names(scope.list.gam) <- colnames(data.pred)
-  #   for(i in 1:ncol(data.pred))
-  #   {
-  #     if (is.factor(data.pred[[i]])==TRUE)
-  #     {
-  #       junk <- c("1")
-  #       junk <- c(junk, paste(colnames(data.pred[i]), sep = ""))
-  #       junk <- eval(parse(text = paste("~", paste(junk, collapse = "+"))))
-  #       scope.list.gam[[i]] <- junk
-  #     } else if (is.factor(data.pred[[i]])==FALSE)	{
-  #       junk <- c("1")
-  #       junk <- c(junk, paste(smoother,"(", colnames(data.pred[i]),",",degree,")", sep = ""))
-  #       junk <- eval(parse(text = paste("~", paste(junk, collapse = "+"))))
-  #       scope.list.gam[[i]] <- junk
-  #
-  #     }
-  #   }
-  #   return(scope.list.gam)
-  # }
-
-  sp.names <- colnames(data[p.resp:ncol(data)])
-
-  n.pred <- p.resp - p.pred
-  rownames(data) <- 1:nrow(data)
-
-  # GLM FORMULA
-  for (k in (p.pred):(p.resp - 1)) {
-    if (k == p.pred && is.factor(data[, k]) == FALSE) {
-      fmula.pred.glm <- as.vector(paste("pol(", names(data[k]), ",2)", sep = ""),
-        mode = "character")
-    } else if (k == p.pred && is.factor(data[, k]) == TRUE) {
-      fmula.pred.glm <- as.vector(paste(names(data[k]), sep = ""), mode = "character")
-    } else if (is.factor(data[, k]) == FALSE) {
-      fmula.pred.glm <- paste(fmula.pred.glm, " + pol(", names(data[k]), ",2)",
-        sep = "")
-
-    } else if (is.factor(data[, k]) == TRUE) {
-
-      fmula.pred.glm <- paste(fmula.pred.glm, " + ", names(data[k]), sep = "")
-    }
-  }
-
-  # # GAM FORMULA for (k in (p.pred):(p.resp-1)) { if (k == p.pred &&
-  # is.factor(data[,k])==FALSE) { fmula.pred.gam <- as.vector(paste('s(',
-  # names(data[k]),', 4)',sep=''),mode='character') } else if (k == p.pred &&
-  # is.factor(data[,k])==TRUE) { fmula.pred.gam <-
-  # as.vector(paste(names(data[k]),sep=''),mode='character') } else if
-  # (is.factor(data[,k])==FALSE) { fmula.pred.gam <- paste(fmula.pred.gam,' + s(',
-  # names(data[k]),', 4)',sep='') } else if (is.factor(data[,k])==TRUE) {
-  # fmula.pred.gam <- paste(fmula.pred.gam,' + ',names(data[k]),sep='') } }
-  # gam.scope.mod <- scope.gam(data[,p.pred:(p.resp-1)],smoother= 's', degree='4')
-
-  # GBM-BOOSTING FORMULA
-  for (k in (p.pred):(p.resp - 1)) {
-    if (k == p.pred) {
-      fmula.pred.gbm <- as.vector(paste(names(data[k]), sep = ""), mode = "character")
-    } else {
-
-      fmula.pred.gbm <- paste(fmula.pred.gbm, " + ", names(data[k]), sep = "")
-    }
-  }
-
-###########################################################
-########################## LOOP FOR SPECIES COMPUTATION ##
-  for (i in p.resp:ncol(data)) {
-    if(verbose) cat("Computations", (i - p.resp + 1), "for species ", names(data[i]), "is starting now...","\n", append = FALSE)
-    if(verbose) cat(".............", "\n", append = FALSE)  
-
-    name.tmp.sp <- names(data[i])
-
-
-######################## MODELS CALIBRATION ##
-
-    df.tmp.input <<- na.omit(data[, c(i, p.pred:(p.resp - 1))])
-
-    row.names(df.tmp.input) <- 1:dim(df.tmp.input)[1]
-
-    # df.tmp.input <- na.exclude(df.tmp.input)
-    df.tmp.input <<- na.exclude(df.tmp.input)
-
-    ########### GLM FIT #
-    if(verbose) cat("GLM", "\n", append = FALSE)
-    if(verbose) cat("> calibration", "\n", append = FALSE)
-    glm.tmp.step <- step(glm(eval(parse(text = paste(name.tmp.sp, "~", fmula.pred.glm,
-      collapse = ""))), data = df.tmp.input, family = binomial, maxit = 100),
-      trace = FALSE, direction = "both")
-
-
-    # assign(paste('glm.',name.tmp.sp,sep=''),glm.tmp.step,envir = .GlobalEnv)
-    assign(paste("glm.", name.tmp.sp, sep = ""), glm.tmp.step, envir = ecospat.env)
-
-
-    # ########### # GAM FIT # ########### cat('GAM', '\n',append = FALSE) cat('>
-    # calibration', '\n',append = FALSE) gam.tmp.step <-
-    # step.gam(gam(eval(parse(text = paste(paste(name.tmp.sp), '~ 1', collapse =
-    # ''))), data=df.tmp.input,family=binomial),trace =
-    # FALSE,scope=gam.scope.mod,direction='both',control = gam.control(maxit =
-    # 50,bf.maxit = 50)) assign(paste('gam.',name.tmp.sp,sep=''),gam.tmp.step,envir =
-    # ecospat.env)
-
-
-    ########### GBM FIT #
-
-    if(verbose) cat("GBM", "\n", append = FALSE)
-    if(verbose) cat("> calibration", "\n", append = FALSE)
-
-    gbm.fmula <- eval(parse(text = paste(paste(name.tmp.sp), "~", fmula.pred.gbm,
-      collapse = "")))
-
-    gbm.tmp <- gbm(gbm.fmula, data = df.tmp.input, var.monotone = rep(0, length = n.pred),
-      n.trees = 2000, interaction.depth = 3, n.minobsinnode = 10, shrinkage = 0.01,
-      bag.fraction = 0.5, train.fraction = 1, verbose = FALSE, cv.folds = 10)
-
-    best.itr.temp <- gbm.perf(gbm.tmp, method = "cv", plot.it = FALSE)
-
-    gbm.tmp.cal <- gbm.more(gbm.tmp, n.new.trees = best.itr.temp, data = df.tmp.input)
-
-    assign(paste("gbm.", name.tmp.sp, sep = ""), gbm.tmp.cal, envir = ecospat.env)
-
-
-    ########## ME FIT #
-
-    if(verbose) cat("ME", "\n", append = FALSE)
-    if(verbose) cat("> calibration", "\n", append = FALSE)
-
-    Sys.setenv(NOAWT = TRUE)
-    jar <- paste(system.file(package = "dismo"), "/java/maxent.jar", sep = "")
-    # library(dismo)
-
-    me.tmp <- maxent(df.tmp.input[, 2:ncol(df.tmp.input)], as.vector(df.tmp.input[,
-      1]), path = me.path)
-
-    assign(paste("me.", name.tmp.sp, sep = ""), me.tmp, envir = ecospat.env)
-
-
-    ########## RF FIT #
-
-    if(verbose) cat("RF", "\n", append = FALSE)
-    if(verbose) cat("> calibration", "\n", append = FALSE)
-
-    rf.tmp <- randomForest(x = df.tmp.input[, 2:ncol(df.tmp.input)], y = as.factor(df.tmp.input[,
-      1]), ntree = 1000, importance = TRUE)
-
-    assign(paste("rf.", name.tmp.sp, sep = ""), rf.tmp, envir = ecospat.env)
-
-    #########################################################################################################################################
-
-    if(verbose) cat(".............", "\n", append = FALSE)
-    if(verbose) cat(".............", "\n", append = FALSE)
-
-    rm(df.tmp.input)
-    # END SPECIES LOOP
-  }
-  # END SPECIES LOOP
-
-  # END FUNCTION
-}
-# END FUNCTION
-
-
-
-########################## ## ADD-IN FUNCTIONS ## ##
-
-########################################################################################################################################################
-
-############ CV-GLM ##
+# ecospat.env <- new.env()
+# globalVariables("ecospat.testData")
+# 
+# 
+# ###### Auxiliary function for examples.
+# 
+# glm.gbm.me.rf.fit.model <- function(data, p.pred, p.resp, me.args = c("-J", "-P",
+#   "threshold=FALSE", "product=FALSE", "quadratic=FALSE", "linear=FALSE"), me.path = outpath,
+#   outpath, verbose = FALSE) {
+# 
+#     # ###############
+#   # ## SCOPE.GAM ##
+#   # ###############
+#   #
+#   # scope.gam <- function(data.pred,smoother= "s", degree="4")
+#   # {
+#   #   scope.list.gam <- as.list(data.pred)
+#   #   names(scope.list.gam) <- colnames(data.pred)
+#   #   for(i in 1:ncol(data.pred))
+#   #   {
+#   #     if (is.factor(data.pred[[i]])==TRUE)
+#   #     {
+#   #       junk <- c("1")
+#   #       junk <- c(junk, paste(colnames(data.pred[i]), sep = ""))
+#   #       junk <- eval(parse(text = paste("~", paste(junk, collapse = "+"))))
+#   #       scope.list.gam[[i]] <- junk
+#   #     } else if (is.factor(data.pred[[i]])==FALSE)	{
+#   #       junk <- c("1")
+#   #       junk <- c(junk, paste(smoother,"(", colnames(data.pred[i]),",",degree,")", sep = ""))
+#   #       junk <- eval(parse(text = paste("~", paste(junk, collapse = "+"))))
+#   #       scope.list.gam[[i]] <- junk
+#   #
+#   #     }
+#   #   }
+#   #   return(scope.list.gam)
+#   # }
+# 
+#   sp.names <- colnames(data[p.resp:ncol(data)])
+# 
+#   n.pred <- p.resp - p.pred
+#   rownames(data) <- 1:nrow(data)
+# 
+#   # GLM FORMULA
+#   for (k in (p.pred):(p.resp - 1)) {
+#     if (k == p.pred && is.factor(data[, k]) == FALSE) {
+#       fmula.pred.glm <- as.vector(paste("pol(", names(data[k]), ",2)", sep = ""),
+#         mode = "character")
+#     } else if (k == p.pred && is.factor(data[, k]) == TRUE) {
+#       fmula.pred.glm <- as.vector(paste(names(data[k]), sep = ""), mode = "character")
+#     } else if (is.factor(data[, k]) == FALSE) {
+#       fmula.pred.glm <- paste(fmula.pred.glm, " + pol(", names(data[k]), ",2)",
+#         sep = "")
+# 
+#     } else if (is.factor(data[, k]) == TRUE) {
+# 
+#       fmula.pred.glm <- paste(fmula.pred.glm, " + ", names(data[k]), sep = "")
+#     }
+#   }
+# 
+#   # # GAM FORMULA for (k in (p.pred):(p.resp-1)) { if (k == p.pred &&
+#   # is.factor(data[,k])==FALSE) { fmula.pred.gam <- as.vector(paste('s(',
+#   # names(data[k]),', 4)',sep=''),mode='character') } else if (k == p.pred &&
+#   # is.factor(data[,k])==TRUE) { fmula.pred.gam <-
+#   # as.vector(paste(names(data[k]),sep=''),mode='character') } else if
+#   # (is.factor(data[,k])==FALSE) { fmula.pred.gam <- paste(fmula.pred.gam,' + s(',
+#   # names(data[k]),', 4)',sep='') } else if (is.factor(data[,k])==TRUE) {
+#   # fmula.pred.gam <- paste(fmula.pred.gam,' + ',names(data[k]),sep='') } }
+#   # gam.scope.mod <- scope.gam(data[,p.pred:(p.resp-1)],smoother= 's', degree='4')
+# 
+#   # GBM-BOOSTING FORMULA
+#   for (k in (p.pred):(p.resp - 1)) {
+#     if (k == p.pred) {
+#       fmula.pred.gbm <- as.vector(paste(names(data[k]), sep = ""), mode = "character")
+#     } else {
+# 
+#       fmula.pred.gbm <- paste(fmula.pred.gbm, " + ", names(data[k]), sep = "")
+#     }
+#   }
+# 
+# ###########################################################
+# ########################## LOOP FOR SPECIES COMPUTATION ##
+#   for (i in p.resp:ncol(data)) {
+#     if(verbose) cat("Computations", (i - p.resp + 1), "for species ", names(data[i]), "is starting now...","\n", append = FALSE)
+#     if(verbose) cat(".............", "\n", append = FALSE)  
+# 
+#     name.tmp.sp <- names(data[i])
+# 
+# 
+# ######################## MODELS CALIBRATION ##
+# 
+#     df.tmp.input <<- na.omit(data[, c(i, p.pred:(p.resp - 1))])
+# 
+#     row.names(df.tmp.input) <- 1:dim(df.tmp.input)[1]
+# 
+#     # df.tmp.input <- na.exclude(df.tmp.input)
+#     df.tmp.input <<- na.exclude(df.tmp.input)
+# 
+#     ########### GLM FIT #
+#     if(verbose) cat("GLM", "\n", append = FALSE)
+#     if(verbose) cat("> calibration", "\n", append = FALSE)
+#     glm.tmp.step <- step(glm(eval(parse(text = paste(name.tmp.sp, "~", fmula.pred.glm,
+#       collapse = ""))), data = df.tmp.input, family = binomial, maxit = 100),
+#       trace = FALSE, direction = "both")
+# 
+# 
+#     # assign(paste('glm.',name.tmp.sp,sep=''),glm.tmp.step,envir = .GlobalEnv)
+#     assign(paste("glm.", name.tmp.sp, sep = ""), glm.tmp.step, envir = ecospat.env)
+# 
+# 
+#     # ########### # GAM FIT # ########### cat('GAM', '\n',append = FALSE) cat('>
+#     # calibration', '\n',append = FALSE) gam.tmp.step <-
+#     # step.gam(gam(eval(parse(text = paste(paste(name.tmp.sp), '~ 1', collapse =
+#     # ''))), data=df.tmp.input,family=binomial),trace =
+#     # FALSE,scope=gam.scope.mod,direction='both',control = gam.control(maxit =
+#     # 50,bf.maxit = 50)) assign(paste('gam.',name.tmp.sp,sep=''),gam.tmp.step,envir =
+#     # ecospat.env)
+# 
+# 
+#     ########### GBM FIT #
+# 
+#     if(verbose) cat("GBM", "\n", append = FALSE)
+#     if(verbose) cat("> calibration", "\n", append = FALSE)
+# 
+#     gbm.fmula <- eval(parse(text = paste(paste(name.tmp.sp), "~", fmula.pred.gbm,
+#       collapse = "")))
+# 
+#     gbm.tmp <- gbm(gbm.fmula, data = df.tmp.input, var.monotone = rep(0, length = n.pred),
+#       n.trees = 2000, interaction.depth = 3, n.minobsinnode = 10, shrinkage = 0.01,
+#       bag.fraction = 0.5, train.fraction = 1, verbose = FALSE, cv.folds = 10)
+# 
+#     best.itr.temp <- gbm.perf(gbm.tmp, method = "cv", plot.it = FALSE)
+# 
+#     gbm.tmp.cal <- gbm.more(gbm.tmp, n.new.trees = best.itr.temp, data = df.tmp.input)
+# 
+#     assign(paste("gbm.", name.tmp.sp, sep = ""), gbm.tmp.cal, envir = ecospat.env)
+# 
+# 
+#     ########## ME FIT #
+# 
+#     if(verbose) cat("ME", "\n", append = FALSE)
+#     if(verbose) cat("> calibration", "\n", append = FALSE)
+# 
+#     Sys.setenv(NOAWT = TRUE)
+#     jar <- paste(system.file(package = "dismo"), "/java/maxent.jar", sep = "")
+#     # library(dismo)
+# 
+#     me.tmp <- maxent(df.tmp.input[, 2:ncol(df.tmp.input)], as.vector(df.tmp.input[,
+#       1]), path = me.path)
+# 
+#     assign(paste("me.", name.tmp.sp, sep = ""), me.tmp, envir = ecospat.env)
+# 
+# 
+#     ########## RF FIT #
+# 
+#     if(verbose) cat("RF", "\n", append = FALSE)
+#     if(verbose) cat("> calibration", "\n", append = FALSE)
+# 
+#     rf.tmp <- randomForest(x = df.tmp.input[, 2:ncol(df.tmp.input)], y = as.factor(df.tmp.input[,
+#       1]), ntree = 1000, importance = TRUE)
+# 
+#     assign(paste("rf.", name.tmp.sp, sep = ""), rf.tmp, envir = ecospat.env)
+# 
+#     #########################################################################################################################################
+# 
+#     if(verbose) cat(".............", "\n", append = FALSE)
+#     if(verbose) cat(".............", "\n", append = FALSE)
+# 
+#     rm(df.tmp.input)
+#     # END SPECIES LOOP
+#   }
+#   # END SPECIES LOOP
+# 
+#   # END FUNCTION
+# }
+# # END FUNCTION
+# 
+# 
+# 
+# ########################## ## ADD-IN FUNCTIONS ## ##
+# 
+# ########################################################################################################################################################
+# 
+# ############ CV-GLM ##
 
 ecospat.cv.glm <- function(glm.obj, K = 10, cv.lim = 10, jack.knife = FALSE, verbose = FALSE) {
   # CONTROL IF THE NUMBER OF OBSERVATIONS IS SUFFICIENT
@@ -977,71 +977,71 @@ ecospat.varpart <- function(model.1, model.2, model.12) {
   return(mat.estim)
 }
 
-##################################################################################################################################
-
-
-######## CV example function.
-
-
-
-ecospat.cv.example <- function() {
-  
-  #Position of the first predictor
-  p.pred <- 4
-
-  #Position of the first species (i.e. respone variable)
-  p.resp <- 9
-
-  # Argument for Maxent calibration
-  me.args = c("-J", "-P", "threshold=FALSE", "product=FALSE", "quadratic=FALSE","linear=FALSE")
-
-  outpath <- getwd()
-
-  # Path for Maxent output
-  me.path <- outpath
-
-  # IMPORTING DATASET
-
-  # Read directly from the package data folder.
-   data('ecospat.testData',envir=ecospat.env) 
-   data <- get('ecospat.testData',envir = ecospat.env)[,1:10]
-   data <- ecospat.testData[, 1:10]
-
-  # Run the code with the ECOSPAT example dataset
-  glm.gbm.me.rf.fit.model(data, p.pred, p.resp, me.args = c("-J", "-P", "threshold=FALSE", "product=FALSE", "quadratic=FALSE", "linear=FALSE"), me.path = outpath, outpath)
-
-  #########################################################################################################################################
-
-  # Examples for running cross-validation function
-
-  ######################## GLM MODEL EVALUATION #
-
-  # STRATIFIED-CV FOR GLM
-  df.out.cv.glm.achatr <- ecospat.cv.glm(get("glm.Achillea_atrata", envir = ecospat.env),  K = 10, cv.lim = 10, jack.knife = FALSE)
-
-
-  #permut.glm.saopp <- ecospat.permut.glm(glm.SAOPP,100)
-
-
-  # ######################## # GAM MODEL EVALUATION # ######################## #
-  # STRATIFIED-CV FOR GAM df.out.cv.gam.achatr <-
-  #ecospat.cv.gam(get('gam.Achillea_atrata',envir = ecospat.env), K = 10, cv.lim =
-  # 10, jack.knife = FALSE)
-
-  ######################## GBM MODEL EVALUATION #
-
-  # STRATIFIED-CV FOR GBM
-  df.out.cv.gbm.achatr <- ecospat.cv.gbm(get("gbm.Achillea_atrata", envir = ecospat.env),  data, K = 10, cv.lim = 10, jack.knife = FALSE)
-
-  ####################### ME MODEL EVALUATION #
-
-  # STRATIFIED-CV FOR ME df.out.cv.me <-
-  #ecospat.cv.me(df.tmp.input,names(df.tmp.input[1]),names(df.tmp.input[2:ncol(df.tmp.input)]),K=10, cv.lim = 10, jack.knife = FALSE)
-
-  df.out.cv.me.achatr <- ecospat.cv.me(data, names(data)[9], names(data)[4:8],  K = 10, cv.lim = 10, jack.knife = FALSE)
-
-  ####################### RF MODEL EVALUATION #
-
-  # STRATIFIED-CV FOR RF
-  df.out.cv.rf.achatr <- ecospat.cv.rf(get("rf.Achillea_atrata", envir = ecospat.env),data[, c(9, 4:8)], K = 10, cv.lim = 10, jack.knife = FALSE)
-}
+# ##################################################################################################################################
+# 
+# 
+# ######## CV example function.
+# 
+# 
+# 
+# ecospat.cv.example <- function() {
+#   
+#   #Position of the first predictor
+#   p.pred <- 4
+# 
+#   #Position of the first species (i.e. respone variable)
+#   p.resp <- 9
+# 
+#   # Argument for Maxent calibration
+#   me.args = c("-J", "-P", "threshold=FALSE", "product=FALSE", "quadratic=FALSE","linear=FALSE")
+# 
+#   outpath <- getwd()
+# 
+#   # Path for Maxent output
+#   me.path <- outpath
+# 
+#   # IMPORTING DATASET
+# 
+#   # Read directly from the package data folder.
+#    data('ecospat.testData',envir=ecospat.env) 
+#    data <- get('ecospat.testData',envir = ecospat.env)[,1:10]
+#    data <- ecospat.testData[, 1:10]
+# 
+#   # Run the code with the ECOSPAT example dataset
+#   glm.gbm.me.rf.fit.model(data, p.pred, p.resp, me.args = c("-J", "-P", "threshold=FALSE", "product=FALSE", "quadratic=FALSE", "linear=FALSE"), me.path = outpath, outpath)
+# 
+#   #########################################################################################################################################
+# 
+#   # Examples for running cross-validation function
+# 
+#   ######################## GLM MODEL EVALUATION #
+# 
+#   # STRATIFIED-CV FOR GLM
+#   df.out.cv.glm.achatr <- ecospat.cv.glm(get("glm.Achillea_atrata", envir = ecospat.env),  K = 10, cv.lim = 10, jack.knife = FALSE)
+# 
+# 
+#   #permut.glm.saopp <- ecospat.permut.glm(glm.SAOPP,100)
+# 
+# 
+#   # ######################## # GAM MODEL EVALUATION # ######################## #
+#   # STRATIFIED-CV FOR GAM df.out.cv.gam.achatr <-
+#   #ecospat.cv.gam(get('gam.Achillea_atrata',envir = ecospat.env), K = 10, cv.lim =
+#   # 10, jack.knife = FALSE)
+# 
+#   ######################## GBM MODEL EVALUATION #
+# 
+#   # STRATIFIED-CV FOR GBM
+#   df.out.cv.gbm.achatr <- ecospat.cv.gbm(get("gbm.Achillea_atrata", envir = ecospat.env),  data, K = 10, cv.lim = 10, jack.knife = FALSE)
+# 
+#   ####################### ME MODEL EVALUATION #
+# 
+#   # STRATIFIED-CV FOR ME df.out.cv.me <-
+#   #ecospat.cv.me(df.tmp.input,names(df.tmp.input[1]),names(df.tmp.input[2:ncol(df.tmp.input)]),K=10, cv.lim = 10, jack.knife = FALSE)
+# 
+#   df.out.cv.me.achatr <- ecospat.cv.me(data, names(data)[9], names(data)[4:8],  K = 10, cv.lim = 10, jack.knife = FALSE)
+# 
+#   ####################### RF MODEL EVALUATION #
+# 
+#   # STRATIFIED-CV FOR RF
+#   df.out.cv.rf.achatr <- ecospat.cv.rf(get("rf.Achillea_atrata", envir = ecospat.env),data[, c(9, 4:8)], K = 10, cv.lim = 10, jack.knife = FALSE)
+# }

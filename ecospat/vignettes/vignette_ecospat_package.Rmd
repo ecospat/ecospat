@@ -214,7 +214,7 @@ grid.clim.inv <- ecospat.grid.clim.dyn(glob=scores.globclim,
 ### Calculate Niche Overlap with *ecospat.niche.overlap()*
 ```{r}
 # Compute Schoener's D, index of niche overlap
-D.overlap <- ecospat.niche.overlap (grid.clim.nat, grid.clim.inv, cor=T)$D 
+D.overlap <- ecospat.niche.overlap (grid.clim.nat, grid.clim.inv, cor = TRUE)$D 
 D.overlap
 ```
 The niche overlap between the native and the invaded range is 22%.
@@ -370,9 +370,8 @@ pred<-ecospat.testData[c(73:92)]
 ```
 
 ```{r}
-# remove insivible(capture.output)) to print output in the console
-# this is just to keep the vignette short
-invisible(capture.output(ecospat.CommunityEval (eval, pred, proba=T, ntir=5)))
+CommunityEval<-ecospat.CommunityEval (eval, pred, proba = TRUE, ntir=5,verbose = T)
+
 ```
 
 ## Spatial Predictions and Projections
@@ -381,7 +380,6 @@ invisible(capture.output(ecospat.CommunityEval (eval, pred, proba=T, ntir=5)))
 
 ```{r}
 library(biomod2)
-path.wd<-getwd()
 ```
 
 ```{r}
@@ -396,7 +394,6 @@ current <- inv[3:7]
 head(current)
 
 ## BIOMOD
-setwd(path.wd)
 t1 <- Sys.time()
 sp<-1
 ```
@@ -463,9 +460,8 @@ sr <- as.data.frame(rowSums(proba))
 
 ## SESAM framework with *ecospat.SESAM.prr()*
 ```{r SESAM}
-# remove insivible(capture.output)) to print output in the console
-# this is just to keep the vignette short
-invisible(capture.output(ecospat.SESAM.prr(proba, sr)))
+prr<-ecospat.SESAM.prr(proba, sr)
+head(prr)[,1:4]
 ```
 
 

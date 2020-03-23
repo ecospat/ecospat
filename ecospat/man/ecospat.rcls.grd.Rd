@@ -24,9 +24,12 @@ Achilleas Psomas \email{achilleas.psomas@wsl.ch} and Niklaus E. Zimmermann \emai
 
 \examples{
 
-   \donttest{
+library(raster)
+library(classInt)
+
 bio3<- raster(system.file("external/bioclim/current/bio3.grd",package="biomod2"))
 bio12<- raster(system.file("external/bioclim/current/bio12.grd",package="biomod2"))
+
 B3.rcl<-ecospat.rcls.grd(bio3,9) 
 B12.rcl<-ecospat.rcls.grd(bio12,9)
 B3B12.comb <- B12.rcl+B3.rcl*10
@@ -36,4 +39,4 @@ hist(B3B12.comb,breaks=100,col=heat.colors(88))
 # Plotting the new RasterLayer (9x9 classes)
 plot(B3B12.comb,col=rev(rainbow(88)),main="Stratified map") 
 
-}}
+}

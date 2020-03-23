@@ -30,9 +30,17 @@ Pearman, P.B., C.F. Randin, O. Broennimann, P. Vittoz, W.O. van der Knaap, R. En
 \examples{
 \donttest{
 
-ecospat.cv.example() #generates data
-glm <- ecospat.cv.glm (glm.obj = get ("glm.Achillea_atrata", envir=ecospat.env), 
-K=10, cv.lim=10, jack.knife=FALSE)
-glm
+data('ecospat.testData')
+
+# data for Soldanella alpina
+data.Solalp<- ecospat.testData[c("Soldanella_alpina","ddeg","mind","srad","slp","topo")] 
+
+# gbm model for Soldanella alpina
+library(rms)
+glm.Solalp <- glm("Soldanella_alpina ~ pol(ddeg,2) + pol(mind,2) + pol(srad,2) + pol(slp,2) 
+      + pol(topo,2)", data = data.Solalp, family = binomial)
+
+# cross-validated predictions
+glm.pred <- ecospat.cv.glm (glm.obj=glm.Solalp , K=10, cv.lim=10, jack.knife=FALSE)
 }
 }

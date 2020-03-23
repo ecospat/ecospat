@@ -138,8 +138,8 @@ ecospat.rangesize <- function(bin.map = NULL,
       }
         
       if(Model.within.eoo){
-        d<-extract(bin.map[[i]], xy.eoo@polygons,cellnumbers=T)
-        mo.within.eoo <- c(mo.within.eoo,round(sum(d[[1]][,2],na.rm=T)*prod(res(bin.map[[i]]))))
+        d<-extract(bin.map[[i]], xy.eoo@polygons,cellnumbers = TRUE)
+        mo.within.eoo <- c(mo.within.eoo,round(sum(d[[1]][,2],na.rm = TRUE)*prod(res(bin.map[[i]]))))
         
         cells <- d[[1]][,1][d[[1]][,2]==1 & !is.na(d[[1]][,2])]
         

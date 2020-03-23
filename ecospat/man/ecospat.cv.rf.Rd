@@ -29,9 +29,13 @@ Pearman, P.B., C.F. Randin, O. Broennimann, P. Vittoz, W.O. van der Knaap, R. En
 \author{Christophe Randin \email{christophe.randin@wsl.ch} and Antoine Guisan \email{antoine.guisan@unil.ch}}
     
 \examples{
-\donttest{
-ecospat.cv.example() #generates data
-rf <- ecospat.cv.rf(get("glm.Achillea_atrata", envir = ecospat.env), 
-ecospat.testData[, c(53, 4:8)], K = 10, cv.lim = 10, jack.knife = FALSE)
-}
+data('ecospat.testData')
+
+# data for Soldanella alpina
+data.Solalp<- ecospat.testData[c("Soldanella_alpina","ddeg","mind","srad","slp","topo")] 
+
+library(randomForest)
+rf.Solalp <- randomForest(x = data.Solalp[,-1], y = as.factor(data.Solalp[,1]))
+rf.pred <- ecospat.cv.rf(rf.Solalp, data.Solalp, K = 10, cv.lim = 10, 
+                         jack.knife = FALSE, verbose = FALSE)
 }

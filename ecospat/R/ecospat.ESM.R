@@ -155,6 +155,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
   models <- sort(models)
   
   iniwd <- getwd()
+  on.exit(setwd(iniwd)) 
   dir.create(paste("./ESM.BIOMOD.output", data@sp.name, sep = "_"))
   newwd <- paste(getwd(), "/ESM.BIOMOD.output_", data@sp.name, sep = "")
   setwd(newwd)
@@ -448,6 +449,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
   }
   
   iniwd <- getwd()
+  on.exit(setwd(iniwd)) 
   setwd(ESM.modeling.output$wd)
   data <- ESM.modeling.output$data
   models. <- ESM.modeling.output$models.
@@ -961,7 +963,7 @@ ecospat.mpa <- function(Pred, Sp.occ.xy, perc = 0.9) {
   if (class(Pred) == "RasterLayer") {
     Pred <- extract(Pred, Sp.occ.xy)
   }
-  round(quantile(Pred, probs = perc,na.rm=T), 3)
+  round(quantile(Pred, probs = perc,na.rm = TRUE), 3)
 }
 
 ### EXAMPLE

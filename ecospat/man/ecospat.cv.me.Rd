@@ -31,9 +31,24 @@ Pearman, P.B., C.F. Randin, O. Broennimann, P. Vittoz, W.O. van der Knaap, R. En
 \author{Christophe Randin \email{christophe.randin@unibas.ch} and Antoine Guisan \email{antoine.guisan@unil.ch}}
     
 \examples{
-
 \donttest{
-me <- ecospat.cv.me(ecospat.testData, names(ecospat.testData)[53], 
-names(ecospat.testData)[4:8], K = 10, cv.lim = 10, jack.knife = FALSE)
+data('ecospat.testData')
+
+# data for Soldanella alpina
+data.Solalp<- ecospat.testData[c("Soldanella_alpina","ddeg","mind","srad","slp","topo")] 
+
+# maxent modelling and cross-validated predictions
+
+# copy maxent.jar file in the right folder
+path.from<-system.file("extdata", "maxent.txt", package="ecospat")
+path.to <- paste0(system.file(package="dismo"), "/java/maxent.txt")
+path.to.renamed <- paste0(system.file(package="dismo"), "/java/maxent.jar")
+file.copy(path.from,path.to,overwrite = TRUE)
+file.rename(path.to, path.to.renamed)
+
+if (file.exists(path.to.renamed) & require(rJava)) {
+  me.pred <- ecospat.cv.me(data.Solalp, names(data.Solalp)[1],
+             names(data.Solalp)[-1], K = 10, cv.lim = 10, jack.knife = FALSE)
+  }
 }
 }

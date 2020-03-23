@@ -10,8 +10,8 @@
 ecospat.climan<-function(ref,p){
 p<-as.matrix(p)
 a<-apply(ref,2,min);b<-apply(ref,2,max)
-minref<-matrix(a,nrow=nrow(p),ncol=ncol(p),byrow=T)
-maxref<-matrix(b,nrow=nrow(p),ncol=ncol(p),byrow=T)
+minref<-matrix(a,nrow=nrow(p),ncol=ncol(p),byrow = TRUE)
+maxref<-matrix(b,nrow=nrow(p),ncol=ncol(p),byrow = TRUE)
 
 nt1<-rowSums(apply(array(data=c(p-minref, maxref-p, rep(0,nrow(p)*ncol(p))),dim=c(dim(p),3)), c(1,2),min)/(maxref-minref))
 

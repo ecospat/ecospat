@@ -523,7 +523,7 @@ ecospat.CCV.modeling <- function(sp.data,
       
       #Single model variable importance
       temp.variableimprtance <- get_variables_importance(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
-      singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm=T),2)
+      singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
       
       #Single model predictions
       temp.predictions <- get_predictions(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
@@ -712,7 +712,7 @@ ecospat.CCV.modeling <- function(sp.data,
       
       #Single model variable importance
       temp.variableimprtance <- get_variables_importance(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
-      singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm=T),2)
+      singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
       
       #Single model predictions
       temp.predictions <- get_predictions(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
@@ -763,8 +763,8 @@ ecospat.CCV.modeling <- function(sp.data,
   }
   
   #Making the average prediction per site
-  allSites.averagePredictions.cali <- apply(all.predictions.caliSites, 1:2, mean, na.rm=T)
-  allSites.averagePredictions.eval <- apply(all.predictions.evalSites, 1:2, mean, na.rm=T)
+  allSites.averagePredictions.cali <- apply(all.predictions.caliSites, 1:2, mean, na.rm = TRUE)
+  allSites.averagePredictions.eval <- apply(all.predictions.evalSites, 1:2, mean, na.rm = TRUE)
   
   #Writing the final output files ##############################################################################################
   save(singleSpecies.ensembleEvaluationScore, file="singleSpecies.ensembleEvaluationScore.RData")
@@ -1329,13 +1329,13 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
       PA.PS_SDM.cali <- t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,run])/1000
       PA.PS_SDM.eval <- t(ccv.modeling.data$singleSpecies.evaluationSites.ensemblePredictions[,,run])/1000
       #SR calculation
-      SR.cali <- rowSums(PA.PS_SDM.cali, na.rm=T)
-      SR.eval <- rowSums(PA.PS_SDM.eval, na.rm=T)
+      SR.cali <- rowSums(PA.PS_SDM.cali, na.rm = TRUE)
+      SR.eval <- rowSums(PA.PS_SDM.eval, na.rm = TRUE)
       for(p in 1:dim(PA.PS_SDM.cali)[1]){
         if(round(SR.cali[p])==0){
           PA.PS_SDM.cali[p,] <- 0
         }else{
-          pS_SDM.threshold <- sort(PA.PS_SDM.cali[p,], decreasing=T)[round(SR.cali[p])]
+          pS_SDM.threshold <- sort(PA.PS_SDM.cali[p,], decreasing = TRUE)[round(SR.cali[p])]
           PA.PS_SDM.cali[p,PA.PS_SDM.cali[p,]>=as.numeric(pS_SDM.threshold)] <- 1
           PA.PS_SDM.cali[p,PA.PS_SDM.cali[p,]<as.numeric(pS_SDM.threshold)] <- 0    
         }
@@ -1344,12 +1344,12 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
         if(round(SR.eval[p])==0){
           PA.PS_SDM.eval[p,] <- 0
         }else{
-          pS_SDM.threshold <- sort(PA.PS_SDM.eval[p,], decreasing=T)[round(SR.eval[p])]
+          pS_SDM.threshold <- sort(PA.PS_SDM.eval[p,], decreasing = TRUE)[round(SR.eval[p])]
           PA.PS_SDM.eval[p,PA.PS_SDM.eval[p,]>=as.numeric(pS_SDM.threshold)] <- 1
           PA.PS_SDM.eval[p,PA.PS_SDM.eval[p,]<as.numeric(pS_SDM.threshold)] <- 0    
         }
       }
-      dir.create(paste(ccv.modeling.data$modeling.id, "/Thresholding/PS_SDM", sep=""), recursive=TRUE)
+      dir.create(paste(ccv.modeling.data$modeling.id, "/Thresholding/PS_SDM", sep=""), recursive = TRUE)
       save(PA.PS_SDM.cali, file=paste(ccv.modeling.data$modeling.id, "/Thresholding/PS_SDM/PA.PS_SDM.cali_",run,".RData", sep=""))
       save(PA.PS_SDM.eval, file=paste(ccv.modeling.data$modeling.id, "/Thresholding/PS_SDM/PA.PS_SDM.eval_",run,".RData", sep=""))
       community.compairison(sp.data.cali=t(ccv.modeling.data$speciesData.calibration[,,run]), 
@@ -1374,7 +1374,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
         if(round(SR.cali[p])==0){
           PA.MEM.cali[p,] <- 0
         }else{
-          MEM.threshold <- sort(PA.MEM.cali[p,], decreasing=T)[round(SR.cali[p])]
+          MEM.threshold <- sort(PA.MEM.cali[p,], decreasing = TRUE)[round(SR.cali[p])]
           PA.MEM.cali[p,PA.MEM.cali[p,]>=as.numeric(MEM.threshold)] <- 1
           PA.MEM.cali[p,PA.MEM.cali[p,]<=as.numeric(MEM.threshold)] <- 0    
         }
@@ -1383,12 +1383,12 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
         if(round(SR.eval[p])==0){
           PA.MEM.eval[p,] <- 0
         }else{
-          MEM.threshold <- sort(PA.MEM.eval[p,], decreasing=T)[round(SR.eval[p])]
+          MEM.threshold <- sort(PA.MEM.eval[p,], decreasing = TRUE)[round(SR.eval[p])]
           PA.MEM.eval[p,PA.MEM.eval[p,]>=as.numeric(MEM.threshold)] <- 1
           PA.MEM.eval[p,PA.MEM.eval[p,]<=as.numeric(MEM.threshold)] <- 0    
         }
       }
-      dir.create(paste(ccv.modeling.data$modeling.id, "/Thresholding/MEM", sep=""), recursive=TRUE)
+      dir.create(paste(ccv.modeling.data$modeling.id, "/Thresholding/MEM", sep=""), recursive = TRUE)
       save(PA.MEM.cali, file=paste(ccv.modeling.data$modeling.id, "/Thresholding/MEM/PA.MEM.cali_",run,".RData", sep=""))
       save(PA.MEM.eval, file=paste(ccv.modeling.data$modeling.id, "/Thresholding/MEM/PA.MEM.eval_",run,".RData", sep=""))
       community.compairison(sp.data.cali=t(ccv.modeling.data$speciesData.calibration[,,run]), 

@@ -28,6 +28,7 @@ Engler, R., A. Guisan and L. Rechsteiner. 2004. An improved approach for predict
 
 
 \examples{
+data(ecospat.testData)
 obs <- (ecospat.testData$glm_Saxifraga_oppositifolia
 [which(ecospat.testData$Saxifraga_oppositifolia==1)])
 

@@ -28,7 +28,7 @@ ecospat.ESM.responsePlot <-
     
     proj.fixed.list[[i]] <- cbind(data.fixed[,i],proj.fixed.list[[i]])
     }
-    # plot(proj.fixed.list[[i]]$EF~ proj.fixed.list[[i]][,1], xlab='',main= names(proj.fixed.list)[i], ylab='predicted value', ylim=c(0,1000), type='n',las=T)
+    # plot(proj.fixed.list[[i]]$EF~ proj.fixed.list[[i]][,1], xlab='',main= names(proj.fixed.list)[i], ylab='predicted value', ylim=c(0,1000), type='n',las = TRUE)
     # 
     # if(ncol(proj.fixed.list[[i]])>1){
     #   for(mod.i in models){
@@ -64,7 +64,7 @@ ecospat.ESM.responsePlot <-
       
       for(i in 1:ncol(data)){
       plot(proj.fixed.list[[i]]$EF~ proj.fixed.list[[i]][,1], xlab='',main= names(proj.fixed.list)[i], ylab='predicted value', 
-           ylim=c(min(sapply(proj.fixed.list,function(x){min(x[,-1])})),max(sapply(proj.fixed.list,function(x){max(x[,-1])}))), type='n',las=T)
+           ylim=c(min(sapply(proj.fixed.list,function(x){min(x[,-1])})),max(sapply(proj.fixed.list,function(x){max(x[,-1])}))), type='n',las = TRUE)
       
       if(ncol(proj.fixed.list[[i]])>2){
         for(mod.i in models){
