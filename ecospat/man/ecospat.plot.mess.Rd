@@ -24,7 +24,7 @@ Elith, J., M. Kearney and S. Phillips. 2010. The art of modelling range-shifting
 
 
 \examples{
-\dontrun{
+\donttest{
 x <- ecospat.testData[c(2,3,4:8)]
 proj <- x[1:90,] #A projection dataset.
 cal <- x[91:300,] #A calibration dataset

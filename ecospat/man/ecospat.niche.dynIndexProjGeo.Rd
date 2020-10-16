@@ -32,15 +32,15 @@ Petitpierre, B., C. Kueffer, O. Broennimann, C. Randin, C. Daehler and A. Guisan
 \seealso{\code{\link{ecospat.plot.niche.dyn}},\code{\link{ecospat.niche.dyn.index}}, \code{\link{ecospat.niche.zProjGeo}}}
 
 \examples{
-\dontrun{
+\donttest{
 
 library(raster)
 
+data(ecospat.testNiche)
 spp <- ecospat.testNiche
 xy.sp1<-subset(spp,species=="sp1")[2:3] #Bromus_erectus
 xy.sp2<-subset(spp,species=="sp3")[2:3] #Daucus_carota
 
-?ecospat.testEnvRaster
 load(system.file("extdata", "ecospat.testEnvRaster.Rdata", package="ecospat"))
 
 env.sp1<-extract(env,xy.sp1)
@@ -67,7 +67,7 @@ points(scores.sp1)
 plot(z2$z.uncor)
 points(scores.sp2)
 
-ecospat.niche.overlap(z1,z2 ,cor=T)
+ecospat.niche.overlap(z1,z2 ,cor = TRUE)
 
 #################################### stability S in space ##################################
 

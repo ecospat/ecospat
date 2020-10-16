@@ -8,20 +8,14 @@ Pairwise co-occurrence Analysis with calculation of the C-score index.
 The function tests for nonrandom patterns of species co-occurrence in a presence-absence matrix. It calculates the C-score index for the whole community and for each species pair. Null communities have column sum fixed.
 }
 \usage{
-ecospat.Cscore (data, nperm, outpath)
+ecospat.Cscore (data, nperm, outpath, verbose = FALSE)
 }
 \arguments{
-    \item{data}{
-        A presence-absence dataframe for each species (columns) in each location or grid cell (rows). Column names (species names) and row names (sampling plots).
-    }
-    \item{nperm}{
-The number of permutation in the null model.
-
-    }
-    \item{outpath}{
-Path to specify where to save the results.
-    }
-    }
+    \item{data}{A presence-absence dataframe for each species (columns) in each location or grid cell (rows). Column names (species names) and row names (sampling plots).}
+    \item{nperm}{The number of permutation in the null model.}
+    \item{outpath}{Path to specify where to save the results.}
+    \item{verbose}{Boolean indicating whether to print progress output during calculation. Default is FALSE.}
+}
 \details{
 This function allows to apply a pairwise null model analysis (Gotelli and Ulrich 2010) to a presence-absence community matrix to determine which species associations are significant across the study area. The strength of associations is quantified by the C-score index (Stone and Roberts 1990) and a 'fixed-equiprobable' null model algorithm is applied.
 The format required for input databases: a plots (rows) x species (columns) matrix. Input matrices should have column names (species names) and row names (sampling plots). 
@@ -52,6 +46,6 @@ Stone, L. and A. Roberts, A. 1990. The checkerboard score and species distributi
 data<- ecospat.testData[c(53,62,58,70,61,66,65,71,69,43,63,56,68,57,55,60,54,67,59,64)]
 nperm <- 10000
 outpath <- getwd()
-ecospat.Cscore(data, nperm, outpath)
+Cscore<-ecospat.Cscore(data, nperm, outpath)
 
 }}

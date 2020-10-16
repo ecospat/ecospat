@@ -24,10 +24,18 @@
 
 
 \examples{
-\dontrun{
-ecospat.cv.example()
-ecospat.varpart (model.1= get ("glm.Achillea_atrata", envir=ecospat.env), 
-model.2= get ("glm.Achillea_millefolium", envir=ecospat.env), 
-model.12= get ("glm.Achillea_millefolium", envir=ecospat.env))
-}
+library(rms)
+data('ecospat.testData')
+
+# data for Soldanella alpina and Achillea millefolium
+data.Solalp<- ecospat.testData[c("Soldanella_alpina","ddeg","mind","srad","slp","topo")]
+
+# glm models for Soldanella alpina
+
+glm.Solalp1 <- glm("Soldanella_alpina ~ pol(ddeg,2) + pol(mind,2) + pol(srad,2)", 
+                  data = data.Solalp, family = binomial)
+glm.Solalp2 <- glm("Soldanella_alpina ~ pol(slp,2) + pol(topo,2)", 
+                  data = data.Solalp, family = binomial)
+                  
+ecospat.varpart (model.1= glm.Solalp1, model.2= glm.Solalp2, model.12= glm.Solalp2)
 }

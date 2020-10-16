@@ -24,7 +24,7 @@ with contributions of Olivier Broennimann \email{olivier.broennimann@unil.ch}}
 
 \examples{
 
-\dontrun{
+\donttest{
 spp <- ecospat.testNiche
 colnames(spp)[2:3] <- c('x','y')
 sp1 <- spp[1:32,2:3]

@@ -25,33 +25,39 @@ root2tip <- function(tree, species) {
 }
 
 topology.pd <- function(t, taxa, type = "Q") {
+  
+  if (!type %in% c("I","Q","P","W")) {
+    warning(paste0("WARNING: Type of measure '", type, "' unknown, using 'Q' as default"))
+    type = "Q"
+    }
+  
   Ii <- numeric(length(taxa))
 
   for (i in 1:length(taxa)) {
     Ii[i] <- length(root2tip(t, taxa[i]))
-  }
+    }
 
-  I <- sum(Ii)
-  if (type == "I")
+  if (type == "I"){
+    I <- sum(Ii)
     return(I)
+    }
+    
 
-  Qi <- I/Ii
-  Q <- sum(Qi)
-  if (type == "Q")
+  if (type == "Q"){
+    Qi <- I/Ii
+    Q <- sum(Qi)
     return(Q)
+    }
+    
 
-  if (type == "P")
-    return((Qi/Q) * 100)
+  if (type == "P") return((Qi/Q) * 100)
 
-  Qmin <- min(Qi)
-  Wi <- Qi/Qmin
-  W <- sum(Wi)
-  if (type == "W")
+  if (type == "W"){
+    Qmin <- min(Qi)
+    Wi <- Qi/Qmin
+    W <- sum(Wi)
     return(W)
-
-  # in case the type was not specified correctly
-  cat("WARNING: Type of measure '", type, "' unknow, using 'Q' as default.\n", sep = "")
-  return(Q)
+    }
 }
 
 spanning.pd <- function(t, taxa, type = "clade", root = FALSE, average = FALSE) {
@@ -102,6 +108,12 @@ spanning.pd <- function(t, taxa, type = "clade", root = FALSE, average = FALSE) 
 }
 
 pairwise.pd <- function(t, taxa, type = "J") {
+  
+  if (!type %in% c("J","F","AvTD","TTD","Dd")) {
+    warning(paste0("WARNING: Type of measure '", type, "' unknown, using 'J' as default"))
+    type = "J"
+  }
+  
   all.taxa <- t$tip.label
 
   if (length(taxa) == 1) {
@@ -139,9 +151,6 @@ pairwise.pd <- function(t, taxa, type = "J") {
   # add to the diagonal otherwise the smaller distance is 0
   if (type == "Dd")
     return(sum(apply(dist + diag(max(dist), nrow = nsp), 1, min)))
-
-  cat("WARNING: Type of measure '", type, "' unknow, using 'J' as default.\n", sep = "")
-  return((sum(dist)/nsp^2))
 }
 
 data2tree <- function(t, d) {
@@ -170,7 +179,7 @@ data2tree <- function(t, d) {
 }
 
 ecospat.calculate.pd <- function(tree, data, method = "spanning", type = "clade", root = FALSE, average = FALSE,
-  verbose = TRUE) {
+  verbose = FALSE) {
   x <- data2tree(tree, data)
   t <- x$tree
   d <- x$data

@@ -36,7 +36,7 @@ IUCN Standards and Petitions Subcommittee. 2016. Guidelines for Using the IUCN R
 }
 \examples{
 
-\dontrun{
+\donttest{
 library(raster)
 library(dismo)
 

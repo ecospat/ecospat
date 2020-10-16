@@ -37,40 +37,40 @@ Hordijk, W. and O. Broennimann. 2012. Dispersal routes reconstruction and the mi
 Broennimann, O., P. Mraz, B. Petitpierre, A. Guisan, and H. Muller-Scharer. 2014. Contrasting spatio-temporal climatic niche dynamics during the eastern and western invasions of spotted knapweed in North America.\emph{Journal of biogeography}, \bold{41}, 1126-1136.
 }
 \examples{
-   \dontrun{
 library(maps)
+
 data(ecospat.testMdr)
 data<- ecospat.testMdr
+intros<-order(data$date)[1:2] # rows corresponding to first introductions
 
-fixed.sources.rows<-order(data$date)[1:2] #first introductions
+# plot observed situation
 
-#plot observed situation
 plot(data[,2:1],pch=15,cex=0.5)
-points(data[fixed.sources.rows,2:1],pch=19,col="red")
+points(data[intros,2:1],pch=19,col="red")
 text(data[,2]+0.5,data[,1]+0.5,data[,3],cex=0.5)
-map(add=T)
+map(add=TRUE)
 
-# mca 
-obs<-ecospat.mdr(data=data,
-xcol=2,
-ycol=1,
-datecol=3,
-mode="min",
-rep=100,
-mean.date.error=1,
-fixed.sources.rows)
+# calculate minimum cost arborescence (MCA) of dispersal routes
 
-#plot results
-lwd<-(obs[[1]]$bootstrap.value)
-x11();plot(obs[[1]][,3:4],type="n",xlab="longitude",ylab="latitude")
-arrows(obs[[1]][,1],obs[[1]][,2],obs[[1]][,3],obs[[1]][,4],length = 0.05,lwd=lwd*2)
-map(add=T)
-points(data[fixed.sources.rows,2:1],pch=19,col="red")
-text(data[fixed.sources.rows,2]+0.5,data[fixed.sources.rows,1]+0.5,data[fixed.sources.rows,3],
-cex=1,col="red")
-title(paste("total routes length : ",
-round(obs[[2]],2)," Deg","\n","median dispersal rate : ",
-round(obs[[3]],2)," Deg/year","\n","number of outcoming nodes : ",
-obs[[4]]))
-}
+obs<-ecospat.mdr(data=data,xcol=2,ycol=1,datecol=3,mode="min",rep=100,
+                  mean.date.error=1,fixed.sources.rows=intros)
+
+# plot MCA results
+# arrows' thickness indicate support for the routes
+
+mca<-obs[[1]]
+plot(mca[,3:4],type="n",xlab="longitude",ylab="latitude")
+arrows(mca[,1],mca[,2],mca[,3],mca[,4],length = 0.05,lwd=mca$bootstrap.value*2)
+map(add=TRUE)
+
+# plot intros
+
+points(data[intros,2:1],pch=19,col="red")
+text(data[intros,2]+0.5,data[intros,1]+0.5,data[intros,3],cex=1,col="red")
+
+# dispersal routes statistics
+
+obs[[2]] # total routes length in DD
+obs[[3]] # median dispersal rate in DD/yr
+obs[[4]] # number of outcoming nodes
 }

@@ -8,18 +8,17 @@ Evaluates community predictions directly on the probabilities (i.e., threshold i
 This function generates a number of community evaluation metrics directly based on the probability returned by the individual models. Instead of thresholding the predictions (\code{\link{ecospat.CCV.communityEvaluation.bin}} this function directly uses the probability and compares its outcome to null models or average expectations.)
 }
 \usage{
-ecospat.CCV.communityEvaluation.prob(
-      ccv.modeling.data,
-      community.metrics=c('SR.deviation','community.AUC','probabilistic.Sorensen'),
-      se.th=0.01,
-      parallel = TRUE,
-      cpus = 4)
+ecospat.CCV.communityEvaluation.prob(ccv.modeling.data,
+    community.metrics=c('SR.deviation','community.AUC','Max.Sorensen',
+                         'Max.Jaccard','probabilistic.Sorensen',
+                         'probabilistic.Jaccard'),
+    parallel = FALSE, 
+    cpus = 4)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{ccv.modeling.data}{a \code{'ccv.modeling.data'} object returned by \code{\link{ecospat.CCV.modeling}}}
-  \item{community.metrics}{a selection of community metrics to calculate (\code{'SR.deviation', 'community.AUC', 'probabilistic.Sorensen', 'probabilistic.Jaccard', 'probabilistic.Simpson'})}
-  \item{se.th}{the desired precission for the community metrics (standard error of the mean)}
+  \item{community.metrics}{a selection of community metrics to calculate (\code{'SR.deviation','community.AUC','Max.Sorensen','Max.Jaccard',
+  'probabilistic.Sorensen','probabilistic.Jaccard')})}
   \item{parallel}{should parallel computing be allowed (\code{TRUE/FALSE})}
   \item{cpus}{number of cpus to use in parallel computing}
 }
@@ -27,6 +26,7 @@ ecospat.CCV.communityEvaluation.prob(
   \item{DataSplitTable}{a matrix with \code{TRUE/FALSE} for each model run (\code{TRUE}=Calibration point, \code{FALSE}=Evaluation point)}
   \item{CommunityEvaluationMetrics.CalibrationSites}{a 3-dimensional array containing the community evaluation metrics for the calibartion sites of each run (\code{NA} means that the site was used for evaluation)}
   \item{CommunityEvaluationMetrics.EvaluationSites}{a 3-dimensional array containing the community evaluation metrics for the evaluation sites of each run (\code{NA} means that the site was used for calibaration)}
+
 }
 \author{
 Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
@@ -49,18 +49,22 @@ If the community evalation metric \code{community.AUC} is selected the returned 
     \item \code{Community.AUC} = The AUC of ROC of a given site (in this case the ROC plot is community sensitiviy [percentage species predicted corretly present] vs 1 - community specificity [percentage of species predicted correctly absent])
   }
   
-If any of the other community evaluation metrics (\code{'probabilistic.Sorensen', 'probabilistic.Jaccard', 'probabilistic.Simpson'}) is selected the returned tables will have the follwing colums:
+If the community evaluation metrics (\code{'Max.Sorensen', 'Max.Jaccard'}) is selected the returned tables will have the follwing colums:
   \itemize{
-    \item \code{METRIC.mean} = The average Sorensen/Jaccard/Simpson based on a number of random draws of the probabilities.
-    \item \code{METRIC.sd} = The standard deviation of Sorensen/Jaccard/Simpson based on a number of random draws of the probabilities.
-    \item \code{METRIC.CI} = The 95\% confidence intervall of the average Sorensen/Jaccard/Simpson based on the standard deviation and number of draws. Should normally be <= \code{se.th}.
-    \item \code{nb.it} = number of draws used to estimate all the parameters. The draws stop as soon as the desired precission (\code{se.th}) is reached or the limit of allowed iterations (default=10'000).
+    \item \code{Max.Jaccard} = The maximum possible Jaccard similarity based on an optimal site specific threshold.
+    \item \code{Max.Sorensen} = The maximum possible Sorensen similarity based on an optimal site specific threshold.
+  }
+  
+If the community evaluation metrics (\code{'probabilistic.Sorensen', 'probabilistic.Jaccard'}) is selected the returned tables will have the follwing colums:
+  \itemize{
+    \item \code{probabilistic.Jaccard} = The probabilistic Jaccard similarity index based on Scherrer et al. 2019, Methods in Ecology and Evolution
+    \item \code{probabilistic.Sorensen} = The probabilistic Sorensen similarity index based on Scherrer et al. 2019, Methods in Ecology and Evolution
     \item{composition.imp.05} = improvement of species compostion prediction over the null-model 0.5.
     \item{composition.imp.average.SR} = improvement of the species composition prediction over the null-model average.SR.
     \item{composition.imp.prevalence} = improvement of the species composition prediction over the null-model prevalence.
   }
   
-For detailed descriptions of the null models see Scherrer et al. .....
+For detailed descriptions of the null models see Scherrer et al. 2019
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
@@ -69,36 +73,29 @@ For detailed descriptions of the null models see Scherrer et al. .....
 \code{\link{ecospat.CCV.createDataSplitTable}}; \code{\link{ecospat.CCV.communityEvaluation.bin}};
 }
 \examples{
-\dontrun{
-#Loading species occurence data and remove empty communities
-data(ecospat.testData)
-testData <- ecospat.testData[,c(24,34,43,45,48,53,55:58,60:63,65:66,68:71)]
-sp.data <- testData[which(rowSums(testData)>0), sort(colnames(testData))]
+  \donttest{
+  #Loading species occurence data and remove empty communities
+  testData <- ecospat.testData[,c(24,34,43,45,48,53,55:58,60:63,65:66,68:71)]
+  sp.data <- testData[which(rowSums(testData)>0), sort(colnames(testData))]
 
-#Loading environmental data
-env.data <- ecospat.testData[which(rowSums(testData)>0),4:8]
+  #Loading environmental data
+  env.data <- ecospat.testData[which(rowSums(testData)>0),4:8]
 
-#Coordinates for all sites
-xy <- ecospat.testData[which(rowSums(testData)>0),2:3]
+  #Coordinates for all sites
+  xy <- ecospat.testData[which(rowSums(testData)>0),2:3]
 
-#Running all the models for all species
-myCCV.Models <- ecospat.CCV.modeling(sp.data = sp.data,
+  #Running all the models for all species
+  myCCV.Models <- ecospat.CCV.modeling(sp.data = sp.data,
                                      env.data = env.data,
                                      xy = xy,
-                                     NbRunEval = 5,
+                                     NbRunEval = 2,
                                      minNbPredictors = 10,
-                                     VarImport = 3)
+                                     VarImport = 2)
                                      
-#Calculating the probabilistic community metrics
-myCCV.communityEvaluation.prob <- ecospat.CCV.communityEvaluation.prob(
-      ccv.modeling.data = myCCV.Models,
-      community.metrics = c('SR.deviation','community.AUC','probabilistic.Sorensen'),
-      se.th = 0.02, 
-      parallel = FALSE,
-      cpus = 4)
+  #Calculating the probabilistic community metrics
+  metrics = c('SR.deviation','community.AUC','probabilistic.Sorensen','Max.Sorensen')
+  myCCV.Eval.prob <- ecospat.CCV.communityEvaluation.prob(
+          ccv.modeling.data = myCCV.Models, 
+          community.metrics = metrics)
 }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

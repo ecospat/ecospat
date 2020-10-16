@@ -16,18 +16,17 @@ This function projects calibrated ESMs into new space or time.
 \arguments{
     \item{ESM.prediction.output}{a list object returned by \code{\link[ecospat]{ecospat.ESM.Projection}}
     }
-
     \item{ESM.EnsembleModeling.output}{
-a list object returned by \code{\link[ecospat]{ecospat.ESM.EnsembleModeling}}}
-        \item{chosen.models}{a character vector (either 'all' or a sub-selection of model names) to remove models from the ensemble (same as in \code{biomod2}). Default is 'all'.
-}
+            a list object returned by \code{\link[ecospat]{ecospat.ESM.EnsembleModeling}}}
+     \item{chosen.models}{a character vector (either 'all' or a sub-selection of model names, e.g. c(GLM, GBM)) to remove models from the ensemble. Default is 'all'.}
 }
 
 \details{
 The basic idea of ensemble of small models (ESMs) is to model a species distribution based on small, simple models, for example all possible bivariate models (i.e. models that contain only two predictors at a time out of a larger set of predictors), and then combine all possible bivariate models into an ensemble (Lomba et al. 2010; Breiner et al. 2015).
 
 The ESM set of functions could be used to build ESMs using simple bivariate models which are averaged using weights based on model performances (e.g. AUC) according to Breiner et al. (2015). They provide full functionality of the approach described in Breiner et al. (2015).
-
+For projections only the full models (100% of the data) are used but not the split models which are solely used for model evaluation and model weighting.
+    
 For further details please refer to \code{\link[biomod2]{BIOMOD_EnsembleForecasting}}.
 
 }
@@ -56,7 +55,7 @@ Breiner F.T., Nobis M.P., Bergamini A., Guisan A. 2018. Optimizing ensembles of 
 
 }
 \examples{
-   \dontrun{
+   \donttest{
 library(biomod2)
 
 # Loading test data
@@ -107,6 +106,6 @@ my.ESM_EF$ESM.evaluations
 my.ESM_EF$weights
 
 ## get the variable contributions of ESMs
-ecospat.ESM.VarContrib(my.ESM,my.ESM_EF,scaling="01")
+ecospat.ESM.VarContrib(my.ESM,my.ESM_EF)
 }}
 

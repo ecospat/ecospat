@@ -36,16 +36,19 @@
   \code{\link{ecospat.rcls.grd}}
 }
 \examples{
-  
-  \dontrun{
-    bio3<- raster(system.file("external/bioclim/current/bio3.grd",package="biomod2"))
-    bio12<- raster(system.file("external/bioclim/current/bio12.grd",package="biomod2"))
-    B3.rcl<-ecospat.rcls.grd(bio3,9) 
-    B12.rcl<-ecospat.rcls.grd(bio12,9)
-    B3B12.comb <- B12.rcl+B3.rcl*10
-    B3B12.regl_samples <- ecospat.recstrat_prop(B3B12.comb,100)
-    plot(B3B12.comb)
-    points(B3B12.regl_samples$x,B3B12.regl_samples$y,pch=16,cex=0.6,col=B3B12.regl_samples$class)
-  }
 
+  library(raster)
+  library(classInt)
+
+  bio3<- raster(system.file("external/bioclim/current/bio3.grd",package="biomod2"))
+  bio12<- raster(system.file("external/bioclim/current/bio12.grd",package="biomod2"))
+    
+  B3.rcl<-ecospat.rcls.grd(bio3,9) 
+  B12.rcl<-ecospat.rcls.grd(bio12,9)
+  B3B12.comb <- B12.rcl+B3.rcl*10
+    
+  B3B12.regl_samples <- ecospat.recstrat_prop(B3B12.comb,100)
+  
+  plot(B3B12.comb)
+  points(B3B12.regl_samples$x,B3B12.regl_samples$y,pch=16,cex=0.6,col=B3B12.regl_samples$class)
 }

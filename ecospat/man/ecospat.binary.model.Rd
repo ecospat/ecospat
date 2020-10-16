@@ -38,7 +38,7 @@ Freeman, E.A. and G.G. Moisen. 2008. A comparison of the performance of threshol
 
 \examples{
 
-\dontrun{
+\donttest{
 library(raster)
 library(dismo)
 

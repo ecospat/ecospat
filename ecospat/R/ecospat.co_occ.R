@@ -69,16 +69,17 @@ ecospat.co_occurrences <- function (data)
 # library(vegan); library(ade4) ;dependencies: permatswap::vegan; randtest::ade4
 
 
-ecospat.Cscore <- function(data, nperm, outpath)
+ecospat.Cscore <- function(data, nperm, outpath, verbose = FALSE)
 {
   
   # C-coef Observed matrix
-  cat("Computing observed co-occurence matrix", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  
-  
+  if(verbose){
+    cat("Computing observed co-occurence matrix", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+  }
+
   spec.occ <- data.matrix(data)
   
   #### C-score calculation
@@ -103,20 +104,23 @@ ecospat.Cscore <- function(data, nperm, outpath)
   
   ### Permutations C-score
   
-  cat("Computing permutations", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  
+  if(verbose){
+    cat("Computing permutations", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+  }
+
   for (i in 1:nperm) {
-    if (i == 1) {
-      cat(nperm, " permutations to go", "\n", append = FALSE)
-      cat(".............", "\n", append = FALSE)
+    if(verbose){
+      if (i == 1) {
+        cat(nperm, " permutations to go", "\n", append = FALSE)
+        cat(".............", "\n", append = FALSE)
+      }
+      if (i == nperm/2) {
+        cat(nperm/2, " permutations to go", "\n", append = FALSE)
+        cat(".............", "\n", append = FALSE)
+      }
     }
-    if (i == nperm/2) {
-      cat(nperm/2, " permutations to go", "\n", append = FALSE)
-      cat(".............", "\n", append = FALSE)
-    }
-    
-    
+   
     spec.occ.perm1 <- data.matrix(data)
     spec.occ.perm1 <- permatswap(spec.occ.perm1, fixedmar = "both", mtype = "prab",
                                  times = 1)  # times=1 : separate swapping sequence that always begins with the original matrix
@@ -164,9 +168,11 @@ ecospat.Cscore <- function(data, nperm, outpath)
                                                                                  "SES_Cscore", "pval_less", "pval_greater")))
   mat.pval[, 1] <- df.obs.c.coef[, 5]
   
-  cat("Computing P-values", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  
+  if(verbose){
+    cat("Computing P-values", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+  }
+
   for (k in 1:nrow(mat.perm)) {
     
     mat.pval[k, 2] <- (df.obs.c.coef[k, 5] - mean(mat.perm[k, ]))/sd(mat.perm[k,
@@ -179,10 +185,13 @@ ecospat.Cscore <- function(data, nperm, outpath)
   
   
   ### Exporting Co-occ matrix
-  cat("Exporting dataset", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
+  if(verbose){
+    cat("Exporting dataset", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+  }
+
   
   hist(as.vector(mat.pval[, 2]), xlab = "ses", main = paste("Histogram of standardized effect size"))
   abline(v = c(2, -2), col = "red")
@@ -217,7 +226,7 @@ ecospat.Cscore <- function(data, nperm, outpath)
   
   return(l)
   
-  cat("End computation", "\n", append = FALSE)
+  if(verbose) cat("End computation", "\n", append = FALSE)
   
   # END FUNCTION
 }
@@ -332,12 +341,15 @@ SpeciesCooccurrenceStats <- function(presence) {
 
 ################# Null models ##
 
-ecospat.cons_Cscore <- function(presence, pred, nperm, outpath) {
-  cat("Computing observed co-occurence matrix", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
+ecospat.cons_Cscore <- function(presence, pred, nperm, outpath, verbose = FALSE) {
   
+  if(verbose){
+    cat("Computing observed co-occurence matrix", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+  }
+ 
   nbsps <- ncol(presence)
   nbsites <- nrow(presence)
   
@@ -351,10 +363,12 @@ ecospat.cons_Cscore <- function(presence, pred, nperm, outpath) {
   CooccProb <- matrix(0, nrow = nrow(synthObs), ncol = nperm, dimnames = list(c(paste(synthObs[, 
                                                                                                3], synthObs[, 4])), c(1:nperm)))
   
-  cat("Computing permutations", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
+  if(verbose){
+    cat("Computing permutations", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+  }
   
   if (nperm > 0) {
     for (z in 1:nperm) {
@@ -406,13 +420,16 @@ ecospat.cons_Cscore <- function(presence, pred, nperm, outpath) {
     }
   }
   
-  cat("Permutations finished", date(), "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  cat("Exporting dataset", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
-  cat(".............", "\n", append = FALSE)
+  if(verbose){
+    cat("Permutations finished", date(), "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+    cat("Exporting dataset", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+    cat(".............", "\n", append = FALSE)
+  }
+
   
   df.synthesis <- data.frame(Col = rep(1:ncol(CooccObs), each = ncol(CooccObs)), 
                              Row = rep(1:nrow(CooccObs), nrow(CooccObs)), Sps1 = rep(colnames(CooccObs), 

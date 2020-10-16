@@ -78,10 +78,8 @@ Pateiro-Lopez, B., and A. Rodriguez-Casal. 2010. Generalizing the Convex Hull of
 
 \keyword{file}
   
- \examples{
-
-\dontrun{
-
+\examples{
+\donttest{
 library(raster)
 library(dismo)
 

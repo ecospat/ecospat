@@ -65,6 +65,8 @@ The output of the ecospat.CCV.modeling function can then be used to evaluate the
   \item{singleSpecies.ensembleVariableImportance}{a 3-dimensional array of single species variable importance for all predictors}
   \item{singleSpecies.calibrationSites.ensemblePredictions}{a 3-dimensional array of the predictions for each species and run at the calibration sites}
   \item{singleSpecies.evaluationSites.ensemblePredictions}{a 3-dimensional array of the predictions for each species and run at the evaluation sites}
+  \item{allSites.averagePredictions.cali}{a matrix with the average predicted probabilities for each site across all the runs the sites were used for model calibration}
+  \item{allSites.averagePredictions.eval}{a matrix with the average predicted probabilities for each site across all the runs the sites were used as independent evaluation sites}
 }
 \references{
 Scherrer, D., D'Amen, M., Mateo, M.R.G., Fernandes, R.F. & Guisan , A. (2018) How to best threshold and validate stacked species assemblages? Community optimisation might hold the answer. Methods in Ecology and Evolution, in review
@@ -79,7 +81,7 @@ Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
 \code{\link{ecospat.CCV.createDataSplitTable}}; \code{\link{ecospat.CCV.communityEvaluation.bin}}; \code{\link{ecospat.CCV.communityEvaluation.prob}}
 }
 \examples{
-\dontrun{
+\donttest{
 #Loading species occurence data and remove empty communities
 testData <- ecospat.testData[,c(24,34,43,45,48,53,55:58,60:63,65:66,68:71)]
 sp.data <- testData[which(rowSums(testData)>0), sort(colnames(testData))]
@@ -99,7 +101,3 @@ myCCV.Models <- ecospat.CCV.modeling(sp.data = sp.data,
                                      VarImport = 3)
 }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

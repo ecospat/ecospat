@@ -20,7 +20,8 @@ This function calibrates simple bivariate models as in Lomba et al. 2010 and Bre
                           models.options, 
                           which.biva, 
                           parallel, 
-                          cleanup)
+                          cleanup,
+                          Yweights)
 }
 
 \arguments{
@@ -53,6 +54,9 @@ character, the ID (=name) of modeling procedure. A random number by default.
     \item{models.options}{
 BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in \code{biomod2})
     }
+    \item{Yweights}{
+response points weights. This argument will only affect models that allow case weights. 
+    }
     \item{which.biva}{
 integer. which bivariate combinations should be used for modeling? Default: all
     }
@@ -70,7 +74,7 @@ The ESM set of functions could be used to build ESMs using simple bivariate mode
 
 The argument \code{which.biva} allows to split model runs, e.g. if \code{which.biva} is 1:3, only the three first bivariate variable combinations will be modeled. This allows to run different biva splits on different computers. However, it is better not to use this option if all models are run on a single computer.
 Default: running all biva models. 
-NOTE: Make sure to give each of your biva runs a unique \code{modeling.id}.
+NOTE: Make sure to give each of your biva runs a unique \code{modeling.id}. Please avoid space characters in your working directory path if you are using MAXENT.Phillips because this can cause an error.
 }
 
 \value{
@@ -97,7 +101,7 @@ Breiner F.T., Nobis M.P., Bergamini A., Guisan A. 2018. Optimizing ensembles of 
 
 }
 \examples{
-   \dontrun{
+   \donttest{
 library(biomod2)
 
 # Loading test data
@@ -121,6 +125,9 @@ myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
                                       resp.xy = xy,
                                       resp.name = colnames(sp_occ)[sp])
 
+## There are multiple packages that can be used for parallel computation (if parallel = TRUE). 
+# One option is:
+# library(doParallel);cl<-makeCluster(4);doParallel::registerDoParallel(cl) 
 
 ### Calibration of simple bivariate models
 my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
@@ -148,5 +155,5 @@ my.ESM_EF$ESM.evaluations
 my.ESM_EF$weights
 
 ## get the variable contributions of ESMs
-ecospat.ESM.VarContrib(my.ESM,my.ESM_EF,scaling="01")
+ecospat.ESM.VarContrib(my.ESM,my.ESM_EF)
 }}

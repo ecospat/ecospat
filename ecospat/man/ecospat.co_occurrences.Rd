@@ -26,7 +26,7 @@ Guisan, A. and N. Zimmermann. 2000. Predictive habitat distribution models in ec
 }
 
 \examples{
-\dontrun{
+\donttest{
 matrix <- ecospat.testData[c(9:16,54:57)]
 ecospat.co_occurrences (data=matrix)
 }}

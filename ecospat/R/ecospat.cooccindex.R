@@ -35,7 +35,7 @@ Sp2_n = t(outer(1:Nsp1,1:Nsp1,FUN="pmax"))[lower.tri(t(outer(1:Nsp1,1:Nsp1,FUN="
 #----------------------------------------------------------------------------------
 
 CoobySp1_n = matrix(data=0, nrow=Nsp1-1, ncol=Nsp1)
-CoobySp1_n[lower.tri(CoobySp1_n,diag=T)]=P1_n[lower.tri(P1_n)]
+CoobySp1_n[lower.tri(CoobySp1_n,diag = TRUE)]=P1_n[lower.tri(P1_n)]
 CoobySp1_n[upper.tri(CoobySp1_n)]=P1_n[upper.tri(P1_n)]
 CoobySp1_n<-data.frame(cbind(CoobySp1_n))
 #colnames(CoobySp1_n)<-Names

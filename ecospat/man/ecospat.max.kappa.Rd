@@ -35,7 +35,7 @@ Liu, C., P.M. Berry, T.P. Dawson, and R.G. Pearson. 2005. Selecting thresholds o
 }
 \examples{
 
-   \dontrun{
+   \donttest{
 Pred <- ecospat.testData$glm_Agrostis_capillaris
 Sp.occ <- ecospat.testData$Agrostis_capillaris
 kappa100 <- ecospat.max.kappa(Pred, Sp.occ)

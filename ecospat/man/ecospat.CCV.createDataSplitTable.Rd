@@ -51,7 +51,7 @@ Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-\dontrun{
+\donttest{
 #Creating a DataSplitTable for 200 sites, 25 runs with an 
 #80/20 calibration/evaluation cross-validation
 
@@ -76,7 +76,3 @@ DataSplitTable <- ecospat.CCV.createDataSplitTable(NbRunEval = 20,
 }
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

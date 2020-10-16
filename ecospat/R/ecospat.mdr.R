@@ -82,7 +82,7 @@ ecospat.mdr <- function(data, xcol, ycol, datecol, mode, rep, mean.date.error, f
       }
       while (length(ini) < nrow(train)) {
         min <- min(d[-ini, ini])
-        a <- which(d[, ini] == min, arr.ind = T)[1]
+        a <- which(d[, ini] == min, arr.ind = TRUE)[1]
         ini <- c(ini, a)
       }
       train[, 3] <- sort(train[, 3])[order(ini)] - e  # substract the errors from sorted dates

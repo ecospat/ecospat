@@ -19,11 +19,7 @@
 
 \details{The Boyce index only requires presences and measures how much model predictions differ from random distribution of the observed presences across the prediction gradients (Boyce et al. 2002). It is thus the most appropriate metric in the case of presence-only models. It is continuous and varies between -1 and +1. Positive values indicate a model which present predictions are consistent with the distribution of presences in the evaluation dataset, values close to zero mean that the model is not different from a random model, negative values indicate counter predictions, i.e., predicting poor quality areas where presences are more frequent (Hirzel et al. 2006).}
 
-\value{Returns the predicted-to-expected ratio for each class-interval: F.ratio
-
-Returns the Boyce index value: Spearman.cor
-
-Creates a graphical plot of the predicted to expected ratio along the suitability class}
+\value{The function returns a list that contains a vector F.ratio (the predicted-to-expected ratio for each class-interval) and a numeric Spearman.cor (the Boyce index value)}
 
 \author{Blaise Petitpierre \email{bpetitpierre@gmail.com} and Frank Breiner \email{frank.breiner@unil.ch}}
 

@@ -120,11 +120,11 @@ cal<- x[91:300,] #A calibration dataset
 mess.object<-ecospat.mess (proj, cal, w="default")
 ```
 
-#### Plot MESS with *ecospat.plot.mess()*
+### Plot MESS with *ecospat.plot.mess()*
 ```{r mess}
 ecospat.plot.mess (mess.object, cex=1, pch=15)
-
 ```
+
 In the MESS plot pixels in red indicate sites where at least one environmental predictor has values outside of the range of that predictor in the calibration dataset. In the MESSw plot, same as previous plot but with weighted by the number of predictors.Finally, the MESSneg plot shows at each site how many predictors have values outside of their calibration range.
 
 
@@ -161,19 +161,18 @@ nat <- ecospat.testNiche.nat
 ```
 
 ### PCA-ENVIRONMENT
-#### The PCA is calibrated on all the sites of the study area 
-Calibrating the PCA in the whole studay area, including both native and invaded ranges (same as PCAenv in Broenniman et al. 2012)
+The PCA is calibrated on all the sites of the study area, including both native and invaded ranges (same as PCAenv in Broenniman et al. 2012)
 ```{r}
 pca.env <- dudi.pca(rbind(nat,inv)[,3:10],scannf=F,nf=2) 
 ```
 
-#### Plot Variables Contribution with *ecospat.plot.contrib()*
+Plot Variables Contribution with *ecospat.plot.contrib()*
 ```{r}
 ecospat.plot.contrib(contrib=pca.env$co, eigen=pca.env$eig)
 ```
 The correlation circle indicate the contribution of original predictors to the PCA axes.
 
-#### Predict the scores on the axes
+Predict the scores on the axes
 ```{r}
 # PCA scores for the whole study area
 scores.globclim <- pca.env$li
@@ -215,10 +214,10 @@ grid.clim.inv <- ecospat.grid.clim.dyn(glob=scores.globclim,
 ### Calculate Niche Overlap with *ecospat.niche.overlap()*
 ```{r}
 # Compute Schoener's D, index of niche overlap
-D.overlap <- ecospat.niche.overlap (grid.clim.nat, grid.clim.inv, cor=T)$D 
+D.overlap <- ecospat.niche.overlap (grid.clim.nat, grid.clim.inv, cor = TRUE)$D 
 D.overlap
 ```
-The niche overlap between the native and the ivaded range is 22%.
+The niche overlap between the native and the invaded range is 22%.
 
 ### Perform the Niche Equivalency Test with *ecospat.niche.equivalency.test()* according to Warren et al. (2008)
 
@@ -227,31 +226,28 @@ It is reccomended to use at least 1000 replications for the equivalency test. As
 eq.test <- ecospat.niche.equivalency.test(grid.clim.nat, grid.clim.inv,
                                           rep=10, alternative = "greater")
 ```
-Niche equivalency test H1: Is the overlap between the native and invaded niche higher than two random niches?
+Niche equivalency test H1: the observed overlap between the native and invaded niche is higher than if the two niches are randomized
 
+Plot Equivalency test
+```{r}
+ecospat.plot.overlap.test(eq.test, "D", "Equivalency")
+```
 
 
 ### Perform the Niche Similarity Test with *ecospat.niche.similarity.test()*
-Shifting randomly the invasive niche in the invaded study area
+Shifts randomly on niche (here the invasive niche) in the study area
 It is recomended to use at least 1000 replications for the similarity test. As an example we used rep = 10, to reduce the computational time.
 ```{r}
 sim.test <- ecospat.niche.similarity.test(grid.clim.nat, grid.clim.inv,
                                           rep=10, alternative = "greater",
                                           rand.type=2) 
 ```
-Niche similarity test H1: Is the overlap between the native and invaded higher than when the invasive niche is randomly introduced in the invaded study area?
+Niche similarity test H1: the observed overlap between the native and invaded is higher than randomly shifted invasive niches in the invaded study area
 
-
-#### Plot Equivalency test
-```{r}
-ecospat.plot.overlap.test(eq.test, "D", "Equivalency")
-```
-
-#### Plot Similarity test
+Plot Similarity test
 ```{r}
 ecospat.plot.overlap.test(sim.test, "D", "Similarity")
 ```
-We see that the niche overlap D is 22% and this value is compared to the random distribution of the niche equivalency and niche similarity tests.
 
 
 ### Delimiting niche categories and quantifying niche dynamics in analogue climates with *ecospat.niche.dyn.index()*
@@ -260,6 +256,7 @@ niche.dyn <- ecospat.niche.dyn.index (grid.clim.nat, grid.clim.inv, intersection
 ```
 
 #### Visualizing niche categories, niche dynamics and climate analogy between ranges with *ecospat.plot.niche.dyn()*
+
 Plot niche overlap
 ```{r}
 ecospat.plot.niche.dyn(grid.clim.nat, grid.clim.inv, quant=0.25, interest=2,
@@ -333,7 +330,7 @@ caleval <- ecospat.caleval (data = ecospat.testData[53], xy = data[2:3],
                             row.num = 1:nrow(data), nrep = 2, ratio = 0.7,
                             disaggregate = 0.2, pseudoabs = 100, npres = 10,
                             replace = FALSE)
-caleval
+head(caleval)
 ```
 We obtained an evaluation and calibration dataset with a desired ratio of disaggregation.
 
@@ -373,7 +370,8 @@ pred<-ecospat.testData[c(73:92)]
 ```
 
 ```{r}
-ecospat.CommunityEval (eval, pred, proba=T, ntir=5)
+CommunityEval<-ecospat.CommunityEval (eval, pred, proba = TRUE, ntir=5,verbose = T)
+
 ```
 
 ## Spatial Predictions and Projections
@@ -382,7 +380,6 @@ ecospat.CommunityEval (eval, pred, proba=T, ntir=5)
 
 ```{r}
 library(biomod2)
-path.wd<-getwd()
 ```
 
 ```{r}
@@ -397,7 +394,6 @@ current <- inv[3:7]
 head(current)
 
 ## BIOMOD
-setwd(path.wd)
 t1 <- Sys.time()
 sp<-1
 ```
@@ -417,13 +413,18 @@ myBiomodOption@GBM$interaction.depth = 2
 
 ```{r ESM.Modeling}
 ### Calibration of simple bivariate models
-my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
-                                models=c('GLM','RF'),
+
+# remove insivible(capture.output)) to print output in the console
+# this is just to keep the vignette short
+invisible(capture.output(my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
+                                models=c('GLM'),
                                 models.options=myBiomodOption,
                                 NbRunEval=1,
                                 DataSplit=70,
                                 weighting.score=c("AUC"),
-                                parallel=F)  
+                                parallel=F)
+        )
+)
 ```
 
 ```{r ESM.EnsembleModeling}
@@ -459,7 +460,8 @@ sr <- as.data.frame(rowSums(proba))
 
 ## SESAM framework with *ecospat.SESAM.prr()*
 ```{r SESAM}
-ecospat.SESAM.prr(proba, sr)
+prr<-ecospat.SESAM.prr(proba, sr)
+head(prr)[,1:4]
 ```
 
 

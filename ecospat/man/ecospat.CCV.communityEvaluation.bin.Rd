@@ -11,7 +11,7 @@ The function uses the output of \code{\link{ecospat.CCV.modeling}} to calculate 
 ecospat.CCV.communityEvaluation.bin(ccv.modeling.data,
                                     thresholds= c('MAX.KAPPA', 'MAX.ROC','PS_SDM'),
                                     community.metrics=c('SR.deviation','Sorensen'),
-                                    parallel=TRUE,
+                                    parallel=FALSE,
                                     cpus=4,
                                     fix.threshold=0.5,
                                     MCE=5,
@@ -51,7 +51,7 @@ Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
 \code{\link{ecospat.CCV.createDataSplitTable}}; \code{\link{ecospat.CCV.communityEvaluation.prob}}
 }
 \examples{
-\dontrun{
+\donttest{
 #Loading species occurence data and remove empty communities
 data(ecospat.testData)
 testData <- ecospat.testData[,c(24,34,43,45,48,53,55:58,60:63,65:66,68:71)]
@@ -81,7 +81,3 @@ myCCV.communityEvaluation.bin <- ecospat.CCV.communityEvaluation.bin(
 
 }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

@@ -27,7 +27,7 @@ colvarxy, colvar = "all", resolution)}
 
 
 \examples{
-\dontrun{
+\donttest{
 data("ecospat.testNiche")
 spp <- ecospat.testNiche
 sp1 <- spp[1:32,2:3]
