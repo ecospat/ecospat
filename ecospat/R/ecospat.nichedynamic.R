@@ -54,7 +54,9 @@
 
 ##################################################################################################
 ecospat.grid.clim.dyn <- function(glob, glob1, sp, R, th.sp = 0, th.env = 0,
-  geomask = NULL) {
+  geomask = NULL, kernel.method = 'ks') {
+  if (is.null(kernel.method)|(kernel.method!='ks'& kernel.method!='adehabitat'))
+    stop("supply a kernel method ('adehabitat' or 'ks')")
 
   glob <- as.matrix(glob)
   glob1 <- as.matrix(glob1)
@@ -68,12 +70,24 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R, th.sp = 0, th.env = 0,
     # if scores in one dimension (e.g. LDA,SDM predictions,...)
     xmax <- max(glob[, 1])
     xmin <- min(glob[, 1])
-    x <- seq(from = min(glob[, 1]), to = max(glob[, 1]), length.out = R)  # breaks on score gradient 1
-    sp.dens <- density(sp[, 1], kernel = "gaussian", from = xmin, to = xmax,
-      n = R, cut = 0)  # calculate the density of occurrences in a vector of R pixels along the score gradient
-    # using a gaussian kernel density function, with R bins.
-    glob1.dens <- density(glob1[, 1], kernel = "gaussian", from = xmin,
-      to = xmax, n = R, cut = 0)  # calculate the density of environments in glob1
+    if (kernel.method == 'ks'){
+      sp.dens<-kde(sp,xmin=xmin,
+                   xmax = xmax,gridsize =c(R,R))
+      sp.dens$y<-sp.dens$estimate
+      glob1.dens<-kde(glob1,xmin=apply(glob,2,min,na.rm=T),
+                      xmax = apply(glob,2,max,na.rm=T),gridsize =c(R,R))
+      glob1.dens$y<-glob1.dens$estimate
+      glob1.dens$x<-glob1.dens$eval.points
+      sp.dens$y<-sp.dens$estimate
+      sp.dens$x<-sp.dens$eval.points
+    }else{
+      x <- seq(from = min(glob[, 1]), to = max(glob[, 1]), length.out = R)  # breaks on score gradient 1
+      sp.dens <- density(sp[, 1], kernel = "gaussian", from = xmin, to = xmax,
+        n = R, cut = 0)  # calculate the density of occurrences in a vector of R pixels along the score gradient
+      # using a gaussian kernel density function, with R bins.
+      glob1.dens <- density(glob1[, 1], kernel = "gaussian", from = xmin,
+        to = xmax, n = R, cut = 0)  # calculate the density of environments in glob1
+    }
     z <- sp.dens$y * nrow(sp)/sum(sp.dens$y)  # rescale density to the number of occurrences in sp
     # number of occurrence/pixel
     Z <- glob1.dens$y * nrow(glob)/sum(glob1.dens$y)  # rescale density to the number of sites in glob1
@@ -106,28 +120,39 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R, th.sp = 0, th.env = 0,
 
   if (ncol(glob) == 2) {
     # if scores in two dimensions (e.g. PCA)
-
-    xmin <- min(glob[, 1])
-    xmax <- max(glob[, 1])
-    ymin <- min(glob[, 2])
-    ymax <- max(glob[, 2])  # data preparation
-    glob1r <- data.frame(cbind((glob1[, 1] - xmin)/abs(xmax - xmin), (glob1[,
-      2] - ymin)/abs(ymax - ymin)))  # data preparation
-    spr <- data.frame(cbind((sp[, 1] - xmin)/abs(xmax - xmin), (sp[, 2] -
-      ymin)/abs(ymax - ymin)))  # data preparation
-    mask <- ascgen(SpatialPoints(cbind((0:(R))/R, (0:(R)/R))), 
-                   nrcol = R-2, count = FALSE) # data preparation
-    sp.dens <- kernelUD(SpatialPoints(spr[, 1:2]), h = "href", grid = mask,
-      kern = "bivnorm")  # calculate the density of occurrences in a grid of RxR pixels along the score gradients
-    sp.dens <- raster(xmn = xmin, xmx = xmax, ymn = ymin, ymx = ymax, matrix(sp.dens$ud,
-      nrow = R))
-    # using a gaussian kernel density function, with RxR bins.
-    # sp.dens$var[sp.dens$var>0 & sp.dens$var<1]<-0
-    glob1.dens <- kernelUD(SpatialPoints(glob1r[, 1:2]), grid = mask, kern = "bivnorm")
-    glob1.dens <- raster(xmn = xmin, xmx = xmax, ymn = ymin, ymx = ymax,
-      matrix(glob1.dens$ud, nrow = R))
-    # glob1.dens$var[glob1.dens$var<1 & glob1.dens$var>0]<-0
-
+    if (kernel.method == 'ks'){
+      xmin<-apply(glob,2,min,na.rm=T)
+      xmax<-apply(glob,2,max,na.rm=T)
+      sp.dens<-kde(sp,xmin=xmin,
+                   xmax = xmax,gridsize =c(R,R))
+      sp.dens <- raster(xmn = xmin[1], xmx = xmax[1], ymn = xmin[2], ymx = xmax[2], 
+                      matrix(sp.dens$estimate,nrow = R))
+      glob1.dens<-kde(glob1,xmin=apply(glob,2,min,na.rm=T),
+                      xmax = apply(glob,2,max,na.rm=T),gridsize =c(R,R))
+      glob1.dens <- raster(xmn = xmin[1], xmx = xmax[1], ymn = xmin[2], ymx = xmax[2],
+                      matrix(glob1.dens$estimate, nrow = R))
+    }else{
+      xmin <- min(glob[, 1])
+      xmax <- max(glob[, 1])
+      ymin <- min(glob[, 2])
+      ymax <- max(glob[, 2])  # data preparation
+      glob1r <- data.frame(cbind((glob1[, 1] - xmin)/abs(xmax - xmin), (glob1[,
+        2] - ymin)/abs(ymax - ymin)))  # data preparation
+      spr <- data.frame(cbind((sp[, 1] - xmin)/abs(xmax - xmin), (sp[, 2] -
+        ymin)/abs(ymax - ymin)))  # data preparation
+      mask <- ascgen(SpatialPoints(cbind((0:(R))/R, (0:(R)/R))), 
+                     nrcol = R-2, count = FALSE) # data preparation
+      sp.dens <- kernelUD(SpatialPoints(spr[, 1:2]), h = "href", grid = mask,
+        kern = "bivnorm")  # calculate the density of occurrences in a grid of RxR pixels along the score gradients
+      sp.dens <- raster(xmn = xmin, xmx = xmax, ymn = ymin, ymx = ymax, matrix(sp.dens$ud,
+        nrow = R))
+      # using a gaussian kernel density function, with RxR bins.
+      # sp.dens$var[sp.dens$var>0 & sp.dens$var<1]<-0
+      glob1.dens <- kernelUD(SpatialPoints(glob1r[, 1:2]), grid = mask, kern = "bivnorm")
+      glob1.dens <- raster(xmn = xmin, xmx = xmax, ymn = ymin, ymx = ymax,
+        matrix(glob1.dens$ud, nrow = R))
+      # glob1.dens$var[glob1.dens$var<1 & glob1.dens$var>0]<-0
+    }
     x <- seq(from = min(glob[, 1]), to = max(glob[, 1]), length.out = R)  # breaks on score gradient 1
     y <- seq(from = min(glob[, 2]), to = max(glob[, 2]), length.out = R)  # breaks on score gradient 2
     glob1r <- extract(glob1.dens, glob1)
