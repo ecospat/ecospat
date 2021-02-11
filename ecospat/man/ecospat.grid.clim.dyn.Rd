@@ -16,7 +16,8 @@
   \item{th.sp}{The quantile used to delimit a threshold to exclude low species density values.}
   \item{th.env}{The quantile used to delimit a threshold to exclude low environmental density values of the study area.}
   \item{geomask}{A geographical mask to delimit the background extent if the analysis takes place in the geographical space.It can be a SpatialPolygon or a raster object. Note that the CRS should be the same as the one used for the points.}
-  \item{kernel.method}{Method used to estimate the the kernel density. Currently, there are two methods: by default, it is the methode from 'adehabitat'. Method from the library 'ks' is also available.}  
+  \item{kernel.method}{Method used to estimate the the kernel density. Currently, there are two methods: by default, it is the methode from 'adehabitat'. Method from the library 'ks' is also available.} 
+  \item{extend.extent = vector with extention values of the window size (see details).}
 }
 
 \details{Using the scores of an ordination (or SDM prediction), create a grid z of RxR pixels (or a vector of R pixels when using scores of dimension 1 or SDM predictions) with occurrence densities. Only scores of one, or two dimensions can be used.
@@ -29,6 +30,8 @@ Visualisation of the gridded environmental space can be done through the functio
 If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in http://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
 The argument \code{geomask} can be a SpatialPolygon or a raster object. 
 Note that the CRS should be the same as the one used for the points.
+
+The parameter \code{extend.extent} allows to modify the extent of the raster. By default, the window covers from the minimu to the maximum value of the environmental values present in the study area. The vector \code{extend.extent} indicates how much you want to shift the x-minimal, x-maximal, y-minimal and y-maximal values respectively
 }
 
 \value{A grid z of RxR pixels (or a vector of R pixels) with z.uncor being the density of occurrence of the species, and z.cor the occupancy of the environment by the species (density of occurrences divided by the desinty of environment in the study area.}

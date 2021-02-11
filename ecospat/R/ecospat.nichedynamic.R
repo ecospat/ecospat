@@ -14,6 +14,7 @@
 ## th = percentile threshold used to delineate the niche. 0 means that all occurences are included within the niche. 0.05 means that 95 % of the distribution is included within the niche.
 ## env.mask = raster of vector containing the environmental background densities
 ## method = method used to draw the kernel density distribution. By default, 'adehabitat' uses kernelUD from the library adehabitatHR but you can set it to 'ks' to use the the algorithm from the ks library
+## extend.extent = vector with extention values of the window size (see details)
 ## 
 ## grid.clim.dyn(glob,glob1,sp,R,th.sp,th.env) 
 ## use the scores of an ordination (or SDM predictions) and create a grid z of RxR pixels 
@@ -131,9 +132,10 @@ ecospat.kd<-function(x,ext,R = 100,th = 0,env.mask = c(),
 
 
 ##################################################################################################
-
 ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0, 
-                                  th.env = 0, geomask = NULL, kernel.method = 'adehabitat') {
+                                  th.env = 0, geomask = NULL, 
+                                  kernel.method = 'adehabitat', 
+                                  extend.extent = c(0,0,0,0)) {
   if (is.null(kernel.method)|(kernel.method!='ks'& kernel.method!='adehabitat'))
     stop("supply a kernel method ('adehabitat' or 'ks')")
   
@@ -147,8 +149,8 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
   
   if (ncol(glob) == 1) {
     # if scores in one dimension (e.g. LDA,SDM predictions,...)
-    xmax <- max(glob[, 1])
-    xmin <- min(glob[, 1])
+    xmin <- min(glob[, 1])+extend.extent[1]
+    xmax <- max(glob[, 1])+extend.extent[2]
     if (kernel.method == 'ks'){
       glob1.dens<-ecospat.kd(x = glob1,ext = c(xmin,xmax),method = 'ks',th=0)
       sp.dens<-ecospat.kd(x = sp,ext = c(xmin,xmax),method = 'ks',th=0,
@@ -174,7 +176,7 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
     # if scores in two dimensions (e.g. PCA)
     xmin<-apply(glob,2,min,na.rm=T)
     xmax<-apply(glob,2,max,na.rm=T)
-    ext = c(xmin[1],xmax[1],xmin[2],xmax[2])
+    ext = c(xmin[1],xmax[1],xmin[2],xmax[2])+extend.extent
     
     if (kernel.method == 'ks'){
       glob1.dens<-ecospat.kd(x = glob1,ext = ext,method = 'ks',th=0)
@@ -219,7 +221,6 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
   
   return(l)
 }
-
 
 ##################################################################################################
 
