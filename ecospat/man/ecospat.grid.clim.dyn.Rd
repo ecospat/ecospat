@@ -15,11 +15,8 @@
   \item{R}{The resolution of the grid.}
   \item{th.sp}{The quantile used to delimit a threshold to exclude low species density values.}
   \item{th.env}{The quantile used to delimit a threshold to exclude low environmental density values of the study area.}
-  \item{geomask}{A geographical mask to delimit the background extent if the analysis takes place in the geographical space.}
-
- It can be a SpatialPolygon or a raster object. Note that the CRS should be the same as the one used for the points.
-
-
+  \item{geomask}{A geographical mask to delimit the background extent if the analysis takes place in the geographical space.It can be a SpatialPolygon or a raster object. Note that the CRS should be the same as the one used for the points.}
+  \item{kernel.method}{Method used to estimate the the kernel density. Currently, there are two methods: by default, it is the methode from 'adehabitat'. Method from the library 'ks' is also available.}  
 }
 
 \details{Using the scores of an ordination (or SDM prediction), create a grid z of RxR pixels (or a vector of R pixels when using scores of dimension 1 or SDM predictions) with occurrence densities. Only scores of one, or two dimensions can be used.
