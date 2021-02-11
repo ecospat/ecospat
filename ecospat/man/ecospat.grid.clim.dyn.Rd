@@ -17,7 +17,7 @@
   \item{th.env}{The quantile used to delimit a threshold to exclude low environmental density values of the study area.}
   \item{geomask}{A geographical mask to delimit the background extent if the analysis takes place in the geographical space.It can be a SpatialPolygon or a raster object. Note that the CRS should be the same as the one used for the points.}
   \item{kernel.method}{Method used to estimate the the kernel density. Currently, there are two methods: by default, it is the methode from 'adehabitat'. Method from the library 'ks' is also available.} 
-  \item{extend.extent = vector with extention values of the window size (see details).}
+  \item{extend.extent}{Vector with extention values of the window size (see details).}
 }
 
 \details{Using the scores of an ordination (or SDM prediction), create a grid z of RxR pixels (or a vector of R pixels when using scores of dimension 1 or SDM predictions) with occurrence densities. Only scores of one, or two dimensions can be used.
@@ -31,7 +31,7 @@ If you encounter a problem during your analyses, please first read the FAQ secti
 The argument \code{geomask} can be a SpatialPolygon or a raster object. 
 Note that the CRS should be the same as the one used for the points.
 
-The parameter \code{extend.extent} allows to modify the extent of the raster. By default, the window covers from the minimu to the maximum value of the environmental values present in the study area. The vector \code{extend.extent} indicates how much you want to shift the x-minimal, x-maximal, y-minimal and y-maximal values respectively
+The parameter \code{extend.extent} allows modifying the extent of the grid. By default, the window covers from the minimum to the maximum value of the environmental values present in the study area. The vector \code{extend.extent} indicates how much you want to shift the x-minimal, x-maximal, y-minimal and y-maximal values respectively.
 }
 
 \value{A grid z of RxR pixels (or a vector of R pixels) with z.uncor being the density of occurrence of the species, and z.cor the occupancy of the environment by the species (density of occurrences divided by the desinty of environment in the study area.}
@@ -57,51 +57,67 @@ data(ecospat.testData)
 spp <- ecospat.testNiche
 clim <- ecospat.testData[2:8]
 
-occ.sp_test <- na.exclude(ecospat.sample.envar(dfsp=spp,colspxy=2:3,colspkept=1:3,dfvar=clim,
-colvarxy=1:2,colvar="all",resolution=25))
+occ.sp_test <- na.exclude(ecospat.sample.envar(
+  dfsp = spp, colspxy = 2:3, colspkept = 1:3, dfvar = clim,
+  colvarxy = 1:2, colvar = "all", resolution = 25
+))
 
-occ.sp<-cbind(occ.sp_test,spp[,4]) #add species names
+occ.sp <- cbind(occ.sp_test, spp[, 4]) # add species names
 
 # list of species
-sp.list<-levels(occ.sp[,1])
-sp.nbocc<-c()
+sp.list <- levels(occ.sp[, 1])
+sp.nbocc <- c()
 
-for (i in 1:length(sp.list)){sp.nbocc<-c(sp.nbocc,length(which(occ.sp[,1] == sp.list[i])))} 
-#calculate the nb of occurences per species
+for (i in 1:length(sp.list)) {
+  sp.nbocc <- c(sp.nbocc, length(which(occ.sp[, 1] == sp.list[i])))
+}
+# calculate the nb of occurences per species
 
-sp.list <- sp.list[sp.nbocc>4] # remove species with less than 5 occurences
-nb.sp <- length(sp.list) #nb of species
+sp.list <- sp.list[sp.nbocc > 4] # remove species with less than 5 occurences
+nb.sp <- length(sp.list) # nb of species
 ls()
-# selection of variables to include in the analyses 
+# selection of variables to include in the analyses
 # try with all and then try only worldclim Variables
 Xvar <- c(3:7)
 nvar <- length(Xvar)
 
-#number of interation for the tests of equivalency and similarity
+# number of interation for the tests of equivalency and similarity
 iterations <- 100
-#resolution of the gridding of the climate space
+# resolution of the gridding of the climate space
 R <- 100
 #################################### PCA-ENVIRONMENT ##################################
-data<-rbind(occ.sp[,Xvar+1],clim[,Xvar]) 
-w <- c(rep(0,nrow(occ.sp)),rep(1,nrow(clim)))
+data <- rbind(occ.sp[, Xvar + 1], clim[, Xvar])
+w <- c(rep(0, nrow(occ.sp)), rep(1, nrow(clim)))
 pca.cal <- dudi.pca(data, row.w = w, center = TRUE, scale = TRUE, scannf = FALSE, nf = 2)
 
 ####### selection of species ######
 sp.list
-sp.combn <- combn(1:2,2)
+sp.combn <- combn(1:2, 2)
 
-for(i in 1:ncol(sp.combn)) {
-  row.sp1 <- which(occ.sp[,1] == sp.list[sp.combn[1,i]]) # rows in data corresponding to sp1
-  row.sp2 <- which(occ.sp[,1] == sp.list[sp.combn[2,i]]) # rows in data corresponding to sp2
-  name.sp1 <- sp.list[sp.combn[1,i]]
-  name.sp2 <- sp.list[sp.combn[2,i]]
+for (i in 1:ncol(sp.combn)) {
+  row.sp1 <- which(occ.sp[, 1] == sp.list[sp.combn[1, i]]) # rows in data corresponding to sp1
+  row.sp2 <- which(occ.sp[, 1] == sp.list[sp.combn[2, i]]) # rows in data corresponding to sp2
+  name.sp1 <- sp.list[sp.combn[1, i]]
+  name.sp2 <- sp.list[sp.combn[2, i]]
   # predict the scores on the axes
-  scores.clim <- pca.cal$li[(nrow(occ.sp)+1):nrow(data),]  #scores for global climate
-  scores.sp1 <- pca.cal$li[row.sp1,]					#scores for sp1
-  scores.sp2 <- pca.cal$li[row.sp2,]					#scores for sp2
+  scores.clim <- pca.cal$li[(nrow(occ.sp) + 1):nrow(data), ] # scores for global climate
+  scores.sp1 <- pca.cal$li[row.sp1, ] # scores for sp1
+  scores.sp2 <- pca.cal$li[row.sp2, ] # scores for sp2
 }
-# calculation of occurence density and test of niche equivalency and similarity 
-z1 <- ecospat.grid.clim.dyn(scores.clim, scores.clim, scores.sp1,R=100)
-z2 <- ecospat.grid.clim.dyn(scores.clim, scores.clim, scores.sp2,R=100)
+# calculation of occurence density and test of niche equivalency and similarity
+# with the default kernel method
+z1 <- ecospat.grid.clim.dyn(scores.clim, scores.clim, scores.sp1, R = 100)
+z2 <- ecospat.grid.clim.dyn(scores.clim, scores.clim, scores.sp2, R = 100)
+
+# calculation of occurence density and test of niche equivalency and similarity
+# with the ks kernel method
+z1.kde <- ecospat.grid.clim.dyn(scores.clim, scores.clim, scores.sp1, R = 100, kernel.method = "ks")
+z2.kde <- ecospat.grid.clim.dyn(scores.clim, scores.clim, scores.sp2, R = 100, kernel.method = "ks")
+
+par(mfrow = c(2, 2))
+plot(z1$z.uncor, main = "Sp1 with default kernel")
+plot(z1.kde$z.uncor, main = "Sp1 with KS kernel")
+plot(z2$z.uncor, main = "Sp2 with default kernel")
+plot(z2.kde$z.uncor, main = "Sp2 with KS kernel")
 }}
 

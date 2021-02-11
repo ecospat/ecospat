@@ -151,20 +151,13 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
     # if scores in one dimension (e.g. LDA,SDM predictions,...)
     xmin <- min(glob[, 1])+extend.extent[1]
     xmax <- max(glob[, 1])+extend.extent[2]
-    if (kernel.method == 'ks'){
-      glob1.dens<-ecospat.kd(x = glob1,ext = c(xmin,xmax),method = 'ks',th=0)
-      sp.dens<-ecospat.kd(x = sp,ext = c(xmin,xmax),method = 'ks',th=0,
-                          env.mask = glob1.dens$y>0)
-    }else if (kernel.method == 'adehabitat'){
-      glob1.dens<-ecospat.kd(x = glob1,ext = c(xmin,xmax),method = 'adehabitat',th=0)
-      sp.dens<-ecospat.kd(x = sp,ext = c(xmin,xmax),method = 'adehabitat',th=0,
-                          env.mask = glob1.dens$y>0)
-    }
+    glob1.dens<-ecospat.kd(x = glob1,ext = c(xmin,xmax),method = kernel.method,th=0)
+    sp.dens<-ecospat.kd(x = sp,ext = c(xmin,xmax),method = kernel.method,th=0,
+                        env.mask = glob1.dens$y>0)
     x<-sp.dens$x
     y<-sp.dens$y
     z <- sp.dens$y * nrow(sp)/sum(sp.dens$y)  # rescale density to the number of occurrences in sp, ie. number of occurrence/pixel
     Z <- glob1.dens$y * nrow(glob)/sum(glob1.dens$y)  # rescale density to the number of sites in glob1
-    
     z.uncor <- z/max(z)  # rescale between [0:1] for comparison with other species
     z.cor <- z/Z  # correct for environment prevalence
     z.cor[is.na(z.cor)] <- 0  # remove n/0 situations
@@ -178,23 +171,13 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
     xmax<-apply(glob,2,max,na.rm=T)
     ext = c(xmin[1],xmax[1],xmin[2],xmax[2])+extend.extent
     
-    if (kernel.method == 'ks'){
-      glob1.dens<-ecospat.kd(x = glob1,ext = ext,method = 'ks',th=0)
-      if (!is.null(geomask)) {
-        proj4string(geomask) <- NA
-        glob1.dens <- mask(glob1.dens, geomask, updatevalue = 0)  # Geographical mask in the case if the analysis takes place in the geographical space
-      }
-      sp.dens<-ecospat.kd(x = sp,ext = ext ,method = 'ks',th=0,
-                          env.mask = glob1.dens>0)
-    }else if (kernel.method == 'adehabitat'){
-      glob1.dens<-ecospat.kd(x = glob1,ext = ext,method = 'adehabitat',th=0)
-      if (!is.null(geomask)) {
-        proj4string(geomask) <- NA
-        glob1.dens <- mask(glob1.dens, geomask, updatevalue = 0)  # Geographical mask in the case if the analysis takes place in the geographical space
-      }
-      sp.dens<-ecospat.kd(x = sp,ext = ext,method = 'adehabitat',th=0,
-                          env.mask = glob1.dens>0)
+    glob1.dens<-ecospat.kd(x = glob1,ext = ext,method = kernel.method,th=0)
+    if (!is.null(geomask)) {
+      proj4string(geomask) <- NA
+      glob1.dens <- mask(glob1.dens, geomask, updatevalue = 0)  # Geographical mask in the case if the analysis takes place in the geographical space
     }
+    sp.dens<-ecospat.kd(x = sp,ext = ext ,method =kernel.method,th=0,
+                        env.mask = glob1.dens>0)
     
     x<-seq(from = ext[1],to = ext[2],length.out = 100)
     y<-seq(from = ext[3],to = ext[4],length.out = 100)
@@ -221,7 +204,6 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
   
   return(l)
 }
-
 ##################################################################################################
 
 ecospat.plot.niche.dyn <- function(z1, z2, quant, title = "", name.axis1 = "Axis 1",
@@ -332,6 +314,7 @@ ecospat.shift.centroids <- function(sp1, sp2, clim1, clim2, col = "red") {
 ##################################################################################################
 
 ecospat.niche.dyn.index <- function(z1, z2, intersection = NA) {
+  require(ks)
   rotate <- function(x) t(apply(x, 2, rev))
   w1 <- as.matrix(z1$w)  # native environmental distribution mask
   w2 <- as.matrix(z2$w)  # invaded environmental distribution mask
