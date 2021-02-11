@@ -37,8 +37,8 @@ data.Solalp<- ecospat.testData[c("Soldanella_alpina","ddeg","mind","srad","slp",
 
 # gbm model for Soldanella alpina
 library(rms)
-glm.Solalp <- glm("Soldanella_alpina ~ pol(ddeg,2) + pol(mind,2) + pol(srad,2) + pol(slp,2) 
-      + pol(topo,2)", data = data.Solalp, family = binomial)
+glm.Solalp <- glm(Soldanella_alpina ~ pol(ddeg,2) + pol(mind,2) + pol(srad,2) + pol(slp,2) 
+      + pol(topo,2), data = data.Solalp, family = binomial)
 
 # cross-validated predictions
 glm.pred <- ecospat.cv.glm (glm.obj=glm.Solalp , K=10, cv.lim=10, jack.knife=FALSE)

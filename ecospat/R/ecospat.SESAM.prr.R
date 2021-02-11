@@ -36,7 +36,7 @@ ecospat.SESAM.prr <- function(proba, sr, verbose = FALSE) {
     SR <- projSR[i]  # values of species richeness     
     if (SR > 0) {
       predcom <- dataSSDM_p[i, ]
-      predcom_p <- dataSSDM_p[i, ]  #corresponding row with HS 
+      predcom_p <- as.numeric(dataSSDM_p[i, ])  #corresponding row with HS 
       com <- order(predcom_p, decreasing = TRUE)
       pres <- com[1:SR]
       predcom[, pres] <- 1

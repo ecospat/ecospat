@@ -155,4 +155,14 @@ FIXES
 
 * Fixed several bugs in "ecospat.CCV.communityEvaluation.prob" and "ecospat.ESM.Modeling()"
 
+ecospat_3.2 (11.02.2021)
+=============
+
+FIXES
+
+* Fixed bug in "ecospat.mpa"
+* Fixed bug in examples of "ecospat.cv.glm" and "ecospat.permut.glm"
+* Fixed instances of use of order() on 1 row dataframes 
+
+
 
