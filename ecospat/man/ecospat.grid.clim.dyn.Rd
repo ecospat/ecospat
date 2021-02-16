@@ -6,7 +6,7 @@
 
 \description{Create a grid with occurrence densities along one or two gridded environmental gradients.}
 
-\usage{ecospat.grid.clim.dyn (glob, glob1, sp, R, th.sp, th.env, geomask)}
+\usage{ecospat.grid.clim.dyn (glob, glob1, sp, R, th.sp, th.env, geomask, kernel.method, extend.extent)}
 
 \arguments{
   \item{glob}{A two-column dataframe (or a vector) of the environmental values (in column) for background pixels of the whole study area (in row).}
