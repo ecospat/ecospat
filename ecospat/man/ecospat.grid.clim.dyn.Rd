@@ -119,5 +119,14 @@ plot(z1$z.uncor, main = "Sp1 with default kernel")
 plot(z1.kde$z.uncor, main = "Sp1 with KS kernel")
 plot(z2$z.uncor, main = "Sp2 with default kernel")
 plot(z2.kde$z.uncor, main = "Sp2 with KS kernel")
+
+z1.extended <- ecospat.grid.clim.dyn(scores.clim, scores.clim, scores.sp1, R = 100,extend.extent = c(0,1,0,0)) # remove the crop of the density
+
+par(mfrow = c(1, 2))
+plot(z1$z.uncor, main = "Sp1 with default extent")
+plot(z1.extended$z.uncor, main = "Sp1 with extended extent")
 }}
+
+
+
 

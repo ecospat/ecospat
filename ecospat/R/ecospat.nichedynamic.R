@@ -414,6 +414,7 @@ ecospat.margin <- function(z, th.quant = 0, kern.method = "adehabitat",
   if (!requireNamespace("dplyr", quietly = TRUE)) {
     stop("Package \"dplyr\" needed for this function to work. Please install it.",
          call. = FALSE)
+  }
     
   niche.dens <- ecospat.kd(
     x = z$sp, ext = c(min(z$x), max(z$x), min(z$y), max(z$y)), R = length(z$x),
