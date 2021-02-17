@@ -914,16 +914,14 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   
   if (length(models) > 1) {
     if (new.env.raster) {
-      ESM.EF <- round(raster::weighted.mean(pred.ESM[[names(pred.ESM)]], weights.EF[order(weights.EF[,
-                                                                                                     1]), 2], na.rm = TRUE))
+      ESM.EF <- round(raster::weighted.mean(pred.ESM[[names(pred.ESM)]], weights.EF[order(weights.EF[,1]), 2], na.rm = TRUE))
       pred.ESM <- raster::stack(pred.ESM, ESM.EF)
       names(pred.ESM) <- c(names(pred.ESM)[1:(nlayers(pred.ESM) - 1)], "EF")
       rm(ESM.EF)
     }
     
     if (!new.env.raster) {
-      pred.ESM$EF <- apply(pred.ESM, 1, function(x) stats::weighted.mean(x, weights.EF[order(weights.EF[,
-                                                                                                        1]), 2], na.rm = TRUE))
+      pred.ESM$EF <- apply(pred.ESM, 1, function(x) stats::weighted.mean(x, weights.EF[order(weights.EF[,1]), 2], na.rm = TRUE))
     }
     
     
@@ -958,9 +956,9 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
 # Engler, R., A. Guisan, and L. Rechsteiner. 2004. An improved approach for predicting the distribution of rare and endangered species from occurrence and pseudo-absence data. Journal of Applied Ecology 41:263-274.
 
 
-ecospat.mpa <- function(Pred, Sp.occ.xy, perc = 0.9) {
+ecospat.mpa <- function(Pred, Sp.occ.xy = NULL, perc = 0.9) {
   perc <- 1 - perc
-  if (class(Pred) == "RasterLayer") {
+  if (!is.null(Sp.occ.xy)) {
     Pred <- extract(Pred, Sp.occ.xy)
   }
   round(quantile(Pred, probs = perc,na.rm = TRUE), 3)
