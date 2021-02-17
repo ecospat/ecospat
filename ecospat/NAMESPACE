@@ -30,7 +30,6 @@ importFrom("matrixStats", rowWeightedMeans)
 #importFrom("snow",setDefaultClusterOptions)
 importFrom("graphics", "rug")
 importFrom("ks", "kde")
-importFrom("dplyr", "as_tibble", "sample_n")
 
 # Export
 export(ecospat.adj.D2.glm)

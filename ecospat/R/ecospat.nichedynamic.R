@@ -411,6 +411,10 @@ ecospat.niche.dyn.index <- function(z1, z2, intersection = NA) {
 
 ecospat.margin <- function(z, th.quant = 0, kern.method = "adehabitat",
                            bootstrap = FALSE, bootstrap.rep = 100, bootstrap.ncore = 1) {
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("Package \"dplyr\" needed for this function to work. Please install it.",
+         call. = FALSE)
+    
   niche.dens <- ecospat.kd(
     x = z$sp, ext = c(min(z$x), max(z$x), min(z$y), max(z$y)), R = length(z$x),
     th = th.quant, env.mask = z$Z > 0, method = kern.method
