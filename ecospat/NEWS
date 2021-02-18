@@ -162,7 +162,12 @@ FIXES
 
 * Fixed bug in "ecospat.mpa"
 * Fixed bug in examples of "ecospat.cv.glm" and "ecospat.permut.glm"
-* Fixed instances of use of order() on 1 row dataframes 
+* Fixed instances of use of order() on 1 row dataframes
+* Added new argument "kernel.method" to "ecospat.grid.clim.dyn" allowing to choose kernel density estimation from package ks as an alternative to package adehabitat
+* Added new argument "extend.extent" to "ecospat.grid.clim.dyn" allowing to modify the extent of the environmental space beyond the minimum and maximum of environmental values present in the study area
+* Added an internal function "ecospat.kd" to simplify the coding of function "ecospat.grid.clim.dyn"
+* Added new function "ecospat.margin" to estimate the margin of a distribution in the bi-dimensional environmental space based on bootstrapped kernel density estimation
+* Adapted functions "ecospat.makeDataFrame" and ecospat.occ.desaggregation" by replacing nndist from package spatstat with knn from package nabor.
 
 
 

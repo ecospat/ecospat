@@ -44,12 +44,15 @@ ecospat.occ.desaggregation <- function(xy, min.dist,by=NULL){
 
     repeat{
       
-    nn1 <- nndist(del.min.dist[,"x"],del.min.dist[,"y"])       # calculate distance nearest neighbour
+    #nn1 <- nndist(del.min.dist[,"x"],del.min.dist[,"y"])       # calculate distance nearest neighbour
+    nn1 <- nabor::knn(del.min.dist[,c("x","y")],k=2)$nn.dists[,2]
+    
     if (sum(nn1 < min.dist) == 0){
       break
     }
     # iteratively removing points starting with the one having the minimal distance to the nearest neighbour
-    nn2 <- nndist(del.min.dist[,"x"],del.min.dist[,"y"],k=2)
+    #nn2 <- nndist(del.min.dist[,"x"],del.min.dist[,"y"],k=2)
+    nn2 <- nabor::knn(del.min.dist[,c("x","y")],k=3)$nn.dists[,3]
 
         del1 <- nn1 == min(nn1) 
         del2 <- nn2==min(nn2[del1])
@@ -57,7 +60,8 @@ ecospat.occ.desaggregation <- function(xy, min.dist,by=NULL){
         if(sum(del2)>1){
           for(k in 3:8){
 
-          nn <- nndist(del.min.dist[,"x"],del.min.dist[,"y"],k=k)
+          #nn <- nndist(del.min.dist[,"x"],del.min.dist[,"y"],k=k)
+          nn  <- nabor::knn(del.min.dist[,c("x","y")],k=k+1)$nn.dists[,k+1]
           delk <- delk & nn==min(nn[delk])
           if(sum(nn[delk]==min(nn[delk]))>1){break}
           }

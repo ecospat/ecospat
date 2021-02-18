@@ -137,8 +137,11 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
 
     # set a minimum distance between your presences to the nearest neighbour
     if (!is.null(mindist)) {
-      spec.x$nn <- nndist(spec.x[, c(1, 2)])
-      spec.x$nn2 <- nndist(spec.x[, c(1, 2)], k = 2)
+      #spec.x$nn <- nndist(spec.x[, c(1, 2)])
+      #spec.x$nn2 <- nndist(spec.x[, c(1, 2)], k = 2)
+      spec.x$nn <- nabor::knn(spec.x[, c(1, 2)],k=2)$nn.dists[,2]
+      spec.x$nn2 <- nabor::knn(spec.x[, c(1, 2)],k=3)$nn.dists[,3]     
+      
       spec.x$id <- 1:nrow(spec.x)
       del.id = 0
 
@@ -154,8 +157,10 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
         }
 
         spec.x <- spec.x[!spec.x$id == del.id, ]
-        spec.x$nn <- nndist(spec.x[, c(1, 2)])
-        spec.x$nn2 <- nndist(spec.x[, c(1, 2)], k = 2)
+        #spec.x$nn <- nndist(spec.x[, c(1, 2)])
+        #spec.x$nn2 <- nndist(spec.x[, c(1, 2)], k = 2)
+        spec.x$nn <- nabor::knn(spec.x[, c(1, 2)],k=2)$nn.dists[,2]
+        spec.x$nn2 <- nabor::knn(spec.x[, c(1, 2)],k=3)$nn.dists[,3] 
 
         if (sum(spec.x$nn < mindist) == 0) {
           break
