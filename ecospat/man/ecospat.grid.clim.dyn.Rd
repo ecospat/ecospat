@@ -6,7 +6,9 @@
 
 \description{Create a grid with occurrence densities along one or two gridded environmental gradients.}
 
-\usage{ecospat.grid.clim.dyn (glob, glob1, sp, R, th.sp, th.env, geomask, kernel.method, extend.extent)}
+\usage{ecospat.grid.clim.dyn (glob, glob1, sp, R, th.sp, th.env, geomask, 
+  kernel.method, extend.extent)
+}
 
 \arguments{
   \item{glob}{A two-column dataframe (or a vector) of the environmental values (in column) for background pixels of the whole study area (in row).}
@@ -120,11 +122,12 @@ plot(z1.kde$z.uncor, main = "Sp1 with KS kernel")
 plot(z2$z.uncor, main = "Sp2 with default kernel")
 plot(z2.kde$z.uncor, main = "Sp2 with KS kernel")
 
-z1.extended <- ecospat.grid.clim.dyn(scores.clim, scores.clim, scores.sp1, R = 100,extend.extent = c(0,1,0,0)) # remove the crop of the density
+z1.ext <- ecospat.grid.clim.dyn(scores.clim, scores.clim, scores.sp1, R = 100,
+  extend.extent = c(0,1,0,0)) 
 
 par(mfrow = c(1, 2))
 plot(z1$z.uncor, main = "Sp1 with default extent")
-plot(z1.extended$z.uncor, main = "Sp1 with extended extent")
+plot(z1.ext$z.uncor, main = "Sp1 with extended extent")
 }}
 
 

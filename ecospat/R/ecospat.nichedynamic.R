@@ -214,6 +214,7 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
 
     x <- seq(from = ext[1], to = ext[2], length.out = 100)
     y <- seq(from = ext[3], to = ext[4], length.out = 100)
+    l$y <- y
     Z <- glob1.dens * nrow(glob1) / raster::cellStats(glob1.dens, "sum") # rescale density to the number of occurrences in sp, ie. number of occurrence/pixel
     z <- sp.dens * nrow(sp) / raster::cellStats(sp.dens, "sum") # rescale density to the number of occurrences in sp, ie. number of occurrence/pixel
     z.uncor <- z / raster::cellStats(z, "max")
@@ -225,7 +226,6 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
   w <- z.uncor # niche envelope
   w[w > 0] <- 1
   l$x <- x
-  l$y <- y
   l$z <- z
   l$z.uncor <- z.uncor
   l$z.cor <- z.cor

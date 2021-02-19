@@ -44,30 +44,34 @@ pca.cal <- ade4::dudi.pca(clim, center = TRUE, scale = TRUE, scannf = FALSE, nf 
 scores.clim <- pca.cal$li # scores for global climate
 scores.sp1 <- ade4::suprow(pca.cal, sp1[, 4:8])$li # scores for sp1
 
-z1 <- ecospat.grid.clim.dyn(scores.clim, scores.clim, scores.sp1, R = 100, extend.extent = c(0, 1, 0, 0))
+z1 <- ecospat.grid.clim.dyn(scores.clim, scores.clim, scores.sp1, R = 100, 
+  extend.extent = c(0, 1, 0, 0))
 
 ####### estimate the margin ######
 z1.margin <- ecospat.margin(z1, th.quant = 0, bootstrap = FALSE) # including all occurrences
-z1.95margin <- ecospat.margin(z1, th.quant = 0.05, bootstrap = FALSE) # including 95 percent of the occurrences
-z1.bootstrap.margin <- ecospat.margin(z1,
-  th.quant = 0,
-  bootstrap = TRUE, bootstrap.rep = 100
-) # bootstrap estimation of the niche limit
+z1.95margin <- ecospat.margin(z1, th.quant = 0.05, 
+  bootstrap = FALSE) # including 95 percent of the occurrences
+z1.bootstrap.margin <- ecospat.margin(z1,th.quant = 0,
+  bootstrap = TRUE, bootstrap.rep = 100) # bootstrap estimation of the niche limit
 
 ####### plot the margin and its uncertainty ######
 plot(z1.margin$niche.density) # plot of the niche density
 points(z1$sp) # with species occurences
-plot(z1.margin$niche.contour, add = T) # limit of the margin if you include all the distribution
-plot(z1.95margin$niche.contour, col = 2, add = T) # limit of the margin if you exclude the 5 percents of the most marginal distribution
-plot(z1.bootstrap.margin$niche.contour, col = 2, add = T, lty = "dotted") # limit of the niche based on the 95 percent CI of the bootstrap
+plot(z1.margin$niche.contour, add = TRUE) # limit of the margin if you include all the distribution
+plot(z1.95margin$niche.contour, col = 2, add = TRUE) # limit of the margin if you exclude the 
+                                                  # 5 percents of the most marginal distribution
+plot(z1.bootstrap.margin$niche.contour, col = 2, add = TRUE, lty = "dotted") 
+      # limit of the niche based on the 95 percent CI of the bootstrap
 
 par(mfrow=c(1,2))
-  plot(z1.bootstrap.margin$niche.envelope, main = "Margin uncertainty", legend.args=list(text="CI [%]", cex = 0.8)) # shows the uncertainty of the niche margin in raster mode
+plot(z1.bootstrap.margin$niche.envelope, main = "Margin uncertainty", 
+  legend.args=list(text="CI", cex = 0.8)) # shows the uncertainty of the niche margin in raster mode
 points(z1$sp) # with species occurences
-raster::contour(z1.bootstrap.margin$niche.envelope, col = gray(10:1 / 10), main = "Margin uncertainty") # shows the uncertainty of the niche limit in vector mode
-
-confInt80 <- raster::rasterToPolygons(z1.bootstrap.margin$niche.envelope >= 50, dissolve = TRUE, fun = function(x) {
-  x == 1
-}) # select a customized confidence interval (here for example 80 percent)
-plot(as(confInt80, "SpatialLines"), add = T, lty = "dotted", col = 2)
+# shows the uncertainty of the niche limit in vector mode
+raster::contour(z1.bootstrap.margin$niche.envelope, col = gray(10:1 / 10), 
+  main = "Margin uncertainty") 
+confInt80 <- raster::rasterToPolygons(z1.bootstrap.margin$niche.envelope >= 50, dissolve = TRUE, 
+  fun = function(x) {x == 1}
+  ) # select a customized confidence interval (here for example 80 percent)
+plot(as(confInt80, "SpatialLines"), add = TRUE, lty = "dotted", col = 2)
 }}
