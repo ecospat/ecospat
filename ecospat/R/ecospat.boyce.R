@@ -17,16 +17,16 @@ ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100,
   }
   
   if (class(fit) == "RasterLayer") {
-    if (class(obs) == "data.frame" | class(obs) == "matrix") {
+    if (class(obs) == "data.frame" || class(obs) == "matrix") {
       obs <- extract(fit, obs)
     }
     fit <- getValues(fit)
     fit <- fit[!is.na(fit)]
   }
   
-  interval <- c(min(fit), max(fit))
-  mini <- interval[1]
-  maxi <- interval[2]
+  mini <- min(fit,obs)
+  maxi <- max(fit,obs)
+  
   if(length(nclass)==1){
     if (nclass == 0) { #moving window
       if (window.w == "default") {window.w <- (max(fit) - min(fit))/10}
@@ -55,7 +55,7 @@ ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100,
   if(length(nclass)==1 & nclass == 0) {
     HS[length(HS)] <- HS[length(HS)] - 1  #Correction of the 'trick' to deal with closed interval
   }
-  HS <- HS[to.keep]  #exlude the NaN
+  HS <- HS[to.keep]  #exclude the NaN
   if (PEplot == TRUE) {
     plot(HS, f, xlab = "Habitat suitability", ylab = "Predicted/Expected ratio", col = "grey", cex = 0.75)
     points(HS[r], f[r], pch = 19, cex = 0.75)
