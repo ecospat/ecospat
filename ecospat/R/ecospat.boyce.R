@@ -17,7 +17,6 @@ ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100,
   }
   
   if (class(fit) == "RasterLayer") {
-#    if (class(obs) == "data.frame") {
     if (class(obs) == "data.frame" | class(obs) == "matrix") {
       obs <- extract(fit, obs)
     }
@@ -25,22 +24,24 @@ ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100,
     fit <- fit[!is.na(fit)]
   }
   
-  if (window.w == "default") {
-    window.w <- (max(fit) - min(fit))/10
-  }
   interval <- c(min(fit), max(fit))
   mini <- interval[1]
   maxi <- interval[2]
-  if (nclass == 0) {
-    vec.mov <- seq(from = mini, to = maxi - window.w, by = (maxi - mini - window.w)/res)
-    vec.mov[res + 1] <- vec.mov[res + 1] + 1  #Trick to avoid error with closed interval in R
-    interval <- cbind(vec.mov, vec.mov + window.w)
-  } else if (length(nclass) > 1) {
-    vec.mov <- c(mini, nclass)
+  if(length(nclass)==1){
+    if (nclass == 0) { #moving window
+      if (window.w == "default") {window.w <- (max(fit) - min(fit))/10}
+      vec.mov <- seq(from = mini, to = maxi - window.w, by = (maxi - mini - window.w)/res)
+      vec.mov[res + 1] <- vec.mov[res + 1] + 1  #Trick to avoid error with closed interval in R
+      interval <- cbind(vec.mov, vec.mov + window.w)
+    } else{ #window based on nb of class
+      vec.mov <- seq(from = mini, to = maxi, by = (maxi - mini)/nclass)
+      interval <- cbind(vec.mov, c(vec.mov[-1], maxi))
+    }
+  } else{ #user defined window
+    vec.mov <- c(mini, sort(nclass[!nclass>maxi|nclass<mini]))
     interval <- cbind(vec.mov, c(vec.mov[-1], maxi))
-  } else if (nclass > 0 & length(nclass) < 2) {
-    vec.mov <- seq(from = mini, to = maxi, by = (maxi - mini)/nclass)
   }
+ 
   f <- apply(interval, 1, boycei, obs, fit)
   to.keep <- which(f != "NaN")  # index to keep no NaN data
   f <- f[to.keep]
@@ -51,12 +52,13 @@ ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100,
     b <- cor(f[r], vec.mov[to.keep][r], method = "spearman")  # calculation of the spearman correlation (i.e. Boyce index) after removing successive duplicated values
   }
   HS <- apply(interval, 1, sum)/2  # mean habitat suitability in the moving window
-  HS[length(HS)] <- HS[length(HS)] - 1  #Correction of the 'trick' to deal with closed interval
+  if(length(nclass)==1 & nclass == 0) {
+    HS[length(HS)] <- HS[length(HS)] - 1  #Correction of the 'trick' to deal with closed interval
+  }
   HS <- HS[to.keep]  #exlude the NaN
   if (PEplot == TRUE) {
     plot(HS, f, xlab = "Habitat suitability", ylab = "Predicted/Expected ratio", col = "grey", cex = 0.75)
     points(HS[r], f[r], pch = 19, cex = 0.75)
   }
-  results <- list(F.ratio = f, Spearman.cor = round(b, 3), HS = HS)
-  return(results)
+  return(list(F.ratio = f, Spearman.cor = round(b, 3), HS = HS))
 }
