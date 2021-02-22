@@ -212,8 +212,8 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
       env.mask = glob1.dens > 0
     )
 
-    x <- seq(from = ext[1], to = ext[2], length.out = 100)
-    y <- seq(from = ext[3], to = ext[4], length.out = 100)
+    x <- seq(from = ext[1], to = ext[2], length.out = R)
+    y <- seq(from = ext[3], to = ext[4], length.out = R)
     l$y <- y
     Z <- glob1.dens * nrow(glob1) / raster::cellStats(glob1.dens, "sum") # rescale density to the number of occurrences in sp, ie. number of occurrence/pixel
     z <- sp.dens * nrow(sp) / raster::cellStats(sp.dens, "sum") # rescale density to the number of occurrences in sp, ie. number of occurrence/pixel
@@ -240,8 +240,9 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
 ##################################################################################################
 
 ecospat.plot.niche.dyn <- function(z1, z2, quant, title = "", name.axis1 = "Axis 1",
-                                   name.axis2 = "Axis 2", interest = 1, colz1 = "#00FF0050", colz2 = "#FF000050",
-                                   colinter = "#0000FF50", colZ1 = "green3", colZ2 = "red3") {
+                                   name.axis2 = "Axis 2", interest = 1, col.unf = "#00FF0050", col.exp = "#FF000050",
+                                   col.stab = "#0000FF50", colZ1 = "green3", colZ2 = "red3") {
+  # white = #FFFFFF, red= #FF000050, blue = #0000FF50, green = #00FF0050
   if (is.null(z1$y)) {
     R <- length(z1$x)
     x <- z1$x
@@ -305,24 +306,32 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant, title = "", name.axis1 = "Axis
     }
     cat <- ecospat.niche.dyn.index(z1, z2, intersection = quant)$dyn
     inter <- cbind(z1$x[-length(z1$x)], z1$x[-1], cat[-1])
-    apply(inter, 1, seg.cat,
-      col.unf = "#00FF0050", col.exp = "#FF000050",
-      col.stab = "#0000FF50"
-    )
+    apply(inter, 1, seg.cat, col.unf = col.unf, col.exp = col.exp, col.stab= col.stab)
   }
 
   if (!is.null(z1$y)) {
-    z <- t(as.matrix(z1$w + 2 * z2$w))[, nrow(as.matrix(z1$z.uncor)):1]
-    z1$Z <- t(as.matrix(z1$Z))[, nrow(as.matrix(z1$Z)):1]
-    z2$Z <- t(as.matrix(z2$Z))[, nrow(as.matrix(z2$Z)):1]
+    
+    # z <- t(as.matrix(z1$w + 2 * z2$w))[, nrow(as.matrix(z1$z.uncor)):1]
+    # z1$Z <- t(as.matrix(z1$Z))[, nrow(as.matrix(z1$Z)):1]
+    # z2$Z <- t(as.matrix(z2$Z))[, nrow(as.matrix(z2$Z)):1]
+    # if (interest == 1) {
+    #   image(x = z1$x, y = z1$y, z = t(as.matrix(z1$z.uncor))[, nrow(as.matrix(z1$z.uncor)):1], col = gray(100:0 / 100), zlim = c(1e-05, cellStats(z1$z.uncor, "max")), xlab = name.axis1, ylab = name.axis2)
+    #   image(x = z1$x, y = z1$y, z = z, col = c("#FFFFFF00", colz1, colz2, colinter), add = TRUE)
+    # }
+    # if (interest == 2) {
+    #   image(x = z2$x, y = z2$y, z = t(as.matrix(z2$z.uncor))[, nrow(as.matrix(z2$z.uncor)):1], col = gray(100:0 / 100), zlim = c(1e-05, cellStats(z2$z.uncor, "max")), xlab = name.axis1, ylab = name.axis2)
+    #   image(x = z2$x, y = z2$y, z = z, col = c("#FFFFFF00", colz1, colz2, colinter), add = TRUE)
+    # }
+    
     if (interest == 1) {
-      image(x = z1$x, y = z1$y, z = t(as.matrix(z1$z.uncor))[, nrow(as.matrix(z1$z.uncor)):1], col = gray(100:0 / 100), zlim = c(1e-05, cellStats(z1$z.uncor, "max")), xlab = name.axis1, ylab = name.axis2)
-      image(x = z1$x, y = z1$y, z = z, col = c("#FFFFFF00", colz1, colz2, colinter), add = TRUE)
+      plot(z1$z.uncor,col=gray(100:0 / 100),legend=F)
     }
     if (interest == 2) {
-      image(x = z2$x, y = z2$y, z = t(as.matrix(z2$z.uncor))[, nrow(as.matrix(z2$z.uncor)):1], col = gray(100:0 / 100), zlim = c(1e-05, cellStats(z2$z.uncor, "max")), xlab = name.axis1, ylab = name.axis2)
-      image(x = z2$x, y = z2$y, z = z, col = c("#FFFFFF00", colz1, colz2, colinter), add = TRUE)
+      plot(z2$z.uncor,col=gray(100:0 / 100),legend=F)
     }
+    
+    image(2*z1$w+z2$w,col=c("#FFFFFF",col.exp,col.unf,col.stab),alpha = 0.4, add = TRUE,legend=F)
+    
     title(title)
     contour(
       x = z1$x, y = z1$y, z1$Z, add = TRUE, levels = quantile(z1$Z[z1$Z > 0], c(0, quant)),
