@@ -204,7 +204,7 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
 
     glob1.dens <- ecospat.kd(x = glob1, ext = ext, method = kernel.method, th = 0)
     if (!is.null(geomask)) {
-      sp::proj4string(geomask) <- NA
+      raster::crs(geomask) <- NA
       glob1.dens <- raster::mask(glob1.dens, geomask, updatevalue = 0) # Geographical mask in the case if the analysis takes place in the geographical space
     }
     sp.dens <- ecospat.kd(
