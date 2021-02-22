@@ -1,26 +1,3 @@
-#### boyce index
-
-#### functions calculating Boyce index (Hirzel et al. 2006) by Blaise Petitpierre & Frank Breiner(28.06.2013)
-# fit: A vector or Raster-Layer containing the predicted suitability values 
-#obs: A vector containing the predicted suitability values or xy-coordinates (if fit is a Raster-Layer) of the validation points (presence records)
-
-#### internal function calculating predicted-to-expected ratio for each class-interval
-boycei <- function(interval, obs, fit) {
-  
-  fit.bin <- fit
-  obs.bin <- obs
-  fit.bin[fit[] >= interval[1] & fit[] <= interval[2]] <- "i"
-  fit.bin[fit.bin != "i"] <- 0
-  obs.bin[obs[] >= interval[1] & obs[] <= interval[2]] <- "i"
-  obs.bin[obs.bin != "i"] <- 0
-  
-  pi <- length(which(obs.bin == "i"))/length(obs)
-  ei <- length(which(fit.bin == "i"))/length(fit.bin)
-  fi <- pi/ei
-  
-  return(fi)
-}
-
 #### Calculating Boyce index as in Hirzel et al. 2006
 # fit: A vector or Raster-Layer containing the predicted suitability values 
 # obs: A vector containing the predicted suitability values or xy-coordinates (if fit is a Raster-Layer) of the validation points (presence records)
@@ -31,6 +8,14 @@ boycei <- function(interval, obs, fit) {
 
 
 ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100, PEplot = TRUE) {
+  
+  #### internal function calculating predicted-to-expected ratio for each class-interval
+  boycei <- function(interval, obs, fit) {
+    pi <- sum(as.numeric(obs >= interval[1] & obs <= interval[2])) / length(obs)
+    ei <- sum(as.numeric(fit >= interval[1] & fit <= interval[2])) / length(fit)
+    return(pi/ei)
+  }
+  
   if (class(fit) == "RasterLayer") {
 #    if (class(obs) == "data.frame") {
     if (class(obs) == "data.frame" | class(obs) == "matrix") {
