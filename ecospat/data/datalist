@@ -5,3 +5,4 @@ ecospat.testNiche.inv: Test Data For The Niche Dynamics Analysis In The Invaded 
 ecospat.testNiche.nat: Test Data For The Niche Dynamics Analysis In The Native Range Of A Hypothetical Species
 ecospat.testMdr: Test Data For The Minimum Dispersal Routes Analysis
 ecospat.testEnvRaster: Test Data For niche.projGeo analyses
+ecospat.testNichePOSNB: Test Data For niche position and breadth analyses
