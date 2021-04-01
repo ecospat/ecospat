@@ -155,6 +155,7 @@ FIXES
 
 * Fixed several bugs in "ecospat.CCV.communityEvaluation.prob" and "ecospat.ESM.Modeling()"
 
+
 ecospat_3.2 (11.02.2021)
 =============
 
@@ -169,5 +170,11 @@ FIXES
 * Added new function "ecospat.margin" to estimate the margin of a distribution in the bi-dimensional environmental space based on bootstrapped kernel density estimation
 * Adapted functions "ecospat.makeDataFrame" and ecospat.occ.desaggregation" by replacing nndist from package spatstat with knn from package nabor.
 
+ecospat_dev (01.04.2021)
+=============
+
+NEW FEATURES
+
+* Added new function "ecospat.nichePOSNB" to calculate the niche breadth and niche position of taxa along environmental axes from abundance data
 
 

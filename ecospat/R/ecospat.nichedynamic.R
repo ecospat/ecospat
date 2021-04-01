@@ -273,12 +273,12 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant, title = "", name.axis1 = "Axis
     YY2 <- sort(rep(1:length(Y2), 2))[-c(1:2, length(Y2) * 2)]
 
     plot(x, y1, type = "n", xlab = name.axis1, ylab = "density of occurrence")
-    polygon(x[xx], c(0, y1[yy1], 0, 0), col = colz1, border = 0)
-    polygon(x[xx], c(0, y2[yy2], 0, 0), col = colz2, border = 0)
+    polygon(x[xx], c(0, y1[yy1], 0, 0), col = col.unf, border = 0)
+    polygon(x[xx], c(0, y2[yy2], 0, 0), col = col.exp, border = 0)
     polygon(x[xx], c(
       0, apply(cbind(y2[yy2], y1[yy1]), 1, min, na.exclude = TRUE),
       0, 0
-    ), col = colinter, border = 0)
+    ), col = col.stab, border = 0)
     lines(x[xx], c(0, Y2.quant[YY2], 0, 0), col = colZ2, lty = "dashed")
     lines(x[xx], c(0, Y1.quant[YY1], 0, 0), col = colZ1, lty = "dashed")
     lines(x[xx], c(0, Y2[YY2], 0, 0), col = colZ2)
@@ -330,15 +330,15 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant, title = "", name.axis1 = "Axis
       plot(z2$z.uncor,col=gray(100:0 / 100),legend=F)
     }
     
-    image(2*z1$w+z2$w,col=c("#FFFFFF",col.exp,col.unf,col.stab),alpha = 0.4, add = TRUE,legend=F)
+    raster::image(2*z1$w+z2$w,col=c("#FFFFFF",col.exp,col.unf,col.stab),alpha = 0.4, add = TRUE,legend=F)
     
     title(title)
-    contour(
-      x = z1$x, y = z1$y, z1$Z, add = TRUE, levels = quantile(z1$Z[z1$Z > 0], c(0, quant)),
+    raster::contour(
+      z1$Z, add = TRUE, levels = quantile(z1$Z[z1$Z > 0], c(0, quant)),
       drawlabels = FALSE, lty = c(1, 2), col = colZ1
     )
-    contour(
-      x = z2$x, y = z2$y, z2$Z, add = TRUE, levels = quantile(z2$Z[z2$Z > 0], c(0, quant)),
+    raster::contour(
+      z2$Z, add = TRUE, levels = quantile(z2$Z[z2$Z > 0], c(0, quant)),
       drawlabels = FALSE, lty = c(1, 2), col = colZ2
     )
   }

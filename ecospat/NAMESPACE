@@ -31,6 +31,7 @@ importFrom("matrixStats", rowWeightedMeans)
 importFrom("graphics", "rug")
 importFrom("ks", "kde")
 importFrom("nabor", knn)
+importFrom("Hmisc", wtd.mean)
 
 # Export
 export(ecospat.adj.D2.glm)
@@ -102,3 +103,4 @@ export(ecospat.sample.envar)
 export(ecospat.SESAM.prr)
 export(ecospat.shift.centroids)
 export(ecospat.varpart)
+export(ecospat.nichePOSNB)
