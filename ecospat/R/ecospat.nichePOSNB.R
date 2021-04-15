@@ -38,7 +38,17 @@ ecospat.nichePOSNB<-function(df,colvar,colfreq){
 }
 
 ## test
+<<<<<<< HEAD
 #df <- read.delim("ecospat/data/ecospat.testNichePOSNB.txt")
 #ecospat.nichePOSNB(df,colvar=c(2),colfreq = 4:15) # 1 axes
 #ecospat.nichePOSNB(df,colvar=c(2:3),colfreq = 4:15) # 2 axes
 #ecospat.nichePOSNB(df,colvar=c(2:6),colfreq = 4:15) # 5 axes
+=======
+# df <- read.delim("ecospat/data/ecospat.testNichePOSNB.txt")
+# df <-data(ecospat.testNichePOSNB)
+# ecospat.nichePOSNB(df,colvar=c(2),colfreq = 4:15) # 1 axes
+# ecospat.nichePOSNB(df,colvar=c(2:3),colfreq = 4:15) # 2 axes
+# ecospat.nichePOSNB(df,colvar=c(2:6),colfreq = 4:15) # 5 axes
+
+
+>>>>>>> 3cbd64cd7c8e64c36a5b66738741d5ba0294f225
