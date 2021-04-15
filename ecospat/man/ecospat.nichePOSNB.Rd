@@ -31,8 +31,8 @@ The function returns a matrix containing the average niche position and niche br
 
 \examples{
 
-data(ecospat.NichetestPOSNB)
-df<-ecospat.NichetestPOSNB
+data(ecospat.testNichePOSNB)
+df<-ecospat.testNichePOSNB
 ecospat.nichePOSNB(df,colvar=c(2),colfreq = 6:17) # 1 axes
 ecospat.nichePOSNB(df,colvar=c(2:3),colfreq = 6:17) # 2 axes
 ecospat.nichePOSNB(df,colvar=c(2:5),colfreq = 6:17) # 4 axes #
