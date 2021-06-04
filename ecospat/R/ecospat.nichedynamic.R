@@ -180,9 +180,9 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
     # if scores in one dimension (e.g. LDA,SDM predictions,...)
     xmin <- min(glob[, 1]) + extend.extent[1]
     xmax <- max(glob[, 1]) + extend.extent[2]
-    glob1.dens <- ecospat.kd(x = glob1, ext = c(xmin, xmax), method = kernel.method, th = 0)
+    glob1.dens <- ecospat.kd(x = glob1, ext = c(xmin, xmax), method = kernel.method, th = th.env, R = R)
     sp.dens <- ecospat.kd(
-      x = sp, ext = c(xmin, xmax), method = kernel.method, th = 0,
+      x = sp, ext = c(xmin, xmax), method = kernel.method, th = th.sp, R = R,
       env.mask = glob1.dens$y > 0
     )
     x <- sp.dens$x
@@ -202,13 +202,13 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
     xmax <- apply(glob, 2, max, na.rm = T)
     ext <- c(xmin[1], xmax[1], xmin[2], xmax[2]) + extend.extent
 
-    glob1.dens <- ecospat.kd(x = glob1, ext = ext, method = kernel.method, th = 0)
+    glob1.dens <- ecospat.kd(x = glob1, ext = ext, method = kernel.method, th = th.env, R = R)
     if (!is.null(geomask)) {
       raster::crs(geomask) <- NA
       glob1.dens <- raster::mask(glob1.dens, geomask, updatevalue = 0) # Geographical mask in the case if the analysis takes place in the geographical space
     }
     sp.dens <- ecospat.kd(
-      x = sp, ext = ext, method = kernel.method, th = 0,
+      x = sp, ext = ext, method = kernel.method, th = th.sp, R =R,
       env.mask = glob1.dens > 0
     )
 
