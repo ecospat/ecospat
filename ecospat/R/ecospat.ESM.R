@@ -1130,7 +1130,9 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
     pos_models <- grep(m,names(weights.reordered))
     pos_cb<-c(which(cb1==v),which(cb2==v))
     pos<-intersect(pos_models,pos_cb)
-    contrib[which(var==v),which(names(contrib)==m)]<-sum(weights.reordered[pos])/(2*sum(weights.reordered[pos_models]))
+    contrib[which(var==v),which(names(contrib)==m)] #<-sum(weights.reordered[pos])/(2*sum(weights.reordered[pos_models]))
+    <- sum(weights.reordered[pos])/(sum(weights.reordered[setdiff(pos_models,pos)]))*length(setdiff(pos_models,pos))/length(pos)
+    
     }
   }
   
