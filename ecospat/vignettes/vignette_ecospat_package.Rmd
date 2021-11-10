@@ -223,10 +223,14 @@ The niche overlap between the native and the invaded range is 22%.
 
 It is reccomended to use at least 1000 replications for the equivalency test. As an example we used rep = 10, to reduce the computational time. 
 ```{r}
-eq.test <- ecospat.niche.equivalency.test(grid.clim.nat, grid.clim.inv,
-                                          rep=10, alternative = "greater")
+eq.test <- ecospat.niche.equivalency.test(grid.clim.nat, grid.clim.inv,rep=10,
+                                          intersection = 0.1,
+                                          overlap.alternative =  "higher",
+                                          expansion.alternative = "lower",
+                                          stability.alternative = "higher",
+                                          unfilling.alternative = "lower")
 ```
-Niche equivalency test H1: the observed overlap between the native and invaded niche is higher than if the two niches are randomized
+Niche equivalency test H1: the observed overlap between the native and invaded niche is higher than if the two niches are randomized, the niche expansion of the invaded niche is lower, the niche stability is higher and the niche unfilling is lower than if the two niches are randomized.
 
 Plot Equivalency test
 ```{r}
@@ -238,11 +242,15 @@ ecospat.plot.overlap.test(eq.test, "D", "Equivalency")
 Shifts randomly on niche (here the invasive niche) in the study area
 It is recomended to use at least 1000 replications for the similarity test. As an example we used rep = 10, to reduce the computational time.
 ```{r}
-sim.test <- ecospat.niche.similarity.test(grid.clim.nat, grid.clim.inv,
-                                          rep=10, alternative = "greater",
+sim.test <- ecospat.niche.similarity.test(grid.clim.nat, grid.clim.inv,rep=10,
+                                          overlap.alternative =  "higher",
+                                          expansion.alternative = "lower",
+                                          stability.alternative = "higher",
+                                          unfilling.alternative = "lower",
+                                          intersection = 0.1,
                                           rand.type=2) 
 ```
-Niche similarity test H1: the observed overlap between the native and invaded is higher than randomly shifted invasive niches in the invaded study area
+Niche similarity test H1: the observed overlap between the native and invaded is higher than randomly shifted invasive niches in the invaded study area, the niche expansion of the invaded niche is lower, the niche stability is higher and the niche unfilling is lower than if the two niches are randomized.
 
 Plot Similarity test
 ```{r}
@@ -264,6 +272,13 @@ ecospat.plot.niche.dyn(grid.clim.nat, grid.clim.inv, quant=0.25, interest=2,
                        name.axis2="PC2")
 
 ecospat.shift.centroids(scores.sp.nat, scores.sp.inv, scores.clim.nat, scores.clim.inv)
+```
+
+Plot Similarity test for niche expansion, stability and unfilling
+```{r}
+ecospat.plot.overlap.test(sim.test, "expansion", "Similarity")
+ecospat.plot.overlap.test(sim.test, "stability", "Similarity")
+ecospat.plot.overlap.test(sim.test, "unfilling", "Similarity")
 ```
 
 

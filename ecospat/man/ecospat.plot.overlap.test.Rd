@@ -12,7 +12,7 @@
   \item{x}{Object created by 
   
   \code{ecospat.niche.similarity.test} or \code{ecospat.niche.equivalency.test}.}
-  \item{type}{Must be either \dQuote{D} or \dQuote{I}.}
+  \item{type}{Select the tested index. Must be \dQuote{D}, \dQuote{I}, \dQuote{expansion}, \dQuote{stability}, \dQuote{unfilling}.}
   \item{title}{The title for the plot.}
 }
 

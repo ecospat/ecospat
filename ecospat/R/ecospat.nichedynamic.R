@@ -81,11 +81,11 @@ ecospat.kd <- function(x, ext, R = 100, th = 0, env.mask = c(),
         (x[, 2] - ext[3]) / abs(ext[4] - ext[3])
       )) # data preparation
       mask <- adehabitatMA::ascgen(sp::SpatialPoints(cbind((0:(R)) / R, (0:(R) / R))),
-        nrcol = R - 2, count = FALSE
+                                   nrcol = R - 2, count = FALSE
       ) # data preparation
       x.dens <- adehabitatHR::kernelUD(sp::SpatialPoints(xr[, 1:2]),
-        h = "href", grid = mask,
-        kern = "bivnorm"
+                                       h = "href", grid = mask,
+                                       kern = "bivnorm"
       ) # calculate the density of occurrences in a grid of RxR pixels along the score gradients
       x.dens <- raster::raster(
         xmn = ext[1], xmx = ext[2], ymn = ext[3],
@@ -101,8 +101,8 @@ ecospat.kd <- function(x, ext, R = 100, th = 0, env.mask = c(),
     } else if (ncol(x) == 1) {
       xr <- seq(from = min(ext), to = max(ext), length.out = R) # breaks on score gradient 1
       x.dens <- density(x[, 1],
-        kernel = "gaussian", from = min(xr), to = max(xr),
-        n = R, cut = 0
+                        kernel = "gaussian", from = min(xr), to = max(xr),
+                        n = R, cut = 0
       ) # calculate the density of occurrences in a vector of R pixels along the score gradient
       # using a gaussian kernel density function, with R bins.
       if (!is.null(env.mask)) {
@@ -116,12 +116,12 @@ ecospat.kd <- function(x, ext, R = 100, th = 0, env.mask = c(),
       }
     }
   }
-
+  
   if (method == "ks") {
     if (ncol(x) == 2) {
       x.dens <- ks::kde(x,
-        xmin = ext[c(1, 3)],
-        xmax = ext[c(2, 4)], gridsize = c(R, R)
+                        xmin = ext[c(1, 3)],
+                        xmax = ext[c(2, 4)], gridsize = c(R, R)
       )
       x.dens <- raster::flip(raster::t(raster::raster(x.dens$estimate)), direction = "y")
       raster::extent(x.dens) <- c(
@@ -137,8 +137,8 @@ ecospat.kd <- function(x, ext, R = 100, th = 0, env.mask = c(),
       }
     } else if (ncol(x) == 1) {
       x.dens <- ks::kde(x,
-        xmin = min(ext),
-        xmax = max(ext), gridsize = c(R, R)
+                        xmin = min(ext),
+                        xmax = max(ext), gridsize = c(R, R)
       )
       x.dens$y <- x.dens$estimate
       x.dens$x <- x.dens$eval.points
@@ -153,7 +153,7 @@ ecospat.kd <- function(x, ext, R = 100, th = 0, env.mask = c(),
       }
     }
   }
-
+  
   return(x.dens)
 }
 
@@ -166,16 +166,16 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
   if (is.null(kernel.method) | (kernel.method != "ks" & kernel.method != "adehabitat")) {
     stop("supply a kernel method ('adehabitat' or 'ks')")
   }
-
+  
   glob <- as.matrix(glob)
   glob1 <- as.matrix(glob1)
   sp <- as.matrix(sp)
   l <- list()
-
+  
   if (ncol(glob) > 2) {
     stop("cannot calculate overlap with more than two axes")
   }
-
+  
   if (ncol(glob) == 1) {
     # if scores in one dimension (e.g. LDA,SDM predictions,...)
     xmin <- min(glob[, 1]) + extend.extent[1]
@@ -195,13 +195,13 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
     z.cor[z.cor == "Inf"] <- 0 # remove 0/0 situations
     z.cor <- z.cor / max(z.cor) # rescale between [0:1] for comparison with other species
   }
-
+  
   if (ncol(glob) == 2) {
     # if scores in two dimensions (e.g. PCA)
     xmin <- apply(glob, 2, min, na.rm = T)
     xmax <- apply(glob, 2, max, na.rm = T)
     ext <- c(xmin[1], xmax[1], xmin[2], xmax[2]) + extend.extent
-
+    
     glob1.dens <- ecospat.kd(x = glob1, ext = ext, method = kernel.method, th = th.env, R = R)
     if (!is.null(geomask)) {
       raster::crs(geomask) <- NA
@@ -211,7 +211,7 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
       x = sp, ext = ext, method = kernel.method, th = th.sp, R =R,
       env.mask = glob1.dens > 0
     )
-
+    
     x <- seq(from = ext[1], to = ext[2], length.out = R)
     y <- seq(from = ext[3], to = ext[4], length.out = R)
     l$y <- y
@@ -222,7 +222,7 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
     z.cor[is.na(z.cor)] <- 0 # remove n/0 situations
     z.cor <- z.cor / raster::cellStats(z.cor, "max")
   }
-
+  
   w <- z.uncor # niche envelope
   w[w > 0] <- 1
   l$x <- x
@@ -234,12 +234,12 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
   l$glob1 <- glob1
   l$sp <- sp
   l$w <- w
-
+  
   return(l)
 }
 ##################################################################################################
 
-ecospat.plot.niche.dyn <- function(z1, z2, quant, title = "", name.axis1 = "Axis 1",
+ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "Axis 1",
                                    name.axis2 = "Axis 2", interest = 1, col.unf = "#00FF0050", col.exp = "#FF000050",
                                    col.stab = "#0000FF50", colZ1 = "green3", colZ2 = "red3") {
   # white = #FFFFFF, red= #FF000050, blue = #0000FF50, green = #00FF0050
@@ -247,7 +247,7 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant, title = "", name.axis1 = "Axis
     R <- length(z1$x)
     x <- z1$x
     xx <- sort(rep(1:length(x), 2))
-
+    
     y1 <- z1$z.uncor / max(z1$z.uncor)
     Y1 <- z1$Z / max(z1$Z)
     if (quant > 0) {
@@ -259,7 +259,7 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant, title = "", name.axis1 = "Axis
     Y1.quant[Y1.quant < 0] <- 0
     yy1 <- sort(rep(1:length(y1), 2))[-c(1:2, length(y1) * 2)]
     YY1 <- sort(rep(1:length(Y1), 2))[-c(1:2, length(Y1) * 2)]
-
+    
     y2 <- z2$z.uncor / max(z2$z.uncor)
     Y2 <- z2$Z / max(z2$Z)
     if (quant > 0) {
@@ -271,7 +271,7 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant, title = "", name.axis1 = "Axis
     Y2.quant[Y2.quant < 0] <- 0
     yy2 <- sort(rep(1:length(y2), 2))[-c(1:2, length(y2) * 2)]
     YY2 <- sort(rep(1:length(Y2), 2))[-c(1:2, length(Y2) * 2)]
-
+    
     plot(x, y1, type = "n", xlab = name.axis1, ylab = "density of occurrence")
     polygon(x[xx], c(0, y1[yy1], 0, 0), col = col.unf, border = 0)
     polygon(x[xx], c(0, y2[yy2], 0, 0), col = col.exp, border = 0)
@@ -285,7 +285,7 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant, title = "", name.axis1 = "Axis
     lines(x[xx], c(0, Y1[YY1], 0, 0), col = colZ1)
     segments(x0 = 0, y0 = 0, x1 = max(x[xx]), y1 = 0, col = "white")
     segments(x0 = 0, y0 = 0, x1 = 0, y1 = 1, col = "white")
-
+    
     seg.cat <- function(inter, cat, col.unf, col.exp, col.stab) {
       if (inter[3] == 0) {
         my.col <- 0
@@ -305,10 +305,11 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant, title = "", name.axis1 = "Axis
       )
     }
     cat <- ecospat.niche.dyn.index(z1, z2, intersection = quant)$dyn
+    cat<- cat[length(cat):1]
     inter <- cbind(z1$x[-length(z1$x)], z1$x[-1], cat[-1])
     apply(inter, 1, seg.cat, col.unf = col.unf, col.exp = col.exp, col.stab= col.stab)
   }
-
+  
   if (!is.null(z1$y)) {
     
     # z <- t(as.matrix(z1$w + 2 * z2$w))[, nrow(as.matrix(z1$z.uncor)):1]
@@ -353,17 +354,17 @@ ecospat.shift.centroids <- function(sp1, sp2, clim1, clim2, col = "red") {
       2
     ]), col = col, lwd = 2, length = 0.1)
     arrows(median(clim1[, 1]), median(clim1[, 2]), median(clim2[, 1]),
-      median(clim2[, 2]),
-      lty = "11", col = col, lwd = 2, length = 0.1
+           median(clim2[, 2]),
+           lty = "11", col = col, lwd = 2, length = 0.1
     )
   } else {
     arrows(median(sp1), 0.025, median(sp2), 0.025,
-      col = col, lwd = 2,
-      length = 0.1
+           col = col, lwd = 2,
+           length = 0.1
     )
     arrows(median(clim1), -0.025, median(clim2), -0.025,
-      lty = "11", col = col,
-      lwd = 2, length = 0.1
+           lty = "11", col = col,
+           lwd = 2, length = 0.1
     )
   }
 }
@@ -401,14 +402,17 @@ ecospat.niche.dyn.index <- function(z1, z2, intersection = NA) {
   obs.exp <- as.matrix(z2$z.uncor) * as.matrix(z.exp.cat) # density correction
   obs.stab <- as.matrix(z2$z.uncor) * as.matrix(z.stable.cat) # density correction
   obs.res <- as.matrix(z1$z.uncor) * as.matrix(z.res.cat) # density correction
-
+  
   dyn <- (-1 * z.exp.cat) + (2 * z.stable.cat) + z.res.cat
   if (ncol(w1) == 2) {
     dyn <- raster(dyn)
   } # draw matrix with 3 categories of niche dynamic
   expansion.index.w <- sum(obs.exp) / sum(obs.stab + obs.exp) # expansion
   stability.index.w <- sum(obs.stab) / sum(obs.stab + obs.exp) # stability
-  restriction.index.w <- sum(obs.res) / sum(obs.res + (z.stable.cat * as.matrix(z1$z.uncor))) # unfilling
+  restriction.index.w <- sum(obs.res) / sum(obs.res + (z.stable.cat *as.matrix(z1$z.uncor))) # unfilling
+  expansion.index.w[is.nan(expansion.index.w)]<-0 # correction for 0/0
+  stability.index.w[is.nan(stability.index.w)]<-0 # correction for 0/0
+  restriction.index.w[is.nan(restriction.index.w)]<-0 # correction for 0/0
   part <- list()
   part$dyn <- rotate(dyn)
   part$dynamic.index.w <- c(expansion.index.w, stability.index.w, restriction.index.w)
@@ -424,19 +428,19 @@ ecospat.margin <- function(z, th.quant = 0, kern.method = "adehabitat",
     stop("Package \"dplyr\" needed for this function to work. Please install it.",
          call. = FALSE)
   }
-    
+  
   niche.dens <- ecospat.kd(
     x = z$sp, ext = c(min(z$x), max(z$x), min(z$y), max(z$y)), R = length(z$x),
     th = th.quant, env.mask = z$Z > 0, method = kern.method
   )
   niche.envelope <- (niche.dens > 0) / (niche.dens > 0)
   niche.contour <- as(raster::rasterToPolygons(niche.envelope, dissolve = TRUE), "SpatialLines")
-
+  
   if (bootstrap == T) {
     my.df <- dplyr::as_tibble(z$sp) # convert to tibble to do faster resampling
     bst <- list()
     bst <- vector(mode = "list", length = bootstrap.rep)
-
+    
     if (bootstrap.ncore < 4 | bootstrap.rep <= 1000) { # resampled data
       bst <- lapply(bst, function(x) as.matrix(dplyr::sample_n(my.df, nrow(my.df), replace = T))) #
     } else {
@@ -445,12 +449,12 @@ ecospat.margin <- function(z, th.quant = 0, kern.method = "adehabitat",
       bst <- parallel::parLapply(CL, bst, function(x) as.matrix(dplyr::sample_n(my.df, nrow(my.df))))
       parallel::stopCluster(CL)
     }
-
+    
     if (bootstrap.ncore == 1) {
       my.mask <- z$Z > 0
       cpoints <- lapply(bst, ecospat.kd,
-        ext = c(min(z$x), max(z$x), min(z$y), max(z$y)), R = length(z$x),
-        th = th.quant, env.mask = z$Z > 0, method = kern.method
+                        ext = c(min(z$x), max(z$x), min(z$y), max(z$y)), R = length(z$x),
+                        th = th.quant, env.mask = z$Z > 0, method = kern.method
       ) # compute kernel density on the resampled data
       bin.bst <- lapply(cpoints, function(x) x > 0) ## binarized kernel distribution
     } else {
@@ -459,23 +463,23 @@ ecospat.margin <- function(z, th.quant = 0, kern.method = "adehabitat",
       env.mask <- z$Z > 0
       CL <- parallel::makeCluster(bootstrap.ncore)
       parallel::clusterExport(CL,
-        varlist = c(
-          "bst", "ecospat.kd", "ext", "R",
-          "th.quant", "env.mask", "kern.method"
-        ),
-        envir = environment()
+                              varlist = c(
+                                "bst", "ecospat.kd", "ext", "R",
+                                "th.quant", "env.mask", "kern.method"
+                              ),
+                              envir = environment()
       )
       cpoints <- parallel::parLapply(CL, bst, ecospat.kd,
-        ext = c(min(z$x), max(z$x), min(z$y), max(z$y)),
-        R = length(z$x), th = th.quant, env.mask = z$Z > 0,
-        method = kern.method
+                                     ext = c(min(z$x), max(z$x), min(z$y), max(z$y)),
+                                     R = length(z$x), th = th.quant, env.mask = z$Z > 0,
+                                     method = kern.method
       ) # compute kernel density on the resampled data
       bin.bst <- parallel::parLapply(CL, cpoints, function(x) x > 0) ## binarized kernel distribution
       parallel::stopCluster(CL)
     }
-
+    
     sum.bst <- Reduce("+", bin.bst) ## sum of the binarized kernel distribution
-
+    
     niche.envelope <- sum.bst / bootstrap.rep * 100 ## scaling in percentage
     niche.contour <- as(raster::rasterToPolygons(niche.envelope >= 95, fun = function(x) {
       x == 1
@@ -486,3 +490,4 @@ ecospat.margin <- function(z, th.quant = 0, kern.method = "adehabitat",
     niche.contour = niche.contour
   ))
 }
+
