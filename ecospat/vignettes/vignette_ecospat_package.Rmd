@@ -370,7 +370,7 @@ Calculate and plot Boyce Index with *ecospat.boyce*
 
 ```{r boyce}
 ecospat.boyce (fit, obs, nclass = 0, window.w = "default", res = 100, 
-               PEplot = TRUE)$Spearman.cor
+               PEplot = TRUE)$cor
 ```
 Here the boyce index is 0.91. If the rank of predicted expected ratio would be completely ordered along habitat suitability axis then boyce index would be 1. 
 

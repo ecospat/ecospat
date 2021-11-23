@@ -5,15 +5,18 @@
 # windows.w : width of the moving window (by default 1/10 of the suitability range)
 # res : resolution of the moving window (by default 100 focals)
 # PEplot : if True, plot the predicted to expected ratio along the suitability class
+# rm.duplicate : if TRUE, the correlation exclude successive duplicated values
+# method : correlation method used to compute the boyce index
 
 
-ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100, PEplot = TRUE) {
+ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100, 
+                          PEplot = TRUE, rm.duplicate = TRUE, method = 'spearman') {
   
   #### internal function calculating predicted-to-expected ratio for each class-interval
   boycei <- function(interval, obs, fit) {
     pi <- sum(as.numeric(obs >= interval[1] & obs <= interval[2])) / length(obs)
     ei <- sum(as.numeric(fit >= interval[1] & fit <= interval[2])) / length(fit)
-    return(pi/ei)
+    return(round(pi/ei,10))
   }
   
   if (class(fit) == "RasterLayer") {
@@ -48,8 +51,11 @@ ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100,
   if (length(f) < 2) {
     b <- NA  #at least two points are necessary to draw a correlation
   } else {
-    r <- c(1:length(f))[f != c(f[-1], FALSE)]  #index to remove successive duplicates
-    b <- cor(f[r], vec.mov[to.keep][r], method = "spearman")  # calculation of the spearman correlation (i.e. Boyce index) after removing successive duplicated values
+    r<-1:length(f)
+    if(rm.duplicate == TRUE){
+      r <- c(1:length(f))[f != c( f[-1],TRUE)]  #index to remove successive duplicates
+    }
+    b <- cor(f[r], vec.mov[to.keep][r], method = method)  # calculation of the correlation (i.e. Boyce index) after removing successive duplicated values
   }
   HS <- apply(interval, 1, sum)/2  # mean habitat suitability in the moving window
   if(length(nclass)==1 & nclass == 0) {
@@ -60,5 +66,5 @@ ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100,
     plot(HS, f, xlab = "Habitat suitability", ylab = "Predicted/Expected ratio", col = "grey", cex = 0.75)
     points(HS[r], f[r], pch = 19, cex = 0.75)
   }
-  return(list(F.ratio = f, Spearman.cor = round(b, 3), HS = HS))
+  return(list(F.ratio = f, cor = round(b, 3), HS = HS))
 }
