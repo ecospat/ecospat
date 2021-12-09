@@ -240,9 +240,24 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
 ##################################################################################################
 
 ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "Axis 1",
-                                   name.axis2 = "Axis 2", interest = 1, col.unf = "#00FF0050", col.exp = "#FF000050",
-                                   col.stab = "#0000FF50", colZ1 = "green3", colZ2 = "red3") {
-  # white = #FFFFFF, red= #FF000050, blue = #0000FF50, green = #00FF0050
+                                   name.axis2 = "Axis 2", interest = 1, col.unf = "green", col.exp = "red",
+                                   col.stab = "blue", colZ1 = "green3", colZ2 = "red3", transparency = 70) {
+  
+  t_col <- function(color, percent = 50, name = NULL) {
+    ## Get RGB values for named color
+    rgb.val <- col2rgb(color)
+    
+    ## Make new color using input color as base and alpha set by transparency
+    t.col <- rgb(rgb.val[1], rgb.val[2], rgb.val[3],
+                 max = 255,
+                 alpha = (100 - percent) * 255 / 100,
+                 names = name)
+  }
+  
+  col.unf = t_col(col.unf,transparency)
+  col.exp = t_col(col.exp,transparency)
+  col.stab = t_col(col.stab,transparency)
+  
   if (is.null(z1$y)) {
     R <- length(z1$x)
     x <- z1$x
@@ -312,18 +327,6 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
   
   if (!is.null(z1$y)) {
     
-    # z <- t(as.matrix(z1$w + 2 * z2$w))[, nrow(as.matrix(z1$z.uncor)):1]
-    # z1$Z <- t(as.matrix(z1$Z))[, nrow(as.matrix(z1$Z)):1]
-    # z2$Z <- t(as.matrix(z2$Z))[, nrow(as.matrix(z2$Z)):1]
-    # if (interest == 1) {
-    #   image(x = z1$x, y = z1$y, z = t(as.matrix(z1$z.uncor))[, nrow(as.matrix(z1$z.uncor)):1], col = gray(100:0 / 100), zlim = c(1e-05, cellStats(z1$z.uncor, "max")), xlab = name.axis1, ylab = name.axis2)
-    #   image(x = z1$x, y = z1$y, z = z, col = c("#FFFFFF00", colz1, colz2, colinter), add = TRUE)
-    # }
-    # if (interest == 2) {
-    #   image(x = z2$x, y = z2$y, z = t(as.matrix(z2$z.uncor))[, nrow(as.matrix(z2$z.uncor)):1], col = gray(100:0 / 100), zlim = c(1e-05, cellStats(z2$z.uncor, "max")), xlab = name.axis1, ylab = name.axis2)
-    #   image(x = z2$x, y = z2$y, z = z, col = c("#FFFFFF00", colz1, colz2, colinter), add = TRUE)
-    # }
-    
     if (interest == 1) {
       plot(z1$z.uncor,col=gray(100:0 / 100),legend=F)
     }
@@ -331,7 +334,7 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
       plot(z2$z.uncor,col=gray(100:0 / 100),legend=F)
     }
     
-    raster::image(2*z1$w+z2$w,col=c("#FFFFFF",col.exp,col.unf,col.stab),alpha = 0.4, add = TRUE,legend=F)
+    raster::image(2*z1$w+z2$w,col=c("#FFFFFF",col.exp,col.unf,col.stab), add = TRUE,legend=F)
     
     title(title)
     raster::contour(
