@@ -170,11 +170,20 @@ FIXES
 * Added new function "ecospat.margin" to estimate the margin of a distribution in the bi-dimensional environmental space based on bootstrapped kernel density estimation
 * Adapted functions "ecospat.makeDataFrame" and ecospat.occ.desaggregation" by replacing nndist from package spatstat with knn from package nabor.
 
-ecospat_dev (01.04.2021)
+ecospat_3.2.1 (01.01.2022)
 =============
 
 NEW FEATURES
 
 * Added new function "ecospat.nichePOSNB" to calculate the niche breadth and niche position of taxa along environmental axes from abundance data
+* Added tests for niche dynamic indices (expansion, stability, unfilling) with argument changes in "ecospat.niche.dyn.index", "ecospat.niche.equivalency.test", "ecospat.niche.similarity.test" and "ecospat.plot.overlap.test"
 
+CHANGES
 
+* Changed "ecospat.boyce" to allow the selection of the correlation method (initially only 'spearman') and to allow the inclusion or exclusion of successive duplicated P/E ratios (included in Hirzel et al. 2006).
+* Changed "ecospat.ESM.VarContrib" to rescale contribution ratios so that neutral contribution equals to 1.
+
+FIXES
+
+* Fixed "as.vector" bug in "ecospat.caleval"
+* fix bugs on color transparency in "ecospat.grid.clim.dyn" and "ecospat.plot.niche.dyn"

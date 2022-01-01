@@ -95,8 +95,8 @@ ecospat.caleval <- function(data, xy, row.num = 1:nrow(data), nrep = 1, ratio = 
     return(samprows)
   }
 
-  pres <- row.num[sample(which(as.vector(data) == 1))]
-  abs <- row.num[sample(which(as.vector(data) == 0))]
+  pres <- row.num[sample(which(data == 1))]
+  abs <- row.num[sample(which(data == 0))]
 
   presi <- 1:length(pres)
   pres.iter <- c()
@@ -104,7 +104,7 @@ ecospat.caleval <- function(data, xy, row.num = 1:nrow(data), nrep = 1, ratio = 
   abs.iter <- c()
   for (i in 1:nrep) {
     if (disaggregate != 0) {
-      pres <- row.num[sample(which(as.vector(data) == 1))]
+      pres <- row.num[sample(which(data == 1))]
       pres <- pres[dsg(xy, disaggregate)]
     }
     if (npres != 0 & npres < length(pres)) {
