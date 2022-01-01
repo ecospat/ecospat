@@ -24,7 +24,7 @@
   \item{col.exp}{The color used to depict expansion area.}
   \item{col.stab}{The color used to depict stability area.}
   \item{colZ1}{The color used to delimit the native extent.}
-  \item{colZ2}{The color used to delimit the invaded extent.
+  \item{colZ2}{The color used to delimit the invaded extent.}
   \item{transparency}{A value between 0 and 100 to set the transparency level of the niche categories}}
 
 }
