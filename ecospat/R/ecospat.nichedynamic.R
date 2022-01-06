@@ -328,13 +328,16 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
   if (!is.null(z1$y)) {
     
     if (interest == 1) {
-      plot(z1$z.uncor,col=gray(100:0 / 100),legend=F)
+      plot(z1$z.uncor,col=gray(100:0 / 100),legend=F, xlab = name.axis1, 
+           ylab = name.axis2)
     }
     if (interest == 2) {
-      plot(z2$z.uncor,col=gray(100:0 / 100),legend=F)
+      plot(z2$z.uncor,col=gray(100:0 / 100),legend=F,xlab = name.axis1, 
+           ylab = name.axis2)
     }
     
-    raster::image(2*z1$w+z2$w,col=c("#FFFFFF",col.exp,col.unf,col.stab), add = TRUE,legend=F)
+    raster::image(2*z1$w+z2$w,col=c("#FFFFFF",col.exp,col.unf,col.stab), 
+                  add = TRUE,legend=FALSE)
     
     title(title)
     raster::contour(
@@ -345,6 +348,8 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
       z2$Z, add = TRUE, levels = quantile(z2$Z[z2$Z > 0], c(0, quant)),
       drawlabels = FALSE, lty = c(1, 2), col = colZ2
     )
+    axis(1,labels = FALSE, lwd.tick = 0);axis(2, lwd.ticks = 0,labels = FALSE)
+    axis(3,labels = FALSE, lwd.tick = 0);axis(4, lwd.ticks = 0,labels = FALSE)
   }
 }
 
