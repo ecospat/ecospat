@@ -249,9 +249,9 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
     
     ## Make new color using input color as base and alpha set by transparency
     t.col <- rgb(rgb.val[1], rgb.val[2], rgb.val[3],
-                 max = 255,
                  alpha = (100 - percent) * 255 / 100,
-                 names = name)
+                 names = name,
+                 maxColorValue = 255)
   }
   
   col.unf = t_col(col.unf,transparency)

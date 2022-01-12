@@ -6,22 +6,23 @@
 
 \description{Run a niche similarity test (see Warren et al 2008) based on two species occurrence density grids.}
 
-\usage{ecospat.niche.similarity.test (z1, z2, rep, intersection = 0, overlap.alternative = "higher", 
-expansion.alternative = "lower", stabilty.alternative = "higher", unfilling.alternative = "lower", 
-rand.type = 1, ncores= 1)}
+\usage{ecospat.niche.similarity.test (z1, z2, rep, intersection = NA, 
+  rand.type = 1, ncores= 1, overlap.alternative = "higher", 
+  expansion.alternative = "lower", stability.alternative = "higher", 
+  unfilling.alternative = "lower")
+}
 
 \arguments{
   \item{z1}{Species 1 occurrence density grid created by \code{ecospat.grid.clim}.}
   \item{z2}{Species 2 occurrence density grid created by \code{ecospat.grid.clim}.}
-  \item{rep}{The number of replications to perform.}
-  \item{intersection}{The quantile of the environmental density used to remove marginal climates. See Details.}
-  \item{overlap.alternative}{To indicate the alternative hypothesis of the test. See Details.}
-  \item{expansion.alternative}{To indicate the alternative hypothesis of the test. See Details.}
-  \item{stabilty.alternative}{To indicate the alternative hypothesis of the test. See Details.}
-  \item{unfilling.alternative}{To indicate the alternative hypothesis of the test. See Details.}
+  \item{rep}{Number of replications to perform.}
+  \item{intersection}{Quantile of the environmental density used to remove marginal climates. See Details.}
   \item{rand.type}{Type of randomization on the density grids (1 or 2).}
-  \item{ncores}{The number of cores used for parallelisation.}
-
+  \item{ncores}{Number of cores used for parallelisation.}
+  \item{overlap.alternative}{Alternative hypothesis of the test. See Details.}
+  \item{expansion.alternative}{Alternative hypothesis of the expansion test. See Details.}
+  \item{stability.alternative}{Alternative hypothesis of the stability test. See Details.}
+  \item{unfilling.alternative}{Alternative hypothesis of the unfilling test. See Details.}
 }
 
 \details{Compares the observed niche overlap between z1 and z2 to overlaps between z1 and random niches (z2.sim) as available in the range of z2 (z2$Z). z2.sim has the same pattern as z2 but the center is randomly translatated in the availabe z2$Z space and weighted by z2$Z densities.

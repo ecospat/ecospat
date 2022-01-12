@@ -1,11 +1,12 @@
 ecospat.nichePOSNB<-function(df,colvar,colfreq){
   
-  require(Hmisc)
+  #require(Hmisc)
+  
+  if (any(!is.numeric(colvar),colvar==0,is.null(colvar),!colvar%in%1:ncol(df))) stop("colvar should point to relevant columns in df corresponding to environmental axes")
+  if (any(!is.numeric(colfreq),colfreq==0,is.null(colfreq),!colfreq%in%1:ncol(df))) stop("colfreq should point to relevant columns in df corresponding to taxa frequencies")
+  
   var<-data.frame(df[,colvar])
   freq<-data.frame(df[,colfreq])
-  
-  if (!is.numeric(colvar)||colvar==0||is.null(colvar)) stop("colvar should point to relevant columns in df corresponding to environmental axes")
-  if (!is.numeric(colfreq)||colfreq==0||is.null(colfreq)) stop("colfreq should point to relevant columns in df corresponding to taxa frequencies")
   
   if(ncol(var)==1) {
     meanNicheByTaxa<-matrix(nrow=ncol(freq),ncol=2)

@@ -23,21 +23,19 @@
 
 
 \examples{
+\donttest{
 library(dismo)
 data('ecospat.testData')
 
 # data for Soldanella alpina
 data.Solalp<- ecospat.testData[c("Soldanella_alpina","ddeg","mind","srad","slp","topo")]
 
-# copy maxent.jar file in the right folder
-path.from<-system.file("extdata", "maxent.txt", package="ecospat")
-path.to <- paste0(system.file(package="dismo"), "/java/maxent.txt")
-path.to.renamed <- paste0(system.file(package="dismo"), "/java/maxent.jar")
-file.copy(path.from,path.to,overwrite = TRUE)
-file.rename(path.to, path.to.renamed)
+# path to maxent.jar file
+path<- paste0(system.file(package="dismo"), "/java/maxent.jar")
 
-if (file.exists(path.to.renamed) & require(rJava)) {
+if (file.exists(path) & require(rJava)) {
   me <- maxent(data.Solalp[,-1],data.Solalp[,1])
   ecospat.maxentvarimport (model=me, dfvar=data.Solalp[,-1], nperm=5)
   }
+}
 }
