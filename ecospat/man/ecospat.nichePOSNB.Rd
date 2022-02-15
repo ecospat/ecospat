@@ -18,11 +18,11 @@ ecospat.nichePOSNB (df,colvar,colfreq)
  }
  
 \details{
-The function calculates niche position and niche breadth of taxa along one or multiple environmental axes. Niche position is calculated as the mean of the variable, weighted by the relative abundance of the species. Niche breadth is calculated as the standard deviation of each variable, weighted by the relative abundance of the species at each sampling site. If more than one variable is investigated, the values of niche position and niche breadth are averaged to obtain mean niche properties.
+The function calculates niche position and niche breadth of taxa along one or multiple environmental axes. Niche position is calculated as the mean of the variable, weighted by the relative abundance of the species. Niche breadth is calculated as the standard deviation of each variable, weighted by the relative abundance of the species at each sampling site.
 }
 
 \value{
-The function returns a matrix containing the average niche position and niche breadth of each taxa along each environmental axi. Additionally, if multiple environmental axes are considered, the mean niche and mean position of each taxa along these axes is returned by the function.
+The function returns a matrix containing the average niche position and niche breadth of each taxa along each environmental axi.
 }
 
 \author{Lucie Malard & Olivier Broennimann \email{lucie.malard@unil.ch, olivier.broennimann@unil.ch}}
@@ -33,7 +33,16 @@ The function returns a matrix containing the average niche position and niche br
 
 data(ecospat.testNichePOSNB)
 df<-ecospat.testNichePOSNB
-ecospat.nichePOSNB(df,colvar=c(2),colfreq = 6:17) # 1 axes
-ecospat.nichePOSNB(df,colvar=c(2:3),colfreq = 6:17) # 2 axes
-ecospat.nichePOSNB(df,colvar=c(2:5),colfreq = 6:17) # 4 axes #
+
+# 1 axes
+POSNB<-ecospat.nichePOSNB(df,colvar=c(2),colfreq = 6:17) 
+
+# 2 axes
+POSNB<-ecospat.nichePOSNB(df,colvar=c(2:3),colfreq = 6:17) 
+ecospat.nicheNBmean(POSNB,w=c(2,1))
+
+# 4 axes
+POSNB<-ecospat.nichePOSNB(df,colvar=c(2:5),colfreq = 6:17) 
+ecospat.nicheNBmean(POSNB,w=c(1,0.8,0.2,0.1))
+
 }
