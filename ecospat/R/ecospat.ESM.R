@@ -112,7 +112,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
     stop("Evaluation with independant data is not supported yet!")
   }
   if ("PA" %in% slotNames(data)) {
-    if (ncol(data@PA) > 1) {
+    if (ncol(data@PA.table) > 1) {
       stop("It is not possible to use more than one Pseudo Absences dataset")
     }
   }
