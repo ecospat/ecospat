@@ -344,7 +344,7 @@ ecospat.CCV.modeling <- function(sp.data,
                                          expl.var = env.data,
                                          resp.xy = xy,
                                          resp.name = sp.name,
-                                         na.rm=FALSE)
+                                         na.rm = FALSE)
     
     #Setting model parameters
     if(is.null(models.options)){
@@ -354,21 +354,21 @@ ecospat.CCV.modeling <- function(sp.data,
     }
     
     #Running the models
-    MyBiomodModelOut <- BIOMOD_Modeling(data = MyBiomodData,
+    MyBiomodModelOut <- BIOMOD_Modeling(bm.format = MyBiomodData,
                                         models = models,
-                                        models.options = MyBiomodOptions,
-                                        models.eval.meth = eval.metrics,
-                                        DataSplitTable = DataSplitTable,
-                                        Prevalence=NULL,
+                                        bm.options = MyBiomodOptions,
+                                        metric.eval = eval.metrics,
+                                        data.split.table = DataSplitTable,
+                                        prevalence = NULL,
                                         modeling.id = "ccv")
     
     #Creating the ensemble Model
-    MyBiomodEnsemble <- BIOMOD_EnsembleModeling(modeling.output = MyBiomodModelOut,
-                                                chosen.models = "all",
+    MyBiomodEnsemble <- BIOMOD_EnsembleModeling(bm.mod = MyBiomodModelOut,
+                                                models.chosen = "all",
                                                 em.by = "PA_dataset+repet",
-                                                eval.metric = ensemble.metric,
-                                                eval.metric.quality.threshold = NULL,
-                                                models.eval.meth =eval.metrics,
+                                                metric.select = ensemble.metric,
+                                                metric.select.thresh = NULL,
+                                                metric.eval =eval.metrics,
                                                 prob.mean = FALSE,
                                                 prob.cv = FALSE,
                                                 prob.ci = FALSE,
@@ -377,7 +377,7 @@ ecospat.CCV.modeling <- function(sp.data,
                                                 committee.averaging = FALSE,
                                                 prob.mean.weight = TRUE,
                                                 prob.mean.weight.decay = 'proportional',
-                                                VarImport = VarImport)
+                                                var.import = VarImport)
   }
   
   #Function to run ESM in parallel #######################################################################
@@ -405,14 +405,14 @@ ecospat.CCV.modeling <- function(sp.data,
     }
     
     #Running the ESM
-    MyESMModelOut <- ecospat.ESM.Modeling(data=MyESMData, 
+    MyESMModelOut <- ecospat.ESM.Modeling(data = MyESMData, 
                                           DataSplitTable = DataSplitTable, 
                                           weighting.score = ensemble.metric,
-                                          models=models,
+                                          models = models,
                                           Prevalence=NULL,
-                                          modeling.id="ccv", 
-                                          models.options=MyBiomodOptions, 
-                                          parallel=FALSE)
+                                          modeling.id = "ccv", 
+                                          models.options = MyBiomodOptions, 
+                                          parallel = FALSE)
     
     #Ensemble the ESMs
     MyESMEnsemble <- ecospat.ESM.EnsembleModeling(ESM.modeling.output = MyESMModelOut,

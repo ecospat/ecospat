@@ -112,7 +112,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
     stop("Evaluation with independant data is not supported yet!")
   }
   if ("PA" %in% slotNames(data)) {
-    if (ncol(data@PA) > 1) {
+    if (ncol(data@PA.table) > 1) {
       stop("It is not possible to use more than one Pseudo Absences dataset")
     }
   }
@@ -169,8 +169,8 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
   
   # produce calib.lines and keep DataSplitTable constant for each BiVa Model
   if (is.null(DataSplitTable)) {
-    mod.prep.dat <- .Models.prepare.data(mydata, NbRunEval, DataSplit, Yweights = NULL, Prevalence = Prevalence,
-                                         do.full.models = TRUE)
+    mod.prep.dat <- .BIOMOD_Modeling.prepare.data(bm.format = mydata, nb.rep = NbRunEval, data.split.perc = DataSplit,
+                                                  weights = NULL, Prevalence = prevalence, do.full.models = TRUE)
     if (length(dim(mod.prep.dat[[1]]$calibLines)) == 3) {
       calib.lines <- mod.prep.dat[[1]]$calibLines[, , 1]
     }
@@ -211,17 +211,17 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
       
       ##### Tune the bivariate models   
       if(tune == TRUE){
-        models.options <-BIOMOD_tuning(data=mydata, 
-                                       models=models[models!="RF"],
-                                       models.options = models.options,
-                                       Yweights = Yweights)$models.options
+        models.options <-BIOMOD_Tuning(bm.format = mydata, 
+                                       models = models[models!="RF"],
+                                       bm.options = models.options,
+                                       weights = Yweights)$models.options
       }
       
       #######       
       mymodels[[k]] <- "failed"
-      try(mymodels[[k]] <- BIOMOD_Modeling(data = mydata, models = models, models.options = models.options,
-                                           models.eval.meth = models.eval.meth, DataSplitTable = as.matrix(calib.lines), Prevalence = Prevalence,
-                                           rescal.all.models = FALSE, do.full.models = TRUE, VarImport = 0, modeling.id = modeling.id, Yweights = NULL))
+      try(mymodels[[k]] <- BIOMOD_Modeling(bm.format = mydata, models = models, bm.options = models.options,
+                                           metric.eval = models.eval.meth, data.split.table = as.matrix(calib.lines), prevalence = Prevalence,
+                                           scale.models = FALSE, do.full.models = TRUE, var.import = 0, modeling.id = modeling.id, weights = NULL))
       
       if (cleanup != FALSE) {
         removeTmpFiles(h = cleanup)
@@ -245,19 +245,19 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
       ##### Tune the bivariate models   
       if(tune == TRUE){
         # For unknown reasons Yweights does not work with model tuning and parallel computation. --> turned off
-        #models.options <-BIOMOD_tuning(data=mydata, 
+        #models.options <-BIOMOD_Tuning(bm.format=mydata, 
         #                               models=models[models!="RF"],
-        #                               models.options = models.options,
-        #                               Yweights = Yweights)$models.options
-                models.options <-BIOMOD_tuning(data=mydata, 
-                                       models=models[models!="RF"],
-                                       models.options = models.options)$models.options
+        #                               bm.options = models.options,
+        #                               weights = Yweights)$models.options
+        models.options <-BIOMOD_Tuning(bm.format = mydata, 
+                                       models = models[models!="RF"],
+                                       bm.options = models.options)$models.options
       }
       #######       
       
-      BIOMOD_Modeling(data = mydata, models = models, models.options = models.options, models.eval.meth = models.eval.meth,
-                      DataSplitTable = as.matrix(calib.lines), Prevalence = Prevalence, rescal.all.models = TRUE, do.full.models = TRUE,
-                      VarImport = 0, modeling.id = modeling.id, Yweights = Yweights)
+      BIOMOD_Modeling(bm.format = mydata, models = models, bm.options = models.options, metric.eval = models.eval.meth,
+                      data.split.table = as.matrix(calib.lines), prevalence = Prevalence, scale.models = TRUE, do.full.models = TRUE,
+                      var.import = 0, modeling.id = modeling.id, weights = Yweights)
       
     }
   }
@@ -342,20 +342,24 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
       # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
       # paste('RUN',NbRunEval+1,sep='')
       if (is.data.frame(new.env)) {
-        BIOMOD_Projection(modeling.output = mymodel, new.env = new.env[, colnames(new.env) %in%
-                                                                         combinations[, k]], proj.name = paste(name.env, "ESM.BIOMOD", k, modeling.id,
-                                                                                                               sep = "."), selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
-                                                                                                                                               grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
-                          do.stack = FALSE, build.clamping.mask = FALSE)
+        BIOMOD_Projection(bm.mod = mymodel,
+                          new.env = new.env[, colnames(new.env) %in% combinations[, k]], 
+                          proj.name = paste(name.env, "ESM.BIOMOD", k, modeling.id, sep = "."),
+                          models.chosen = c(grep("Full", mymodel@models.computed, value = TRUE),
+                                            grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
+                          do.stack = FALSE,
+                          build.clamping.mask = FALSE)
       }
       # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
       # paste('RUN',NbRunEval+1,sep='')
       if (class(new.env) == "RasterStack") {
-        BIOMOD_Projection(modeling.output = mymodel, new.env = new.env[[which(names(new.env) %in%
-                                                                                combinations[, k])]], proj.name = paste(name.env, "ESM.BIOMOD", k, modeling.id,
-                                                                                                                        sep = "."), selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
-                                                                                                                                                        grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
-                          do.stack = TRUE, build.clamping.mask = F)
+        BIOMOD_Projection(bm.mod = mymodel, 
+                          new.env = new.env[[which(names(new.env) %in% combinations[, k])]],
+                          proj.name = paste(name.env, "ESM.BIOMOD", k, modeling.id, sep = "."), 
+                          models.chosen = c(grep("Full", mymodel@models.computed, value = TRUE),
+                                            grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
+                          do.stack = TRUE,
+                          build.clamping.mask = FALSE)
       }
     } ## End for loop
   } ## End loop if(parallel)
@@ -371,20 +375,24 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
         # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
         # paste('RUN',NbRunEval+1,sep='')
         if (is.data.frame(new.env)) {
-          BIOMOD_Projection(modeling.output = mymodel, new.env = new.env[, colnames(new.env) %in%
-                                                                           combinations[, k]], proj.name = paste(name.env, "ESM.BIOMOD", k, modeling.id,
-                                                                                                                 sep = "."), selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
-                                                                                                                                                 grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
-                            do.stack = FALSE, build.clamping.mask = FALSE)
+          BIOMOD_Projection(bm.mod = mymodel, 
+                            new.env = new.env[, colnames(new.env) %in% combinations[, k]], 
+                            proj.name = paste(name.env, "ESM.BIOMOD", k, modeling.id, sep = "."),
+                            models.chosen = c(grep("Full", mymodel@models.computed, value = TRUE),
+                                              grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
+                            do.stack = FALSE, 
+                            build.clamping.mask = FALSE)
         }
         # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
         # paste('RUN',NbRunEval+1,sep='')
         if (class(new.env) == "RasterStack") {
-          BIOMOD_Projection(modeling.output = mymodel, new.env = new.env[[which(names(new.env) %in%
-                                                                                  combinations[, k])]], proj.name = paste(name.env, "ESM.BIOMOD", k, modeling.id,
-                                                                                                                          sep = "."), selected.models = c(grep("Full", mymodel@models.computed, value = TRUE),
-                                                                                                                                                          grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
-                            do.stack = TRUE, build.clamping.mask = F)
+          BIOMOD_Projection(bm.mod = mymodel, 
+                            new.env = new.env[[which(names(new.env) %in% combinations[, k])]], 
+                            proj.name = paste(name.env, "ESM.BIOMOD", k, modeling.id, sep = "."), 
+                            models.chosen = c(grep("Full", mymodel@models.computed, value = TRUE),
+                                              grep(paste("RUN", NbRunEval + 1, sep = ""), mymodel@models.computed, value = TRUE)),
+                            do.stack = TRUE, 
+                            build.clamping.mask = FALSE)
         }
       } ## End loop if(class(model)) ## i.e. if model not failed
     } ## End loop foreach()
