@@ -170,12 +170,12 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
   # produce calib.lines and keep DataSplitTable constant for each BiVa Model
   if (is.null(DataSplitTable)) {
     mod.prep.dat <- .BIOMOD_Modeling.prepare.data(bm.format = mydata, nb.rep = NbRunEval, data.split.perc = DataSplit,
-                                                  weights = NULL, Prevalence = prevalence, do.full.models = TRUE)
-    if (length(dim(mod.prep.dat[[1]]$calibLines)) == 3) {
-      calib.lines <- mod.prep.dat[[1]]$calibLines[, , 1]
+                                                  weights = NULL, prevalence = Prevalence, do.full.models = TRUE)
+    if (length(dim(mod.prep.dat[[1]]$calib.lines)) == 3) {
+      calib.lines <- mod.prep.dat[[1]]$calib.lines[, , 1]
     }
-    if (length(dim(mod.prep.dat[[1]]$calibLines)) == 2) {
-      calib.lines <- mod.prep.dat[[1]]$calibLines
+    if (length(dim(mod.prep.dat[[1]]$calib.lines)) == 2) {
+      calib.lines <- mod.prep.dat[[1]]$calib.lines
     }
     rm(mod.prep.dat)
   } else {
