@@ -323,7 +323,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
   if(is.matrix(new.env)){
     new.env <- as.data.frame(new.env)
   }
-  name.env <- deparse(substitute(new.env))
+  if(is.null(name.env)) name.env <- deparse(substitute(new.env))
   ## detach package GAM if('GAM'%in%models){
   ## detach(package:ecospat,force=TRUE);detach(package:gam,force=TRUE);unloadNamespace('ecospat')}
   
