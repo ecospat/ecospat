@@ -25,7 +25,7 @@ The function calculates niche position and niche breadth of taxa along one or mu
 The function returns a matrix containing the average niche position and niche breadth of each taxa along each environmental axi.
 }
 
-\author{Lucie Malard & Olivier Broennimann \email{lucie.malard@unil.ch, olivier.broennimann@unil.ch}}
+\author{Lucie Malard \email{lucie.malard@unil.ch} and Olivier Broennimann \email{olivier.broennimann@unil.ch}}
 
 \references{L.A. Malard, H.K. Mod, N. Guex, O. Broennimann, E. Yashiro, E. Lara, E.D.A. Mitchell, H. Niculita-Hirzel & A. Guisan. The ecological niche of soil bacterial, archaeal, fungal and protist communities along environmental gradients in the Alps. 2021. Accepted in Soil Biology and Biochemistry.}
 

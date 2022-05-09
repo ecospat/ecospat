@@ -188,7 +188,7 @@ FIXES
 * Fixed "as.vector" bug in "ecospat.caleval"
 * fix bugs on color transparency in "ecospat.grid.clim.dyn" and "ecospat.plot.niche.dyn"
 
-ecospat_dev (15.02.2022)
+ecospat_3.2.2 (15.02.2022)
 =============
 
 CHANGES
@@ -198,3 +198,5 @@ CHANGES
 FIXES
 
 * Update biomod2 function and parameter names to match new version 4.0
+* fix bugs on ecospat.nichePOSNB help files
+* fix Namespace imports from package maps

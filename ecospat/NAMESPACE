@@ -32,6 +32,7 @@ importFrom("graphics", "rug")
 importFrom("ks", "kde")
 importFrom("nabor", knn)
 importFrom("Hmisc", wtd.mean, wtd.var)
+importFrom("maps", map)
 
 # Export
 export(ecospat.adj.D2.glm)
