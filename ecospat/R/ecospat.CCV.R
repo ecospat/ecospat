@@ -354,21 +354,21 @@ ecospat.CCV.modeling <- function(sp.data,
     }
     
     #Running the models
-    MyBiomodModelOut <- BIOMOD_Modeling(bm.format = MyBiomodData,
+    MyBiomodModelOut <- BIOMOD_Modeling(data = MyBiomodData,
                                         models = models,
-                                        bm.options = MyBiomodOptions,
-                                        metric.eval = eval.metrics,
-                                        data.split.table = DataSplitTable,
-                                        prevalence = NULL,
+                                        models.options = MyBiomodOptions,
+                                        models.metric.eval = eval.metrics,
+                                        DataSplitTable = DataSplitTable,
+                                        Prevalence = NULL,
                                         modeling.id = "ccv")
     
     #Creating the ensemble Model
-    MyBiomodEnsemble <- BIOMOD_EnsembleModeling(bm.mod = MyBiomodModelOut,
-                                                models.chosen = "all",
+    MyBiomodEnsemble <- BIOMOD_EnsembleModeling(modeling.output = MyBiomodModelOut,
+                                                chosen.models = "all",
                                                 em.by = "PA_dataset+repet",
-                                                metric.select = ensemble.metric,
-                                                metric.select.thresh = NULL,
-                                                metric.eval =eval.metrics,
+                                                eval.metric = ensemble.metric,
+                                                eval.metric.quality.threshold = NULL,
+                                                models.eval.meth =eval.metrics,
                                                 prob.mean = FALSE,
                                                 prob.cv = FALSE,
                                                 prob.ci = FALSE,
@@ -377,7 +377,7 @@ ecospat.CCV.modeling <- function(sp.data,
                                                 committee.averaging = FALSE,
                                                 prob.mean.weight = TRUE,
                                                 prob.mean.weight.decay = 'proportional',
-                                                var.import = VarImport)
+                                                VarImport = VarImport)
   }
   
   #Function to run ESM in parallel #######################################################################

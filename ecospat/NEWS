@@ -197,6 +197,5 @@ CHANGES
 
 FIXES
 
-* Update biomod2 function and parameter names to match new version 4.0
 * fix bugs on ecospat.nichePOSNB help files
 * fix Namespace imports from package maps

@@ -30,7 +30,7 @@ ecospat.Epred <- function(x, w = rep(1, ncol(x)), th = 0) {
   Ebin <- function(vect2bin) {
     th <- vect2bin[1]
     vec <- vect2bin[-1]
-    return(bm_BinaryTransformation(vec, th))
+    return(BinaryTransformation(vec, th))
   }
 
   if (th != 0) {
@@ -69,7 +69,7 @@ dsg <- function(data.coor, mindist) {
 }
 
 pod <- function(fit, obs, th) {
-  fitbin <- 2 * bm_BinaryTransformation(fit, th)
+  fitbin <- 2 * BinaryTransformation(fit, th)
   return(length(which((fitbin + obs) == 3))/length(which(obs == 1)))
 }
 

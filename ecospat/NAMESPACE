@@ -5,7 +5,7 @@ import(ape, except=c(complement))
 
 importFrom("adehabitatHR", kernelUD)
 importFrom("adehabitatMA", ascgen)
-importFrom("biomod2", bm_BinaryTransformation, BIOMOD_Modeling, BIOMOD_Tuning, BIOMOD_Projection, BIOMOD_FormatingData, BIOMOD_ModelingOptions, get_predictions, get_evaluations, .BIOMOD_Modeling.prepare.data, BIOMOD_EnsembleModeling, get_variables_importance)
+importFrom("biomod2", BinaryTransformation, BIOMOD_Modeling, BIOMOD_tuning, BIOMOD_Projection, BIOMOD_FormatingData, BIOMOD_ModelingOptions, get_predictions, get_evaluations, .BIOMOD_Modeling.prepare.data, BIOMOD_EnsembleModeling, get_variables_importance)
 importFrom("dismo", maxent, gbif, randomPoints, predict, convHull, circles)
 importFrom("ecodist", mgram)
 importFrom("maptools", spRbind)
