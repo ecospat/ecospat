@@ -262,9 +262,12 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
     }
   }
   
-  output <- list(modeling.id = modeling.id, models. = grep(modeling.id, mixedsort(list.files(getwd(),
-                                                                                             "models.out", recursive = TRUE, full.names = TRUE)), value = TRUE), models = models, calib.lines = calib.lines,
-                 NbRunEval = NbRunEval, data = data, wd = getwd(), which.biva = which.biva, mymodels = mymodels)
+  output <- list(modeling.id = modeling.id, 
+                 models. = grep(modeling.id, gtools::mixedsort(list.files(getwd(),"models.out", recursive = TRUE, full.names = TRUE)), value = TRUE), 
+                 models = models, calib.lines = calib.lines,
+                 NbRunEval = NbRunEval, data = data, wd = getwd(), 
+                 which.biva = which.biva, 
+                 mymodels = mymodels)
   
   save(output, file = paste("ESM_Modeling..models", modeling.id, "out", sep = "."))
   ## attach package gam if('GAM'%in%models){ library(gam);library(ecospat)}
@@ -408,11 +411,14 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
   }
   
   
-  output <- list(proj.name = name.env, modeling.id = modeling.id, models. = grep(modeling.id, mixedsort(list.files(getwd(),
-                                                                                             "models.out", recursive = TRUE, full.names = TRUE)), value = TRUE), models = models, pred.biva = grep(modeling.id,
-                                                                                                                                                                                                   mixedsort(list.files(getwd(), paste("proj_", name.env, sep = ""), recursive = TRUE, full.names = TRUE)),
-                                                                                                                                                                                                   value = TRUE), NbRunEval = NbRunEval, name.env = name.env, new.env.raster = class(new.env) ==
-                   "RasterStack", wd = getwd(), which.biva = which.biva)
+  output <- list(proj.name = name.env, 
+                 modeling.id = modeling.id, 
+                 models. = grep(modeling.id, gtools::mixedsort(list.files(getwd(),"models.out", recursive = TRUE, full.names = TRUE)), value = TRUE), 
+                 models = models, 
+                 pred.biva = grep(modeling.id,gtools::mixedsort(list.files(getwd(), paste("proj_", name.env, sep = ""), recursive = TRUE, full.names = TRUE)),value = TRUE), 
+                 NbRunEval = NbRunEval, 
+                 name.env = name.env, 
+                 new.env.raster = class(new.env) =="RasterStack", wd = getwd(), which.biva = which.biva)
   
   save(output, file = paste("ESM_Projections",name.env, modeling.id, "out", sep = "."))
   
@@ -475,8 +481,10 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
   
   models. <- NULL
   for (n in 1:length(ESM.modeling.output$modeling.id)) {
-    models. <- c(models., mixedsort(grep(ESM.modeling.output$modeling.id[n], grep(paste(".", ESM.modeling.output$modeling.id[n],
-                                                                                        ".models.out", sep = ""), ls(), value = TRUE, fixed = TRUE), value = TRUE)))
+    models. <- c(models., 
+                 gtools::mixedsort(grep(ESM.modeling.output$modeling.id[n], 
+                                        grep(paste(".", ESM.modeling.output$modeling.id[n],".models.out", sep = ""), ls(), value = TRUE, fixed = TRUE), 
+                                        value = TRUE)))
   }
   
   mymodel <- list()
