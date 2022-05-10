@@ -260,3 +260,40 @@ invisible(capture.output(my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
         )
 )
 
+## ----ESM.EnsembleModeling-----------------------------------------------------
+### Evaluation and average of simple bivariate models to ESMs
+my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.score=c("SomersD"),threshold=0)
+
+## ----ESM.Projection-----------------------------------------------------------
+### Projection of simple bivariate models into new space 
+my.ESM_proj_current <- ecospat.ESM.Projection(ESM.modeling.output=my.ESM,
+                                              new.env=current)
+
+## ----ESM.EnsembleProjection---------------------------------------------------
+### Projection of calibrated ESMs into new space 
+my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.prediction.output=my.ESM_proj_current,
+                                                        ESM.EnsembleModeling.output=my.ESM_EF)
+
+## -----------------------------------------------------------------------------
+proba <- ecospat.testData[,73:92]
+
+## -----------------------------------------------------------------------------
+sr <- as.data.frame(rowSums(proba))
+
+## ----SESAM--------------------------------------------------------------------
+prr<-ecospat.SESAM.prr(proba, sr)
+head(prr)[,1:4]
+
+## -----------------------------------------------------------------------------
+presence<-ecospat.testData[c(53,62,58,70,61,66,65,71,69,43,63,56,68,57,55,60,54,67,59,64)]
+pred<-ecospat.testData[c(73:92)]
+
+## -----------------------------------------------------------------------------
+nbpermut <- 100
+
+## -----------------------------------------------------------------------------
+outpath <- getwd()
+
+## ----cons_Cscore--------------------------------------------------------------
+ecospat.cons_Cscore(presence, pred, nbpermut, outpath)
+
