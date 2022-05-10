@@ -171,11 +171,11 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
   if (is.null(DataSplitTable)) {
     mod.prep.dat <- .Models.prepare.data(mydata, NbRunEval, DataSplit, Yweights = NULL, Prevalence = Prevalence,
                                          do.full.models = TRUE)
-    if (length(dim(mod.prep.dat[[1]]$calib.lines)) == 3) {
-      calib.lines <- mod.prep.dat[[1]]$calib.lines[, , 1]
+    if (length(dim(mod.prep.dat[[1]]$calibLines)) == 3) {
+      calib.lines <- mod.prep.dat[[1]]$calibLines[, , 1]
     }
-    if (length(dim(mod.prep.dat[[1]]$calib.lines)) == 2) {
-      calib.lines <- mod.prep.dat[[1]]$calib.lines
+    if (length(dim(mod.prep.dat[[1]]$calibLines)) == 2) {
+      calib.lines <- mod.prep.dat[[1]]$calibLines
     }
     rm(mod.prep.dat)
   } else {
