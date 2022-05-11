@@ -147,7 +147,7 @@ my.ESM_thresholds
 my.ESM_evaluations <- ecospat.ESM.EnsembleEvaluation(ESM.modeling.output= my.ESM,
                                                      ESM.EnsembleModeling.output = my.ESM_EF,
                                                      metrics= c("AUC","MaxTSS"),
-                                                     EachSmallModels = F)
+                                                     EachSmallModels = FALSE)
 my.ESM_evaluations$ESM.evaluations
 
 ### Projection of simple bivariate models into new space 

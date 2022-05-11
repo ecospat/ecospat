@@ -11,7 +11,7 @@ This function evaluates the Ensemble of Small Models by pooling the different ru
 ecospat.ESM.EnsembleEvaluation(ESM.modeling.output,
                                ESM.EnsembleModeling.output,
                                metrics = c("SomersD","AUC","MaxTSS","MaxKappa","Boyce"), 
-                               EachSmallModels = F)
+                               EachSmallModels = FALSE)
 }
 \arguments{
   \item{ESM.modeling.output}{a \code{list} returned by \code{\link[ecospat]{ecospat.ESM.Modeling}}}
