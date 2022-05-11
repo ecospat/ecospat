@@ -191,6 +191,10 @@ FIXES
 ecospat_3.2.2 (15.02.2022)
 =============
 
+NEW FEATURES
+
+* Added new function "ecospat.ESM.EnsembleEvaluation" for evaluating the ESMs based on the pooling procedure to palliate the small number of occurrences in the evaluation dataset
+
 CHANGES
 
 * the calculation of weighted mean average niche breadth (NB) accross environmental axes was removed from ecospat.nichePOSNB. A ecospat.nicheNBmean function was created to perform this calculation with the possibility to use a vector of weights (i.e. useful for example if you want NB to be weighted by the inertia of PCA axes)

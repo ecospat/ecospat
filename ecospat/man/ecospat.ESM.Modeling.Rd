@@ -91,17 +91,18 @@ Lomba, A., L. Pellissier, C.F. Randin, J. Vicente, F. Moreira, J. Honrado and A.
 
 Breiner F.T., A. Guisan, A. Bergamini and M.P. Nobis. 2015. Overcoming limitations of modelling rare species by using ensembles of small models. \emph{Methods in Ecology and Evolution}, \bold{6},1210-1218.
 
-Breiner F.T., Nobis M.P., Bergamini A., Guisan A. 2018. Optimizing ensembles of small models for predicting the distribution of species with few occurrences. \emph{Methods in Ecology and Evolution}. \doi{10.1111/2041-210X.12957}
-          }
+Breiner F.T., Nobis M.P., Bergamini A., Guisan A. 2018. Optimizing ensembles of small models for predicting the distribution of species with few occurrences. \emph{Methods in Ecology and Evolution}. \doi{https://doi.org/10.1111/2041-210X.12957}
+}
 
 \seealso{
-\code{\link[ecospat]{ecospat.ESM.EnsembleModeling}}, \code{\link[ecospat]{ecospat.ESM.Projection}}, \code{\link[ecospat]{ecospat.ESM.EnsembleProjection}}
+\code{\link[ecospat]{ecospat.ESM.Projection}}, \code{\link[ecospat]{ecospat.ESM.EnsembleProjection}}, \code{\link[ecospat]{ecospat.ESM.EnsembleEvaluation}}
 
 \code{\link[biomod2]{BIOMOD_FormatingData}}, \code{\link[biomod2]{BIOMOD_ModelingOptions}}, \code{\link[biomod2]{BIOMOD_Modeling}},\code{\link[biomod2]{BIOMOD_Projection}}
 
 }
 \examples{
-   \donttest{
+\donttest{
+   
 library(biomod2)
 
 # Loading test data
@@ -112,10 +113,8 @@ inv <- ecospat.testNiche.inv
 xy <- inv[,1:2]
 sp_occ <- inv[11]
 
-# env
+# env data
 current <- inv[3:10]
-
-
 
 ### Formating the data with the BIOMOD_FormatingData() function from the package biomod2
 
@@ -125,9 +124,6 @@ myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
                                       resp.xy = xy,
                                       resp.name = colnames(sp_occ)[sp])
 
-## There are multiple packages that can be used for parallel computation (if parallel = TRUE). 
-# One option is:
-# library(doParallel);cl<-makeCluster(4);doParallel::registerDoParallel(cl) 
 
 ### Calibration of simple bivariate models
 my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
@@ -137,23 +133,41 @@ my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
                                 weighting.score=c("AUC"),
                                 parallel=FALSE)  
 
-
-### Evaluation and average of simple bivariate models to ESMs
+### Ensemble models
 my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.score=c("SomersD"),threshold=0)
+
+### thresholds to produce binary maps
+my.ESM_thresholds <- ecospat.ESM.threshold(my.ESM_EF)
+
+### Evaluation of bivariate and ensemble models based on standard cross-validation
+my.ESM_EF$ESM.evaluations
+my.ESM_thresholds
+
+### Evaluation of the ensemble models based on the pooling procedure 
+my.ESM_evaluations <- ecospat.ESM.EnsembleEvaluation(ESM.modeling.output= my.ESM,
+                                                     ESM.EnsembleModeling.output = my.ESM_EF,
+                                                     metrics= c("AUC","MaxTSS"),
+                                                     EachSmallModels = F)
+my.ESM_evaluations$ESM.evaluations
 
 ### Projection of simple bivariate models into new space 
 my.ESM_proj_current<-ecospat.ESM.Projection(ESM.modeling.output=my.ESM,
                                             new.env=current)
-
 ### Projection of calibrated ESMs into new space 
 my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.prediction.output=my.ESM_proj_current,
                                                         ESM.EnsembleModeling.output=my.ESM_EF)
+                                                        
+### Binary Projection based on max TSS of calibrated ESMs into new space                                                
+my.ESM_EFproj_current_binary <- (my.ESM_EFproj_current > my.ESM_thresholds[3])*1
 
-## get the model performance of ESMs 
-my.ESM_EF$ESM.evaluations
 ## get the weights of the single bivariate models used to build the ESMs
 my.ESM_EF$weights
 
 ## get the variable contributions of ESMs
-ecospat.ESM.VarContrib(my.ESM,my.ESM_EF)
-}}
+ecospat.ESM.VarContrib(my.ESM,my.ESM_EF)                                                      
+
+## get the response plots of ESMs
+my.ESM_responsePlot<-ecospat.ESM.responsePlot(my.ESM_EF,my.ESM,fixed.var.metric = 'median')
+                              
+}
+}

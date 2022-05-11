@@ -31,49 +31,5 @@ Olivier Broennimann <Olivier.Broennimann@unil.ch> with contributions of Heidi Mo
 }
 
 \seealso{
-\code{\link[ecospat]{ecospat.ESM.Modeling}}, \code{\link[ecospat]{ecospat.ESM.EnsembleModeling}}, \code{\link[ecospat]{ecospat.ESM.Projection}}, \code{\link[ecospat]{ecospat.ESM.EnsembleProjection}}
-
-}
-\examples{
-   \donttest{       
-require(biomod2)
-# Loading test data
-data(ecospat.testNiche.inv)
-inv <- ecospat.testNiche.inv
-
-# species occurrences
-xy <- inv[,1:2]
-sp_occ <- inv[11]
-
-# env
-current <- inv[3:10]
-
-### Formating the data with the BIOMOD_FormatingData() function from the package biomod2
-sp <- 1
-myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
-                                      expl.var = current,
-                                      resp.xy = xy,
-                                      resp.name = colnames(sp_occ)[sp])
-
-### Calibration of simple bivariate models
-my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
-                                models=c('GLM','RF'),
-                                NbRunEval=2,
-                                DataSplit=70,
-                                Prevalence=0.5,
-                                weighting.score=c("AUC"),
-                                parallel=FALSE)  
-
-### Evaluation and average of simple bivariate models to ESMs
-my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.score=c("SomersD"),threshold=0)
-
-## get the model performance of ESMs 
-my.ESM_EF$ESM.evaluations
-
-## get the weights of the single bivariate models used to build the ESMs
-my.ESM_EF$weights
-
-## get the variable contributions of ESMs
-ecospat.ESM.VarContrib(my.ESM,my.ESM_EF)
-}
+\code{\link[ecospat]{ecospat.ESM.Modeling}}
 }

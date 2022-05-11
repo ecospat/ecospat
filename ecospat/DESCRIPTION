@@ -24,6 +24,7 @@ Authors@R: c(
 	person("Charlotte", "Ndiribe", role = "ctb"),
 	person("Nicolas", "Salamin", role = "ctb"),
 	person("Niklaus", "Zimmermann", role = "ctb"),
+	person("Flavien", "Collart", role = "ctb"),
 	person("Antoine", "Guisan", role = "aut", email = "antoine.guisan@unil.ch"))
 Author: Olivier Broennimann [cre, aut, ctb],
         Valeria Di Cola [aut, ctb],

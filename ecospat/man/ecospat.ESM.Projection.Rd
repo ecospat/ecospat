@@ -51,66 +51,9 @@ Lomba, A., L. Pellissier, C.F. Randin, J. Vicente, F. Moreira, J. Honrado and A.
 
 Breiner F.T., A. Guisan, A. Bergamini and M.P. Nobis. 2015. Overcoming limitations of modelling rare species by using ensembles of small models. \emph{Methods in Ecology and Evolution}, \bold{6},1210-1218.
 
-Breiner F.T., Nobis M.P., Bergamini A., Guisan A. 2018. Optimizing ensembles of small models for predicting the distribution of species with few occurrences. \emph{Methods in Ecology and Evolution}. \doi{10.1111/2041-210X.12957}
-          }
+Breiner F.T., Nobis M.P., Bergamini A., Guisan A. 2018. Optimizing ensembles of small models for predicting the distribution of species with few occurrences. \emph{Methods in Ecology and Evolution}. \doi{https://doi.org/10.1111/2041-210X.12957}
+}
 
 \seealso{
-\code{\link[ecospat]{ecospat.ESM.EnsembleModeling}}, \code{\link[ecospat]{ecospat.ESM.Modeling}}, \code{\link[ecospat]{ecospat.ESM.EnsembleProjection}}
-
-\code{\link[biomod2]{BIOMOD_FormatingData}}, \code{\link[biomod2]{BIOMOD_ModelingOptions}}, \code{\link[biomod2]{BIOMOD_Modeling}},\code{\link[biomod2]{BIOMOD_Projection}}
-
+ \code{\link[ecospat]{ecospat.ESM.Modeling}}
 }
-\examples{
-   \donttest{
-library(biomod2)
-
-# Loading test data
-data(ecospat.testNiche.inv)
-inv <- ecospat.testNiche.inv
-
-# species occurrences
-xy <- inv[,1:2]
-sp_occ <- inv[11]
-
-# env
-current <- inv[3:10]
-
-
-
-### Formating the data with the BIOMOD_FormatingData() function from the package biomod2
-
-sp <- 1
-myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
-                                      expl.var = current,
-                                      resp.xy = xy,
-                                      resp.name = colnames(sp_occ)[sp])
-
-
-### Calibration of simple bivariate models
-my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
-                                models=c('GLM','SRE'),
-                                NbRunEval=2,
-                                DataSplit=70,
-                                weighting.score=c("AUC"),
-                                parallel=FALSE)  
-
-
-### Evaluation and average of simple bivariate models to ESMs
-my.ESM_EF <- ecospat.ESM.EnsembleModeling(my.ESM,weighting.score=c("SomersD"),threshold=0)
-
-### Projection of simple bivariate models into new space 
-my.ESM_proj_current<-ecospat.ESM.Projection(ESM.modeling.output=my.ESM,
-                                            new.env=current)
-
-### Projection of calibrated ESMs into new space 
-my.ESM_EFproj_current <- ecospat.ESM.EnsembleProjection(ESM.prediction.output=my.ESM_proj_current,
-                                                        ESM.EnsembleModeling.output=my.ESM_EF)
-
-## get the model performance of ESMs 
-my.ESM_EF$ESM.evaluations
-## get the weights of the single bivariate models used to build the ESMs
-my.ESM_EF$weights
-
-## get the variable contributions of ESMs
-ecospat.ESM.VarContrib(my.ESM,my.ESM_EF)
-}}
