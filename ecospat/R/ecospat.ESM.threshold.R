@@ -9,7 +9,7 @@ DATA <- cbind(1:nrow(ESM.EnsembleModeling.output$ESM.fit),
               ESM.EnsembleModeling.output$ESM.fit[,i]/1000)
 
 
-EVAL1 <- presence.absence.accuracy(DATA[, ], threshold = as.vector(optimal.thresholds(DATA[, ], opt.methods = "MaxSens+Spec"), mode = "numeric")[-1])
+EVAL1 <- presence.absence.accuracy(DATA[, ], threshold = as.vector(optimal.thresholds(DATA[, ], opt.methods = "MaxSens+Spec")[-1], mode = "numeric"))
 TSS.th <- EVAL1$threshold
 EVAL1 <- EVAL1[c(1, 4:7, 9:12)]
 EVAL1$SomersD <- EVAL1$AUC * 2 - 1

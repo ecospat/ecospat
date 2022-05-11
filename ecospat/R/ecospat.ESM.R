@@ -679,8 +679,8 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
         DATA1[, 3] <- 0
       }
     }
-    EVAL1 <- presence.absence.accuracy(DATA1[!calib.lines[, i], ], threshold = as.vector(optimal.thresholds(DATA1[!calib.lines[,
-                                                                                                                               i], ], opt.methods = "MaxSens+Spec"), mode = "numeric")[-1])
+    EVAL1 <- presence.absence.accuracy(DATA1[!calib.lines[, i], ], 
+                                       threshold = as.vector(optimal.thresholds(DATA1[!calib.lines[,i], ], opt.methods = "MaxSens+Spec")[-1], mode = "numeric"))
     EVAL1 <- EVAL1[c(1, 2, 4:7, 9:12)]
     EVAL1$TSS <- EVAL1$sensitivity + EVAL1$specificity - 1
     if (length(models) > 1) {
@@ -757,8 +757,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
         # DATA1<-DATA1[,nrow(DATA1) != apply(DATA1,2,function(x){sum(is.na(x))})]
       }
       
-      EVAL1 <- presence.absence.accuracy(DATA1[!calib.lines[, i], ], threshold = as.vector(optimal.thresholds(DATA1[!calib.lines[,
-                                                                                                                                 i], ], opt.methods = "MaxSens+Spec"), mode = "numeric")[-1])
+      EVAL1 <- presence.absence.accuracy(DATA1[!calib.lines[, i], ], threshold = as.vector(optimal.thresholds(DATA1[!calib.lines[,i], ], opt.methods = "MaxSens+Spec")[-1], mode = "numeric"))
       EVAL1 <- EVAL1[c(1, 2, 4:7, 9:12)]
       EVAL1$TSS <- EVAL1$sensitivity + EVAL1$specificity - 1
       if (nrow(DATA1) %in% apply(DATA1[, 3:ncol(DATA1)], 2, function(x) {
@@ -1129,24 +1128,25 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
   
   var<-colnames(ESM.modeling.output$data@data.env.var)
   models<-ESM.modeling.output$models
-  contrib<-data.frame(matrix(nrow=length(var),ncol=length(models)+1,dimnames=list(var,c(models, "ENS"))))
+  contrib<-data.frame(matrix(nrow=length(var),ncol=length(models),dimnames=list(var,c(models))))
   weights<-ESM_EF.output$weights
-    if(length(models)==1){
-    names(weights) <- paste0(models,names(weights))
-  }
-  
   if(length(models)==1){
     names(weights) <- paste0(models,names(weights))
+    order_weights <- order(as.numeric(sub("GLM.ESM.BIOMOD.","",names(weights))))
+    
   }
-  cb1<-rep(combn(var,2)[1,],each=length(models))
-  cb2<-rep(combn(var,2)[2,],each=length(models))
   
+  if(length(models)>1){
   order_weights <- paste0(rep(models, ncol(combn(var,2))), ".ESM.BIOMOD.", 
                           rep(1:ncol(combn(var,2)), each=length(models)))
-  
+  }
   weights.reordered<-weights[order_weights]
   
   #contribution by technique
+  
+  cb1<-rep(combn(var,2)[1,],each=length(models))
+  cb2<-rep(combn(var,2)[2,],each=length(models))
+  
   for (m in models){
     for(v in var){
     pos_models <- grep(m,names(weights.reordered))
@@ -1159,10 +1159,9 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
   }
   
   #contributions of final ensemble model
-  if(length(models > 1)) { 
-    weights.method <- ESM_EF.output$weights.EF$x
-    contrib[, "ENS"] <- matrixStats::rowWeightedMeans(x=data.matrix(contrib[, models]), w=weights.method, na.rm=TRUE) }  else {
-    contrib[, "ENS"] <- contrib[, models] }
-    
+  if(length(models) > 1) {
+    EF <- matrixStats::rowWeightedMeans(x=data.matrix(contrib[, models]), w=ESM_EF.output$weights.EF$x, na.rm=TRUE)
+    contrib<-cbind(contrib,EF) }
+  
   return(contrib)
 }

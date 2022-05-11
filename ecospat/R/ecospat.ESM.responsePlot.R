@@ -20,13 +20,11 @@ ecospat.ESM.responsePlot <-
     proj.fixed.list <- list()
     for(i in 1:ncol(data)){
       data.fixed <- data.fixed.all
-  
       data.fixed[,i] <- seq(min.data[i],max.data[i],(max.data[i]-min.data[i])/999)
-    proj.fixed <- ecospat.ESM.Projection(ESM.modeling.output,new.env=data.fixed)
-    proj.fixed.list[[i]] <- ecospat.ESM.EnsembleProjection(ESM.prediction.output=proj.fixed,
+      proj.fixed <- ecospat.ESM.Projection(ESM.modeling.output,new.env=data.fixed)
+      proj.fixed.list[[i]] <- ecospat.ESM.EnsembleProjection(ESM.prediction.output=proj.fixed,
                                                             ESM.EnsembleModeling.output=ESM.EnsembleModeling.output)
-    
-    proj.fixed.list[[i]] <- cbind(data.fixed[,i],proj.fixed.list[[i]])
+      proj.fixed.list[[i]] <- cbind(data.fixed[,i],proj.fixed.list[[i]])
     }
     # plot(proj.fixed.list[[i]]$EF~ proj.fixed.list[[i]][,1], xlab='',main= names(proj.fixed.list)[i], ylab='predicted value', ylim=c(0,1000), type='n',las = TRUE)
     # 
@@ -63,15 +61,20 @@ ecospat.ESM.responsePlot <-
       graphics::par(mfrow=c(xs, ys))
       
       for(i in 1:ncol(data)){
-      plot(proj.fixed.list[[i]]$EF~ proj.fixed.list[[i]][,1], xlab='',main= names(proj.fixed.list)[i], ylab='predicted value', 
-           ylim=c(min(sapply(proj.fixed.list,function(x){min(x[,-1])})),max(sapply(proj.fixed.list,function(x){max(x[,-1])}))), type='n',las = TRUE)
-      
-      if(ncol(proj.fixed.list[[i]])>2){
-        for(mod.i in models){
-          points(proj.fixed.list[[i]][,mod.i]~ proj.fixed.list[[i]][,1],col='grey', lwd=2,type='l')
-        }}    
-      points(proj.fixed.list[[i]]$EF~ proj.fixed.list[[i]][,1], xlab= names(proj.fixed.list)[i],col='red', lwd=2,  type='l')
-      rug(data[,i], col='black')
+        if(length(models)>1){
+          plot(proj.fixed.list[[i]]$EF~ proj.fixed.list[[i]][,1], xlab='',main= names(proj.fixed.list)[i], ylab='predicted value', 
+               ylim=c(min(sapply(proj.fixed.list,function(x){min(x[,-1])})),max(sapply(proj.fixed.list,function(x){max(x[,-1])}))), type='n',las = TRUE)
+          points(proj.fixed.list[[i]]$EF~ proj.fixed.list[[i]][,1], xlab= names(proj.fixed.list)[i],col='red', lwd=2,  type='l')
+          for(mod.i in models){
+            points(proj.fixed.list[[i]][,mod.i]~ proj.fixed.list[[i]][,1],col='grey', lwd=2,type='l')
+            rug(data[,i], col='black')
+          }
+          }
+        if(length(models)==1){
+          plot(proj.fixed.list[[i]][,2]~ proj.fixed.list[[i]][,1], xlab='',main= names(proj.fixed.list)[i], ylab='predicted value', 
+               ylim=c(min(sapply(proj.fixed.list,function(x){min(x[,-1])})),max(sapply(proj.fixed.list,function(x){max(x[,-1])}))), type='n',las = TRUE)
+          points(proj.fixed.list[[i]][,2]~ proj.fixed.list[[i]][,1], xlab= names(proj.fixed.list)[i],col='red', lwd=2,  type='l')
+          }
       }
       
     ## delete temporary files whcih were produced to calculate response plots
