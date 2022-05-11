@@ -203,3 +203,4 @@ FIXES
 
 * fix bugs on ecospat.nichePOSNB help files
 * fix Namespace imports from package maps
+* fix bugs on ESM functions when using only one modelling techniques
