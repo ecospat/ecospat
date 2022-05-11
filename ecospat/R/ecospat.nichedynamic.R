@@ -348,8 +348,8 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
       z2$Z, add = TRUE, levels = quantile(z2$Z[z2$Z > 0], c(0, quant)),
       drawlabels = FALSE, lty = c(1, 2), col = colZ2
     )
-    axis(1,labels = FALSE, lwd.tick = 0);axis(2, lwd.ticks = 0,labels = FALSE)
-    axis(3,labels = FALSE, lwd.tick = 0);axis(4, lwd.ticks = 0,labels = FALSE)
+    axis(1,labels = FALSE, lwd.ticks = 0);axis(2, lwd.ticks = 0,labels = FALSE)
+    axis(3,labels = FALSE, lwd.ticks = 0);axis(4, lwd.ticks = 0,labels = FALSE)
   }
 }
 
