@@ -2,7 +2,7 @@
 \alias{ecospat.ESM.Modeling}
 
 \title{
-Ensamble of Small Models: Calibration of Simple Bivariate Models
+Ensemble of Small Models: Calibration of Simple Bivariate Models
 }
 \description{
 This function calibrates simple bivariate models as in Lomba et al. 2010 and Breiner et al. 2015.

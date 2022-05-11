@@ -2,7 +2,7 @@
 \alias{ecospat.ESM.threshold}
 
 \title{
-Thresholds for Ensamble of Small Models
+Thresholds for Ensemble of Small Models
 }
 \description{
 This function evaluates the full model which is used for projections and provides thresholds to produce binary maps.

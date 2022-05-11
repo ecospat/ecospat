@@ -7,7 +7,7 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
   requireNamespace("rgdal")
 
 ## Species data
-  if (class(spec.list) != "character") {
+  if (!is.character(spec.list)) {
     colnames(spec.list)[1:3] <- c("x", "y", "Spec")
   }
   
@@ -16,15 +16,14 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
   if (is.null(PApoint)) {
     if (type == "random") {
       n <- n * 1.5
-      PApoint <- data.frame(randomPoints(mask = expl.var, n, if (class(spec.list) !=
-        "character") {
+      PApoint <- data.frame(randomPoints(mask = expl.var, n, if (!is.character(spec.list)) {
         p = spec.list[, -3]
       }, tryf, ext = ext))
       test <- extract(expl.var, PApoint[, 1:2])
       n <- (n/1.5)
       PApoint <- PApoint[complete.cases(test), ][1:n, ]
     } else {
-      if (class(ext) == "RasterStack" | class(ext) == "RasterLayer") {
+      if (inherits(ext,c("RasterStack","RasterLayer"))) {
         ext <- rasterToPolygons(ext[[1]])
       }
       PApoint2 <- data.frame(spsample(ext, n, type))
@@ -37,7 +36,7 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
 
 
 
-  if (class(spec.list) != "character") {
+  if (!is.character(spec.list)) {
     # spec.list$Spec <- gsub('\\.', '_', spec.list$Spec) spec.list$Spec <- gsub('
     # ', '_', spec.list$Spec)
     spec.list$Spec <- gsub("_", "\\.", spec.list$Spec)
@@ -55,7 +54,7 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
   ### Beginn Species Loop
   for (i in 1:length(specnames)) {
     # plot(i)
-    if (class(spec.list) != "character") {
+    if (!is.character(spec.list)) {
       spec.x <- spec.list[, 3] == specnames[i]
       spec.x <- subset(spec.list, spec.x)
       spec.data <- data.frame(spec.x[, 3:ncol(spec.x)])
@@ -107,7 +106,7 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
       spec.gbif <- spec.gbif[, "Spec"]
 
       # Use GBIF data only (if you don't have own occurrences)
-      if (class(spec.list) != "character") {
+      if (!is.character(spec.list)) {
         spec.x <- SpatialPointsDataFrame(spec.x[, 1:2], data = spec.data,
           proj4string = CRS(projection(expl.var)))
         spec.x <- spRbind(spec.x, spec.gbif)

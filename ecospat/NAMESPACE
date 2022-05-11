@@ -18,7 +18,7 @@ importFrom("PresenceAbsence", presence.absence.accuracy, optimal.thresholds, auc
 importFrom("poibin", dpoibin, ppoibin)
 importFrom("snowfall", sfInit, sfLibrary, sfLapply, sfStop, sfExport)
 importFrom("grDevices", "colorRampPalette", "dev.new", "dev.off", "gray", "grey","col2rgb", "rgb")
-importFrom("graphics", "abline", "arrows", "barplot", "boxplot", "contour", "hist", "image", "lines", "pairs", "par", "plot.new", "points", "polygon", "rect", "segments", "strwidth", "text", "title")
+importFrom("graphics", "abline", "arrows", "barplot", "boxplot", "contour", "hist", "image", "lines", "pairs", "par", "plot.new", "points", "polygon", "rect", "segments", "strwidth", "text", "title","axis")
 importFrom("methods", "slotNames", "as")
 importFrom("stats", "aggregate", "as.dist", "binomial", "coef", "complete.cases", "cor", "density", "dist", "ecdf", "glm", "mahalanobis", "median", "model.frame", "na.exclude", "na.omit", "quantile", "rbinom", "runif", "sd", "step", "update", "var", "weighted.mean", "rexp")
 importFrom("utils", "combn", "packageVersion", "setTxtProgressBar", "txtProgressBar", "write.table")

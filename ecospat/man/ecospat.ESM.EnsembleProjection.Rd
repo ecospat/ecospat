@@ -2,7 +2,7 @@
 \alias{ecospat.ESM.EnsembleProjection}
 
 \title{
-Ensamble of Small Models: Projects Calibrated ESMs Into New Space Or Time.
+Ensemble of Small Models: Projects Calibrated ESMs Into New Space Or Time.
 }
 \description{
 This function projects calibrated ESMs into new space or time.

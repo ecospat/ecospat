@@ -2,7 +2,7 @@
 \alias{ecospat.ESM.Projection}
 
 \title{
-Ensamble of Small Models: Projects Simple Bivariate Models Into New Space Or Time
+Ensemble of Small Models: Projects Simple Bivariate Models Into New Space Or Time
 }
 \description{
 This function projects simple bivariate models on new.env
