@@ -46,6 +46,7 @@ Author: Olivier Broennimann [cre, aut, ctb],
         Charlotte Ndiribe [ctb],
         Nicolas Salamin [ctb],
         Niklaus Zimmermann [ctb],
+        Flavien Collart [ctb],
         Antoine Guisan [aut]
 Maintainer: Olivier Broennimann <olivier.broennimann@unil.ch>
 VignetteBuilder: knitr

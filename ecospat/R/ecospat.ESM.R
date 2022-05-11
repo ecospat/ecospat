@@ -338,7 +338,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
       ####### Exclude the models which failed #######
       
       ### models which failed have class 'character' otherwise 'BIOMOD.models.out'
-      if (class(mymodel) == "character") {
+      if (is.character(mymodel)) {
         next()
       }
       
@@ -356,7 +356,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
       }
       # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
       # paste('RUN',NbRunEval+1,sep='')
-      if (class(new.env) == "RasterStack") {
+      if (inherits(new.env,"RasterStack") {
         BIOMOD_Projection(modeling.output = mymodel, 
                           new.env = new.env[[which(names(new.env) %in% combinations[, k])]],
                           proj.name = paste(name.env, "ESM.BIOMOD", k, modeling.id, sep = "."), 
@@ -375,7 +375,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
       ####### next() is not working in foreach loops
       ####### Exclude the models which failed & don't use models where Full model failed!
       
-      if (class(mymodel) != "character")
+      if (!is.character(mymodel))
       {
         # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
         # paste('RUN',NbRunEval+1,sep='')
@@ -391,7 +391,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
         }
         # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named:
         # paste('RUN',NbRunEval+1,sep='')
-        if (class(new.env) == "RasterStack") {
+        if (inherits(new.env,"RasterStack")) {
           BIOMOD_Projection(modeling.output = mymodel, 
                             new.env = new.env[[which(names(new.env) %in% combinations[, k])]], 
                             proj.name = paste(name.env, "ESM.BIOMOD", k, modeling.id, sep = "."), 
@@ -418,7 +418,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
                  pred.biva = grep(modeling.id,gtools::mixedsort(list.files(getwd(), paste("proj_", name.env, sep = ""), recursive = TRUE, full.names = TRUE)),value = TRUE), 
                  NbRunEval = NbRunEval, 
                  name.env = name.env, 
-                 new.env.raster = class(new.env) =="RasterStack", wd = getwd(), which.biva = which.biva)
+                 new.env.raster = inherits(new.env,"RasterStack"), 
+                 wd = getwd(), 
+                 which.biva = which.biva)
   
   save(output, file = paste("ESM_Projections",name.env, modeling.id, "out", sep = "."))
   

@@ -8,7 +8,7 @@ Niche position and niche breadth)
     ecospat.nicheNBmean calculates the weighted mean niche breadth accross several axes from a nichePOSNB object. 
 }
 \usage{
-ecospat.nichePOSNB (POSNB,w)
+ecospat.nicheNBmean(POSNB,w)
 }
 
 \arguments{

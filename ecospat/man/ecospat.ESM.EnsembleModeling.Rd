@@ -2,7 +2,7 @@
 \alias{ecospat.ESM.EnsembleModeling}
 
 \title{
-Ensamble of Small Models: Evaluates and Averages Simple Bivariate Models To ESMs
+Ensemble of Small Models: Evaluates and Averages Simple Bivariate Models To ESMs
 }
 \description{
 This function evaluates and averages simple bivariate models by weighted means to Ensemble Small Models as in Lomba et al. 2010 and Breiner et al. 2015.

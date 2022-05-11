@@ -19,8 +19,8 @@ ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100,
     return(round(pi/ei,10))
   }
   
-  if (class(fit) == "RasterLayer") {
-    if (class(obs) == "data.frame" || class(obs) == "matrix") {
+  if (inherits(fit,"RasterLayer")) {
+    if (is.data.frame(obs) || is.matrix(obs)) {
       obs <- extract(fit, obs)
     }
     fit <- getValues(fit)

@@ -271,7 +271,7 @@ ecospat.CCV.modeling <- function(sp.data,
   
   #Checking all the input data
   stopifnot(dim(sp.data)[1]==dim(xy)[1])
-  stopifnot(dim(env.data)[1]==dim(xy)[1] | data.class(env.data)=="RasterStack")
+  stopifnot(dim(env.data)[1]==dim(xy)[1] | inherits(env.data,"RasterStack"))
   stopifnot(dim(DataSplitTable)[1]==dim(xy)[1] | is.null(DataSplitTable))
   stopifnot(DataSplit >= 50 & DataSplit <=100)
   stopifnot(NbRunEval>=0)
@@ -295,7 +295,7 @@ ecospat.CCV.modeling <- function(sp.data,
   }else{
     ensemble.metric.sdm <- ensemble.metric
   }
-  if(data.class(env.data)=="RasterStack"){
+  if(inherits(env.data,"RasterStack"){
     NbPredictors <- dim(env.data)[3]
     NamesPredictors <- names(env.data)
   }else{
