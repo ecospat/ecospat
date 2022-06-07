@@ -27,19 +27,19 @@ Legendre, P. and L. Legendre. 1998. \emph{Numerical Ecology}, 2nd English editio
 \examples{
 
 \donttest{
-library(rms)
-data('ecospat.testData')
+if(require("rms",quietly=TRUE)){
+  data('ecospat.testData')
 
-# data for Soldanella alpina
-data.Solalp<- ecospat.testData[c("Soldanella_alpina","ddeg","mind","srad","slp","topo")] 
+  # data for Soldanella alpina
+  data.Solalp<- ecospat.testData[c("Soldanella_alpina","ddeg","mind","srad","slp","topo")] 
 
-# gbm model for Soldanella alpina
+  # gbm model for Soldanella alpina
 
-glm.Solalp <- glm(Soldanella_alpina ~ pol(ddeg,2) + pol(mind,2) + pol(srad,2) + pol(slp,2) 
+  glm.Solalp <- glm(Soldanella_alpina ~ pol(ddeg,2) + pol(mind,2) + pol(srad,2) + pol(slp,2) 
       + pol(topo,2), data = data.Solalp, family = binomial)
                   
-# p-values
-ecospat.permut.glm (glm.Solalp, 1000)
+  # p-values
+  ecospat.permut.glm (glm.Solalp, 1000)
 }
-
+}
 }

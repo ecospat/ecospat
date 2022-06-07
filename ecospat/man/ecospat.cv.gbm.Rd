@@ -30,6 +30,7 @@ Pearman, P.B., C.F. Randin, O. Broennimann, P. Vittoz, W.O. van der Knaap, R. En
 
 
 \examples{
+library(gbm)
 data('ecospat.testData')
 
 # data for Soldanella alpina

@@ -34,6 +34,7 @@ Petitpierre, B., C. Kueffer, O. Broennimann, C. Randin, C. Daehler and A. Guisan
 \examples{
 \donttest{
 
+library(ade4)
 library(raster)
 
 data(ecospat.testNiche)

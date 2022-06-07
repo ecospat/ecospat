@@ -97,7 +97,7 @@
 
 ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTable = NULL, Prevalence = 0.5, weighting.score,
                                  models, tune = FALSE, modeling.id = as.character(format(Sys.time(), "%s")), models.options = NULL, which.biva = NULL,
-                                 parallel, cleanup = FALSE, Yweights = NULL) {
+                                 parallel = FALSE, cleanup = FALSE, Yweights = NULL) {
   
   # if(!require(biomod2)){stop('biomod2 package required!')} if(!require(gtools)){stop('gtools package
   # required!')}

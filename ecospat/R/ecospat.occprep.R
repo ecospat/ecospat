@@ -169,7 +169,7 @@ ecospat.mantel.correlogram <- function(dfvar, colxy, n, colvar, max, nclass, npe
   envdist <- dist(envnorm[row.rand, ])
   geodist <- dist(dfvar[row.rand, colxy])
   b <- seq(from = min(geodist), to = max, length.out = nclass)
-  crlg <- mgram(envdist, geodist, breaks = b, nperm = nperm)
+  crlg <- ecodist::mgram(envdist, geodist, breaks = b, nperm = nperm)
   plot(crlg)
   abline(h = 0)
 }

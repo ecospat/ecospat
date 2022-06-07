@@ -204,3 +204,13 @@ FIXES
 * fix bugs on ecospat.nichePOSNB help files
 * fix Namespace imports from package maps
 * fix bugs on ESM functions when using only one modelling techniques
+
+ecospat_3.3 (0.2.06.2022)
+=============
+
+FIXES
+
+* added missing export for ecospat.ESM.EnsembleEvaluation
+* remodelled exports and namespaces
+
+

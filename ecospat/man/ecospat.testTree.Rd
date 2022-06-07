@@ -74,6 +74,7 @@
 
 \examples{
 fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
+library(ape)
 tree <- read.tree(fpath)
 plot(tree)
 }

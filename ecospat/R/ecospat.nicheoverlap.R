@@ -151,11 +151,11 @@ ecospat.niche.equivalency.test <- function(z1, z2, rep,intersection = NA,
     
   }else{
     #number of cores attributed for the permutation test
-    cl <- makeCluster(ncores)  #open a cluster for parallelization
-    invisible(clusterEvalQ(cl,library("ecospat")))  #import the internal function into the cluster
-    sim.o <- as.data.frame(matrix(unlist(parLapply(cl, 1:rep, overlap.eq.gen, z1, z2,intersection = intersection)), byrow = TRUE,
+    cl <- parallel::makeCluster(ncores)  #open a cluster for parallelization
+    invisible(parallel::clusterEvalQ(cl,library("ecospat")))  #import the internal function into the cluster
+    sim.o <- as.data.frame(matrix(unlist(parallel::parLapply(cl, 1:rep, overlap.eq.gen, z1, z2,intersection = intersection)), byrow = TRUE,
                                   ncol = 5))  #simulate random overlap
-    stopCluster(cl)  #shutdown the cluster
+    parallel::stopCluster(cl)  #shutdown the cluster
   }
   colnames(sim.o) <- c("D", "I", "expansion", "stability", "unfilling")
   l$sim <- sim.o  # storage
@@ -341,11 +341,11 @@ ecospat.niche.similarity.test <- function(z1, z2, rep, intersection = NA, rand.t
     sim.o <- as.data.frame(matrix(unlist(lapply(1:rep, overlap.sim.gen, z1, z2, rand.type = rand.type)),
                                   byrow = TRUE, ncol = 5))  #simulate random overlap  
   } else {
-    cl <- makeCluster(ncores)  #open a cluster for parallelization
-    invisible(clusterEvalQ(cl,library("ecospat")))  #import the internal function into the cluster
-    sim.o <- as.data.frame(matrix(unlist(parLapply(cl, 1:rep, overlap.sim.gen, z1, z2, rand.type = rand.type)),
+    cl <- parallel::makeCluster(ncores)  #open a cluster for parallelization
+    invisible(parallel::clusterEvalQ(cl,library("ecospat")))  #import the internal function into the cluster
+    sim.o <- as.data.frame(matrix(unlist(parallel::parLapply(cl, 1:rep, overlap.sim.gen, z1, z2, rand.type = rand.type)),
                                   byrow = TRUE, ncol = 5))  #simulate random overlap
-    stopCluster(cl)  #shutdown the cluster
+    parallel::stopCluster(cl)  #shutdown the cluster
   }
   colnames(sim.o) <- c("D", "I", "expansion", "stability", "unfilling")
   l$sim <- sim.o  # storage

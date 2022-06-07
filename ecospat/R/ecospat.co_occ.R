@@ -122,7 +122,7 @@ ecospat.Cscore <- function(data, nperm, outpath, verbose = FALSE)
     }
    
     spec.occ.perm1 <- data.matrix(data)
-    spec.occ.perm1 <- permatswap(spec.occ.perm1, fixedmar = "both", mtype = "prab",
+    spec.occ.perm1 <- vegan::permatswap(spec.occ.perm1, fixedmar = "both", mtype = "prab",
                                  times = 1)  # times=1 : separate swapping sequence that always begins with the original matrix
     spec.occ.perm <- as.matrix(spec.occ.perm1[[3]][[1]])
     
@@ -155,9 +155,9 @@ ecospat.Cscore <- function(data, nperm, outpath, verbose = FALSE)
   SimulatedCscore <- mean(vec.CScore.tot)
   sd.SimulatedCscore <- sd(vec.CScore.tot)
   ses <- (CscoreTot - SimulatedCscore)/sd.SimulatedCscore
-  randtest.less <- as.randtest(vec.CScore.tot, CscoreTot, alter = "less")
+  randtest.less <- ade4::as.randtest(vec.CScore.tot, CscoreTot, alter = "less")
   pval.less <- randtest.less$pvalue
-  randtest.greater <- as.randtest(vec.CScore.tot, CscoreTot, alter = "greater")
+  randtest.greater <- ade4::as.randtest(vec.CScore.tot, CscoreTot, alter = "greater")
   pval.greater <- randtest.greater$pvalue
   # plot(randtest.greater, xlab= 'Simulated C-scores',main=paste('', sep=''))
   
@@ -177,9 +177,9 @@ ecospat.Cscore <- function(data, nperm, outpath, verbose = FALSE)
     
     mat.pval[k, 2] <- (df.obs.c.coef[k, 5] - mean(mat.perm[k, ]))/sd(mat.perm[k,
                                                                               ])
-    randtest <- as.randtest(sim = mat.perm[k, ], obs = df.obs.c.coef[k, 5], alter = "less")
+    randtest <- ade4::as.randtest(sim = mat.perm[k, ], obs = df.obs.c.coef[k, 5], alter = "less")
     mat.pval[k, 3] <- randtest$pvalue
-    randtest <- as.randtest(sim = mat.perm[k, ], obs = df.obs.c.coef[k, 5], alter = "greater")
+    randtest <- ade4::as.randtest(sim = mat.perm[k, ], obs = df.obs.c.coef[k, 5], alter = "greater")
     mat.pval[k, 4] <- randtest$pvalue
   }
   
@@ -398,9 +398,9 @@ ecospat.cons_Cscore <- function(presence, pred, nperm, outpath, verbose = FALSE)
     ses <- (CscoreTot - SimulatedCscore)/sd.SimulatedCscore  # standardized effect size: It scales the results in units of standard deviations, 
     # which allows for meaningful comparisons among different tests
     
-    randtest.less <- as.randtest(vec.CScore.tot, CscoreTot, alter = "less")
+    randtest.less <- ade4::as.randtest(vec.CScore.tot, CscoreTot, alter = "less")
     pval.less <- randtest.less$pvalue
-    randtest.greater <- as.randtest(vec.CScore.tot, CscoreTot, alter = "greater")
+    randtest.greater <- ade4::as.randtest(vec.CScore.tot, CscoreTot, alter = "greater")
     pval.greater <- randtest.greater$pvalue
     plot(randtest.greater, xlab = "Simulated C-scores", main = paste("", sep = ""))
     
@@ -411,9 +411,9 @@ ecospat.cons_Cscore <- function(presence, pred, nperm, outpath, verbose = FALSE)
     mat_pval[, 2] <- vec.Cscore.pairs  # Mean of simulated C-scores in the second column
     
     for (i in 1:nrow(CooccProb)) {
-      randtest.less <- as.randtest(CooccProb[i, ], mat_pval[i, 1], alter = "less")
+      randtest.less <- ade4::as.randtest(CooccProb[i, ], mat_pval[i, 1], alter = "less")
       mat_pval[i, 3] <- randtest.less$pvalue
-      randtest.greater <- as.randtest(CooccProb[i, ], mat_pval[i, 1], alter = "greater")
+      randtest.greater <- ade4::as.randtest(CooccProb[i, ], mat_pval[i, 1], alter = "greater")
       mat_pval[i, 4] <- randtest.greater$pvalue
       mat_pval[i, 5] <- (mat_pval[i, 1] - mean(CooccProb[i, ]))/(sd(CooccProb[i, 
                                                                               ]))  #ses for any pair of species

@@ -60,13 +60,13 @@ ecospat.rangesize <- function(bin.map = NULL,
   
   ### IUCN methods:
   if(Model.within.eoo | EOO){
-    xy.eoo<-convHull(xy)
+    xy.eoo<-dismo::convHull(xy)
     eoo <- round(xy.eoo@polygons@polygons[[1]]@area) #quadrat km  
   }else{xy.eoo <- eoo <- NULL}  
   
   if(AOO){
     aoo.obj <- bin.map[[1]]
-    res(aoo.obj) = resol
+    raster::res(aoo.obj) = resol
     aoo.obj[] <- 0
     
     aoo.obj <- rasterize(xy, aoo.obj, field=1) 
@@ -74,8 +74,7 @@ ecospat.rangesize <- function(bin.map = NULL,
   }else{aoo.obj <- aoo.rs <- NULL}  
   
   if(AOO.circles){
-#    circ   <- dismo::circles(xy,d=d,lonlat=lonlat)
-    circ   <- circles(xy,d=d,lonlat=lonlat)
+    circ   <- dismo::circles(xy,d=d,lonlat=lonlat)
     circ.rs <- round(raster::area(circ@polygons)) 
   }else{circ.rs <- circ <- NULL}    
     
@@ -102,7 +101,7 @@ ecospat.rangesize <- function(bin.map = NULL,
   
     for(i in 1:nlayers(bin.map)){
       bin.m <- bin.map[[i]]
-      bin.map.rs <- c(bin.map.rs,sum(bin.m[bin.m==1])*prod(res(bin.m)))
+      bin.map.rs <- c(bin.map.rs,sum(bin.m[bin.m==1])*prod(raster::res(bin.m)))
       names(bin.map.rs) <- names(bin.map[[1:i]])
       
       if(ocp | eoo.around.modelocp){
@@ -112,7 +111,7 @@ ecospat.rangesize <- function(bin.map = NULL,
         bin.map.ocp  <- addLayer(bin.map.ocp, ecospat.occupied.patch(bin.map[[i]],xy, buffer=buffer))
         }
         bin.map.ocp.rs <- c(bin.map.ocp.rs,
-        (sum(bin.map.ocp[[i]][bin.map.ocp[[i]]==2])/2)*prod(res(bin.map.ocp)))
+        (sum(bin.map.ocp[[i]][bin.map.ocp[[i]]==2])/2)*prod(raster::res(bin.map.ocp)))
         names(bin.map.ocp.rs) <- paste(names(bin.map[[1:i]]),"ocp",sep="_")      
       }
 
@@ -123,7 +122,7 @@ ecospat.rangesize <- function(bin.map = NULL,
         
         if(eoo.around.model){
         xy.model.eoo <- xyFromCell(ids,ids[bin.map[[i]]==1])
-        eoo.around.mo[[i]] <- convHull(xy.model.eoo)
+        eoo.around.mo[[i]] <- dismo::convHull(xy.model.eoo)
         eoo.around.mo.rs <- c(eoo.around.mo.rs,round(eoo.around.mo[[i]]@polygons@polygons[[1]]@area))
         names(eoo.around.mo.rs) <- paste(names(bin.map[[1:i]]),"eoo.around.model",sep="_")  
         names(eoo.around.mo) <- paste(names(bin.map[[1:i]]),"eoo.around.model",sep="_") 
@@ -131,7 +130,7 @@ ecospat.rangesize <- function(bin.map = NULL,
       }
       if(eoo.around.modelocp){    
         xy.model.eoo.ocp <- xyFromCell(ids,ids[bin.map.ocp[[i]]==2])
-        eoo.around.mo.ocp[[i]] <- convHull(xy.model.eoo.ocp)
+        eoo.around.mo.ocp[[i]] <- dismo::convHull(xy.model.eoo.ocp)
         eoo.around.mo.ocp.rs <- c(eoo.around.mo.ocp.rs,round(eoo.around.mo.ocp[[i]]@polygons@polygons[[1]]@area))
         names(eoo.around.mo.ocp.rs) <- paste(names(bin.map[[1:i]]),"eoo.around.model.ocp",sep="_")  
         names(eoo.around.mo.ocp) <- paste(names(bin.map[[1:i]]),"eoo.around.model.ocp",sep="_") 
@@ -139,7 +138,7 @@ ecospat.rangesize <- function(bin.map = NULL,
         
       if(Model.within.eoo){
         d<-extract(bin.map[[i]], xy.eoo@polygons,cellnumbers = TRUE)
-        mo.within.eoo <- c(mo.within.eoo,round(sum(d[[1]][,2],na.rm = TRUE)*prod(res(bin.map[[i]]))))
+        mo.within.eoo <- c(mo.within.eoo,round(sum(d[[1]][,2],na.rm = TRUE)*prod(raster::res(bin.map[[i]]))))
         
         cells <- d[[1]][,1][d[[1]][,2]==1 & !is.na(d[[1]][,2])]
         

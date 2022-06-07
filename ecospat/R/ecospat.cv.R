@@ -157,9 +157,9 @@
 #       n.trees = 2000, interaction.depth = 3, n.minobsinnode = 10, shrinkage = 0.01,
 #       bag.fraction = 0.5, train.fraction = 1, verbose = FALSE, cv.folds = 10)
 # 
-#     best.itr.temp <- gbm.perf(gbm.tmp, method = "cv", plot.it = FALSE)
+#     best.itr.temp <- gbm::gbm.perf(gbm.tmp, method = "cv", plot.it = FALSE)
 # 
-#     gbm.tmp.cal <- gbm.more(gbm.tmp, n.new.trees = best.itr.temp, data = df.tmp.input)
+#     gbm.tmp.cal <- gbm::gbm.more(gbm.tmp, n.new.trees = best.itr.temp, data = df.tmp.input)
 # 
 #     assign(paste("gbm.", name.tmp.sp, sep = ""), gbm.tmp.cal, envir = ecospat.env)
 # 
@@ -474,7 +474,7 @@ ecospat.cv.glm <- function(glm.obj, K = 10, cv.lim = 10, jack.knife = FALSE, ver
 ecospat.cv.gbm <- function(gbm.obj, data.cv, K = 10, cv.lim = 10, jack.knife = FALSE, verbose = FALSE) {
 
 
-  best.itr.temp <- gbm.perf(gbm.obj, method = "cv", plot.it = FALSE)
+  best.itr.temp <- gbm::gbm.perf(gbm.obj, method = "cv", plot.it = FALSE)
 
   # CONTROL IF THE NUMBER OF OBSERVATIONS IS SUFFICIENT
 
@@ -495,14 +495,14 @@ ecospat.cv.gbm <- function(gbm.obj, data.cv, K = 10, cv.lim = 10, jack.knife = F
     if(verbose) cat("K has been set to ", K, " -> Jack-Knife Cross-validation enabled!","\n", append = FALSE)
 
     for (i in 1:K) {
-      gbm.temp <- gbm.more(gbm.obj, n.new.trees = best.itr.temp, data = data.cv[-i,])
+      gbm.temp <- gbm::gbm.more(gbm.obj, n.new.trees = best.itr.temp, data = data.cv[-i,])
 
       if (i == 1) {
         vect.id <- i
-        vect.predicted <- as.double(predict.gbm(gbm.temp, data.cv[i, ], best.itr.temp,type = "response"))
+        vect.predicted <- as.double(gbm::predict.gbm(gbm.temp, data.cv[i, ], best.itr.temp,type = "response"))
       } else if (i > 1) {
         vect.id <- append(vect.id, i, after = length(vect.id))
-        vect.predicted <- append(vect.predicted, as.double(predict.gbm(gbm.temp,data.cv[i, ], best.itr.temp, type = "response")), after = length(vect.predicted))
+        vect.predicted <- append(vect.predicted, as.double(gbm::predict.gbm(gbm.temp,data.cv[i, ], best.itr.temp, type = "response")), after = length(vect.predicted))
       }
     }
     df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0),predictions = as.numeric(vect.predicted))[order(vect.id), ])
@@ -567,9 +567,9 @@ ecospat.cv.gbm <- function(gbm.obj, data.cv, K = 10, cv.lim = 10, jack.knife = F
       j.in <- append(j.in, id.1[(s.1 != i)], after = length(j.in))
       j.in <- sort(j.in)
 
-      gbm.cal <- gbm.more(gbm.obj, n.new.trees = best.itr.temp, data = data.cv[j.in,])
+      gbm.cal <- gbm::gbm.more(gbm.obj, n.new.trees = best.itr.temp, data = data.cv[j.in,])
 
-      gbm.val <- predict.gbm(gbm.cal, data.cv[j.out, ], best.itr.temp, type = "response")
+      gbm.val <- gbm::predict.gbm(gbm.cal, data.cv[j.out, ], best.itr.temp, type = "response")
       if (i == 1) {
         vect.id <- j.out
         vect.predicted <- as.vector(gbm.val, mode = "numeric")
@@ -621,12 +621,12 @@ ecospat.cv.me <- function(data.cv.me, name.sp, names.pred, K = 10, cv.lim = 10, 
 
     for (i in 1:K) {
 
-      me.cal.jk <- maxent(data.cv.me[-i, names.pred], as.vector(data.cv.me[-i,
+      me.cal.jk <- dismo::maxent(data.cv.me[-i, names.pred], as.vector(data.cv.me[-i,
         name.sp]))
 
       if (i == 1) {
         vect.id <- i
-        vect.predicted <- round(predict(me.cal.jk, data.cv.me[i, names.pred]),
+        vect.predicted <- round(dismo::predict(me.cal.jk, data.cv.me[i, names.pred]),
           3)
       } else if (i > 1) {
         vect.id <- append(vect.id, i, after = length(vect.id))
@@ -700,8 +700,8 @@ ecospat.cv.me <- function(data.cv.me, name.sp, names.pred, K = 10, cv.lim = 10, 
       j.in <- sort(j.in)
 
 
-      me.cal.cv <- maxent(data.cv.me[j.in, names.pred], as.vector(data.cv.me[j.in,name.sp]))
-      me.val <- round(predict(me.cal.cv, data.cv.me[j.out, names.pred]), 3)
+      me.cal.cv <- dismo::maxent(data.cv.me[j.in, names.pred], as.vector(data.cv.me[j.in,name.sp]))
+      me.val <- round(dismo::predict(me.cal.cv, data.cv.me[j.out, names.pred]), 3)
 
       if (i == 1) {
         vect.id <- j.out
@@ -746,7 +746,7 @@ ecospat.cv.rf <- function(rf.obj, data.cv, K = 10, cv.lim = 10, jack.knife = FAL
     if(verbose) cat("K has been set to", K, "(leave-one-out CV is enabled!)", "\n", append = FALSE)
 
     for (i in 1:K) {
-      rf.tmp.cal <- randomForest(x = data.cv[-i, 2:ncol(data.cv)], y = as.factor(data.cv[-i,1]), ntree = 1000, importance = TRUE)
+      rf.tmp.cal <- randomForest::randomForest(x = data.cv[-i, 2:ncol(data.cv)], y = as.factor(data.cv[-i,1]), ntree = 1000, importance = TRUE)
       rf.tmp.eval <- predict(rf.tmp.cal, data.cv[i, 2:ncol(data.cv)], type = "prob")
       if (i == 1) {
         vect.id <- i
@@ -821,7 +821,7 @@ ecospat.cv.rf <- function(rf.obj, data.cv, K = 10, cv.lim = 10, jack.knife = FAL
       j.in <- sort(j.in)
 
       set.seed(71)
-      rf.tmp.cal <- randomForest(x = data.cv[j.in, 2:ncol(data.cv)], y = as.factor(data.cv[j.in,
+      rf.tmp.cal <- randomForest::randomForest(x = data.cv[j.in, 2:ncol(data.cv)], y = as.factor(data.cv[j.in,
         1]), ntree = 1000, importance = TRUE)
 
       rf.tmp.val <- predict(rf.tmp.cal, data.cv[j.out, 2:ncol(data.cv)], type = "prob")

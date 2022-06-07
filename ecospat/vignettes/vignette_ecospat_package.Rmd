@@ -54,6 +54,7 @@ names(ecospat.testNiche.nat)
 ```{r}
 fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
 fpath
+library(ape)
 tree<-read.tree(fpath)
 tree$tip.label
 ```
@@ -131,6 +132,7 @@ In the MESS plot pixels in red indicate sites where at least one environmental p
 ## Phylogenetic Diversity Measures
 ```{r}
 fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
+library(ape)
 tree <- read.tree(fpath)
 data <- ecospat.testData[9:52]
 ```
@@ -163,6 +165,7 @@ nat <- ecospat.testNiche.nat
 ### PCA-ENVIRONMENT
 The PCA is calibrated on all the sites of the study area, including both native and invaded ranges (same as PCAenv in Broenniman et al. 2012)
 ```{r}
+library(ade4)
 pca.env <- dudi.pca(rbind(nat,inv)[,3:10],scannf=F,nf=2) 
 ```
 

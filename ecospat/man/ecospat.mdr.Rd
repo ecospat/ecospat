@@ -37,7 +37,7 @@ Hordijk, W. and O. Broennimann. 2012. Dispersal routes reconstruction and the mi
 Broennimann, O., P. Mraz, B. Petitpierre, A. Guisan, and H. Muller-Scharer. 2014. Contrasting spatio-temporal climatic niche dynamics during the eastern and western invasions of spotted knapweed in North America.\emph{Journal of biogeography}, \bold{41}, 1126-1136.
 }
 \examples{
-library(maps)
+if(require("maps",quietly=TRUE)){
 
 data(ecospat.testMdr)
 data<- ecospat.testMdr
@@ -73,4 +73,5 @@ text(data[intros,2]+0.5,data[intros,1]+0.5,data[intros,3],cex=1,col="red")
 obs[[2]] # total routes length in DD
 obs[[3]] # median dispersal rate in DD/yr
 obs[[4]] # number of outcoming nodes
+}
 }

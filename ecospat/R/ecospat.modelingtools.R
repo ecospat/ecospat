@@ -1,5 +1,5 @@
 ecospat.maxentvarimport <- function(model, dfvar, nperm) {
-  ref <- predict(model, dfvar)
+  ref <- dismo::predict(model, dfvar)
   VarImp <- vector()
   for (i in 1:ncol(dfvar)) {
     print(names(dfvar)[i])
@@ -7,7 +7,7 @@ ecospat.maxentvarimport <- function(model, dfvar, nperm) {
     for (j in 1:nperm) {
       cali <- dfvar
       cali[, i] <- cali[sample(1:nrow(cali), nrow(cali)), i]
-      refi <- c(refi, 1 - cor(ref, predict(model, cali)))
+      refi <- c(refi, 1 - cor(ref, dismo::predict(model, cali)))
     }
     VarImp <- c(VarImp, round(mean(refi), 3))
   }

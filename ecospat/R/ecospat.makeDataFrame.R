@@ -16,7 +16,7 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
   if (is.null(PApoint)) {
     if (type == "random") {
       n <- n * 1.5
-      PApoint <- data.frame(randomPoints(mask = expl.var, n, if (!is.character(spec.list)) {
+      PApoint <- data.frame(dismo::randomPoints(mask = expl.var, n, if (!is.character(spec.list)) {
         p = spec.list[, -3]
       }, tryf, ext = ext))
       test <- extract(expl.var, PApoint[, 1:2])
@@ -71,7 +71,7 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
       sp.name <- matrix(sp.name, ncol = 2, byrow = TRUE)
       sp.name <- cbind(specnames, sp.name)
 
-      spec.gbif <- gbif(sp.name[i, 2], paste(sp.name[i, 3], "*", sep = ""),
+      spec.gbif <- dismo::gbif(sp.name[i, 2], paste(sp.name[i, 3], "*", sep = ""),
         ext = ext, sp = TRUE, geo = TRUE, removeZeros = FALSE, download = TRUE)
       colnames(spec.gbif@data) <- gsub("species", "Spec", colnames(spec.gbif@data))
       spec.gbif$coordUncertaintyM <- as.numeric(spec.gbif$coordUncertaintyM)
@@ -109,7 +109,7 @@ ecospat.makeDataFrame <- function(spec.list, expl.var, use.gbif = FALSE, precisi
       if (!is.character(spec.list)) {
         spec.x <- SpatialPointsDataFrame(spec.x[, 1:2], data = spec.data,
           proj4string = CRS(projection(expl.var)))
-        spec.x <- spRbind(spec.x, spec.gbif)
+        spec.x <- maptools::spRbind(spec.x, spec.gbif)
         spec.x <- data.frame(spec.x)[, c(2, 3, 1)]
         spec.x <- spec.x[-which(spec.x$x == 0 & spec.x$y == 0), ]
       } else {

@@ -84,7 +84,7 @@ spanning.pd <- function(t, taxa, type = "clade", root = FALSE, average = FALSE) 
     } else {
       missing.taxa <- setdiff(all.taxa, taxa)
       if (length(missing.taxa) > 0)
-        t <- drop.tip(t, missing.taxa)
+        t <- ape::drop.tip(t, missing.taxa)
       total <- sum(t$edge.length)
     }
 
@@ -122,7 +122,7 @@ pairwise.pd <- function(t, taxa, type = "J") {
 
   if (length(taxa) < length(all.taxa)) {
     missing.taxa <- setdiff(all.taxa, taxa)
-    t <- drop.tip(t, missing.taxa)
+    t <- ape::drop.tip(t, missing.taxa)
   }
 
   nsp <- length(t$tip.label)
@@ -167,7 +167,7 @@ data2tree <- function(t, d) {
   data.rm <- setdiff(names(d), common)
 
   if (length(tree.rm) > 0) {
-    t <- drop.tip(t, tree.rm)
+    t <- ape::drop.tip(t, tree.rm)
   }
 
   if (length(data.rm) > 0) {

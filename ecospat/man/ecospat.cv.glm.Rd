@@ -30,17 +30,19 @@ Pearman, P.B., C.F. Randin, O. Broennimann, P. Vittoz, W.O. van der Knaap, R. En
 \examples{
 \donttest{
 
-data('ecospat.testData')
+if(require("rms",quietly=TRUE)){
+  data('ecospat.testData')
 
-# data for Soldanella alpina
-data.Solalp<- ecospat.testData[c("Soldanella_alpina","ddeg","mind","srad","slp","topo")] 
+  # data for Soldanella alpina
+  data.Solalp<- ecospat.testData[c("Soldanella_alpina","ddeg","mind","srad","slp","topo")] 
 
-# gbm model for Soldanella alpina
-library(rms)
-glm.Solalp <- glm(Soldanella_alpina ~ pol(ddeg,2) + pol(mind,2) + pol(srad,2) + pol(slp,2) 
+  # gbm model for Soldanella alpina
+
+  glm.Solalp <- glm(Soldanella_alpina ~ pol(ddeg,2) + pol(mind,2) + pol(srad,2) + pol(slp,2) 
       + pol(topo,2), data = data.Solalp, family = binomial)
 
-# cross-validated predictions
-glm.pred <- ecospat.cv.glm (glm.obj=glm.Solalp , K=10, cv.lim=10, jack.knife=FALSE)
+  # cross-validated predictions
+  glm.pred <- ecospat.cv.glm (glm.obj=glm.Solalp , K=10, cv.lim=10, jack.knife=FALSE)
+}
 }
 }
