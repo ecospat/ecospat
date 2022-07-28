@@ -205,7 +205,7 @@ FIXES
 * fix Namespace imports from package maps
 * fix bugs on ESM functions when using only one modelling techniques
 
-ecospat_3.3 (0.2.06.2022)
+ecospat_3.3 (02.06.2022)
 =============
 
 FIXES
@@ -213,4 +213,14 @@ FIXES
 * added missing export for ecospat.ESM.EnsembleEvaluation
 * remodelled exports and namespaces
 
+ecospat_3.3.1 (07.07.2022)
+=============
+
+NEW FEATURES
+
+* Added new function "ecospat.poolingEvaluation" for the evaluation of species distribution models using the pooling procedure as in Collart et al. 2021
+
+FIXES
+
+* fix bug in ecospat.EnsembleEvaluation
 
