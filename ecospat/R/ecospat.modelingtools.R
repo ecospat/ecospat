@@ -30,7 +30,7 @@ ecospat.Epred <- function(x, w = rep(1, ncol(x)), th = 0) {
   Ebin <- function(vect2bin) {
     th <- vect2bin[1]
     vec <- vect2bin[-1]
-    return(BinaryTransformation(vec, th))
+    return(bm_BinaryTransformation(vec, th))
   }
 
   if (th != 0) {
