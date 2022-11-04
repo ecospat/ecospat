@@ -60,22 +60,28 @@ ecospat.ESM.responsePlot <-
       ys <- ceiling(length(var.names) / xs)
       graphics::par(mfrow=c(xs, ys))
       
-      for(i in 1:ncol(data)){
-        if(length(models)>1){
-          plot(proj.fixed.list[[i]]$EF~ proj.fixed.list[[i]][,1], xlab='',main= names(proj.fixed.list)[i], ylab='predicted value', 
-               ylim=c(min(sapply(proj.fixed.list,function(x){min(x[,-1])})),max(sapply(proj.fixed.list,function(x){max(x[,-1])}))), type='n',las = TRUE)
-          points(proj.fixed.list[[i]]$EF~ proj.fixed.list[[i]][,1], xlab= names(proj.fixed.list)[i],col='red', lwd=2,  type='l')
-          for(mod.i in models){
-            points(proj.fixed.list[[i]][,mod.i]~ proj.fixed.list[[i]][,1],col='grey', lwd=2,type='l')
-            rug(data[,i], col='black')
-          }
-          }
-        if(length(models)==1){
-          plot(proj.fixed.list[[i]][,2]~ proj.fixed.list[[i]][,1], xlab='',main= names(proj.fixed.list)[i], ylab='predicted value', 
-               ylim=c(min(sapply(proj.fixed.list,function(x){min(x[,-1])})),max(sapply(proj.fixed.list,function(x){max(x[,-1])}))), type='n',las = TRUE)
-          points(proj.fixed.list[[i]][,2]~ proj.fixed.list[[i]][,1], xlab= names(proj.fixed.list)[i],col='red', lwd=2,  type='l')
-          }
+      ColModels <- c("#222E50","#007991","#439A86","#BCD8C1","#E9D985","#FF6978","#6D435A","#352D39","#6E8894","#FA7921","#FE9920")
+    
+    for(i in 1:ncol(data)){
+      if(length(models)>1){
+        plot(proj.fixed.list[[i]]$EF~ proj.fixed.list[[i]][,1], xlab='',main= names(proj.fixed.list)[i], ylab='predicted value', 
+             ylim=c(min(sapply(proj.fixed.list,function(x){min(x[,-1])})),max(sapply(proj.fixed.list,function(x){max(x[,-1])}))), type='n',las = TRUE)
+        legend("topleft", legend=c("ensemble", models), 
+               fill = c("red",ColModels[1:length(models)]),box.lty=0)
+        points(proj.fixed.list[[i]]$EF~ proj.fixed.list[[i]][,1], xlab= names(proj.fixed.list)[i],col='red', lwd=2,  type='l')
+        for(mod.i in models){
+          points(proj.fixed.list[[i]][,mod.i]~ proj.fixed.list[[i]][,1],col=ColModels[which(models ==mod.i)], lwd=2,type='l')
+          rug(data[,i], col='black')
+
       }
+      if(length(models)==1){
+        plot(proj.fixed.list[[i]][,2]~ proj.fixed.list[[i]][,1], xlab='',main= names(proj.fixed.list)[i], ylab='predicted value', 
+             ylim=c(min(sapply(proj.fixed.list,function(x){min(x[,-1])})),max(sapply(proj.fixed.list,function(x){max(x[,-1])}))), type='n',las = TRUE)
+        points(proj.fixed.list[[i]][,2]~ proj.fixed.list[[i]][,1], xlab= names(proj.fixed.list)[i],col='red', lwd=2,  type='l')
+      }
+      }
+      
+    }
       
     ## delete temporary files whcih were produced to calculate response plots
     unlink(grep('proj_data.fixed.ESM.BIOMOD',
