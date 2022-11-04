@@ -354,30 +354,29 @@ ecospat.CCV.modeling <- function(sp.data,
     }
     
     #Running the models
-    MyBiomodModelOut <- BIOMOD_Modeling(data = MyBiomodData,
+    MyBiomodModelOut <- BIOMOD_Modeling(bm.format = MyBiomodData,
                                         models = models,
-                                        models.options = MyBiomodOptions,
-                                        models.metric.eval = eval.metrics,
-                                        DataSplitTable = DataSplitTable,
-                                        Prevalence = NULL,
+                                        bm.options = MyBiomodOptions,
+                                        metric.eval = eval.metrics,
+                                        data.split.table = DataSplitTable,
+                                        prevalence = NULL,
                                         modeling.id = "ccv")
     
     #Creating the ensemble Model
-    MyBiomodEnsemble <- BIOMOD_EnsembleModeling(modeling.output = MyBiomodModelOut,
-                                                chosen.models = "all",
+    MyBiomodEnsemble <- BIOMOD_EnsembleModeling(bm.mod = MyBiomodModelOut,
+                                                models.chosen = "all",
                                                 em.by = "PA_dataset+repet",
-                                                eval.metric = ensemble.metric,
-                                                eval.metric.quality.threshold = NULL,
-                                                models.eval.meth =eval.metrics,
+                                                metric.select	= ensemble.metric,
+                                                metric.select.thresh = NULL,
+                                                metric.eval =eval.metrics, 
                                                 prob.mean = FALSE,
                                                 prob.cv = FALSE,
                                                 prob.ci = FALSE,
-                                                prob.ci.alpha = 0.05,
                                                 prob.median = FALSE,
                                                 committee.averaging = FALSE,
                                                 prob.mean.weight = TRUE,
                                                 prob.mean.weight.decay = 'proportional',
-                                                VarImport = VarImport)
+                                                var.import = VarImport)
   }
   
   #Function to run ESM in parallel #######################################################################
@@ -484,16 +483,16 @@ ecospat.CCV.modeling <- function(sp.data,
       snowfall::sfInit(parallel=TRUE, cpus=cpus)
       snowfall::sfLibrary('biomod2', character.only=TRUE)
       snowfall::sfLapply(sp.names.ok, 
-               BiomodSF,
-               DataSplitTable=DataSplitTable, 
-               sp.data=sp.data, 
-               env.data=env.data, 
-               xy=xy, 
-               models=models.sdm, 
-               models.options=modeling.options.sdm, 
-               eval.metrics=eval.metrics.sdm, 
-               ensemble.metric=ensemble.metric.sdm,
-               VarImport = VarImport)
+                         BiomodSF,
+                         DataSplitTable=DataSplitTable, 
+                         sp.data=sp.data, 
+                         env.data=env.data, 
+                         xy=xy, 
+                         models=models.sdm, 
+                         models.options=modeling.options.sdm, 
+                         eval.metrics=eval.metrics.sdm, 
+                         ensemble.metric=ensemble.metric.sdm,
+                         VarImport = VarImport)
       snowfall::sfStop( nostop=FALSE )
     }else{
       lapply(sp.names.ok, 
@@ -565,14 +564,14 @@ ecospat.CCV.modeling <- function(sp.data,
       snowfall::sfLibrary('ecospat', character.only=TRUE)
       snowfall::sfLibrary('gtools', character.only=TRUE)
       snowfall::sfLapply(sp.names.ok, 
-               ESMSF, 
-               DataSplitTable=DataSplitTable, 
-               sp.data=sp.data, 
-               env.data=env.data, 
-               xy=xy, 
-               models=models.esm, 
-               models.options=modeling.options.esm, 
-               ensemble.metric=ensemble.metric.esm)
+                         ESMSF, 
+                         DataSplitTable=DataSplitTable, 
+                         sp.data=sp.data, 
+                         env.data=env.data, 
+                         xy=xy, 
+                         models=models.esm, 
+                         models.options=modeling.options.esm, 
+                         ensemble.metric=ensemble.metric.esm)
       snowfall::sfStop( nostop=FALSE)
     }else{
       lapply(sp.names.ok,
@@ -623,7 +622,7 @@ ecospat.CCV.modeling <- function(sp.data,
     }else{
       if(length(sp.names.bm.droped==1)){
         if(min(SpRunMatrix[sp.names.bm.droped,]) >= minNbPredictors*2 & min(colSums(DataSplitTable))-min(SpRunMatrix[sp.names.bm.droped,])>= minNbPredictors*2)
-        sp.names.esm.ok <- sp.names.bm.droped
+          sp.names.esm.ok <- sp.names.bm.droped
         message(paste("The following species will be run with ESM models: ", paste(sp.names.esm.ok, sep="", collapse=", "),"\n\n",sep=""))
         message(paste("The following species will not be modelled due to limited presence data:","\n\n", sep=""))
         sp.names.ok <- sort(c(sp.names.bm.ok, sp.names.esm.ok))
@@ -657,24 +656,24 @@ ecospat.CCV.modeling <- function(sp.data,
       snowfall::sfLibrary('ecospat', character.only=TRUE)
       snowfall::sfLibrary('gtools', character.only=TRUE)
       snowfall::sfLapply(sp.names.bm.ok, 
-               BiomodSF,
-               DataSplitTable=DataSplitTable, 
-               sp.data=sp.data, 
-               env.data=env.data, 
-               xy=xy, models=models.sdm, 
-               models.options=modeling.options.sdm, 
-               eval.metrics=eval.metrics.sdm, 
-               ensemble.metric=ensemble.metric.sdm,
-               VarImport = VarImport)
+                         BiomodSF,
+                         DataSplitTable=DataSplitTable, 
+                         sp.data=sp.data, 
+                         env.data=env.data, 
+                         xy=xy, models=models.sdm, 
+                         models.options=modeling.options.sdm, 
+                         eval.metrics=eval.metrics.sdm, 
+                         ensemble.metric=ensemble.metric.sdm,
+                         VarImport = VarImport)
       snowfall::sfLapply(sp.names.esm.ok, 
-               ESMSF, 
-               DataSplitTable=DataSplitTable, 
-               sp.data=sp.data, 
-               env.data=env.data, 
-               xy=xy, 
-               models=models.esm, 
-               models.options=modeling.options.esm, 
-               ensemble.metric=ensemble.metric.esm)
+                         ESMSF, 
+                         DataSplitTable=DataSplitTable, 
+                         sp.data=sp.data, 
+                         env.data=env.data, 
+                         xy=xy, 
+                         models=models.esm, 
+                         models.options=modeling.options.esm, 
+                         ensemble.metric=ensemble.metric.esm)
       snowfall::sfStop( nostop=FALSE )
     }else{
       lapply(sp.names.bm.ok, 
@@ -702,20 +701,20 @@ ecospat.CCV.modeling <- function(sp.data,
     
     #For the SDMs
     for(i in sp.names.bm.ok){
-      load(paste(i,"/",i,".ccvensemble.models.out", sep=""))
+      load(paste(i,"/",i,".ccv.ensemble.models.out", sep=""))
       
       #Single model evaluation
-      temp.evaluations <- get_evaluations(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
-      for(l in 1:length(temp.evaluations)){
-        singleSpecies.ensembleEvaluationScore[,i,l] <- temp.evaluations[[l]][,1]
+      temp.evaluations <- get_evaluations(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))))
+      for(l in 1:dim(temp.evaluations)[3]){
+        singleSpecies.ensembleEvaluationScore[,i,l] <- temp.evaluations[,1,l] ## Error but what they wanted???
       }
       
       #Single model variable importance
-      temp.variableimprtance <- get_variables_importance(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
+      temp.variableimprtance <- get_variables_importance(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))))
       singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
       
       #Single model predictions
-      temp.predictions <- get_predictions(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
+      temp.predictions <- get_predictions(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))))
       for(l in 1:dim(temp.predictions)[2]){
         singleSpecies.calibrationSites.ensemblePredictions[i,1:sum(DataSplitTable[,l]),l] <- temp.predictions[which(DataSplitTable[,l]),l]
         singleSpecies.evaluationSites.ensemblePredictions[i,1:sum(!DataSplitTable[,l]),l] <- temp.predictions[which(!DataSplitTable[,l]),l]
@@ -857,8 +856,8 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
                                                 fix.threshold=0.5,
                                                 MCE=5,
                                                 MEM=NULL){
-
-    #Loading the packages needed (they should all be installed by ecospat library)
+  
+  #Loading the packages needed (they should all be installed by ecospat library)
   #require(snowfall)
   #require(PresenceAbsence)
   
@@ -1413,13 +1412,13 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
     snowfall::sfExport('community.metrics.calculation')
     snowfall::sfExport('community.compairison')
     snowfall::sfLapply(1:dim(ccv.modeling.data$DataSplitTable)[2], 
-             community.thresholding,
-             ccv.modeling.data=ccv.modeling.data, 
-             thresholds=thresholds, 
-             community.metrics=community.metrics, 
-             fix.threshold=fix.threshold, 
-             MCE=MCE, 
-             MEM=MEM)
+                       community.thresholding,
+                       ccv.modeling.data=ccv.modeling.data, 
+                       thresholds=thresholds, 
+                       community.metrics=community.metrics, 
+                       fix.threshold=fix.threshold, 
+                       MCE=MCE, 
+                       MEM=MEM)
     snowfall::sfStop( nostop=FALSE )
   }else{
     lapply(1:dim(ccv.modeling.data$DataSplitTable)[2], 
@@ -1467,7 +1466,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
   #Looping through all the files
   for(th in thresholds){
     for(r in 1:dim(ccv.modeling.data$DataSplitTable)[2]){
-
+      
       
       #Loading the files
       load(paste(ccv.modeling.data$modeling.id,"/Thresholding/",th,"/",th,"_community.metrics.cali_",r,".RData", sep=""))
@@ -1674,7 +1673,7 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
       b <- length(which(errors == 2)) #False Positives
       c <- length(which(errors == 1)) #False Negatives
       if(a==0 & b==0 & c==0){
-       Jaccard <- 1
+        Jaccard <- 1
       }else{
         Jaccard <- round((a)/(a + b + c), digits=3)
       }
@@ -1822,7 +1821,7 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
   if("probabilistic.Jaccard" %in% community.metrics){
     nb.mes <- nb.mes+1 
   }
-
+  
   
   #Array to save data
   ccv.cali <- array(data=NA, dim=c(dim(ccv.modeling.data$speciesData.calibration)[2],nb.mes, dim(ccv.modeling.data$speciesData.calibration)[3]))
@@ -1838,14 +1837,14 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
     
     #Calibration data
     temp <- snowfall::sfLapply(1:dim(ccv.modeling.data$speciesData.calibration)[3], 
-                     function(x){
-                       obs.temp <- t(ccv.modeling.data$speciesData.calibration[,,x])[rowSums(is.na(t(ccv.modeling.data$speciesData.calibration[,,x])))!=ncol(t(ccv.modeling.data$speciesData.calibration[,,x])),]
-                       pred.temp <- t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,x])[rowSums(is.na(t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,x])))!=ncol(t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,x])),]/1000
-                       stopifnot(dim(obs.temp)==dim(pred.temp))
-                       prob.community.metics(obs=obs.temp, 
-                                             pred=pred.temp, 
-                                             metrics=community.metrics)
-                     })
+                               function(x){
+                                 obs.temp <- t(ccv.modeling.data$speciesData.calibration[,,x])[rowSums(is.na(t(ccv.modeling.data$speciesData.calibration[,,x])))!=ncol(t(ccv.modeling.data$speciesData.calibration[,,x])),]
+                                 pred.temp <- t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,x])[rowSums(is.na(t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,x])))!=ncol(t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,x])),]/1000
+                                 stopifnot(dim(obs.temp)==dim(pred.temp))
+                                 prob.community.metics(obs=obs.temp, 
+                                                       pred=pred.temp, 
+                                                       metrics=community.metrics)
+                               })
     for(i in 1:dim(ccv.modeling.data$speciesData.calibration)[3]){
       ccv.cali[1:dim(temp[[i]])[1],,i] <- unlist(temp[[i]])
     }
@@ -1853,14 +1852,14 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
     
     #Evaluation data
     temp <- snowfall::sfLapply(1:dim(ccv.modeling.data$speciesData.evaluation)[3], 
-                     function(x){
-                       obs.temp <- t(ccv.modeling.data$speciesData.evaluation[,,x])[rowSums(is.na(t(ccv.modeling.data$speciesData.evaluation[,,x])))!=ncol(t(ccv.modeling.data$speciesData.evaluation[,,x])),]
-                       pred.temp <- t(ccv.modeling.data$singleSpecies.evaluationSites.ensemblePredictions[,,x])[rowSums(is.na(t(ccv.modeling.data$singleSpecies.evaluationSites.ensemblePredictions[,,x])))!=ncol(t(ccv.modeling.data$singleSpecies.evaluationSites.ensemblePredictions[,,x])),]/1000
-                       stopifnot(dim(obs.temp)==dim(pred.temp))
-                       prob.community.metics(obs=obs.temp, 
-                                             pred=pred.temp, 
-                                             metrics=community.metrics)
-                     })
+                               function(x){
+                                 obs.temp <- t(ccv.modeling.data$speciesData.evaluation[,,x])[rowSums(is.na(t(ccv.modeling.data$speciesData.evaluation[,,x])))!=ncol(t(ccv.modeling.data$speciesData.evaluation[,,x])),]
+                                 pred.temp <- t(ccv.modeling.data$singleSpecies.evaluationSites.ensemblePredictions[,,x])[rowSums(is.na(t(ccv.modeling.data$singleSpecies.evaluationSites.ensemblePredictions[,,x])))!=ncol(t(ccv.modeling.data$singleSpecies.evaluationSites.ensemblePredictions[,,x])),]/1000
+                                 stopifnot(dim(obs.temp)==dim(pred.temp))
+                                 prob.community.metics(obs=obs.temp, 
+                                                       pred=pred.temp, 
+                                                       metrics=community.metrics)
+                               })
     for(i in 1:dim(ccv.modeling.data$speciesData.evaluation)[3]){
       ccv.eval[1:dim(temp[[i]])[1],,i] <- unlist(temp[[i]])
     }
@@ -1901,11 +1900,11 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
   
   #For all sites
   CommunityEvaluationMetrics.CalibrationSites <- array(data=NA, 
-                             dim=c(dim(ccv.modeling.data$speciesData.full)[1],nb.mes, dim(ccv.modeling.data$speciesData.calibration)[3]),
-                             dimnames=list(unlist(dimnames(ccv.modeling.data$speciesData.full)[1]), unlist(dimnames(ccv.cali)[2]), unlist(dimnames(ccv.cali)[3])))
+                                                       dim=c(dim(ccv.modeling.data$speciesData.full)[1],nb.mes, dim(ccv.modeling.data$speciesData.calibration)[3]),
+                                                       dimnames=list(unlist(dimnames(ccv.modeling.data$speciesData.full)[1]), unlist(dimnames(ccv.cali)[2]), unlist(dimnames(ccv.cali)[3])))
   CommunityEvaluationMetrics.EvaluationSites <- array(data=NA, 
-                             dim=c(dim(ccv.modeling.data$speciesData.full)[1],nb.mes, dim(ccv.modeling.data$speciesData.calibration)[3]),
-                             dimnames=list(unlist(dimnames(ccv.modeling.data$speciesData.full)[1]), unlist(dimnames(ccv.cali)[2]), unlist(dimnames(ccv.cali)[3])))
+                                                      dim=c(dim(ccv.modeling.data$speciesData.full)[1],nb.mes, dim(ccv.modeling.data$speciesData.calibration)[3]),
+                                                      dimnames=list(unlist(dimnames(ccv.modeling.data$speciesData.full)[1]), unlist(dimnames(ccv.cali)[2]), unlist(dimnames(ccv.cali)[3])))
   
   for(r in 1:dim(ccv.modeling.data$speciesData.calibration)[3]){
     CommunityEvaluationMetrics.CalibrationSites[which(ccv.modeling.data$DataSplitTable[,r]),,r] <- ccv.cali[1:sum(ccv.modeling.data$DataSplitTable[,r]),,r]
