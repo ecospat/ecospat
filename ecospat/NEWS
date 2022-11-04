@@ -224,3 +224,13 @@ FIXES
 
 * fix bug in ecospat.EnsembleEvaluation
 
+ecospat_3.4 (04.11.2022)
+=============
+
+CHANGES
+
+* added colors and legend for each modeling technique in ecospat.ESM.responsePlot
+* adapted ESM and CCV functions for compatibility with biomod2 >v4
+
+
+
