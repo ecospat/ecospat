@@ -43,7 +43,7 @@ either NULL or a 0-1 numeric used to build 'weighted response weights'. In contr
 evaluation score used to weight single models to build ensembles: 'AUC', 'SomersD' (2xAUC-1), 'Kappa', 'TSS' or 'Boyce'
     }
     \item{models}{
-vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', 'MAXENT.Tsuruoka' (same as in \code{biomod2})
+vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', 'MAXENT.Phillips.2' (same as in \code{biomod2})
     }
     \item{tune}{
 logical. if true model tuning will be used to estimate optimal parameters for the models (Default: False).
