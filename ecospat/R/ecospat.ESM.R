@@ -111,9 +111,12 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
   if (data@has.data.eval) {
     stop("Evaluation with independant data is not supported yet!")
   }
-  if ("PA" %in% slotNames(data)) {
+  if ("PA.table" %in% slotNames(data)) {
     if (ncol(data@PA.table) > 1) {
       stop("It is not possible to use more than one Pseudo Absences dataset")
+    }
+    if(sum(data@PA.table[,1])!=length(data@data.species)){
+      stop("The number of Pseudo Absences given in the argument resp.var of BIOMOD_FormatingData should be exactly the same as the in PA.nb.absences")
     }
   }
   
@@ -152,6 +155,14 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
     }
   }
   
+  if (is.null(NbRunEval) & is.null(DataSplitTable)){
+    stop("Need to give a value for NbRunEval  yhen DataSplitTable is null")
+  }
+  
+  if (is.null(DataSplit) & is.null(DataSplitTable)){
+    stop("Need to give a value for DataSplit  when DataSplitTable is null")
+  }
+  
   models <- sort(models)
   
   iniwd <- getwd()
@@ -169,19 +180,9 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTab
   
   # produce calib.lines and keep DataSplitTable constant for each BiVa Model
   if (is.null(DataSplitTable)) {
-    mod.prep.dat <- biomod2:::.BIOMOD_Modeling.prepare.data(bm.format=mydata, 
-                                                            nb.rep = NbRunEval, 
-                                                            data.split.perc = DataSplit, 
-                                                            weights=Yweights, 
-                                                            prevalence = Prevalence, 
-                                                            do.full.models = T)
-    if (length(dim(mod.prep.dat[[1]]$calib.lines)) == 3) {
-      calib.lines <- mod.prep.dat[[1]]$calib.lines[, , 1]
-    }
-    if (length(dim(mod.prep.dat[[1]]$calib.lines)) == 2) {
-      calib.lines <- mod.prep.dat[[1]]$calib.lines
-    }
-    rm(mod.prep.dat)
+    calib.lines<- .CreatingDataSplitTable(bm.format=mydata, 
+                                           NbRunEval = NbRunEval, 
+                                           DataSplit = DataSplit)
   } else {
     calib.lines <- DataSplitTable
   }
@@ -652,7 +653,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
   }
   test.ESM <- as.data.frame(test.ESM)
   DATA <- cbind(1:length(data@data.species), resp.var = data@data.species, test.ESM/1000)
-  if ("PA" %in% slotNames(data)) {
+  if ("PA.table" %in% slotNames(data)) {
     DATA$resp.var[is.na(DATA$resp.var)] <- 0
   }
   
@@ -739,7 +740,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
       colnames(test.ESM)[ncol(test.ESM)] <- paste("RUN", run, "_EF", sep = "")
     }
     DATA <- cbind(1:length(data@data.species), resp.var = data@data.species, test.ESM/1000)
-    if ("PA" %in% slotNames(data)) {
+    if ("PA.table" %in% slotNames(data)) {
       DATA$resp.var[is.na(DATA$resp.var)] <- 0
     }
     
@@ -1164,4 +1165,29 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
     contrib<-cbind(contrib,EF) }
   
   return(contrib)
+}
+
+ #Function to generate the argument DataSplitTable in the function ecospat.ESM.Modeling                                                                        
+.CreatingDataSplitTable <- function(bm.format, 
+                                    NbRunEval, 
+                                    DataSplit){
+  xy <- bm.format@coord
+  resp <- bm.format@data.species
+  pres <- which(resp==1 & !is.na(resp))
+  abs <- setdiff(1:length(resp),pres)
+  calib.Lines <- matrix(F, nrow = length(resp), ncol = NbRunEval)
+  if ("PA.table" %in% slotNames(bm.format)) {
+    abs <- intersect(abs,which(bm.format@PA.table[,1]))
+  }
+  
+  for(i in 1:NbRunEval){
+    calib.Lines[sample(pres,size = round(length(pres)*DataSplit/100)),i] = T
+    calib.Lines[sample(abs,size = round(length(abs)*DataSplit/100)),i] = T
+  }
+  calib.Lines <- cbind(calib.Lines,T)
+  colnames(calib.Lines) = c(paste0("_RUN",1:NbRunEval),"_Full")
+  if ("PA.table" %in% slotNames(bm.format)) {
+    calib.Lines[!(bm.format@PA.table[,1]),] = NA
+  }
+  return(calib.Lines)
 }
