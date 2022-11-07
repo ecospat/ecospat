@@ -1,4 +1,5 @@
 \name{ecospat.poolingEvaluation}
+\encoding{UTF-8}
 \alias{ecospat.poolingEvaluation}
 
 \title{
@@ -10,7 +11,7 @@
 \usage{
   ecospat.poolingEvaluation(fit,
                             calib,
-                            resp,,
+                            resp,
                             AlgoName = NULL,
                             metrics = c("SomersD","AUC","MaxTSS","MaxKappa","Boyce"),
                             ensembleEvaluation=FALSE,
@@ -67,7 +68,7 @@ with contributions of Olivier Broennimann \email{olivier.broennimann@unil.ch}
 }
 
 \seealso{
-  \code{\link[ecospat]{ecospat.ESM.EsembleEvaluation}}
+  \code{\link[ecospat]{ecospat.ESM.EnsembleEvaluation}}
 }
 \examples{
   set.seed(42)
@@ -75,26 +76,30 @@ with contributions of Olivier Broennimann \email{olivier.broennimann@unil.ch}
   #Generating a fake fit object whith two algorithms and 3 cross-vaidation
   fit <- list(matrix(0,nc=3,nr=100),
               matrix(0,nc=3,nr=100))
-  fit[[1]][1:15,] = sample(seq(0,1, by=0.01),15*3,prob=c(rep(1,51),rep(10,50)),replace=T)
-  fit[[2]][1:15,] = sample(seq(0,1, by=0.01),15*3,prob=c(rep(1,51),rep(10,50)),replace=T)
-  fit[[1]][16:100,] = sample(seq(0,1, by=0.01),85*3,prob=c(rep(10,51),rep(1,50)),replace=T)
-  fit[[2]][16:100,] = sample(seq(0,1, by=0.01),85*3,prob=c(rep(10,51),rep(1,50)),replace=T)
+  fit[[1]][1:15,] = sample(seq(0,1, by=0.01),15*3,prob=c(rep(1,51),rep(10,50)),replace=TRUE)
+  fit[[2]][1:15,] = sample(seq(0,1, by=0.01),15*3,prob=c(rep(1,51),rep(10,50)),replace=TRUE)
+  fit[[1]][16:100,] = sample(seq(0,1, by=0.01),85*3,prob=c(rep(10,51),rep(1,50)),replace=TRUE)
+  fit[[2]][16:100,] = sample(seq(0,1, by=0.01),85*3,prob=c(rep(10,51),rep(1,50)),replace=TRUE)
   
-  #Generating a calib object where 80\% of the dataset is used to calibrate the model and 20\% to evaluate it
-  calib <- matrix(T,nc=3,nr=100)
-  calib[c(sample(1:15,3),sample(16:100,17)),1]=F 
-  calib[c(sample(1:15,3),sample(16:100,17)),2]=F 
-  calib[c(sample(1:15,3),sample(16:100,17)),3]=F 
+  # Generating a calib object where 80\% of the dataset is used to calibrate the model 
+  # and 20\% to evaluate it
+  calib <- matrix(TRUE,nc=3,nr=100)
+  calib[c(sample(1:15,3),sample(16:100,17)),1]=FALSE 
+  calib[c(sample(1:15,3),sample(16:100,17)),2]=FALSE 
+  calib[c(sample(1:15,3),sample(16:100,17)),3]=FALSE 
   
   # Evaluation via the pooling procedure
   eval <- ecospat.poolingEvaluation(fit=fit,calib=calib,resp=resp,metrics=c("AUC","MaxTSS"))
   eval$evaluations
   
   # Evaluation including the ensemble model based on a weighted mean using MaxTSS
-  evalEns <- ecospat.poolingEvaluation(fit=fit,calib=calib,resp=resp,ensembleEvaluation=T,metrics=c("AUC","MaxTSS"))
+  evalEns <- ecospat.poolingEvaluation(fit=fit,calib=calib,resp=resp,ensembleEvaluation=TRUE,
+                                       metrics=c("AUC","MaxTSS"))
   evalEns$evaluations
   
-  # Evaluation including the ensemble model based on a mean by giving the same weight for each algorithm
-  evalEns <- ecospat.poolingEvaluation(fit=fit,calib=calib,resp=resp,ensembleEvaluation=T,metrics=c("AUC","MaxTSS"),w=c(1,1))
+  # Evaluation including the ensemble model based on a mean by giving the same weight for 
+  # each algorithm
+  evalEns <- ecospat.poolingEvaluation(fit=fit,calib=calib,resp=resp,ensembleEvaluation=TRUE,
+                                       metrics=c("AUC","MaxTSS"),w=c(1,1))
   evalEns$evaluations
 }

@@ -1175,16 +1175,16 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
   resp <- bm.format@data.species
   pres <- which(resp==1 & !is.na(resp))
   abs <- setdiff(1:length(resp),pres)
-  calib.Lines <- matrix(F, nrow = length(resp), ncol = NbRunEval)
+  calib.Lines <- matrix(FALSE, nrow = length(resp), ncol = NbRunEval)
   if ("PA.table" %in% slotNames(bm.format)) {
     abs <- intersect(abs,which(bm.format@PA.table[,1]))
   }
   
   for(i in 1:NbRunEval){
-    calib.Lines[sample(pres,size = round(length(pres)*DataSplit/100)),i] = T
-    calib.Lines[sample(abs,size = round(length(abs)*DataSplit/100)),i] = T
+    calib.Lines[sample(pres,size = round(length(pres)*DataSplit/100)),i] = TRUE
+    calib.Lines[sample(abs,size = round(length(abs)*DataSplit/100)),i] = TRUE
   }
-  calib.Lines <- cbind(calib.Lines,T)
+  calib.Lines <- cbind(calib.Lines,TRUE)
   colnames(calib.Lines) = c(paste0("_RUN",1:NbRunEval),"_Full")
   if ("PA.table" %in% slotNames(bm.format)) {
     calib.Lines[!(bm.format@PA.table[,1]),] = NA

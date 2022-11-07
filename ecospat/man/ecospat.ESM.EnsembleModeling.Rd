@@ -50,7 +50,7 @@ weights.EF:       weighting scores used to weight the single ESM to build the en
 failed:           bivariate models which failed because they could not be calibrated.
 
 
-A \code{"\link[=BIOMOD.EnsembleModeling.out-class]{BIOMOD.EnsembleModeling.out}"}. This object will be later given to \code{\link[ecospat]{ecospat.ESM.EnsembleProjection}} if you want to make some projections of this ensemble-models.
+A \code{"\link[=BIOMOD.ensemble.models.out-class]{BIOMOD.ensemble.models.out}"} object. This object will be later given to \code{\link[ecospat]{ecospat.ESM.EnsembleProjection}} if you want to make some projections of this ensemble-models.
 
 }
 \author{

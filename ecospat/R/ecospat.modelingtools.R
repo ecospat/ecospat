@@ -69,7 +69,7 @@ dsg <- function(data.coor, mindist) {
 }
 
 pod <- function(fit, obs, th) {
-  fitbin <- 2 * BinaryTransformation(fit, th)
+  fitbin <- 2 * bm_BinaryTransformation(fit, th)
   return(length(which((fitbin + obs) == 3))/length(which(obs == 1)))
 }
 
