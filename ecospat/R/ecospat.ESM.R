@@ -95,7 +95,7 @@
 ##See Also
 #ecospat.ESM.EnsembleModeling; ecospat.ESM.MergeModels
 
-ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit, DataSplitTable = NULL, Prevalence = 0.5, weighting.score,
+ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataSplitTable = NULL, Prevalence = 0.5, weighting.score,
                                  models, tune = FALSE, modeling.id = as.character(format(Sys.time(), "%s")), models.options = NULL, which.biva = NULL,
                                  parallel = FALSE, cleanup = FALSE, Yweights = NULL) {
   
