@@ -31,6 +31,7 @@ Antoine Guisan \email{antoine.guisan@unil.ch} with contributions of Luigi Maiora
 }
 \references{
 Pearce, J. and S. Ferrier. 2000. Evaluating the predictive performance of habitat models developed using logistic regression. \emph{Ecol. Model.}, \bold{133}, 225-245.
+Wunderlich, R.F. et al. 2019. Two alternative evaluation metrics to replace the true skill statistic in the assessment of species distribution models. \emph{Nature Conservation}, \bold{35}, 97-116. \doi{10.3897/natureconservation.35.33918}
 }
 
 \seealso{
