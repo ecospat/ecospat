@@ -232,5 +232,12 @@ CHANGES
 * added colors and legend for each modeling technique in ecospat.ESM.responsePlot
 * adapted ESM and CCV functions for compatibility with biomod2 >v4
 
+ecospat_3.4.1 (05.12.2022)
+=============
+
+FIXES
+* corrected ecospat.meva.table so that false positive rate and false negative rate are not inversed with Positive predictive power and negative predictive power 
+* changed the output of ecospat.meva.table to data.frame instead of a matrix to avoid character values 
+* added SEDI and ORSS metrics to ecospat.meva.table
 
 
