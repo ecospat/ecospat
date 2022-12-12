@@ -1,15 +1,15 @@
 ################ MEVA.TABLE: Function originally from A. Guisan (Unil-ECOSPAT, Switzerland)
-################ Modified from L. Maiorano and O. Broennimann (Unil-ECOSPAT, Switzerland)
+################ Modified from L. Maiorano, O. Broennimann and F. Collart (Unil-ECOSPAT, Switzerland)
 ecospat.meva.table <- function(Pred, Sp.occ, th) # Pred: vector of predicted probabilities Sp.occ: vector of binary observations
 # th: threshold used to cut the probability to binary values
 {
   # eva <- list()
-  a <- table(Pred >= th, Sp.occ)[4]
-  b <- table(Pred >= th, Sp.occ)[2]
-  c <- table(Pred >= th, Sp.occ)[3]
-  d <- table(Pred >= th, Sp.occ)[1]
-  N <- a + b + c + d
   tab <- table(Pred >= th, Sp.occ, dnn = list("Predicted values", "Observed values"))
+  a <- tab[4]
+  b <- tab[2]
+  c <- tab[3]
+  d <- tab[1]
+  N <- a + b + c + d
   prev <- (a + c)/N
   ccr <- (a + d)/N
   mcr <- (b + c)/N
@@ -25,17 +25,19 @@ ecospat.meva.table <- function(Pred, Sp.occ, th) # Pred: vector of predicted pro
     log(a + b)) + ((c + d) * log(c + d)))/((N * log(N)) - ((a + c) * log(a +
     c)) - ((b + d) * log(b + d)))
   tss <- se + sp - 1
+  orss <- (a*d - b*c)/(a*d + b*c)
+  sed <- ( log(fpr) - log(se) -  log(1-fpr) + log(1-se) ) /( log(fpr) + log(se) +  log(1-fpr) + log(1-se))
+  
   mtrcNAME <- c("Prevalence", "Correct classification rate", "Mis-classification rate",
-    "Sensitivity", "Specificity", "Positive predictive power", "Negative predictive power",
-    "False positive rate", "False negative rate", "Odds Ratio", "Kappa", "Normalized mutual information",
-    "True skill statistic")
+    "Sensitivity", "Specificity", "False positive rate", "False negative rate",
+    "Positive predictive power", "Negative predictive power", "Odds Ratio", "Kappa", "Normalized mutual information",
+    "True skill statistic","Odds Ratio Skill Score","Symmetric Extremal Dependence Index")
   mtrcVALUE <- c(round(prev, digits = 4), round(ccr, digits = 4), round(mcr, digits = 4),
     round(se, digits = 4), round(sp, digits = 4), round(fpr, digits = 4), round(fnr,
       digits = 4), round(ppp, digits = 4), round(npp, digits = 4), round(or,
       digits = 4), round(kappa, digits = 4), round(nmi, digits = 4), round(tss,
-      digits = 4))
-  mtrcMATR <- matrix(c(mtrcNAME, mtrcVALUE), nrow = length(mtrcVALUE), ncol = 2,
-    dimnames = list(c(1:13), c("Metric", "Value")))
+      digits = 4),round(orss, digits = 4),round(sed, digits = 4))
+  mtrcMATR <- cbind.data.frame(Metric=mtrcNAME, Value =mtrcVALUE)
   return(list(CONTINGENCY_TABLE = tab, EVALUATION_METRICS = mtrcMATR))
 }
 
