@@ -542,17 +542,17 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
                                                                                                                                                                         1, grep(paste("RUN", i, "_", model, sep = ""), colnames(z))], PEplot = F)$Spearman.cor
                 }
               } else {
-                if (grepl("_", names(calib.lines))) {
+                if (any(grepl("_", names(calib.lines)))) {
                   ## for older Biomod versions
                   x[names(x) == paste("RUN", i, sep = "")] <- ecospat.boyce(z[!calib.lines[,
                                                                                            paste("_RUN", i, sep = "")], grep(paste("RUN", i, "_", model, sep = ""),
                                                                                                                              colnames(z))], z[!calib.lines[, paste("_RUN", i, sep = "")] & data@data.species ==
-                                                                                                                                                1, grep(paste("RUN", i, "_", model, sep = ""), colnames(z))], PEplot = F)$Spearman.cor
+                                                                                                                                                1, grep(paste("RUN", i, "_", model, sep = ""), colnames(z))], PEplot = F)$cor
                 } else {
                   x[names(x) == paste("RUN", i, sep = "")] <- ecospat.boyce(z[!calib.lines[,
                                                                                            paste("RUN", i, sep = "")], grep(paste("RUN", i, "_", model, sep = ""),
                                                                                                                             colnames(z))], z[!calib.lines[, paste("RUN", i, sep = "")] & data@data.species ==
-                                                                                                                                               1, grep(paste("RUN", i, "_", model, sep = ""), colnames(z))], PEplot = F)$Spearman.cor
+                                                                                                                                               1, grep(paste("RUN", i, "_", model, sep = ""), colnames(z))], PEplot = F)$cor
                 }
               }
             }
