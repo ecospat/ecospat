@@ -519,13 +519,16 @@ ecospat.CCV.modeling <- function(sp.data,
       for(l in 1:length(temp.evaluations)){
         singleSpecies.ensembleEvaluationScore[,i,l] <- temp.evaluations[[l]][,1]
       }
-      
       #Single model variable importance
       temp.variableimprtance <- biomod2::get_variables_importance(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
-      singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
+      temp.varimp.mean <- aggregate(data = temp.variableimprtance, var.imp ~ full.name + expl.var, FUN = 'mean', simplify = TRUE, na.rm = TRUE)
+      # singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
+      singleSpecies.ensembleVariableImportance[,i,] <-  round(as.matrix(reshape(temp.varimp.mean, idvar = "expl.var", timevar = "full.name", direction = "wide")[,-1]),2)
+
+      
       
       #Single model predictions
-      temp.predictions <- biomod2::get_predictions(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
+      temp.predictions <- biomod2::get_predictions(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))), model.as.col = TRUE)
       for(l in 1:dim(temp.predictions)[2]){
         singleSpecies.calibrationSites.ensemblePredictions[i,1:sum(DataSplitTable[,l]),l] <- temp.predictions[which(DataSplitTable[,l]),l]
         singleSpecies.evaluationSites.ensemblePredictions[i,1:sum(!DataSplitTable[,l]),l] <- temp.predictions[which(!DataSplitTable[,l]),l]
@@ -703,18 +706,22 @@ ecospat.CCV.modeling <- function(sp.data,
     for(i in sp.names.bm.ok){
       load(paste(i,"/",i,".ccv.ensemble.models.out", sep=""))
       
-      #Single model evaluation
+      # Single model evaluation
       temp.evaluations <- biomod2::get_evaluations(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))))
-      for(l in 1:dim(temp.evaluations)[3]){
-        singleSpecies.ensembleEvaluationScore[,i,l] <- temp.evaluations[,1,l] ## Error but what they wanted???
+      tmp.model.list <- unique(temp.evaluations$full.name)
+      for (l in seq_along(tmp.model.list)) {
+        singleSpecies.ensembleEvaluationScore[,i,l] <- temp.evaluations$validation[which(temp.evaluations$full.name == tmp.model.list[l])] ## Error but what they wanted???
       }
-      
+
       #Single model variable importance
       temp.variableimprtance <- biomod2::get_variables_importance(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))))
-      singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
+      
+      temp.varimp.mean <- aggregate(data = temp.variableimprtance, var.imp ~ full.name + expl.var, FUN = 'mean', simplify = TRUE, na.rm = TRUE)
+      # singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
+      singleSpecies.ensembleVariableImportance[,i,] <- round(as.matrix(reshape(temp.varimp.mean, idvar = "expl.var", timevar = "full.name", direction = "wide")[,-1]),2)
       
       #Single model predictions
-      temp.predictions <- get_predictions(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))))
+      temp.predictions <- get_predictions(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))), model.as.col = TRUE)
       for(l in 1:dim(temp.predictions)[2]){
         singleSpecies.calibrationSites.ensemblePredictions[i,1:sum(DataSplitTable[,l]),l] <- temp.predictions[which(DataSplitTable[,l]),l]
         singleSpecies.evaluationSites.ensemblePredictions[i,1:sum(!DataSplitTable[,l]),l] <- temp.predictions[which(!DataSplitTable[,l]),l]
@@ -730,7 +737,6 @@ ecospat.CCV.modeling <- function(sp.data,
         
         #Single model evaluation
         singleSpecies.ensembleEvaluationScore[,i,] <- t(output_EF$ESM.evaluations[seq(ef.counter,dim(output_EF$ESM.evaluations)[1], ef.counter),c(5,11,6)])
-        
         #Single model variable importance
         singleSpecies.ensembleVariableImportance[,i,] <- round(get.ESMvariableContribution(output_EF = output_EF, output = eval(parse(text="output")), NamesPredictors = NamesPredictors),2)
         
