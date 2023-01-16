@@ -365,18 +365,14 @@ ecospat.CCV.modeling <- function(sp.data,
     #Creating the ensemble Model
     MyBiomodEnsemble <- biomod2::BIOMOD_EnsembleModeling(bm.mod = MyBiomodModelOut,
                                                 models.chosen = "all",
-                                                em.by = "PA_dataset+repet",
+                                                em.by = "PA+run",
                                                 metric.select	= ensemble.metric,
                                                 metric.select.thresh = NULL,
-                                                metric.eval =eval.metrics, 
-                                                prob.mean = FALSE,
-                                                prob.cv = FALSE,
-                                                prob.ci = FALSE,
-                                                prob.median = FALSE,
-                                                committee.averaging = FALSE,
-                                                prob.mean.weight = TRUE,
-                                                prob.mean.weight.decay = 'proportional',
+                                                metric.eval = eval.metrics,
+                                                em.algo = c("EMwmean"),
+                                                EMwmean.decay = 'proportional',
                                                 var.import = VarImport)
+
   }
   
   #Function to run ESM in parallel #######################################################################
