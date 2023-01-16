@@ -27,7 +27,7 @@ This function evaluates and averages simple bivariate models by weighted means t
 threshold value of an evaluation score to select the bivariate model(s) included for building the ESMs
     }
     \item{models}{
-vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', "MAXENT.Tsuruoka" (same as in \code{biomod2})
+vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT', "MAXNET" (same as in \code{biomod2})
 
 #a character vector (either 'all' or a sub-selection of model names) that defines the models kept for building the ensemble models (might be useful for removing some non-preferred models)
     }

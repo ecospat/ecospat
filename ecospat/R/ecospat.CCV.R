@@ -195,7 +195,7 @@ ecospat.CCV.createDataSplitTable <- function(NbRunEval,
 #NbRunEval            number of cross-validatio/split sample runs (only needed if no DataSplitTable provided)
 #minNbPredictors      minimum number of occurences [min(presences/Absences] per predicotors needed to calibrate the models
 #validation.method    either "cross-validation" or "split-sample" used to validate the communtiy predictions (only needed if no DataSplitTable provided)
-#models.sdm           modeling techniques used for the normal SDMs. Vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF', 'MAXENT.Phillips' and 'MAXENT.Tsuruoka'
+#models.sdm           modeling techniques used for the normal SDMs. Vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF', 'MAXENT' and 'MAXNET'
 #models.esm           modeling techniques used for the ESMs
 #modeling.options.sdm BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in biomod2) for normal SDMs
 #modeling.options.esm BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in biomod2) for esm SDMs
@@ -277,8 +277,8 @@ ecospat.CCV.modeling <- function(sp.data,
   stopifnot(NbRunEval>=0)
   stopifnot(minNbPredictors>1)
   stopifnot(validation.method %in% c("cross-validation", "split-sample"))
-  stopifnot(models.sdm %in% c('GLM','GBM','GAM','CTA','ANN','SRE','FDA','MARS','RF','MAXENT.Phillips','MAXENT.Tsuruoka'))
-  stopifnot(models.esm %in% c('GLM','GBM','GAM','CTA','ANN','SRE','FDA','MARS','RF','MAXENT.Phillips','MAXENT.Tsuruoka'))
+  stopifnot(models.sdm %in% c('GLM','GBM','GAM','CTA','ANN','SRE','FDA','MARS','RF','MAXENT','MAXNET'))
+  stopifnot(models.esm %in% c('GLM','GBM','GAM','CTA','ANN','SRE','FDA','MARS','RF','MAXENT','MAXNET'))
   stopifnot(ensemble.metric %in% c("AUC","TSS","KAPPA") & length(ensemble.metric)==1)
   stopifnot(ESM %in% c("YES","NO","ALL"))
   stopifnot(is.logical(parallel))

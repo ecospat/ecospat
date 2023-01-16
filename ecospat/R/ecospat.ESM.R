@@ -53,7 +53,7 @@
 ## DataSplit:           percentage of dataset observations retained for the model training (same as in Biomod)
 ## DataSplitTable:      a matrix, data.frame or a 3D array filled with TRUE/FALSE to specify which part of data must be used for models calibration (TRUE) and for models validation (FALSE). Each column corresponds to a 'RUN'. If filled, arguments NbRunEval, DataSplit and #do.full.models will be ignored.
 ## Prevalence:          either NULL or a 0-1 numeric used to build 'weighted response weights'. In contrast to Biomod the default is 0.5 (weighting presences equally to the absences). If NULL each observation (presence or absence) has the same weight (independent of the number of presences and absences).
-## models:              vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT.Phillips', "MAXENT.Tsuruoka" (same as in Biomod)
+## models:              vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT', "MAXNET" (same as in Biomod)
 ## modeling.id:	        character, the ID (=name) of modeling procedure. A random number by default.
 ## models.options:      BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in Biomod). If none is provided standard ESM tuning parameterswill be used.
 ## tune:                logical. if true model tuning will be used to estimate optimal parameters for the models (Default: False).
@@ -144,13 +144,13 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
   models.options@ANN$decay <- 0.001
   models.options@MARS$interaction.level <- 0
   models.options@MARS$nprune <- 2
-  models.options@MAXENT.Phillips$product <- FALSE
-  models.options@MAXENT.Phillips$threshold <- FALSE
-  models.options@MAXENT.Phillips$betamultiplier <- 0.5
+  models.options@MAXENT$product <- FALSE
+  models.options@MAXENT$threshold <- FALSE
+  models.options@MAXENT$betamultiplier <- 0.5
   models.options@GLM$test <- 'none'}
   
-  if ("MAXENT.Phillips" %in% models) {
-    if (!file.exists(paste(models.options@MAXENT.Phillips$path_to_maxent.jar, "maxent.jar", sep = "/"))) {
+  if ("MAXENT" %in% models) {
+    if (!file.exists(paste(models.options@MAXENT$path_to_maxent.jar, "maxent.jar", sep = "/"))) {
       stop("maxent.jar file not found!")
     }
   }
