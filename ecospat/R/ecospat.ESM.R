@@ -485,10 +485,12 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
   
   models. <- NULL
   for (n in 1:length(ESM.modeling.output$modeling.id)) {
+    tmp.list.files <- grep(ESM.modeling.output$modeling.id[n], 
+                           grep(paste(".", ESM.modeling.output$modeling.id[n],".models.out", sep = ""), ls(), value = TRUE, fixed = TRUE), 
+                           value = TRUE)
+    # mixedorder combined with gsub are required, otherwise "." will mess up with mixedsort
     models. <- c(models., 
-                 gtools::mixedsort(grep(ESM.modeling.output$modeling.id[n], 
-                                        grep(paste(".", ESM.modeling.output$modeling.id[n],".models.out", sep = ""), ls(), value = TRUE, fixed = TRUE), 
-                                        value = TRUE)))
+                 tmp.list.files[mixedorder(gsub(".","_",tmp.list.files, fixed = TRUE))])
   }
   
   mymodel <- list()
@@ -870,8 +872,10 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
     #pred.biva <- pred.biva[seq(2,length(pred.biva),2)]
     pred.biva <- grep("\\.gri\\b", pred.biva, value = TRUE)
   if (!new.env.raster)
-    pred.biva <- grep("RData", pred.biva, value = TRUE)
-  
+    string_pred <- grep("RData", pred.biva, value = TRUE)
+  # a combination of gtools::mixedorder and gsub is required
+  # to avoid "." from breaking the sorting.
+    pred.biva <- string_pred[mixedorder(gsub(".","_",string_pred, fixed = TRUE))]
   biva.proj <- list()
   for (i in 1:length(pred.biva)) {
     if (!new.env.raster) {
