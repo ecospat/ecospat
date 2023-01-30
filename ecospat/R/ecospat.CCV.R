@@ -195,7 +195,7 @@ ecospat.CCV.createDataSplitTable <- function(NbRunEval,
 #NbRunEval            number of cross-validatio/split sample runs (only needed if no DataSplitTable provided)
 #minNbPredictors      minimum number of occurences [min(presences/Absences] per predicotors needed to calibrate the models
 #validation.method    either "cross-validation" or "split-sample" used to validate the communtiy predictions (only needed if no DataSplitTable provided)
-#models.sdm           modeling techniques used for the normal SDMs. Vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF', 'MAXENT.Phillips' and 'MAXENT.Tsuruoka'
+#models.sdm           modeling techniques used for the normal SDMs. Vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF', 'MAXENT' and 'MAXNET'
 #models.esm           modeling techniques used for the ESMs
 #modeling.options.sdm BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in biomod2) for normal SDMs
 #modeling.options.esm BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in biomod2) for esm SDMs
@@ -277,8 +277,8 @@ ecospat.CCV.modeling <- function(sp.data,
   stopifnot(NbRunEval>=0)
   stopifnot(minNbPredictors>1)
   stopifnot(validation.method %in% c("cross-validation", "split-sample"))
-  stopifnot(models.sdm %in% c('GLM','GBM','GAM','CTA','ANN','SRE','FDA','MARS','RF','MAXENT.Phillips','MAXENT.Tsuruoka'))
-  stopifnot(models.esm %in% c('GLM','GBM','GAM','CTA','ANN','SRE','FDA','MARS','RF','MAXENT.Phillips','MAXENT.Tsuruoka'))
+  stopifnot(models.sdm %in% c('GLM','GBM','GAM','CTA','ANN','SRE','FDA','MARS','RF','MAXENT','MAXNET'))
+  stopifnot(models.esm %in% c('GLM','GBM','GAM','CTA','ANN','SRE','FDA','MARS','RF','MAXENT','MAXNET'))
   stopifnot(ensemble.metric %in% c("AUC","TSS","KAPPA") & length(ensemble.metric)==1)
   stopifnot(ESM %in% c("YES","NO","ALL"))
   stopifnot(is.logical(parallel))
@@ -365,18 +365,14 @@ ecospat.CCV.modeling <- function(sp.data,
     #Creating the ensemble Model
     MyBiomodEnsemble <- biomod2::BIOMOD_EnsembleModeling(bm.mod = MyBiomodModelOut,
                                                 models.chosen = "all",
-                                                em.by = "PA_dataset+repet",
+                                                em.by = "PA+run",
                                                 metric.select	= ensemble.metric,
                                                 metric.select.thresh = NULL,
-                                                metric.eval =eval.metrics, 
-                                                prob.mean = FALSE,
-                                                prob.cv = FALSE,
-                                                prob.ci = FALSE,
-                                                prob.median = FALSE,
-                                                committee.averaging = FALSE,
-                                                prob.mean.weight = TRUE,
-                                                prob.mean.weight.decay = 'proportional',
+                                                metric.eval = eval.metrics,
+                                                em.algo = c("EMwmean"),
+                                                EMwmean.decay = 'proportional',
                                                 var.import = VarImport)
+
   }
   
   #Function to run ESM in parallel #######################################################################
@@ -519,13 +515,16 @@ ecospat.CCV.modeling <- function(sp.data,
       for(l in 1:length(temp.evaluations)){
         singleSpecies.ensembleEvaluationScore[,i,l] <- temp.evaluations[[l]][,1]
       }
-      
       #Single model variable importance
       temp.variableimprtance <- biomod2::get_variables_importance(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
-      singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
+      temp.varimp.mean <- aggregate(data = temp.variableimprtance, var.imp ~ full.name + expl.var, FUN = 'mean', simplify = TRUE, na.rm = TRUE)
+      # singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
+      singleSpecies.ensembleVariableImportance[,i,] <-  round(as.matrix(reshape(temp.varimp.mean, idvar = "expl.var", timevar = "full.name", direction = "wide")[,-1]),2)
+
+      
       
       #Single model predictions
-      temp.predictions <- biomod2::get_predictions(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
+      temp.predictions <- biomod2::get_predictions(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))), model.as.col = TRUE)
       for(l in 1:dim(temp.predictions)[2]){
         singleSpecies.calibrationSites.ensemblePredictions[i,1:sum(DataSplitTable[,l]),l] <- temp.predictions[which(DataSplitTable[,l]),l]
         singleSpecies.evaluationSites.ensemblePredictions[i,1:sum(!DataSplitTable[,l]),l] <- temp.predictions[which(!DataSplitTable[,l]),l]
@@ -703,18 +702,22 @@ ecospat.CCV.modeling <- function(sp.data,
     for(i in sp.names.bm.ok){
       load(paste(i,"/",i,".ccv.ensemble.models.out", sep=""))
       
-      #Single model evaluation
+      # Single model evaluation
       temp.evaluations <- biomod2::get_evaluations(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))))
-      for(l in 1:dim(temp.evaluations)[3]){
-        singleSpecies.ensembleEvaluationScore[,i,l] <- temp.evaluations[,1,l] ## Error but what they wanted???
+      tmp.model.list <- unique(temp.evaluations$full.name)
+      for (l in seq_along(tmp.model.list)) {
+        singleSpecies.ensembleEvaluationScore[,i,l] <- temp.evaluations$validation[which(temp.evaluations$full.name == tmp.model.list[l])] ## Error but what they wanted???
       }
-      
+
       #Single model variable importance
       temp.variableimprtance <- biomod2::get_variables_importance(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))))
-      singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
+      
+      temp.varimp.mean <- aggregate(data = temp.variableimprtance, var.imp ~ full.name + expl.var, FUN = 'mean', simplify = TRUE, na.rm = TRUE)
+      # singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
+      singleSpecies.ensembleVariableImportance[,i,] <- round(as.matrix(reshape(temp.varimp.mean, idvar = "expl.var", timevar = "full.name", direction = "wide")[,-1]),2)
       
       #Single model predictions
-      temp.predictions <- get_predictions(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))))
+      temp.predictions <- get_predictions(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))), model.as.col = TRUE)
       for(l in 1:dim(temp.predictions)[2]){
         singleSpecies.calibrationSites.ensemblePredictions[i,1:sum(DataSplitTable[,l]),l] <- temp.predictions[which(DataSplitTable[,l]),l]
         singleSpecies.evaluationSites.ensemblePredictions[i,1:sum(!DataSplitTable[,l]),l] <- temp.predictions[which(!DataSplitTable[,l]),l]
@@ -730,7 +733,6 @@ ecospat.CCV.modeling <- function(sp.data,
         
         #Single model evaluation
         singleSpecies.ensembleEvaluationScore[,i,] <- t(output_EF$ESM.evaluations[seq(ef.counter,dim(output_EF$ESM.evaluations)[1], ef.counter),c(5,11,6)])
-        
         #Single model variable importance
         singleSpecies.ensembleVariableImportance[,i,] <- round(get.ESMvariableContribution(output_EF = output_EF, output = eval(parse(text="output")), NamesPredictors = NamesPredictors),2)
         

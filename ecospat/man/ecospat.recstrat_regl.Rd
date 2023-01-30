@@ -38,10 +38,15 @@
 \examples{
 
   library(raster)
+  library(terra)
   library(classInt)
+  library(biomod2)
+  
+  data("bioclim_current")
+  bioclim_current <- rast(bioclim_current)
+  bio3 <- raster(bioclim_current[["bio3"]])
+  bio12 <- raster(bioclim_current[["bio12"]])
 
-  bio3<- raster(system.file("external/bioclim/current/bio3.grd",package="biomod2"))
-  bio12<- raster(system.file("external/bioclim/current/bio12.grd",package="biomod2"))
     
   B3.rcl<-ecospat.rcls.grd(bio3,9) 
   B12.rcl<-ecospat.rcls.grd(bio12,9)
