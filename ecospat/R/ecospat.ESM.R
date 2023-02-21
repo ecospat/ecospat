@@ -504,9 +504,10 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
       z <- get_predictions(y, model.as.col = TRUE)
       z <- z[, grep(paste("RUN", NbRunEval + 1, sep = ""), colnames(z), invert = TRUE), drop = FALSE]
       y.eval <- get_evaluations(y)
-      x <- y.eval$validation
+      x <- matrix(y.eval$validation,nr=length(unique(y.eval$algo)),nc=NbRunEval+1,byrow = FALSE)
+      colnames(x) <- unique(y.eval$run)
+      rownames(x) <-unique(y.eval$algo)
       # x.calib <- y.eval$calibration
-      names(x) <- y.eval$run
       # names(x.calib) <- y.eval$run
       
       if (length(models) > 1) {
@@ -516,8 +517,8 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
         # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named: paste('RUN',NbRunEval+1,sep='')
       } else {
         x[] <- NA
-        x <- x[names(x) != "Full" &
-                 names(x) != paste("RUN", NbRunEval + 1, sep = "")] 
+        x <- x[, colnames(x) != "Full" & colnames(x) != 
+                 paste("RUN", NbRunEval + 1, sep = "")] 
         # if DataSplitTable is provided to BIOMOD_Modeling, Full models are named: paste('RUN',NbRunEval+1,sep='')
       }
       for (n in 1:(length(models))) {
@@ -566,10 +567,12 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
       }
     } else {
       y.eval <- get_evaluations(y)
-      x <- y.eval$validation
-      x.calib <- y.eval$calibration
-      names(x) <- y.eval$run
-      names(x.calib) <- y.eval$run
+      x <- matrix(y.eval$validation,nr=length(unique(y.eval$algo)),nc=NbRunEval+1,byrow = FALSE)
+      x.calib <- matrix(y.eval$calibration,nr=length(unique(y.eval$algo)),nc=NbRunEval+1,byrow = FALSE)
+      colnames(x) <- unique(y.eval$run)
+      rownames(x) <-unique(y.eval$algo)
+      colnames(x.calib) <-  unique(y.eval$run)
+      rownames(x.calib) <-unique(y.eval$algo)
       
       if (length(models) > 1) {
         for (row in models) {
@@ -593,7 +596,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
             x <- NA
           }
         }
-        x <- x[names(x) != "Full" & names(x) != paste("RUN", NbRunEval + 1, sep = "")]
+        x <- x[, colnames(x) != "Full" & colnames(x) != paste("RUN", NbRunEval + 1, sep = "")]
         x <- round(mean(x, na.rm = TRUE), 4)
       }
       if (weighting.score == "SomersD") {
@@ -653,13 +656,13 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
   biva.st2 <- do.call(cbind, test.pred)
   for (i in 1:length(models)) {
     for (run in 1:ncol(calib.lines)) {
-      if (length(models) > 1) {
-        test.ESM1 <- apply(biva.st2[, grep(paste("RUN", run, "_", models[i], sep = ""), colnames(biva.st2))],
-                           1, function(x) weighted.mean(x, weights[grep(models[i], names(weights))], na.rm = TRUE))
-      } else {
-        test.ESM1 <- apply(biva.st2[, grep(paste("RUN", run, "_", models[i], sep = ""), colnames(biva.st2))],
-                           1, function(x) weighted.mean(x, weights, na.rm = TRUE))
-      }
+      Model.biva.prediction <- biva.st2[, grep(paste("RUN",
+                                               run, "_", models[i], sep = ""), 
+                                          colnames(biva.st2))]
+      ModelToWeight <- paste(models[i],sub("_.*","",colnames(Model.biva.prediction)),sep=".")
+      weights2 <- weights[ModelToWeight]
+      test.ESM1 <- apply(Model.biva.prediction, 
+                           1, function(x) weighted.mean(x, weights2, na.rm = TRUE))
       test.ESM <- cbind(test.ESM, test.ESM1)
       colnames(test.ESM)[ncol(test.ESM)] <- paste("RUN", run, "_", models[i], sep = "")
     }
@@ -879,11 +882,17 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   
   ## MAKE ESM PROJECTIONS
   
-  if (new.env.raster)
-    #pred.biva <- pred.biva[seq(2,length(pred.biva),2)]
-    pred.biva <- grep("\\.gri\\b", pred.biva, value = TRUE)
-  if (!new.env.raster)
+  if(new.env.raster){
+    pred.biva <- grep("\\.tif\\b", pred.biva, value = TRUE)
+    pred.biva <- pred.biva[mixedorder(gsub(".", "_", pred.biva, 
+                                           fixed = TRUE))]
+  } 
+    
+  if (!new.env.raster){
     string_pred <- grep("RData", pred.biva, value = TRUE)
+    pred.biva <- string_pred[mixedorder(gsub(".", "_", string_pred, 
+                                             fixed = TRUE))]
+  } 
   # a combination of gtools::mixedorder and gsub is required
   # to avoid "." from breaking the sorting.
     pred.biva <- string_pred[mixedorder(gsub(".","_",string_pred, fixed = TRUE))]
@@ -907,17 +916,12 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
     biva.st <- do.call(cbind, biva.proj)
     
     for (i in 1:length(models)) {
-      if (length(models) > 1) {
-        
-        ## to remove weigths for full models which failed!
-        wm <- weights[grep(models[i], names(weights))][names(weights[grep(models[i], names(weights))]) %in%
-                                                         colnames(biva.st[, grep(models[i], colnames(biva.st))])]
-        pred.ESM[[i]] <- apply(biva.st[, grep(models[i], colnames(biva.st))], 1, function(x) stats::weighted.mean(x,
-                                                                                                                  wm, na.rm = TRUE))
-      } else {
-        pred.ESM[[i]] <- apply(biva.st[, grep(models[i], colnames(biva.st))], 1, function(x) stats::weighted.mean(x,
-                                                                                                                  weights, na.rm = TRUE))
-      }
+      Model.biva.prediction <- biva.st[, grep(models[i], 
+                                              colnames(biva.st))]
+      ModelToWeight <- paste(models[i],sub("_.*","",colnames(Model.biva.prediction)),sep=".")
+      weights2 <- weights[ModelToWeight]
+
+      pred.ESM[[i]] <- apply(Model.biva.prediction, 1, function(x) stats::weighted.mean(x,weights2, na.rm = TRUE))
     }
     rm(biva.st)
     pred.ESM <- round(as.data.frame(do.call(cbind, pred.ESM)))
@@ -1088,15 +1092,11 @@ ecospat.ESM.MergeModels <- function(ESM.modeling.output) {
     del.models <- c(del.models, grep(paste("ESM.BIOMOD.", ESM.modeling.output[[1]]$which.biva[i],
                                            ".", sep = ""), ESM.modeling.output[[1]]$models., fixed = TRUE)[-1])
     
-    if (length(grep(".grd", ESM.modeling.output[[1]]$pred.biva)) > 0) {
+    if (length(grep(".tif", ESM.modeling.output[[1]]$pred.biva)) > 0) {
       select.pred <- c(select.pred, grep(paste("ESM.BIOMOD.", ESM.modeling.output[[1]]$which.biva[i],
-                                               ".grd", sep = ""), ESM.modeling.output[[1]]$pred.biva)[1])
-      select.pred <- c(select.pred, grep(paste("ESM.BIOMOD.", ESM.modeling.output[[1]]$which.biva[i],
-                                               ".gri", sep = ""), ESM.modeling.output[[1]]$pred.biva)[1])
+                                               ".tif", sep = ""), ESM.modeling.output[[1]]$pred.biva)[1])
       del.pred <- c(del.pred, grep(paste("ESM.BIOMOD.", ESM.modeling.output[[1]]$which.biva[i],
-                                         ".grd", sep = ""), ESM.modeling.output[[1]]$pred.biva)[-1])
-      del.pred <- c(del.pred, grep(paste("ESM.BIOMOD.", ESM.modeling.output[[1]]$which.biva[i],
-                                         ".gri", sep = ""), ESM.modeling.output[[1]]$pred.biva)[-1])
+                                         ".tif", sep = ""), ESM.modeling.output[[1]]$pred.biva)[-1])
     }
     if (length(grep(".RData", ESM.modeling.output[[1]]$pred.biva)) > 0) {
       select.pred <- c(select.pred, grep(paste("ESM.BIOMOD.", ESM.modeling.output[[1]]$which.biva[i],
