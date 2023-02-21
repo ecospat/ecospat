@@ -895,7 +895,6 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   } 
   # a combination of gtools::mixedorder and gsub is required
   # to avoid "." from breaking the sorting.
-    pred.biva <- string_pred[mixedorder(gsub(".","_",string_pred, fixed = TRUE))]
   biva.proj <- list()
   for (i in 1:length(pred.biva)) {
     if (!new.env.raster) {
