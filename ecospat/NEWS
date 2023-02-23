@@ -245,3 +245,10 @@ ecospat_3.5 (30.01.2023)
 
 FIXES
 * various compatibility fixes for biomod2 v4.2-2 provided by rpatin
+
+ecospat_3.6 (323.02.2023)
+=============
+
+FIXES
+* further compatibility fixes for biomod2 v4.2-2 to ESM functions
+
