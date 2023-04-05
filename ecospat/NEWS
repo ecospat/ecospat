@@ -240,4 +240,15 @@ FIXES
 * changed the output of ecospat.meva.table to data.frame instead of a matrix to avoid character values 
 * added SEDI and ORSS metrics to ecospat.meva.table
 
+ecospat_3.5 (30.01.2023)
+=============
+
+FIXES
+* various compatibility fixes for biomod2 v4.2-2 provided by rpatin
+
+ecospat_3.5.1 (323.02.2023)
+=============
+
+FIXES
+* further compatibility fixes for biomod2 v4.2-2 to ESM functions
 

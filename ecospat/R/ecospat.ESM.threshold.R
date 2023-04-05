@@ -14,7 +14,7 @@ TSS.th <- EVAL1$threshold
 EVAL1 <- EVAL1[c(1, 4:7, 9:12)]
 EVAL1$SomersD <- EVAL1$AUC * 2 - 1
 boyce <- ecospat.boyce(DATA[,3], DATA[DATA[, 2] == 1,3],PEplot=PEplot)
-EVAL1$Boyce <- boyce$Spearman.cor
+EVAL1$Boyce <- boyce$cor
 EVAL1$TSS <- EVAL1$sensitivity + EVAL1$specificity - 1
 EVAL1$TSS.th <- TSS.th
 EVAL1$Boyce.th.max <- EVAL1$Boyce.th.min <- EVAL1$Boyce <- EVAL1$MPA0.90 <-EVAL1$MPA0.95 <-EVAL1$MPA1.0 <- NA

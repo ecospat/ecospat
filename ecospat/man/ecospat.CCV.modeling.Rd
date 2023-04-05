@@ -39,8 +39,8 @@ ecospat.CCV.modeling(sp.data,
   \item{NbRunEval}{number of cross-validatio/split sample runs (only needed if no \code{DataSplitTable} provided)}
   \item{minNbPredictors}{minimum number of occurences [min(presences/Absences] per predicotors needed to calibrate the models}
   \item{validation.method}{either "cross-validation" or "split-sample" used to validate the communtiy predictions (only needed if no \code{DataSplitTable} provided)}
-  \item{models.sdm}{modeling techniques used for the normal SDMs. Vector of models names choosen among \code{'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF', 'MAXENT.Phillips' and 'MAXENT.Tsuruoka'}}
-  \item{models.esm}{modeling techniques used for the ESMs. Vector of models names choosen among \code{'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF', 'MAXENT.Phillips' and 'MAXENT.Tsuruoka'}}
+  \item{models.sdm}{modeling techniques used for the normal SDMs. Vector of models names choosen among \code{'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF', 'MAXENT' and 'MAXNET'}}
+  \item{models.esm}{modeling techniques used for the ESMs. Vector of models names choosen among \code{'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF', 'MAXENT' and 'MAXNET'}}
   \item{modeling.options.sdm}{modeling options for the normal SDMs. \code{"BIOMOD.models.options"}" object returned by \code{\link[biomod2]{BIOMOD_ModelingOptions}}}
   \item{modeling.options.esm}{modeling options for the ESMs. \code{"BIOMOD.models.options"} object returned by \code{\link[biomod2]{BIOMOD_ModelingOptions}}}
   \item{ensemble.metric}{evaluation score used to weight single models to build ensembles: \code{'AUC', 'Kappa' or 'TSS'}}

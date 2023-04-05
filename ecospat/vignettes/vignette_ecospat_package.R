@@ -58,6 +58,7 @@ ecospat.plot.mess (mess.object, cex=1, pch=15)
 
 ## -----------------------------------------------------------------------------
 fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
+library(ape)
 tree <- read.tree(fpath)
 data <- ecospat.testData[9:52]
 
@@ -243,7 +244,7 @@ myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
                                       resp.xy = xy,
                                       resp.name = colnames(sp_occ)[sp])
 
-myBiomodOption <- Print_Default_ModelingOptions()
+myBiomodOption <- bm_DefaultModelingOptions()
 myBiomodOption@GLM$test = 'none'
 myBiomodOption@GBM$interaction.depth = 2
 
