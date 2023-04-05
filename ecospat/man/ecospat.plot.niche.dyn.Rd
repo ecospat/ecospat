@@ -9,7 +9,7 @@
 \usage{ecospat.plot.niche.dyn(z1, z2, quant = 0, title = "", name.axis1 = "Axis 1",
                     name.axis2 = "Axis 2", interest = 1, col.unf =
                     "green", col.exp = "red", col.stab = "blue", colZ1 =
-                    "green3", colZ2 = "red3", transparency = 70)}
+                    "green3", colZ2 = "red3", transparency = 70,...)}
 
 \arguments{
   \item{z1}{A gridclim object for the native distribution.}
@@ -25,7 +25,7 @@
   \item{colZ1}{The color used to delimit the native extent.}
   \item{colZ2}{The color used to delimit the invaded extent.}
   \item{transparency}{A value between 0 and 100 to set the transparency level of the niche categories}
-
+  \item{\dots}{Other graphical parameters.}
 }
 
 \details{
