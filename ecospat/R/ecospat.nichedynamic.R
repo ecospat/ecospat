@@ -241,7 +241,7 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
 
 ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "Axis 1",
                                    name.axis2 = "Axis 2", interest = 1, col.unf = "green", col.exp = "red",
-                                   col.stab = "blue", colZ1 = "green3", colZ2 = "red3", transparency = 70) {
+                                   col.stab = "blue", colZ1 = "green3", colZ2 = "red3", transparency = 70,...) {
   
   t_col <- function(color, percent = 50, name = NULL) {
     ## Get RGB values for named color
@@ -287,7 +287,7 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
     yy2 <- sort(rep(1:length(y2), 2))[-c(1:2, length(y2) * 2)]
     YY2 <- sort(rep(1:length(Y2), 2))[-c(1:2, length(Y2) * 2)]
     
-    plot(x, y1, type = "n", xlab = name.axis1, ylab = "density of occurrence")
+    plot(x, y1, type = "n", xlab = name.axis1, ylab = "density of occurrence",...)
     polygon(x[xx], c(0, y1[yy1], 0, 0), col = col.unf, border = 0)
     polygon(x[xx], c(0, y2[yy2], 0, 0), col = col.exp, border = 0)
     polygon(x[xx], c(
@@ -329,11 +329,11 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
     
     if (interest == 1) {
       plot(z1$z.uncor,col=gray(100:0 / 100),legend=F, xlab = name.axis1, 
-           ylab = name.axis2)
+           ylab = name.axis2,...)
     }
     if (interest == 2) {
       plot(z2$z.uncor,col=gray(100:0 / 100),legend=F,xlab = name.axis1, 
-           ylab = name.axis2)
+           ylab = name.axis2,...)
     }
     
     raster::image(2*z1$w+z2$w,col=c("#FFFFFF",col.exp,col.unf,col.stab), 
