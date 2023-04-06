@@ -56,6 +56,6 @@ ecospat.niche.dynIndexProjGeo <- function(z1, z2, env) {
   envVals[!is.na(envVals)] <- zCats
 
   zCatRast <- env[[1]]
-  raster::values(zCatRast) <- envVals
+  values(zCatRast) <- envVals
   return(zCatRast)
 }
