@@ -19,7 +19,7 @@ This function projects simple bivariate models on new.env
     \code{list} object returned by \code{\link{ecospat.ESM.Modeling}}
     }
     \item{new.env}{
-A set of explanatory variables onto which models will be projected. It could be a \code{data.frame}, a \code{matrix}, or a \code{rasterStack} object. Make sure the column names (\code{data.frame} or \code{matrix}) or layer Names (\code{rasterStack}) perfectly match with the names of variables used to build the models in the previous steps.
+A set of explanatory variables onto which models will be projected. It could be a \code{data.frame}, a \code{matrix}, a \code{rasterStack}, or a \code{SpatRaster} object. Make sure the column names (\code{data.frame} or \code{matrix}) or layer Names (\code{rasterStack} and \code{SpatRaster}) perfectly match with the names of variables used to build the models in the previous steps.
     }
     \item{name.env}{
 A name for the new.env object. If not specified (default) the name of the new.env object will be used. It is necessary to specify a unique name when projecting various new.env objects in a loop. 
@@ -43,7 +43,7 @@ See \code{"\link[=BIOMOD.projection.out-class]{BIOMOD.projection.out}"} for deta
 }
 \author{ Frank Breiner \email{frank.breiner@wsl.ch} 
 
-with contributions of Olivier Broennimann \email{olivier.broennimann@unil.ch}
+with contributions of Olivier Broennimann and Flavien Collart \email{olivier.broennimann@unil.ch}
 }
 \references{
 
