@@ -89,110 +89,84 @@ ecospat.poolingEvaluation <- function(fit,calib,resp,AlgoName = NULL,metrics = c
 }
 
 ecospat.ESM.EnsembleEvaluation <- function(ESM.modeling.output,ESM.EnsembleModeling.output,metrics = c("SomersD","AUC","MaxTSS","MaxKappa","Boyce"), EachSmallModels = FALSE){
-  
-  
-  #require(dismo) #evaluate function
-  
-  metrics<-tolower(metrics)
-  if(length(intersect(metrics, c("auc", "maxtss", "boyce", "maxkappa", "somersd")))==0){
+  metrics <- tolower(metrics)
+  if (length(intersect(metrics, c("auc", "maxtss", "boyce", 
+                                  "maxkappa", "somersd"))) == 0) {
     stop("The chosen metrics are not supported! Choose at least one of the following: AUC, MaxTSS, Boyce, MaxKappa or SomersD")
   }
-  if(!is.logical(EachSmallModels)){
+  if (!is.logical(EachSmallModels)) {
     stop("EachSmallModels should be logical")
   }
-  
-  resp <- ESM.EnsembleModeling.output$ESM.fit[,1]
+  resp <- ESM.EnsembleModeling.output$ESM.fit[, 1]
   modelling.techniques <- ESM.modeling.output$models
   nMod <- length(ESM.modeling.output$mymodels)
   nReplicate <- ESM.modeling.output$NbRunEval
   fit <- ESM.EnsembleModeling.output$ESM.fit
-  calib <- ESM.modeling.output$calib.lines[,1:nReplicate]
+  calib <- ESM.modeling.output$calib.lines[, 1:nReplicate]
   wd <- ESM.modeling.output[["wd"]]
-  
-  ######################
-  
-  PredFin <- NULL 
+  PredFin <- NULL
   evalFin <- NULL
-  
-  for(d in 1:length(modelling.techniques)){
-    
-    fitMod <- fit[,c(1,grep(modelling.techniques[d],colnames(fit)))] #Select the column for the modelling technique
-    fitMod <- fitMod[,-c(grep("Full",colnames(fitMod)))] # Remove the full model
-    
-    Pred <- .ecospat.pooling(calib=calib,models.prediction=fitMod) 
-    Pred[,-1] = (Pred[,-1])/1000
-    
-    if(d==1){
-      PredFin <- cbind(PredFin,Pred)
-    }else{
-      PredFin <- cbind(PredFin,Pred[,-1])
+  for (d in 1:length(modelling.techniques)) {
+    fitMod <- fit[, c(1, grep(modelling.techniques[d], colnames(fit)))]
+    fitMod <- fitMod[, -c(grep("Full", colnames(fitMod)))]
+    Pred <- .ecospat.pooling(calib = calib, models.prediction = fitMod)
+    Pred[, -1] = (Pred[, -1])/1000
+    if (d == 1) {
+      PredFin <- cbind(PredFin, Pred)
     }
-    
-    colnames(PredFin)[ncol(PredFin)] = paste0("Fit_",modelling.techniques[d])
-    
-    evalInter <- .ecospat.evaluationScores(Pred = Pred,metrics = metrics)
-    
-    evalFin <- rbind(evalFin,evalInter)
+    else {
+      PredFin <- cbind(PredFin, Pred[, -1])
+    }
+    colnames(PredFin)[ncol(PredFin)] = paste0("Fit_", modelling.techniques[d])
+    evalInter <- .ecospat.evaluationScores(Pred = Pred, metrics = metrics)
+    evalFin <- rbind(evalFin, evalInter)
     rownames(evalFin)[nrow(evalFin)] = modelling.techniques[d]
   }
-  
-  if(length(modelling.techniques)>1){ #If there is more than 1 modelling algorithm, need to evaluate the consensus called here "ensemble"
-    
-    weights <- ESM.EnsembleModeling.output$weights.EF[,2]
-    PredEns <- cbind.data.frame(resp= PredFin[,1],apply(PredFin[,-1], 1, weighted.mean,w=weights))
-    PredFin <- cbind(PredFin,PredEns[,-1])
+  if (length(modelling.techniques) > 1) {
+    weights <- ESM.EnsembleModeling.output$weights.EF[, 2]
+    PredEns <- cbind.data.frame(resp = PredFin[, 1], apply(PredFin[, 
+                                                                   -1], 1, weighted.mean, w = weights))
+    PredFin <- cbind(PredFin, PredEns[, -1])
     colnames(PredFin)[ncol(PredFin)] = "Fit_ensemble"
-    
-    
-    ###Computation of the evaluation metrics based on this big data set 
-    evalInter <- .ecospat.evaluationScores(Pred = PredEns,metrics = metrics)
-    
-    evalFin <- rbind(evalFin,evalInter)
+    evalInter <- .ecospat.evaluationScores(Pred = PredEns, 
+                                           metrics = metrics)
+    evalFin <- rbind(evalFin, evalInter)
     rownames(evalFin)[nrow(evalFin)] = "ensemble"
   }
-  
   output <- list(ESM.evaluations = evalFin, ESM.fit = PredFin)
-  
-  if(EachSmallModels){ ## Slow take few minutes
-    
+  if (EachSmallModels) {
     evalBivaFin <- list()
     PredBivaFin <- list()
-    
-    for(i in 1:nMod){
-      
+    for (i in 1:nMod) {
       evalBiva <- NULL
       PredBiva <- NULL
-      
       IndivMod <- ESM.modeling.output$mymodels[[i]]
-      models.prediction <- get(load(paste0(wd,"/",IndivMod@models.prediction@link)))
-      models.prediction <- models.prediction[,modelling.techniques[d],1:nReplicate,]
-      models.prediction <- cbind.data.frame(resp=resp,models.prediction)
+      models.File <- get(load(paste0(wd, "/", IndivMod@models.prediction@link)))
       
-      for(d in 1:length(modelling.techniques)){
-        
-        Pred <- .ecospat.pooling(calib=calib,models.prediction=models.prediction) 
-        Pred[,-1] = (Pred[,-1]/1000)
-        PredBiva <- cbind(PredBiva,Pred)
-        Pred <- na.omit(Pred) #Remove points where the models failed
-        colnames(PredBiva)[ncol(PredBiva)] = paste0("Fit_",modelling.techniques[d])
-        
-        evalInter <- .ecospat.evaluationScores(Pred = Pred,metrics = metrics)
-        
-        evalBiva <- rbind(evalBiva,evalInter)
+      for (d in 1:length(modelling.techniques)) {
+        models.prediction <- matrix(models.File$pred[models.File$run !="allRun" & models.File$algo==modelling.techniques[d]],nc=nReplicate,nr=length(resp),byrow = F)
+        models.prediction <- cbind.data.frame(resp = resp, 
+                                              models.prediction)
+        Pred <- .ecospat.pooling(calib = calib, models.prediction = models.prediction)
+        Pred[, -1] = (Pred[, -1]/1000)
+        PredBiva <- cbind(PredBiva, Pred)
+        Pred <- na.omit(Pred)
+        colnames(PredBiva)[ncol(PredBiva)] = paste0("Fit_", 
+                                                    modelling.techniques[d])
+        evalInter <- .ecospat.evaluationScores(Pred = Pred, 
+                                               metrics = metrics)
+        evalBiva <- rbind(evalBiva, evalInter)
         rownames(evalBiva)[nrow(evalBiva)] = modelling.techniques[d]
       }
-      
       evalBivaFin[[i]] = evalBiva
       PredBivaFin[[i]] = PredBiva
     }
-    
     output$ESM.evaluations.bivariate.models = evalBivaFin
     output$ESM.fit.bivariate.models = PredBivaFin
-  } ## End of each bivariate model evaluations
-  
+  }
   return(output)
-  
 }
+
 
 .ecospat.pooling <- function(calib,models.prediction){
   Pred <- NULL
