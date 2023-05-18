@@ -34,7 +34,7 @@ number of dataset splitting replicates for the model evaluation (same as in \cod
 percentage of dataset observations retained for the model training (same as in \code{biomod2})
     }
     \item{DataSplitTable}{
-a matrix, data.frame or a 3D array filled with TRUE/FALSE to specify which part of data must be used for models calibration (TRUE) and for models validation (FALSE). Each column corresponds to a 'RUN'. If filled, arguments NbRunEval and DataSplit  will be ignored.
+a matrix or data.frame filled with TRUE/FALSE to specify which part of data must be used for models calibration (TRUE) and for models validation (FALSE). Each column corresponds to a 'RUN'. For a presence-absence dataset, column names must be formatted as: _allData_RUNx with x an integer. For a presence-only dataset, column names must be formatted as: _PA1_RUNx with x an integer. If filled, arguments NbRunEval and DataSplit  will be ignored.
     }
     \item{Prevalence}{
 either NULL or a 0-1 numeric used to build 'weighted response weights'. In contrast to Biomod the default is 0.5 (weighting presences equally to the absences). If NULL each observation (presence or absence) has the same weight (independent of the number of presences and absences).
@@ -83,7 +83,7 @@ See \code{"\link[=BIOMOD.models.out-class]{BIOMOD.models.out}"} for details.
 
 }
 \author{
-Frank Breiner \email{frank.breiner@wsl.ch} and Mirko Di Febbraro \email{mirkodifebbraro@gmail.com} with contributions of Olivier Broennimann \email{olivier.broennimann@unil.ch}
+Frank Breiner \email{frank.breiner@wsl.ch} and Mirko Di Febbraro \email{mirkodifebbraro@gmail.com} with contributions of Olivier Broennimann \email{olivier.broennimann@unil.ch} and Flavien Collart
 }
 \references{
 Lomba, A., L. Pellissier, C.F. Randin, J. Vicente, F. Moreira, J. Honrado and A. Guisan. 2010. Overcoming the rare species modelling paradox: A novel hierarchical framework applied to an Iberian endemic plant. 
