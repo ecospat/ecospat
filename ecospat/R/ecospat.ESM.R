@@ -930,8 +930,8 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   NbRunEval <- ESM.prediction.output$NbRunEval
   pred.biva <- ESM.prediction.output$pred.biva
   new.env.raster <- ESM.prediction.output$new.env.raster
-  failed.mod <- grep(paste("RUN", NbRunEval + 1, sep = ""), 
-                     unlist(ESM.EnsembleModeling.output$failed), value = TRUE)
+  failed.mod <- grep("allRun", unlist(ESM.EnsembleModeling.output$failed),
+                     value = TRUE)
   if (length(models) == 1) {
     weigths.rm <- NULL
     for (i in 1:length(weights)) {
