@@ -227,7 +227,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
   }
   if (parallel == TRUE) {
     mymodels <- foreach(k = which.biva, .packages = c("biomod2", 
-                                                      "raster")) %dopar% {
+                                                      "raster","terra")) %dopar% {
                                                         setwd(newwd)
                                                         mydata@data.env.var <- data@data.env.var[, colnames(data@data.env.var) %in% 
                                                                                                    combinations[, k]]
