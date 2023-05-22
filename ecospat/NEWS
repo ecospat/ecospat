@@ -252,3 +252,13 @@ ecospat_3.5.1 (323.02.2023)
 FIXES
 * further compatibility fixes for biomod2 v4.2-2 to ESM functions
 
+
+ecospat_3.5.2 (323.02.2023)
+=============
+
+FIXES
+* further compatibility fixes for biomod2 v4.2-3 to ESM functions
+* fix bugs for parallel job in ecospat.ESM.Projection
+
+NEW FEATURES
+* added compatibility with terra package for ecospat.ESM.Projection
