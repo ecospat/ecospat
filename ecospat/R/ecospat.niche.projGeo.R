@@ -1,10 +1,14 @@
 
-## Written by Olivier Broennimann. Departement of Ecology and Evolution (DEE) & Institude of Earth Surface Dynamics
+## Written by Olivier Broennimann. Departement of Ecology and Evolution
+## (DEE) & Institude of Earth Surface Dynamics
 ## University of Lausanne. Switzerland. April 2018.
+##
+## ecospat.niche.dynIndexProjGeo updated by Tyler Smith, April 2023
 ##
 ## DESCRIPTION
 ##
-## functions to project niche quantification (objets z calculated with ecospat.grid.clim.dyn) onto the geographical space
+## functions to project niche quantification (objets z calculated with
+## ecospat.grid.clim.dyn) onto the geographical space
 ## 
 ## list of functions:
 ##
@@ -14,11 +18,12 @@
 ## env is a RasterStack of environmental variables corresponding to the background (glob in ecospat.grid.clim.dyn)
 ## cor tells if the corrected or uncorrected occurrence density should be projected
 
-## ecospat.niche.zProjGeo(z1,z2,env,index)
-## projects the dynamic indexes ("stability", "unfilling" and "expansion" in space
+## ecospat.niche.dynIndexProjGeo(z1, z2, env)
+## projects the dynamic indexes ("stability", "unfilling" and "expansion")
+## in space
 ## z1 and z2 are objects created by ecospat.grid.clim.dyn
-## env is a RasterStack of environmental variables corresponding to the background (glob in ecospat.grid.clim.dyn)
-## index tells which which index to project ("stability", "unfilling" or "expansion")
+## env is a RasterStack of environmental variables corresponding to the
+## background (glob in ecospat.grid.clim.dyn)
 
 ecospat.niche.zProjGeo <- function(z1,env,cor=FALSE){
 
@@ -34,20 +39,23 @@ ecospat.niche.zProjGeo <- function(z1,env,cor=FALSE){
 
 #########################
 
-ecospat.niche.dynIndexProjGeo <- function(z1,z2,env,index=NULL){
+ecospat.niche.dynIndexProjGeo <- function(z1, z2, env) {
+  zRast <- z1$w + 2*z2$w
 
-  XY <- rasterToPoints(env)[,1:2] #geographical coordinates of each point of the background
+  ## We need **all** the cells from the env raster, even the NA ones. Those
+  ## are not present in z1$glob or z2$glob, so we need the original env
+  ## raster.
 
-  if(index=="stability") ind<-raster(ecospat.niche.dyn.index(z1,z2)$dyn==2)
-  if(index=="unfilling") ind<-raster(ecospat.niche.dyn.index(z1,z2)$dyn==-1) 
-  if(index=="expansion") ind<-raster(ecospat.niche.dyn.index(z1,z2)$dyn==1) 
-  if(index!="stability"&index!="unfilling"&index!="expansion") stop("set index as stability,unfilling or expansion")
-  ind@extent <- z1$z.uncor@extent
+  ## all env cells:
+  envVals <- values(env)[,1]
 
-  ZS<-extract(ind,z1$glob)
-  XYZS<-cbind(XY,ZS)
-  geozS<-rasterFromXYZ(XYZS)
+  ## index values for the non-NA cells:
+  zCats <- extract(zRast, z1$glob)
 
-  return(geozS)
+  ## add index values to the non-NA cells:
+  envVals[!is.na(envVals)] <- zCats
+
+  zCatRast <- env[[1]]
+  values(zCatRast) <- envVals
+  return(zCatRast)
 }
-
