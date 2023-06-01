@@ -25,8 +25,9 @@ Authors@R: c(
 	person("Nicolas", "Salamin", role = "ctb"),
 	person("Niklaus", "Zimmermann", role = "ctb"),
 	person("Flavien", "Collart", role = "ctb"),
-	person("Antoine", "Guisan", role = "aut", email = "antoine.guisan@unil.ch"),
-	person("Tyler", "Smith", role = "ctb", email = "tyler@plantarum.ca"))
+	person("Tyler", "Smith", role = "ctb", email = "tyler@plantarum.ca")),
+	person("Antoine", "Guisan", role = "aut", email = "antoine.guisan@unil.ch")
+	
 Author: Olivier Broennimann [cre, aut, ctb],
         Valeria Di Cola [aut, ctb],
         Blaise Petitpierre [ctb],
@@ -49,8 +50,9 @@ Author: Olivier Broennimann [cre, aut, ctb],
         Nicolas Salamin [ctb],
         Niklaus Zimmermann [ctb],
         Flavien Collart [ctb],
-        Antoine Guisan [aut],
-        Tyler Smith [ctb]
+	Tyler Smith [ctb],
+        Antoine Guisan [aut]
+        
 Maintainer: Olivier Broennimann <olivier.broennimann@unil.ch>
 VignetteBuilder: knitr
 Depends: R (>= 4.0.0)
