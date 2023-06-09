@@ -15,7 +15,7 @@ importFrom(biomod2, bm_BinaryTransformation, BIOMOD_LoadModels, BIOMOD_Modeling,
 #importFrom(randomForest, randomForest)
 #importFrom(spatstat, nndist)
 importFrom(raster, cellFromXY, extract, nlayers, projection, stack, reclassify, rasterFromXYZ,rasterToPolygons, rasterToPoints, raster, res,removeTmpFiles, getValues, cellStats, crs, as.matrix, maxValue, clump, rasterize, addLayer, init, xyFromCell, freq, extent, match) 
-importFrom(terra, nlyr, rast, subset, wrap, writeRaster) 
+importFrom(terra, as.points, crds, nlyr, rast, subset, values, wrap, writeRaster) 
 #importFrom(rms, pol)
 importFrom(gtools, mixedsort, mixedorder, combinations)
 importFrom(PresenceAbsence, presence.absence.accuracy, optimal.thresholds, auc)
