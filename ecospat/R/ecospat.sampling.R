@@ -59,7 +59,7 @@ ecospat.recstrat_prop <- function(in_grid, sample_no) {
     if(proportion==0){ ##Avoid Warnings
       next
     }
-    optimal_samples_per_class <- ifelse(proportion < length(grid_sel[[1]]), proportion, length(grid_sel[[1]]))
+    optimal_samples_per_class <- ifelse(proportion < nrow(grid_sel), proportion, nrow(grid_sel))
     sp_points <- grid_sel[sample(1:nrow(grid_sel), optimal_samples_per_class, replace = FALSE), ]
     sample_points <- cbind(terra::crds(sp_points), class = strata[j])
     result_list[[j]] <- sample_points
