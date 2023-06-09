@@ -55,7 +55,7 @@ ecospat.recstrat_prop <- function(in_grid, sample_no) {
   result_list <- list()
   for (j in 1:length(strata)) {
     grid_sel <- in_grid_SPixels[in_grid_SPixels[[1]] == strata[j], ]
-    proportion <- ceiling(log(length(grid_sel[[1]]))/log(pixels_largest_strata) * proportion_largest_strata)
+    proportion <- ceiling(log(nrow(grid_sel))/log(pixels_largest_strata) * proportion_largest_strata)
     if(proportion==0){ ##Avoid Warnings
       next
     }
@@ -102,7 +102,7 @@ ecospat.recstrat_regl <- function(in_grid, sample_no) {
   result_list <- list()
   for (j in 1:length(strata)) {
     grid_sel <- in_grid_SPixels[in_grid_SPixels[[1]] == strata[j], ]
-    lon <- length(grid_sel[[1]])
+    lon <- nrow(grid_sel)
     optimal_samples_per_class <- ifelse(lon > samples_per_class, samples_per_class,
       lon)
     sp_points <- grid_sel[sample(1:nrow(grid_sel), optimal_samples_per_class, replace = FALSE), ]
