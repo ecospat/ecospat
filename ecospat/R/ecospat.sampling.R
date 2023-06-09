@@ -6,7 +6,7 @@
 ### THIS FUNCTION REQUIRES THAT THE PACKAGE 'classInt' is installed
 
 ecospat.rcls.grd <- function(in_grid, no.classes) {
-  new_classes <- classInt::classIntervals(na.omit(values(in_grid)), no.classes, style = "equal")
+  new_classes <- classInt::classIntervals(na.omit(terra::values(in_grid)), no.classes, style = "equal")
   # new_classes <-classIntervals(getValues(in_grid), no.classes , style = 'sd')
   new_classes_breaks <- new_classes$brks
   new_classes_limits <- matrix(ncol = 3, nrow = no.classes)
@@ -41,12 +41,12 @@ ecospat.rcls.grd <- function(in_grid, no.classes) {
 # ---------------------------------------------------------------------------#
 
 ecospat.recstrat_prop <- function(in_grid, sample_no) {
-  strata <- as.numeric(na.omit(unique(values(in_grid))))
+  strata <- as.numeric(na.omit(unique(terra::values(in_grid))))
   strata_no <- length(strata)
   in_grid_SPixels <- terra::as.points(in_grid)
   total_pixels <- nrow(in_grid_SPixels)
 
-  strata_stats <- table(in_grid_SPixels$layer)
+  strata_stats <- table(in_grid_SPixels[[1]])
 
   strata_stats_sorted <- as.data.frame(sort(strata_stats, decreasing = TRUE))
   pixels_largest_strata <- max(strata_stats_sorted$Freq)
@@ -54,12 +54,12 @@ ecospat.recstrat_prop <- function(in_grid, sample_no) {
 
   result_list <- list()
   for (j in 1:length(strata)) {
-    grid_sel <- in_grid_SPixels[in_grid_SPixels$layer == strata[j], ]
-    proportion <- ceiling(log(length(grid_sel$layer))/log(pixels_largest_strata) * proportion_largest_strata)
+    grid_sel <- in_grid_SPixels[in_grid_SPixels[[1]] == strata[j], ]
+    proportion <- ceiling(log(length(grid_sel[[1]]))/log(pixels_largest_strata) * proportion_largest_strata)
     if(proportion==0){ ##Avoid Warnings
       next
     }
-    optimal_samples_per_class <- ifelse(proportion < length(grid_sel$layer), proportion, length(grid_sel$layer))
+    optimal_samples_per_class <- ifelse(proportion < length(grid_sel[[1]]), proportion, length(grid_sel[[1]]))
     sp_points <- grid_sel[sample(1:nrow(grid_sel), optimal_samples_per_class, replace = FALSE), ]
     sample_points <- cbind(terra::crds(sp_points), class = strata[j])
     result_list[[j]] <- sample_points
@@ -89,7 +89,7 @@ ecospat.recstrat_prop <- function(in_grid, sample_no) {
   # -------------------------------------------------------------------- #
 
 ecospat.recstrat_regl <- function(in_grid, sample_no) {
-  strata <- as.numeric(na.omit(unique(values(in_grid))))
+  strata <- as.numeric(na.omit(unique(terra::values(in_grid))))
   strata_no <- length(strata)
   if (sample_no < strata_no) {
     stop("Stoping Execution: The number of samples is lower the total number of unique classes")
@@ -101,8 +101,8 @@ ecospat.recstrat_regl <- function(in_grid, sample_no) {
 
   result_list <- list()
   for (j in 1:length(strata)) {
-    grid_sel <- in_grid_SPixels[in_grid_SPixels$layer == strata[j], ]
-    lon <- length(grid_sel$layer)
+    grid_sel <- in_grid_SPixels[in_grid_SPixels[[1]] == strata[j], ]
+    lon <- length(grid_sel[[1]])
     optimal_samples_per_class <- ifelse(lon > samples_per_class, samples_per_class,
       lon)
     sp_points <- grid_sel[sample(1:nrow(grid_sel), optimal_samples_per_class, replace = FALSE), ]
