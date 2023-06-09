@@ -12,7 +12,7 @@
 }
 \arguments{
   \item{in_grid}{
-    The stratification grid to be sampled.
+    The stratification grid (SpatRaster) to be sampled.
   }
   \item{sample_no}{
     The total number of pixels to be sampled.
@@ -37,15 +37,14 @@
 }
 \examples{
 
-  library(raster)
   library(terra)
   library(classInt)
   library(biomod2)
   
   data("bioclim_current")
   bioclim_current <- rast(bioclim_current)
-  bio3 <- raster(bioclim_current[["bio3"]])
-  bio12 <- raster(bioclim_current[["bio12"]])
+  bio3 <- bioclim_current[["bio3"]]
+  bio12 <- bioclim_current[["bio12"]]
 
     
   B3.rcl<-ecospat.rcls.grd(bio3,9) 
