@@ -25,7 +25,7 @@ Authors@R: c(
 	person("Nicolas", "Salamin", role = "ctb"),
 	person("Niklaus", "Zimmermann", role = "ctb"),
 	person("Flavien", "Collart", role = "ctb"),
-	person("Tyler", "Smith", role = "ctb", email = "tyler@plantarum.ca")),
+	person("Tyler", "Smith", role = "ctb", email = "tyler@plantarum.ca"),
 	person("Antoine", "Guisan", role = "aut", email = "antoine.guisan@unil.ch")
 	
 Author: Olivier Broennimann [cre, aut, ctb],
