@@ -217,7 +217,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                     models = models, bm.options = models.options, 
                                                     CV.strategy="user.defined",
                                                     CV.nb.rep = NbRunEval, metric.eval = models.eval.meth, 
-                                                    CV.user.table = as.matrix(calib.lines)[,-ncol(calib.lines)], prevalence = Prevalence, 
+                                                    CV.user.table = as.matrix(calib.lines[,-ncol(calib.lines)]), prevalence = Prevalence, 
                                                     CV.do.full.models = TRUE, var.import = 0, modeling.id = modeling.id, 
                                                     weights = Yweights))
       if (cleanup != FALSE) {
@@ -244,7 +244,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                                                  models = models, bm.options = models.options, 
                                                                                  CV.strategy="user.defined",
                                                                                  CV.nb.rep = NbRunEval, metric.eval = models.eval.meth, 
-                                                                                 CV.user.table = as.matrix(calib.lines)[,-ncol(calib.lines)], prevalence = Prevalence, 
+                                                                                 CV.user.table = as.matrix(calib.lines[,-ncol(calib.lines)]), prevalence = Prevalence, 
                                                                                  CV.do.full.models = TRUE, var.import = 0, modeling.id = modeling.id, 
                                                                                  weights = Yweights)
                                                       }
