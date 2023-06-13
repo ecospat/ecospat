@@ -8,7 +8,7 @@
 \usage{ecospat.rcls.grd(in_grid,no.classes)
 }
 \arguments{
-    \item{in_grid}{The grid to be reclassified.}
+    \item{in_grid}{A SpatRaster to be reclassified.}
     \item{no.classes}{The number of desired new classes.}
 }
 \details{
@@ -16,7 +16,7 @@ This function reclassifies the input grid into a number of new classes that the 
 }
 
 \value{
-Returns a reclassified Raster object
+Returns a reclassified SpatRaster object
 }
 \author{
 Achilleas Psomas \email{achilleas.psomas@wsl.ch} and Niklaus E. Zimmermann \email{niklaus.zimmermann@wsl.ch}
@@ -24,15 +24,14 @@ Achilleas Psomas \email{achilleas.psomas@wsl.ch} and Niklaus E. Zimmermann \emai
 
 \examples{
 
-library(raster)
 library(terra)
 library(classInt)
 library(biomod2)
 
 data("bioclim_current")
 bioclim_current <- rast(bioclim_current)
-bio3 <- raster(bioclim_current[["bio3"]])
-bio12 <- raster(bioclim_current[["bio12"]])
+bio3 <- bioclim_current[["bio3"]]
+bio12 <- bioclim_current[["bio12"]]
 
 B3.rcl<-ecospat.rcls.grd(bio3,9) 
 B12.rcl<-ecospat.rcls.grd(bio12,9)

@@ -31,12 +31,12 @@ For further details please refer to \code{\link[biomod2]{BIOMOD_EnsembleForecast
 
 }
 \value{
-Returns the projections of ESMs for the selected single models and their ensemble (data frame or raster stack). ESM.projections \sQuote{projection files} are saved on the hard drive projection folder. This files are either an \code{array} or a \code{RasterStack} depending the original projections data type.
+Returns the projections of ESMs for the selected single models and their ensemble (data frame or SpatRaster). ESM.projections \sQuote{projection files} are saved on the hard drive projection folder. This files are either an \code{array} or a \code{SpatRaster} depending the original projections data type.
 Load these created files to plot and work with them.
 
 }
 \author{
-Frank Breiner \email{frank.breiner@wsl.ch}
+Frank Breiner with the contributions of Flavien Collart \email{frank.breiner@wsl.ch}
 
 }
 \references{

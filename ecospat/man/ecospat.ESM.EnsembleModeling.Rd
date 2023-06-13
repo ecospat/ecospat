@@ -56,7 +56,7 @@ A \code{"\link[=BIOMOD.ensemble.models.out-class]{BIOMOD.ensemble.models.out}"} 
 \author{
 Frank Breiner \email{frank.breiner@wsl.ch} 
 
-with contributions of Olivier Broennimann \email{olivier.broennimann@unil.ch}
+with contributions of Olivier Broennimann and Flavien Collart \email{olivier.broennimann@unil.ch}
 
 }
 \references{
