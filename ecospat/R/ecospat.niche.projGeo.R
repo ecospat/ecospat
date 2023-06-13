@@ -47,10 +47,10 @@ ecospat.niche.dynIndexProjGeo <- function(z1, z2, env) {
   ## raster.
 
   ## all env cells:
-  envVals <- values(env)[,1]
+  envVals <- raster::values(env)[,1]
 
   ## index values for the non-NA cells:
-  zCats <- extract(zRast, z1$glob)
+  zCats <- raster::extract(zRast, z1$glob)
 
   ## add index values to the non-NA cells:
   envVals[!is.na(envVals)] <- zCats

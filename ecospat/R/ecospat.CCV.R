@@ -117,6 +117,7 @@ ecospat.CCV.createDataSplitTable <- function(NbRunEval,
         DataSplitTable[which(grouper %in% ((i:(i+iner-1)%%NbRunEval)+1)),i] <- TRUE
       }
     }
+    colnames(DataSplitTable) <- paste0("_allData_RUN",seq_len(ncol(DataSplitTable)))
     return(DataSplitTable)
   }
   
@@ -358,7 +359,8 @@ ecospat.CCV.modeling <- function(sp.data,
                                         models = models,
                                         bm.options = MyBiomodOptions,
                                         metric.eval = eval.metrics,
-                                        data.split.table = DataSplitTable,
+                                        CV.strategy = "user.defined",
+                                        CV.user.table = DataSplitTable,
                                         prevalence = NULL,
                                         modeling.id = "ccv")
     
@@ -520,8 +522,6 @@ ecospat.CCV.modeling <- function(sp.data,
       temp.varimp.mean <- aggregate(data = temp.variableimprtance, var.imp ~ full.name + expl.var, FUN = 'mean', simplify = TRUE, na.rm = TRUE)
       # singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
       singleSpecies.ensembleVariableImportance[,i,] <-  round(as.matrix(reshape(temp.varimp.mean, idvar = "expl.var", timevar = "full.name", direction = "wide")[,-1]),2)
-
-      
       
       #Single model predictions
       temp.predictions <- biomod2::get_predictions(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))), model.as.col = TRUE)
@@ -705,19 +705,25 @@ ecospat.CCV.modeling <- function(sp.data,
       # Single model evaluation
       temp.evaluations <- biomod2::get_evaluations(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))))
       tmp.model.list <- unique(temp.evaluations$full.name)
+      tmp.model.list <- tmp.model.list[grep(tmp.model.list, pattern = "allRun", invert = TRUE)]
+      # R. Patin 2022/04: The following code do not work for full model so I subset the list of model
+      
       for (l in seq_along(tmp.model.list)) {
-        singleSpecies.ensembleEvaluationScore[,i,l] <- temp.evaluations$validation[which(temp.evaluations$full.name == tmp.model.list[l])] ## Error but what they wanted???
+        singleSpecies.ensembleEvaluationScore[,i,l] <- 
+          temp.evaluations$validation[
+            which(temp.evaluations$full.name == tmp.model.list[l])
+            ] ## Error but what they wanted???
       }
 
       #Single model variable importance
-      temp.variableimprtance <- biomod2::get_variables_importance(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))))
+      temp.variableimprtance <- biomod2::get_variables_importance(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))), full.name = tmp.model.list)
       
       temp.varimp.mean <- aggregate(data = temp.variableimprtance, var.imp ~ full.name + expl.var, FUN = 'mean', simplify = TRUE, na.rm = TRUE)
       # singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
       singleSpecies.ensembleVariableImportance[,i,] <- round(as.matrix(reshape(temp.varimp.mean, idvar = "expl.var", timevar = "full.name", direction = "wide")[,-1]),2)
       
       #Single model predictions
-      temp.predictions <- get_predictions(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))), model.as.col = TRUE)
+      temp.predictions <- get_predictions(eval(parse(text=paste(i,".ccv.ensemble.models.out",sep=""))), model.as.col = TRUE, full.name = tmp.model.list)
       for(l in 1:dim(temp.predictions)[2]){
         singleSpecies.calibrationSites.ensemblePredictions[i,1:sum(DataSplitTable[,l]),l] <- temp.predictions[which(DataSplitTable[,l]),l]
         singleSpecies.evaluationSites.ensemblePredictions[i,1:sum(!DataSplitTable[,l]),l] <- temp.predictions[which(!DataSplitTable[,l]),l]

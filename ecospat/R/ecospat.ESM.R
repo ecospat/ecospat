@@ -181,6 +181,15 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
   }
   else {
     calib.lines <- DataSplitTable
+    calib.lines <- cbind(calib.lines,TRUE)
+    if ("PA.table" %in% slotNames(data)){
+      
+      colnames(calib.lines)[ncol(calib.lines)]<- "_PA1_Full"
+      
+    }else{
+      colnames(calib.lines)[ncol(calib.lines)]<-"_allData_Full"
+      
+    }
   }
   if (is.null(NbRunEval)) {
     if (ncol(calib.lines) > 1) {
@@ -431,7 +440,8 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
                                                       }else{
                                                           new.env <- terra::rast(new.env)
                                                           
-                                                          newdata= terra::subset(new.env, combinations[, k])
+                                                          newdata <- terra::subset(new.env, combinations[, k])
+                                                          new.env <- terra::wrap(new.env)
                                                           if("PA.table" %in% slotNames(data)){
                                                             
                                                             models.chosen = grep("allRun", 
@@ -539,7 +549,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
                            grep(paste(".", ESM.modeling.output$modeling.id[n], 
                                       ".models.out", sep = ""), ls(), value = TRUE, 
                                 fixed = TRUE), value = TRUE)
-    models. <- c(models., tmp.list.files[mixedorder(gsub(".", 
+    models. <- c(models., tmp.list.files[gtools::mixedorder(gsub(".", 
                                                          "_", tmp.list.files, fixed = TRUE))])
   }
   mymodel <- list()
@@ -558,8 +568,8 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
         y.eval$run[y.eval$run=="allRun"] = "Full"
       }
 
-      x <- matrix(y.eval$validation, nr = length(unique(y.eval$algo)), 
-                  nc = NbRunEval + 1, byrow = FALSE)
+      x <- matrix(y.eval$validation, nrow = length(unique(y.eval$algo)), 
+                  ncol = NbRunEval + 1, byrow = FALSE)
       colnames(x) <- unique(y.eval$run)
       rownames(x) <- unique(y.eval$algo)
       
@@ -620,10 +630,10 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
         y.eval$run[y.eval$run=="allRun"] = "Full"
       }
       
-      x <- matrix(y.eval$validation, nr = length(unique(y.eval$algo)), 
-                  nc = NbRunEval + 1, byrow = FALSE)
-      x.calib <- matrix(y.eval$calibration, nr = length(unique(y.eval$algo)), 
-                        nc = NbRunEval + 1, byrow = FALSE)
+      x <- matrix(y.eval$validation, nrow = length(unique(y.eval$algo)), 
+                  ncol = NbRunEval + 1, byrow = FALSE)
+      x.calib <- matrix(y.eval$calibration, nrow = length(unique(y.eval$algo)), 
+                        ncol = NbRunEval + 1, byrow = FALSE)
       colnames(x) <- unique(y.eval$run)
       rownames(x) <- unique(y.eval$algo)
       colnames(x.calib) <- unique(y.eval$run)
@@ -943,12 +953,12 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   }
   if (new.env.raster) {
     pred.biva <- grep("\\.tif\\b", pred.biva, value = TRUE)
-    pred.biva <- pred.biva[mixedorder(gsub(".", "_", pred.biva, 
+    pred.biva <- pred.biva[gtools::mixedorder(gsub(".", "_", pred.biva, 
                                            fixed = TRUE))]
   }
   if (!new.env.raster) {
     string_pred <- grep("RData", pred.biva, value = TRUE)
-    pred.biva <- string_pred[mixedorder(gsub(".", "_", string_pred, 
+    pred.biva <- string_pred[gtools::mixedorder(gsub(".", "_", string_pred, 
                                              fixed = TRUE))]
   }
   biva.proj <- list()
@@ -993,15 +1003,15 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   if (new.env.raster) {
     pred.ESM <- terra::rast(biva.proj)
     for (i in 1:length(models)) {
-      model.maps<- pred.ESM[[grep(models[i], names(pred.ESM))]] ##Ici changement
+      model.maps<- pred.ESM[[grep(models[i], names(pred.ESM))]]
       weights.mod <- weights[grep(models[i], names(weights))]
       if (any(grepl(models[i], failed.mod))) {
         weights.mod <- weights.mod[!names(weights.mod) %in% 
                                      paste(models[i], ".", sub("_.*", "", failed.mod[grepl(models[i], 
                                                                                            failed.mod)]), sep = "")]
       }
-      model.maps <- model.maps[[-(weights.mod==0)]] ##### ICI
-      weights.mod <- weights.mod[weights.mod>0] ## ICI
+      model.maps <- model.maps[[weights.mod!=0]] 
+      weights.mod <- weights.mod[weights.mod>0]
       assign(models[i], round(terra::weighted.mean(model.maps,
                                                    weights.mod, na.rm = TRUE)))
     }

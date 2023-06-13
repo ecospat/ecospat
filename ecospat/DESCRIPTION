@@ -1,6 +1,6 @@
 Package: ecospat
 Version: 3.5.1
-Date: 2023-02-23
+Date: 2023-06-13
 Title: Spatial Ecology Miscellaneous Methods
 Authors@R: c(
 	person("Olivier", "Broennimann", role = c("cre","aut","ctb"), email = "olivier.broennimann@unil.ch"),
@@ -27,7 +27,6 @@ Authors@R: c(
 	person("Flavien", "Collart", role = "ctb"),
 	person("Tyler", "Smith", role = "ctb", email = "tyler@plantarum.ca"),
 	person("Antoine", "Guisan", role = "aut", email = "antoine.guisan@unil.ch"))
-	
 Author: Olivier Broennimann [cre, aut, ctb],
         Valeria Di Cola [aut, ctb],
         Blaise Petitpierre [ctb],
@@ -52,7 +51,6 @@ Author: Olivier Broennimann [cre, aut, ctb],
         Flavien Collart [ctb],
 	Tyler Smith [ctb],
         Antoine Guisan [aut]
-        
 Maintainer: Olivier Broennimann <olivier.broennimann@unil.ch>
 VignetteBuilder: knitr
 Depends: R (>= 4.0.0)
