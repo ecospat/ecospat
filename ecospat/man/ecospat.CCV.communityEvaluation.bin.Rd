@@ -48,36 +48,5 @@ Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{ecospat.CCV.createDataSplitTable}}; \code{\link{ecospat.CCV.communityEvaluation.prob}}
-}
-\examples{
-\donttest{
-#Loading species occurence data and remove empty communities
-data(ecospat.testData)
-testData <- ecospat.testData[,c(24,34,43,45,48,53,55:58,60:63,65:66,68:71)]
-sp.data <- testData[which(rowSums(testData)>0), sort(colnames(testData))]
-
-#Loading environmental data
-env.data <- ecospat.testData[which(rowSums(testData)>0),4:8]
-
-#Coordinates for all sites
-xy <- ecospat.testData[which(rowSums(testData)>0),2:3]
-
-#Running all the models for all species
-myCCV.Models <- ecospat.CCV.modeling(sp.data = sp.data,
-                                     env.data = env.data,
-                                     xy = xy,
-                                     NbRunEval = 5,
-                                     minNbPredictors = 10,
-                                     VarImport = 3)
-                                     
-#Thresholding all the predictions and calculating the community evaluation metrics
-myCCV.communityEvaluation.bin <- ecospat.CCV.communityEvaluation.bin(
-      ccv.modeling.data = myCCV.Models, 
-      thresholds = c('MAX.KAPPA', 'MAX.ROC','PS_SDM'),
-      community.metrics= c('SR.deviation','Sorensen'),
-      parallel = FALSE,
-      cpus = 4)
-
-}
+\code{\link{ecospat.CCV.modeling}}; \code{\link{ecospat.CCV.createDataSplitTable}}; \code{\link{ecospat.CCV.communityEvaluation.prob}}
 }
