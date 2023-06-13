@@ -217,7 +217,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                     models = models, bm.options = models.options, 
                                                     CV.strategy="user.defined",
                                                     CV.nb.rep = NbRunEval, metric.eval = models.eval.meth, 
-                                                    CV.user.table = as.matrix(calib.lines)[,-ncol(calib.lines)], prevalence = Prevalence, 
+                                                    CV.user.table = as.matrix(calib.lines[,-ncol(calib.lines)]), prevalence = Prevalence, 
                                                     CV.do.full.models = TRUE, var.import = 0, modeling.id = modeling.id, 
                                                     weights = Yweights))
       if (cleanup != FALSE) {
@@ -244,7 +244,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                                                  models = models, bm.options = models.options, 
                                                                                  CV.strategy="user.defined",
                                                                                  CV.nb.rep = NbRunEval, metric.eval = models.eval.meth, 
-                                                                                 CV.user.table = as.matrix(calib.lines)[,-ncol(calib.lines)], prevalence = Prevalence, 
+                                                                                 CV.user.table = as.matrix(calib.lines[,-ncol(calib.lines)]), prevalence = Prevalence, 
                                                                                  CV.do.full.models = TRUE, var.import = 0, modeling.id = modeling.id, 
                                                                                  weights = Yweights)
                                                       }
@@ -993,15 +993,17 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   if (new.env.raster) {
     pred.ESM <- terra::rast(biva.proj)
     for (i in 1:length(models)) {
-      assign(models[i], pred.ESM[[grep(models[i], names(pred.ESM))]])
+      model.maps<- pred.ESM[[grep(models[i], names(pred.ESM))]] ##Ici changement
       weights.mod <- weights[grep(models[i], names(weights))]
       if (any(grepl(models[i], failed.mod))) {
         weights.mod <- weights.mod[!names(weights.mod) %in% 
                                      paste(models[i], ".", sub("_.*", "", failed.mod[grepl(models[i], 
                                                                                            failed.mod)]), sep = "")]
       }
-      assign(models[i], round(terra::weighted.mean(get(models[i]), 
-                                                    weights.mod, na.rm = TRUE)))
+      model.maps <- model.maps[[-(weights.mod==0)]] ##### ICI
+      weights.mod <- weights.mod[weights.mod>0] ## ICI
+      assign(models[i], round(terra::weighted.mean(model.maps,
+                                                   weights.mod, na.rm = TRUE)))
     }
     pred.ESM <- terra::rast(mget(models))[[order(models)]]
     do.call("rm", as.list(models))
