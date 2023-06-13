@@ -47,15 +47,18 @@ ecospat.niche.dynIndexProjGeo <- function(z1, z2, env) {
   ## raster.
 
   ## all env cells:
-  envVals <- raster::values(env)[,1]
+  envVals <- raster::getValues(env)[,1]
 
   ## index values for the non-NA cells:
   zCats <- raster::extract(zRast, z1$glob)
 
   ## add index values to the non-NA cells:
   envVals[!is.na(envVals)] <- zCats
+  
+  ## create raster (without using values() which triggers namespace conflicts)
 
-  zCatRast <- env[[1]]
-  values(zCatRast) <- envVals
+  zCatRast<-raster(matrix(envVals, nrow=env[[1]]@nrows, ncol=env[[1]]@ncols,byrow = TRUE),
+                   xmn=env@extent[1],xmx=env@extent[2],ymn=env@extent[3],ymx=env@extent[4])
+  
   return(zCatRast)
 }
