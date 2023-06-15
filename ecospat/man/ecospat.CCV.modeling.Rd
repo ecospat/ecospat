@@ -82,22 +82,38 @@ Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
 }
 \examples{
 \donttest{
-#Loading species occurence data and remove empty communities
-testData <- ecospat.testData[,c(24,34,43,45,48,53,55:58,60:63,65:66,68:71)]
-sp.data <- testData[which(rowSums(testData)>0), sort(colnames(testData))]
-
-#Loading environmental data
-env.data <- ecospat.testData[which(rowSums(testData)>0),4:8]
-
-#Coordinates for all sites
-xy <- ecospat.testData[which(rowSums(testData)>0),2:3]
-
-#Running all the models for all species
-myCCV.Models <- ecospat.CCV.modeling(sp.data = sp.data,
-                                     env.data = env.data,
-                                     xy = xy,
-                                     NbRunEval = 5,
-                                     minNbPredictors = 10,
-                                     VarImport = 3)
+  #Loading species occurence data and remove empty communities
+  data(ecospat.testData)
+  testData <- ecospat.testData[,c(24,34,43,45,48,53,55:58)]
+  sp.data <- testData[which(rowSums(testData)>2), sort(colnames(testData))]
+  
+  #Loading environmental data
+  env.data <- ecospat.testData[which(rowSums(testData)>2),4:8]
+  
+  #Coordinates for all sites
+  xy <- ecospat.testData[which(rowSums(testData)>2),2:3]
+  
+  #Running all the models for all species
+  myCCV.Models <- ecospat.CCV.modeling(sp.data = sp.data,
+                                       env.data = env.data,
+                                       xy = xy,
+                                       NbRunEval = 2,
+                                       minNbPredictors = 10,
+                                       VarImport = 3)
+                                       
+  #Calculating the probabilistic community metrics
+  metrics = c('SR.deviation','community.AUC','probabilistic.Sorensen','Max.Sorensen')
+  myCCV.Eval.prob <- ecospat.CCV.communityEvaluation.prob(
+          ccv.modeling.data = myCCV.Models, 
+          community.metrics = metrics)
+          
+  #Thresholding all the predictions and calculating the community evaluation metrics
+  myCCV.communityEvaluation.bin <- ecospat.CCV.communityEvaluation.bin(
+        ccv.modeling.data = myCCV.Models, 
+        thresholds = c('MAX.KAPPA', 'MAX.ROC','PS_SDM'),
+        community.metrics= c('SR.deviation','Sorensen'),
+        parallel = FALSE,
+        cpus = 4)
+          
 }
 }
