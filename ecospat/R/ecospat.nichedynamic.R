@@ -87,12 +87,17 @@ ecospat.kd <- function(x, ext, R = 100, th = 0, env.mask = c(),
                                        h = "href", grid = mask,
                                        kern = "bivnorm"
       ) # calculate the density of occurrences in a grid of RxR pixels along the score gradients
-      x.dens <- raster::raster(
-        xmn = ext[1], xmx = ext[2], ymn = ext[3],
-        ymx = ext[4], matrix(x.dens$ud, nrow = R)
+      x.dens <- terra::rast(
+        matrix(x.dens$ud,nrow = 100)
+      )
+      terra::ext(x.dens)<-c(
+        xmin = ext[1], 
+        xmax = ext[2], 
+        ymin = ext[3],
+        ymax = ext[4]
       )
       if (!is.null(th)) {
-        th.value <- quantile(raster::extract(x.dens, x), th)
+        th.value <- quantile(terra::extract(x.dens, x)[,1], th)
         x.dens[x.dens < th.value] <- 0
       }
       if (!is.null(env.mask)) {
@@ -129,7 +134,7 @@ ecospat.kd <- function(x, ext, R = 100, th = 0, env.mask = c(),
         ymax = ext[4]
       )
       if (!is.null(th)) {
-        th.value <- quantile(terra::extract(x.dens, x, ID = FALSE)[,1], th)
+        th.value <- quantile(terra::extract(x.dens, x)[,1], th)
         x.dens[x.dens < th.value] <- 0
       }
       if (!is.null(env.mask)) {
@@ -204,8 +209,8 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
     
     glob1.dens <- ecospat.kd(x = glob1, ext = ext, method = kernel.method, th = th.env, R = R)
     if (!is.null(geomask)) {
-      raster::crs(geomask) <- NA
-      glob1.dens <- raster::mask(glob1.dens, geomask, updatevalue = 0) # Geographical mask in the case if the analysis takes place in the geographical space
+      terra::crs(geomask) <- NA
+      glob1.dens <- terra::mask(glob1.dens, geomask, updatevalue = 0) # Geographical mask in the case if the analysis takes place in the geographical space
     }
     sp.dens <- ecospat.kd(
       x = sp, ext = ext, method = kernel.method, th = th.sp, R =R,
@@ -215,12 +220,12 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
     x <- seq(from = ext[1], to = ext[2], length.out = R)
     y <- seq(from = ext[3], to = ext[4], length.out = R)
     l$y <- y
-    Z <- glob1.dens * nrow(glob1) / raster::cellStats(glob1.dens, "sum") # rescale density to the number of occurrences in sp, ie. number of occurrence/pixel
-    z <- sp.dens * nrow(sp) / raster::cellStats(sp.dens, "sum") # rescale density to the number of occurrences in sp, ie. number of occurrence/pixel
-    z.uncor <- z / raster::cellStats(z, "max")
+    Z <- glob1.dens * nrow(glob1) / terra::global(glob1.dens, "sum")$sum # rescale density to the number of occurrences in sp, ie. number of occurrence/pixel
+    z <- sp.dens * nrow(sp) / terra::global(sp.dens, "sum")$sum  # rescale density to the number of occurrences in sp, ie. number of occurrence/pixel
+    z.uncor <- z / terra::global(z, "max")$max
     z.cor <- z / Z # correct for environment prevalence
     z.cor[is.na(z.cor)] <- 0 # remove n/0 situations
-    z.cor <- z.cor / raster::cellStats(z.cor, "max")
+    z.cor <- z.cor / terra::global(z.cor, "max")$max
   }
   
   w <- z.uncor # niche envelope
@@ -329,27 +334,24 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
     
     if (interest == 1) {
       plot(z1$z.uncor,col=gray(100:0 / 100),legend=F, xlab = name.axis1, 
-           ylab = name.axis2,...)
+           ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
     }
     if (interest == 2) {
       plot(z2$z.uncor,col=gray(100:0 / 100),legend=F,xlab = name.axis1, 
-           ylab = name.axis2,...)
+           ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
     }
-    
-    raster::image(2*z1$w+z2$w,col=c("#FFFFFF",col.exp,col.unf,col.stab), 
-                  add = TRUE,legend=FALSE)
+    plot(2*z1$w+z2$w,col=c("#FFFFFF",col.exp,col.unf,col.stab), 
+                 add = TRUE,legend=FALSE)
     
     title(title)
-    raster::contour(
+    terra::contour(
       z1$Z, add = TRUE, levels = quantile(z1$Z[z1$Z > 0], c(0, quant)),
       drawlabels = FALSE, lty = c(1, 2), col = colZ1
     )
-    raster::contour(
+    terra::contour(
       z2$Z, add = TRUE, levels = quantile(z2$Z[z2$Z > 0], c(0, quant)),
       drawlabels = FALSE, lty = c(1, 2), col = colZ2
     )
-    axis(1,labels = FALSE, lwd.ticks = 0);axis(2, lwd.ticks = 0,labels = FALSE)
-    axis(3,labels = FALSE, lwd.ticks = 0);axis(4, lwd.ticks = 0,labels = FALSE)
   }
 }
 
