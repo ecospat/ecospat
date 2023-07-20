@@ -123,13 +123,13 @@ ecospat.kd <- function(x, ext, R = 100, th = 0, env.mask = c(),
                         xmin = ext[c(1, 3)],
                         xmax = ext[c(2, 4)], gridsize = c(R, R)
       )
-      x.dens <- raster::flip(raster::t(raster::raster(x.dens$estimate)), direction = "y")
-      raster::extent(x.dens) <- c(
-        xmn = ext[1], xmx = ext[2], ymn = ext[3],
-        ymx = ext[4]
+      x.dens <- terra::flip(terra::t(terra::rast(x.dens$estimate)), direction = "vertical")
+      terra::ext(x.dens) <- c(
+        xmin = ext[1], xmax = ext[2], ymin = ext[3],
+        ymax = ext[4]
       )
       if (!is.null(th)) {
-        th.value <- quantile(raster::extract(x.dens, x), th)
+        th.value <- quantile(terra::extract(x.dens, x, ID = FALSE)[,1], th)
         x.dens[x.dens < th.value] <- 0
       }
       if (!is.null(env.mask)) {
