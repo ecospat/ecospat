@@ -144,7 +144,7 @@ ecospat.ESM.EnsembleEvaluation <- function(ESM.modeling.output,ESM.EnsembleModel
       models.File <- get(load(paste0(wd, "/", IndivMod@models.prediction@link)))
       
       for (d in 1:length(modelling.techniques)) {
-        models.prediction <- matrix(models.File$pred[models.File$run !="allRun" & models.File$algo==modelling.techniques[d]],nc=nReplicate,nr=length(resp),byrow = F)
+        models.prediction <- matrix(models.File$pred[models.File$run !="allRun" & models.File$algo==modelling.techniques[d]],ncol=nReplicate,nrow=length(resp),byrow = F)
         models.prediction <- cbind.data.frame(resp = resp, 
                                               models.prediction)
         Pred <- .ecospat.pooling(calib = calib, models.prediction = models.prediction)
