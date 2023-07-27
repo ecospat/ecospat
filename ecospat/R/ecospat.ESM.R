@@ -55,7 +55,7 @@
 ## Prevalence:          either NULL or a 0-1 numeric used to build 'weighted response weights'. In contrast to Biomod the default is 0.5 (weighting presences equally to the absences). If NULL each observation (presence or absence) has the same weight (independent of the number of presences and absences).
 ## models:              vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT', "MAXNET" (same as in Biomod)
 ## modeling.id:	        character, the ID (=name) of modeling procedure. A random number by default.
-## models.options:      BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in Biomod). If none is provided standard ESM tuning parameterswill be used.
+## models.options:      BIOMOD.models.options object returned by bm_ModelingOptions (same as in Biomod). If none is provided standard ESM tuning parameterswill be used.
 ## tune:                logical. if true model tuning will be used to estimate optimal parameters for the models (Default: False).
 ## which.biva:          integer. which bivariate combinations should be used for modeling? Default: all
 ## weighting.score:     evaluation score used to weight single models to build ensembles: 'AUC', 'SomersD' (2xAUC-1), 'Kappa', 'TSS' or 'Boyce'
@@ -126,20 +126,47 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
     models.eval.meth <- "ROC"
   }
   if (is.null(models.options)) {
-    models.options <- BIOMOD_ModelingOptions()
-    models.options@GBM$n.trees <- 1000
-    models.options@GBM$interaction.depth <- 4
-    models.options@GBM$shrinkage <- 0.005
-    models.options@GAM$select <- TRUE
-    models.options@CTA$control$cp <- 0
-    models.options@ANN$size <- 8
-    models.options@ANN$decay <- 0.001
-    models.options@MARS$interaction.level <- 0
-    models.options@MARS$nprune <- 2
-    models.options@MAXENT$product <- FALSE
-    models.options@MAXENT$threshold <- FALSE
-    models.options@MAXENT$betamultiplier <- 0.5
-    models.options@GLM$test <- "none"
+    models.options <- 
+      biomod2::bm_ModelingOptions(
+        data.type = "binary", 
+        strategy = "user.defined",
+        user.base = "bigboss",
+        user.val = 
+          list("GBM.binary.gbm.gbm" = 
+                 list("_allData_allRun" = 
+                        list(
+                          "n.trees" =  1000,
+                          "interaction.depth" =  4,
+                          "shrinkage" =  0.005)),
+               "GAM.binary.mgcv.gam" = 
+                 list("_allData_allRun" = 
+                        list(
+                          "select" =  TRUE)),
+               "CTA.binary.rpart.rpart" =
+                 list("_allData_allRun" =
+                        list(
+                          "control" =  list(xval = 5, 
+                                            minbucket = 5,
+                                            minsplit = 5, 
+                                            cp = 0, 
+                                            maxdepth = 25))),
+               "ANN.binary.nnet.nnet" =
+                 list("_allData_allRun" =
+                        list(
+                          "size" =  8,
+                          "decay" = 0.001)),
+               "MARS.binary.earth.earth" =
+                 list("_allData_allRun" =
+                        list(
+                          "interaction.level" =  0,
+                          "nprune" = 2)),
+               "MAXENT.binary.MAXENT.MAXENT" =
+                 list("_allData_allRun" =
+                        list(
+                          "product" =  FALSE,
+                          "threshold" = FALSE,
+                          "betamultiplier" = 0.5))
+          ))
   }
   if ("MAXENT" %in% models) {
     if (!file.exists(paste(models.options@MAXENT$path_to_maxent.jar, 
