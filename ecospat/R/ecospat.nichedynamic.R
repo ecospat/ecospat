@@ -331,6 +331,8 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
   }
   
   if (!is.null(z1$y)) {
+    # assign the correct color to each category of the niche
+    col_category<-c("#FFFFFF",col.exp,col.unf,col.stab)[1+(sort(terra::unique(2*z1$w+z2$w)[,1]))]
     
     if (interest == 1) {
       plot(z1$z.uncor,col=gray(100:0 / 100),legend=F, xlab = name.axis1, 
@@ -340,7 +342,7 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
       plot(z2$z.uncor,col=gray(100:0 / 100),legend=F,xlab = name.axis1, 
            ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
     }
-    plot(2*z1$w+z2$w,col=c("#FFFFFF",col.exp,col.unf,col.stab), 
+    plot(2*z1$w+z2$w,col=col_category, 
                  add = TRUE,legend=FALSE)
     
     title(title)
@@ -500,4 +502,3 @@ ecospat.margin <- function(z, th.quant = 0, kern.method = "adehabitat",
     niche.contour = niche.contour
   ))
 }
-
