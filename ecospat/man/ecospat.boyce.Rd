@@ -10,7 +10,7 @@
 rm.duplicate = TRUE, method = 'spearman')}
 
 \arguments{
-  \item{fit}{A vector or Raster-Layer containing the predicted suitability values}
+  \item{fit}{A vector, Raster-Layer or SpatRaster containing the predicted suitability values}
   \item{obs}{A vector containing the predicted suitability values or xy-coordinates (if "fit" is a Raster-Layer) of the validation points (presence records)}
   \item{nclass}{The number of classes or vector with class thresholds. If \code{nclass=0}, the Boyce index is calculated with a moving window (see next parameters)}
   \item{window.w}{The width of the moving window (by default 1/10 of the suitability range)}
