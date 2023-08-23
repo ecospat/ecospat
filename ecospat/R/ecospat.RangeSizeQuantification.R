@@ -143,7 +143,7 @@ ecospat.rangesize <- function(bin.map = NULL,
         
       if(Model.within.eoo){
         d <- terra::extract(bin.map[[i]], vect(xy.eoo@polygons), cells = TRUE, ID=FALSE)
-        mo.within.eoo <- c(mo.within.eoo,round(sum(d[[1]][,2],na.rm = TRUE)*prod(raster::res(bin.map[[i]]))))
+        mo.within.eoo <- c(mo.within.eoo,round(sum(d[,1],na.rm = TRUE)*prod(terra::res(bin.map[[i]]))))
         
         cells <- d[d[,1]==1 & !is.na(d[,1]),2]
         
@@ -154,7 +154,7 @@ ecospat.rangesize <- function(bin.map = NULL,
         }else{
           map.mo.within.eoo1 <- bin.map[[i]]
           map.mo.within.eoo1[cells] <-2
-          map.mo.within.eoo  <- addLayer(map.mo.within.eoo, map.mo.within.eoo1)
+          map.mo.within.eoo  <- c(map.mo.within.eoo, map.mo.within.eoo1)
         }
         }
         names(mo.within.eoo) <- paste(names(bin.map[[1:i]]),"mo.within.eoo",sep="_")
