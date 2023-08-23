@@ -34,7 +34,7 @@ ecospat.rangesize (bin.map = NULL,
 
 }
 \arguments{
-    \item{bin.map}{Binary map (single layer or raster stack) from a Species Distribution Model.}
+    \item{bin.map}{Binary map (single layer, raster stack or SpatRaster) from a Species Distribution Model.}
     \item{ocp}{logical. Calculate occupied patch models from the binary map (predicted area occupied by the species)}
     \item{buffer}{numeric. Calculate occupied patch models from the binary map using a buffer (predicted area occupied by the species or within a buffer around the species, for details see ?extract).}
     \item{eoo.around.model}{logical. The EOO around all positive predicted values from the binary map.}
@@ -58,10 +58,10 @@ ecospat.rangesize (bin.map = NULL,
 The range size of a species is important for many conservation purposes, e.g. to assess the status of threat for IUCN Red Lists. This function quantifies the range size using different IUCN measures, i.e. the Area Of Occupancy (AOO), the Extent Of Occurrence (EOO) and from binary maps derived from Species Distribution Models (SDMs). Different ways to extract range size from SDMs are available, e.g. using occupied patches, the suitable habitat within EOO or a convex hull around the suitable habitat.
 }
 \value{
-A list with the values of range size quantification and the stored objects used for quantification (of class RasterLayers, ahull, ConvexHull).
+A list with the values of range size quantification and the stored objects used for quantification (of class SpatRaster, ahull, ConvexHull).
 }
 \author{
-Frank Breiner \email{frank.breiner@wsl.ch}
+Frank Breiner \email{frank.breiner@wsl.ch} with the contributions of Flavien Collart
 }
 \references{
 
@@ -80,118 +80,91 @@ Pateiro-Lopez, B., and A. Rodriguez-Casal. 2010. Generalizing the Convex Hull of
   
 \examples{
 \donttest{
-library(raster)
+library(terra)
 library(dismo)
 
-### make a maxent model
+# coordinates of the plots
+xy <- ecospat.testData[,2:3]
 
-# path to maxent.jar file
-path<- paste0(system.file(package="dismo"), "/java/maxent.jar")
-
-if (file.exists(path) & require(rJava)) {
-
-# get predictor variables
-fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
-                     pattern='grd', full.names=TRUE )
-predictors <- stack(fnames)
-#plot(predictors)
-
-# file with presence points
-occurence <- paste(system.file(package="dismo"), '/ex/bradypus.csv', sep='')
-occ <- read.table(occurence, header=TRUE, sep=',')[,-1]
-colnames(occ) <- c("x","y")
-occ <- ecospat.occ.desaggregation(occ,min.dist=1)
-
-# fit a domain model, biome is a categorical variable
-me <- maxent(predictors, occ, factors='biome')
+# environmental data
+predictors <- rast(get(load(system.file("extdata", "ecospat.testEnvRaster.Rdata", package="ecospat"))))
+env <- terra::extract(predictors,xy,ID=F)  
+spData <- cbind.data.frame(occ=ecospat.testData$Veronica_alpina,env)
+mod <- glm(occ~ddeg0+I(ddeg0^2)+srad68+I(srad68^2),data=spData,family = binomial())
 
 # predict to entire dataset
-pred <- predict(me, predictors) 
-
+pred <- terra::predict(predictors,mod,type="response") 
 plot(pred)
-points(occ)
-
+points(xy[spData$occ==1,])
+  
 ### make binary maps
-
+#arbitratry threshold
+pred.bin.arbitrary <- ecospat.binary.model(pred,0.3)
+names(pred.bin.arbitrary) <- "me.arbitrary"
 # use MPA to convert suitability to binary map
-mpa.cutoff <- ecospat.mpa(pred,occ)
-
-# use Boyce index to convert suitability to binary map
-boyce <- ecospat.boyce(pred,  occ)
-### use the boyce index to find a threshold
-pred.bin.arbitrary <- ecospat.binary.model(pred,0.5)
-
+mpa.cutoff <- ecospat.mpa(pred,xy[spData$occ==1,])
 pred.bin.mpa <- ecospat.binary.model(pred,mpa.cutoff)
 names(pred.bin.mpa) <- "me.mpa"
-pred.bin.arbitrary <- ecospat.binary.model(pred,0.5)
-names(pred.bin.arbitrary) <- "me.arbitrary"
 
 ### rangesize calculations
 
 if(require(rgeos,alphahull,quietly=TRUE)){
 
-  rangesize <- ecospat.rangesize(stack(pred.bin.mpa,pred.bin.arbitrary),
-                               xy=occ,
-                               resol=c(1,1),
-                               eoo.around.modelocp =TRUE,
-                               AOO.circles = TRUE,
-                               d=200000,
-                               lonlat =TRUE)
-  rangesize$RangeSize
-
-  names(rangesize$RangeObjects)
-
+  rangesize2 <- ecospat.rangesize(c(pred.bin.mpa,pred.bin.arbitrary),
+                                   xy=xy[spData$occ==1,],
+                                   AOO.circles = TRUE,
+                                   lonlat =F)
+  rangesize2$RangeSize
+    
+  names(rangesize2$RangeObjects)
+    
   par(mfrow=c(1,3))
-
+    
   plot(ecospat.binary.model(pred,0),legend=FALSE, main="IUCN criteria")
-
+    
   ### IUCN criteria & derivates
-
+    
   # plot AOO
-  plot(rangesize$RangeObjects$AOO,add=TRUE, col="red",legend=FALSE)
-
+  plot(rangesize2$RangeObjects$AOO,add=TRUE, col="red",legend=FALSE)
+    
   # plot EOO
-  plot(rangesize$RangeObjects$EOO@polygons,add=TRUE, border="red", lwd=2)
-
+  plot(rangesize2$RangeObjects$EOO@polygons,add=TRUE, border="red", lwd=2)
+    
   # plot circles around occurrences
-  plot(rangesize$RangeObjects$AOO.circle@polygons,add=TRUE,border="blue")
-
+  plot(rangesize2$RangeObjects$AOO.circle@polygons,add=TRUE,border="blue")
+    
   for(i in 1:2){
     ## plot the occupied patches of the model
-    plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
-    main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=FALSE)
-    points(occ,col="red",cex=0.5,pch=19)
+    plot(rangesize2$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
+          main=names(rangesize2$RangeObjects$models.ocp[[i]]),legend=FALSE)
+    points(xy[spData$occ==1,],col="red",cex=0.5,pch=19)
     ## plot EOO around model
-    plot(rangesize$RangeObjects$eoo.around.model[[i]]@polygons,add=TRUE,border="blue",lwd=2)
-    ## plot EOO around occupied patches
-    plot(rangesize$RangeObjects$eoo.around.mo.ocp[[i]]@polygons,add=TRUE,border="darkgreen",
-    lwd=2)
+    plot(rangesize2$RangeObjects$eoo.around.model[[i]]@polygons,add=TRUE,border="blue",lwd=2)
     ## plot the modeled area within EOO
     #plot(rangesize$RangeObjects$model.within.eoo[[i]],col=c("grey","blue","darkgreen"))
     #points(occ,col="red",cex=0.5,pch=19)
     #plot(rangesize$RangeObjects$EOO@polygons,add=TRUE, border="red", lwd=2)
-  }
+    }
   par(mfrow=c(1,1))
-  
+    
   ### Alpha-hulls are not included in the function yet because of Licence limitations.
   ### However, alpha-hulls can easily be included manually (see also the help file of 
   ### the alpha hull package):
-
+    
   alpha = 2 # alpha value of 2 recommended by IUCN
-  
-  del<-alphahull::delvor(occ)
+    
+  del<-alphahull::delvor(xy[spData$occ==1,])
   dv<-del$mesh
   mn <- mean(sqrt(abs(del$mesh[,3]-del$mesh[,5])^2+abs(del$mesh[,4]-del$mesh[,6])^2))*alpha
   alpha.hull<-alphahull::ahull(del,alpha=mn) 
-  
+    
   #Size of alpha-hulls
   #areaahull(alpha.hull) #works but uses a deprecated function in alphahull 2.1
-
+    
   #plot alphahulls
-  plot(rangesize$RangeObjects$models.ocp[[i]],col=c("grey","blue","darkgreen"),
-  main=names(rangesize$RangeObjects$models.ocp[[i]]),legend=FALSE)
+  plot(rangesize2$RangeObjects$models.ocp[[1]],col=c("grey","blue","darkgreen"),
+        main=names(rangesize2$RangeObjects$models.ocp[[1]]),legend=FALSE)
   plot(alpha.hull,add=TRUE,lwd=1)
-}
 }
 }
 }
