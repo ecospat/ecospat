@@ -1044,8 +1044,8 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
 ## This function calculates the Minimal Predicted Area.
 
 ## FUNCTION'S ARGUMENTS
-## Pred:      numeric or RasterLayer .predicted suitabilities from a SDM prediction
-## Sp.occ.xy: xy-coordinates of the species (if Pred is a RasterLayer)
+## Pred:      numeric, RasterLayer or, SpatRaster .predicted suitabilities from a SDM prediction
+## Sp.occ.xy: xy-coordinates of the species (if Pred is a RasterLayer or SpatRaster)
 ## perc:      Percentage of Sp.occ.xy that should be encompassed by the binary map.
 
 ## Details:
@@ -1054,7 +1054,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
 # Returns the Minimal Predicted Area
 
 ## Author(s)
-# Frank Breiner
+# Frank Breiner with the contribution of Flavien Collart
 
 ## References
 # Engler, R., A. Guisan, and L. Rechsteiner. 2004. An improved approach for predicting the distribution of rare and endangered species from occurrence and pseudo-absence data. Journal of Applied Ecology 41:263-274.
@@ -1062,8 +1062,12 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
 
 ecospat.mpa <- function(Pred, Sp.occ.xy = NULL, perc = 0.9) {
   perc <- 1 - perc
+  if( inherits(Pred, "RasterLayer")){
+    Pred <- terra::rast(Pred)
+  }
+  
   if (!is.null(Sp.occ.xy)) {
-    Pred <- extract(Pred, Sp.occ.xy)
+    Pred <- terra::extract(Pred, as.data.frame(Sp.occ.xy),ID=FALSE)
   }
   round(quantile(Pred, probs = perc,na.rm = TRUE), 3)
 }
