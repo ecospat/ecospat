@@ -2,7 +2,7 @@
 ## or binary predictions of Species Distribution Models 
 
 ## FUNCTION'S ARGUMENTS
-## bin.map:             Binary map (single layer or raster stack) from a Species Distribution Model.
+## bin.map:             Binary map (single layer, raster stack or SpatRaster) from a Species Distribution Model.
 ## ocp:                 logical. Calculate occupied patch models from the binary map (predicted area occupied by the species).
 ## buffer:              numeric. Calculate occupied patch models from the binary map using a buffer (predicted area occupied by the species or within a buffer around the species).  
 ## eoo.around.model:    logical. The EOO around all positive predicted values from the binary map
@@ -28,7 +28,7 @@
 # 
 
 ## Author(s)
-# Frank Breiner
+# Frank Breiner with the contributions of Flavien Collart
 
 ## See Also
 #   convHull, circles, ahull, ecospat.occupied.patch 
@@ -59,6 +59,9 @@ ecospat.rangesize <- function(bin.map = NULL,
 
   
   ### IUCN methods:
+  if(inherits(bin.map, "RasterStack") | inherits(bin.map, "RasterLayer")){
+    bin.map <- terra::rast(bin.map)
+  }
   if(Model.within.eoo | EOO){
     xy.eoo<-dismo::convHull(xy)
     eoo <- round(xy.eoo@polygons@polygons[[1]]@area) #quadrat km  
@@ -66,16 +69,16 @@ ecospat.rangesize <- function(bin.map = NULL,
   
   if(AOO){
     aoo.obj <- bin.map[[1]]
-    raster::res(aoo.obj) = resol
+    terra::res(aoo.obj) = resol
     aoo.obj[] <- 0
     
-    aoo.obj <- rasterize(xy, aoo.obj, field=1) 
-    aoo.rs <- as.numeric(freq( aoo.obj==1)[1,2]*prod(resol)) ### km2 AOO2
+    aoo.obj <- terra::rasterize(x=as.matrix(xy), y=aoo.obj, values=1) 
+    aoo.rs <- as.numeric(terra::freq( aoo.obj==1)[1,"count"]*prod(resol)) ### km2 AOO2
   }else{aoo.obj <- aoo.rs <- NULL}  
   
   if(AOO.circles){
     circ   <- dismo::circles(xy,d=d,lonlat=lonlat)
-    circ.rs <- round(raster::area(circ@polygons)) 
+    circ.rs <- round(terra::expanse(vect(circ@polygons))) 
   }else{circ.rs <- circ <- NULL}    
     
   # if(alpha.hull){
@@ -99,29 +102,31 @@ ecospat.rangesize <- function(bin.map = NULL,
   
   if(!is.null(bin.map)){
   
-    for(i in 1:nlayers(bin.map)){
+    for(i in 1:terra::nlyr(bin.map)){
       bin.m <- bin.map[[i]]
-      bin.map.rs <- c(bin.map.rs,sum(bin.m[bin.m==1])*prod(raster::res(bin.m)))
+      bin.map.rs <- c(bin.map.rs,sum(bin.m[bin.m==1])*prod(terra::res(bin.m)))
       names(bin.map.rs) <- names(bin.map[[1:i]])
       
       if(ocp | eoo.around.modelocp){
         if(i==1){
         bin.map.ocp  <- ecospat.occupied.patch(bin.map[[i]],xy, buffer=buffer)
         }else{
-        bin.map.ocp  <- addLayer(bin.map.ocp, ecospat.occupied.patch(bin.map[[i]],xy, buffer=buffer))
+        bin.map.ocp  <- c(bin.map.ocp, ecospat.occupied.patch(bin.map[[i]],xy, buffer=buffer))
         }
+        Val <- values(bin.map.ocp[[i]],na.rm=T)
+        Val <- Val[Val==2]
         bin.map.ocp.rs <- c(bin.map.ocp.rs,
-        (sum(bin.map.ocp[[i]][bin.map.ocp[[i]]==2])/2)*prod(raster::res(bin.map.ocp)))
+        length(Val)*prod(terra::res(bin.map.ocp)))
         names(bin.map.ocp.rs) <- paste(names(bin.map[[1:i]]),"ocp",sep="_")      
       }
 
       if(eoo.around.model | eoo.around.modelocp){    
-        ids <- init(bin.map[[i]], v='cell')
+        ids <- terra::init(bin.map[[i]], fun='cell')
         # extract these
-        cells <- extract(ids, ids[bin.map[[i]]==1])
+        cells <- terra::extract(ids, as.numeric(ids[bin.map[[i]]==1]))
         
         if(eoo.around.model){
-        xy.model.eoo <- xyFromCell(ids,ids[bin.map[[i]]==1])
+        xy.model.eoo <- terra::xyFromCell(ids,as.numeric(ids[bin.map[[i]]==1]))
         eoo.around.mo[[i]] <- dismo::convHull(xy.model.eoo)
         eoo.around.mo.rs <- c(eoo.around.mo.rs,round(eoo.around.mo[[i]]@polygons@polygons[[1]]@area))
         names(eoo.around.mo.rs) <- paste(names(bin.map[[1:i]]),"eoo.around.model",sep="_")  
@@ -129,7 +134,7 @@ ecospat.rangesize <- function(bin.map = NULL,
         }       
       }
       if(eoo.around.modelocp){    
-        xy.model.eoo.ocp <- xyFromCell(ids,ids[bin.map.ocp[[i]]==2])
+        xy.model.eoo.ocp <- terra::xyFromCell(ids,as.numeric(ids[bin.map.ocp[[i]]==2]))
         eoo.around.mo.ocp[[i]] <- dismo::convHull(xy.model.eoo.ocp)
         eoo.around.mo.ocp.rs <- c(eoo.around.mo.ocp.rs,round(eoo.around.mo.ocp[[i]]@polygons@polygons[[1]]@area))
         names(eoo.around.mo.ocp.rs) <- paste(names(bin.map[[1:i]]),"eoo.around.model.ocp",sep="_")  
@@ -137,10 +142,10 @@ ecospat.rangesize <- function(bin.map = NULL,
       }
         
       if(Model.within.eoo){
-        d<-extract(bin.map[[i]], xy.eoo@polygons,cellnumbers = TRUE)
+        d <- terra::extract(bin.map[[i]], vect(xy.eoo@polygons), cells = TRUE, ID=FALSE)
         mo.within.eoo <- c(mo.within.eoo,round(sum(d[[1]][,2],na.rm = TRUE)*prod(raster::res(bin.map[[i]]))))
         
-        cells <- d[[1]][,1][d[[1]][,2]==1 & !is.na(d[[1]][,2])]
+        cells <- d[d[,1]==1 & !is.na(d[,1]),2]
         
         if(return.obj){
         if(i==1){
@@ -199,25 +204,41 @@ ecospat.rangesize <- function(bin.map = NULL,
 ## or using Species Distribution Models 
 
 ## FUNCTION'S ARGUMENTS
-## bin.map:             Binary map (single layer or raster stack) from a Species Distribution Model.
+## bin.map:             Binary map (single layer, raster stack or SpatRaster) from a Species Distribution Model.
 ## Sp.occ.xy:           xy-coordinates of the species presence
 ## buffer:              numeric. Calculate occupied patch models from the binary map using a buffer (predicted area occupied by the species or within a buffer around the species, for details see ?extract).  
 
 ## Details:
 
 ## Value
-# a RasterLayer with value 1 ()
+# a RasterLayer or SpatRaster with value 1 ()
 
 ## Author(s)
-# Frank Breiner
+# Frank Breiner with the contributions of Flavien Collart
 
 
 
 ecospat.occupied.patch <- function(bin.map, Sp.occ.xy, buffer = 0){
-  cl <- clump(bin.map)
-  d <- raster::extract(cl,Sp.occ.xy,buffer=buffer)
-  d <- unique(na.omit(unlist(d)))
-  b.map <- raster::match(cl,d) + bin.map
-  names(b.map) <- names(bin.map)
-  return(b.map)}
+  if(inherits(bin.map, "RasterStack") | inherits(bin.map, "RasterLayer")){
+    cl <- clump(bin.map)
+    d <- raster::extract(cl,Sp.occ.xy,buffer=buffer)
+    d <- unique(na.omit(unlist(d)))
+    b.map <- raster::match(cl,d) + bin.map
+    names(b.map) <- names(bin.map)
+    return(b.map)
+  }else if(inherits(bin.map, "SpatRaster")){
+    cl <- terra::patches(bin.map,directions=8, zeroAsNA=T) #8 was the default in raster
+    coord <- vect(as.matrix(Sp.occ.xy),type="points",crs=crs(bin.map))
+    if(buffer>0){
+      coord <- terra::buffer(coord,width=buffer)
+    }
+    d <- terra::extract(cl,coord,ID=FALSE)
+    d <- unique(na.omit(unlist(d)))
+    b.map <- terra::match(cl,d) + bin.map
+    names(b.map) <- names(bin.map)
+    return(b.map)
+  }else{
+    stop("bin.map should be a SpatRaster, a RasterLayer or a RasterStack")
+  }
+}
 
