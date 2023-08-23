@@ -9,7 +9,7 @@
 \usage{ecospat.mpa (Pred, Sp.occ.xy, perc)}
 
 \arguments{
-  \item{Pred}{Numeric or RasterLayer predicted suitabilities from a SDM prediction.}
+  \item{Pred}{Numeric, RasterLayer or, SpatRaster predicted suitabilities from a SDM prediction.}
   \item{Sp.occ.xy}{xy-coordinates of the species (if Pred is a RasterLayer).}
   \item{perc}{Percentage of Sp.occ.xy that should be encompassed by the binary map.}
 
@@ -21,7 +21,7 @@
   Returns the minimal predicted area.
 }
 
-\author{Frank Breiner \email{frank.breiner@wsl.ch}}
+\author{Frank Breiner \email{frank.breiner@wsl.ch} with the contribution of Flavien Collart}
 
 \references{
 Engler, R., A. Guisan and L. Rechsteiner. 2004. An improved approach for predicting the distribution of rare and endangered species from occurrence and pseudo-absence data. \emph{Journal of Applied Ecology}, \bold{41}, 263-274.}
