@@ -101,7 +101,7 @@ ecospat.ESM.responsePlot <-
       
     ## delete temporary files whcih were produced to calculate response plots
     unlink(grep('proj_data.fixed.ESM.BIOMOD',
-         list.files(paste0(getwd(),'/','ESM.BIOMOD.output_',ESM.EnsembleModeling.output$species),recursive  = TRUE,full.names = TRUE,include.dirs = TRUE))
+         list.files(paste0(getwd(),'/','ESM.BIOMOD.output_',ESM.EnsembleModeling.output$species),recursive  = TRUE,full.names = TRUE,include.dirs = TRUE)
          ,value=TRUE),
          recursive = TRUE)
     unlink(grep("ESM_Projections.data.fixed",
