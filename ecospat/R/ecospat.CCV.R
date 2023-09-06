@@ -189,7 +189,7 @@ ecospat.CCV.createDataSplitTable <- function(NbRunEval,
 
 #FUNCTION'S ARGUMENTS
 #sp.data              a binary matrix where the rows are sites and the columns are species (values 1,0)
-#env.data             either a data.frame where rows are sites and colums are environmental variables or a raster stack of the envrionmental variables
+#env.data             either a data.frame where rows are sites and colums are environmental variables, a raster stack or a SpatRaster of the envrionmental variables
 #xy                   2 comumn data.frame with X and Y coordinates of the sites (most be same coordinate system as env.data)
 #DataSplitTable       a table providing TRUE/FALSE to indicate what points are used for calibration and evaluation. As returned by ecospat.CCV.createDataSplitTable().
 #DataSplit            proporation of the data used for model calibration (only needed if no DataSplitTable provided)
@@ -225,7 +225,7 @@ ecospat.CCV.createDataSplitTable <- function(NbRunEval,
 
 
 #AUTHORS
-# Daniel Scherrer <daniel.j.a.scherrer@gmail.com>
+# Daniel Scherrer <daniel.j.a.scherrer@gmail.com> with the updates from Flavien Collart and Olivier Broennimann
 
 
 #REFERENCES
@@ -263,8 +263,7 @@ ecospat.CCV.modeling <- function(sp.data,
                                  modeling.id = as.character(format(Sys.time(), '%s'))){
   
   #Loading the packages needed (they should all be installed by ecospat library)
-  #require(raster)
-  #require(rgdal)
+  #require(raster) | require(terra)
   #require(biomod2)
   #require(snowfall)
   #require(gtools)
@@ -272,7 +271,8 @@ ecospat.CCV.modeling <- function(sp.data,
   
   #Checking all the input data
   stopifnot(dim(sp.data)[1]==dim(xy)[1])
-  stopifnot(dim(env.data)[1]==dim(xy)[1] | inherits(env.data,"RasterStack"))
+  stopifnot(dim(env.data)[1]==dim(xy)[1] | inherits(env.data,"RasterStack") | 
+            inherits(env.data,"SpatRaster"))
   stopifnot(dim(DataSplitTable)[1]==dim(xy)[1] | is.null(DataSplitTable))
   stopifnot(DataSplit >= 50 & DataSplit <=100)
   stopifnot(NbRunEval>=0)
@@ -296,7 +296,8 @@ ecospat.CCV.modeling <- function(sp.data,
   }else{
     ensemble.metric.sdm <- ensemble.metric
   }
-  if(inherits(env.data,"RasterStack")){
+  if(inherits(env.data,"RasterStack") | 
+     inherits(env.data,"SpatRaster")){
     NbPredictors <- dim(env.data)[3]
     NamesPredictors <- names(env.data)
   }else{
