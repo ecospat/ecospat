@@ -446,7 +446,7 @@ ecospat.margin <- function(z, th.quant = 0, kern.method = "adehabitat",
     th = th.quant, env.mask = z$Z > 0, method = kern.method
   )
   niche.envelope <- (niche.dens > 0) / (niche.dens > 0)
-  niche.contour <- as(raster::rasterToPolygons(niche.envelope, dissolve = TRUE), "SpatialLines")
+  niche.contour <- terra::as.polygons(niche.envelope, dissolve = TRUE)
   
   if (bootstrap == T) {
     my.df <- dplyr::as_tibble(z$sp) # convert to tibble to do faster resampling
@@ -493,9 +493,7 @@ ecospat.margin <- function(z, th.quant = 0, kern.method = "adehabitat",
     sum.bst <- Reduce("+", bin.bst) ## sum of the binarized kernel distribution
     
     niche.envelope <- sum.bst / bootstrap.rep * 100 ## scaling in percentage
-    niche.contour <- as(raster::rasterToPolygons(niche.envelope >= 95, fun = function(x) {
-      x == 1
-    }, dissolve = TRUE), "SpatialLines")
+    niche.contour <- terra::as.polygons(niche.envelope >= 95, dissolve = TRUE)
   }
   return(list(
     niche.density = niche.dens, niche.envelope = niche.envelope,
