@@ -55,18 +55,17 @@
 \donttest{
 
 library(ade4)
-library(raster)
+library(terra)
 
 data(ecospat.testNiche)
 spp <- ecospat.testNiche
 xy.sp1 <- subset(spp, species=="sp1")[2:3] #Bromus_erectus
 xy.sp2 <- subset(spp, species=="sp4")[2:3] #Pritzelago_alpina
 
-load(system.file("extdata", "ecospat.testEnvRaster.Rdata",
-                 package="ecospat"))
+rast(system.file("extdata","ecospat.testEnv.tif",package="ecospat"))
 
-env.sp1 <- extract(env, xy.sp1)
-env.sp2 <- extract(env, xy.sp2)
+env.sp1 <- extract(env, xy.sp1)[,-1]
+env.sp2 <- extract(env, xy.sp2)[,-1]
 env.bkg <- na.exclude(values(env))
 
 #####################
