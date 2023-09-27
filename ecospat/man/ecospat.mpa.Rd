@@ -9,7 +9,7 @@
 \usage{ecospat.mpa (Pred, Sp.occ.xy, perc)}
 
 \arguments{
-  \item{Pred}{Numeric, RasterLayer or, SpatRaster predicted suitabilities from a SDM prediction.}
+  \item{Pred}{Numeric or, SpatRaster predicted suitabilities from a SDM prediction.}
   \item{Sp.occ.xy}{xy-coordinates of the species (if Pred is a RasterLayer or a SpatRaster).}
   \item{perc}{Percentage of Sp.occ.xy that should be encompassed by the binary map.}
 
