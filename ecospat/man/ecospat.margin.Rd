@@ -32,7 +32,7 @@ The bootstrap estimation of the margin allows representing the uncertainty aroun
 \donttest{
 
 library(ade4)
-library(raster)
+library(terra)
 
 data(ecospat.testData)
 
@@ -60,10 +60,10 @@ z1.bootstrap.margin <- ecospat.margin(z1,th.quant = 0,
 ####### plot the margin and its uncertainty ######
 plot(z1.margin$niche.density) # plot of the niche density
 points(z1$sp) # with species occurences
-plot(z1.margin$niche.contour, add = TRUE) # limit of the margin if you include all the distribution
-plot(z1.95margin$niche.contour, col = 2, add = TRUE) # limit of the margin if you exclude the 
+lines(z1.margin$niche.contour) # limit of the margin if you include all the distribution
+lines(z1.95margin$niche.contour, col = 2) # limit of the margin if you exclude the 
                                                   # 5 percents of the most marginal distribution
-plot(z1.bootstrap.margin$niche.contour, col = 2, add = TRUE, lty = "dotted") 
+lines(z1.bootstrap.margin$niche.contour, col = 2, lty = "dotted") 
       # limit of the niche based on the 95 percent CI of the bootstrap
 
 par(mfrow=c(1,2))
@@ -71,10 +71,8 @@ plot(z1.bootstrap.margin$niche.envelope, main = "Margin uncertainty",
   legend.args=list(text="CI", cex = 0.8)) # shows the uncertainty of the niche margin in raster mode
 points(z1$sp) # with species occurences
 # shows the uncertainty of the niche limit in vector mode
-raster::contour(z1.bootstrap.margin$niche.envelope, col = gray(10:1 / 10), 
-  main = "Margin uncertainty") 
-confInt80 <- raster::rasterToPolygons(z1.bootstrap.margin$niche.envelope >= 50, dissolve = TRUE, 
-  fun = function(x) {x == 1}
-  ) # select a customized confidence interval (here for example 80 percent)
-plot(as(confInt80, "SpatialLines"), add = TRUE, lty = "dotted", col = 2)
+boot<-terra::as.contour(z1.bootstrap.margin$niche.envelope)
+plot(boot, col = gray(10:1 / 10), main = "Margin uncertainty") 
+confInt80 <- terra::as.polygons(z1.bootstrap.margin$niche.envelope >= 50, dissolve = TRUE) # select a customized confidence interval (here for example 80 percent)
+lines(confInt80, lty = "dotted", col = 2)
 }}

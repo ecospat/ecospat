@@ -34,15 +34,16 @@ Petitpierre, B., C. Kueffer, O. Broennimann, C. Randin, C. Daehler and A. Guisan
 \donttest{
 
 library(ade4)
-library(raster)
+library(terra)
 
+data("ecospat.testNiche")
 spp <- ecospat.testNiche
 xy.sp1<-subset(spp,species=="sp1")[2:3] #Bromus_erectus
 
-load(system.file("extdata", "ecospat.testEnvRaster.Rdata", package="ecospat"))
-#?ecospat.testEnvRaster
+env<-rast(system.file("extdata","ecospat.testEnv.tif",package="ecospat"))
+#plot(env)
 
-env.sp1<-extract(env,xy.sp1)
+env.sp1<-extract(env,xy.sp1)[,-1]
 env.bkg<-na.exclude(values(env))
 
 #################################### PCA-ENVIRONMENT ##################################

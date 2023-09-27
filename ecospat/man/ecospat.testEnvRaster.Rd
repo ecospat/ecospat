@@ -1,14 +1,14 @@
-\name{ecospat.testEnvRaster}
+\name{ecospat.testEnv}
 
 \docType{data}
 
-\alias{ecospat.testEnvRaster}
+\alias{ecospat.testEnv}
 
 \title{Test Environmental Rasters for The Ecospat package}
 
 \description{A stack of 5 topoclimatic rasters at 250m resolution for the Western Swiss Alps. It includes "ddeg0" (growing degree-days above 0C), "mind68" (moisture index for month June to August),  "srad68" (solar radiation for month June to August), "slope25" (average of slopes at 25m resolution) and "topos25" (average of topographic positions at 25m resolution)}
 
-\format{ecospat.testEnvRaster is a RasterBrick encapsulated in a .Rdata that contains the following rasters:
+\format{ecospat.testEnv is a tif file that contains the following rasters:
 
  [1] "ddeg0"       
  [2] "mind68"      
@@ -26,8 +26,9 @@
 
 \examples{
 \dontrun{
-fpath <- system.file("extdata", "ecospat.testEnvRaster.RData", package="ecospat")
-load(fpath)
+library(terra)
+fpath <- system.file("extdata", "ecospat.testEnv.tif", package="ecospat")
+env<-rast(fpath)
 plot(env)
 }
 
