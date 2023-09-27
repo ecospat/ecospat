@@ -64,7 +64,7 @@ integer. which bivariate combinations should be used for modeling? Default: all
 logical. If TRUE, the parallel computing is enabled (highly recommended)
     }
     \item{cleanup}{
-numeric. Calls removeTmpFiles() to delete all files from rasterOptions()$tmpdir which are older than the given time (in hours). This might be necessary to prevent running over quota. No cleanup is used by default. 
+\bold{No more available}. Please use terra::TmpFiles instead 
     }
 }
 \details{
