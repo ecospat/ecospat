@@ -32,7 +32,7 @@ ecospat.CCV.modeling(sp.data,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{sp.data}{a data.frame where the rows are sites and the columns are species (values 1,0)}
-  \item{env.data}{either a data.frame where rows are sites and colums are environmental variables, a raster stack or a SpatRaster of the envrionmental variables}
+  \item{env.data}{either a data.frame where rows are sites and colums are environmental variables or a SpatRaster of the envrionmental variables}
   \item{xy}{two column data.frame with X and Y coordinates of the sites (most be same coordinate system as \code{env.data})}
   \item{DataSplitTable}{a table providing \code{TRUE/FALSE} to indicate what points are used for calibration and evaluation. As returned by \code{\link{ecospat.CCV.createDataSplitTable}}}
   \item{DataSplit}{percentage of dataset observations retained for the model training  (only needed if no \code{DataSplitTable} provided)}
