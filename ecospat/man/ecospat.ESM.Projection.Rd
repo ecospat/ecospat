@@ -19,7 +19,7 @@ This function projects simple bivariate models on new.env
     \code{list} object returned by \code{\link{ecospat.ESM.Modeling}}
     }
     \item{new.env}{
-A set of explanatory variables onto which models will be projected. It could be a \code{data.frame}, a \code{matrix}, a \code{rasterStack}, or a \code{SpatRaster} object. Make sure the column names (\code{data.frame} or \code{matrix}) or layer Names (\code{rasterStack} and \code{SpatRaster}) perfectly match with the names of variables used to build the models in the previous steps.
+A set of explanatory variables onto which models will be projected. It could be a \code{data.frame}, a \code{matrix}, or a \code{SpatRaster} object. Make sure the column names (\code{data.frame} or \code{matrix}) or layer Names (\code{SpatRaster}) perfectly match with the names of variables used to build the models in the previous steps.
     }
     \item{name.env}{
 A name for the new.env object. If not specified (default) the name of the new.env object will be used. It is necessary to specify a unique name when projecting various new.env objects in a loop. 
@@ -27,7 +27,7 @@ A name for the new.env object. If not specified (default) the name of the new.en
     \item{parallel}{
 Logical. If TRUE, the parallel computing is enabled}
     \item{cleanup}{
-Numeric. Calls removeTmpFiles() to delete all files from rasterOptions()$tmpdir which are older than the given time (in hours). This might be necessary to prevent running over quota. No cleanup is used by default}
+\bold{No more available}. Please use terra::TmpFiles instead 
 }
 \details{
 The basic idea of ensemble of small models (ESMs) is to model a species distribution based on small, simple models, for example all possible bivariate models (i.e. models that contain only two predictors at a time out of a larger set of predictors), and then combine all possible bivariate models into an ensemble (Lomba et al. 2010; Breiner et al. 2015).
