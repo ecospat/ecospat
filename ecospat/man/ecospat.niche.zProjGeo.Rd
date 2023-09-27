@@ -10,11 +10,11 @@
 
 \arguments{
   \item{z1}{Species 1 occurrence density grid created by \code{ecospat.grid.clim.dyn}.}
-  \item{env}{A RasterStack or RasterBrick of environmental variables corresponding to the background (\code{glob} in \code{ecospat.grid.clim.dyn}).}
+  \item{env}{A SpatRaster of environmental variables corresponding to the background (\code{glob} in \code{ecospat.grid.clim.dyn}).}
   \item{cor}{FALSE by default. If TRUE corrects the occurrence densities of each species by the prevalence of the environments in their range}
 }
 
-\details{extracts the occurrence density of z objects created by \code{ecospat.grid.clim.dyn} for each point of the background (\code{glob}) using \code{extract} (package raster). The values are binded to the geographic coordinates of \code{env} and a raster is then recreated using \code{rasterFromXYZ}
+\details{extracts the occurrence density of z objects created by \code{ecospat.grid.clim.dyn} for each point of the background (\code{glob}) using \code{extract} (package terra). The values are binded to the geographic coordinates of \code{env} and a raster is then recreated using \code{rast} with the argument type="xyz".
 }
 
 \value{raster of class RasterLayer}
