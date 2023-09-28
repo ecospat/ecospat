@@ -11,7 +11,7 @@ This function determines the occupied patch of a species using standard IUCN cri
 ecospat.occupied.patch (bin.map, Sp.occ.xy, buffer = 0)
 }
 \arguments{ 
-    \item{bin.map}{Binary map (single layer, raster stack or SpatRaster) from a Species Distribution Model.}
+    \item{bin.map}{Binary map (a SpatRaster) from a Species Distribution Model.}
     \item{Sp.occ.xy}{xy-coordinates of the species presence.}
     \item{buffer}{numeric. Calculate occupied patch models from the binary map using a buffer (predicted area occupied by the species or within a buffer around the species, for details see ?extract).}
 }
@@ -20,7 +20,7 @@ ecospat.occupied.patch (bin.map, Sp.occ.xy, buffer = 0)
 Predictive maps derived from SDMs inform about the potential distribution (or habitat suitability) of a species. Often it is useful to get information about the area of the potential distribution which is occupied by a species, e.g. for Red List assessments.
 }
 \value{
-a RasterLayer or SpatRaster with value 1.
+a SpatRaster with value 1.
 }
 \author{
 Frank Breiner \email{frank.breiner@wsl.ch} with the contribution of Flavien Collart
@@ -37,7 +37,6 @@ IUCN Standards and Petitions Subcommittee. 2016. Guidelines for Using the IUCN R
 \examples{
 
 \donttest{
-library(raster)
 library(terra)
 library(dismo)
 
@@ -45,7 +44,7 @@ library(dismo)
 xy <- ecospat.testData[,2:3]
 
 # environmental data
-predictors <- rast(get(load(system.file("extdata", "ecospat.testEnvRaster.Rdata", package="ecospat"))))
+predictors <- terra::rast(system.file("extdata","ecospat.testEnv.tif",package="ecospat"))
 env <- terra::extract(predictors,xy,ID=F)  
 spData <- cbind.data.frame(occ=ecospat.testData$Veronica_alpina,env)
 mod <- glm(occ~ddeg0+I(ddeg0^2)+srad68+I(srad68^2),data=spData,family = binomial())
