@@ -59,9 +59,9 @@ ecospat.niche.dynIndexProjGeo <- function(z1, z2, proj=0, env) {
   envVals <- terra::values(env)[,1]
 
   ## index values for the non-NA cells:
-  if(proj==0){ zCats <- terra::extract(zRast, z1$glob)}
-  if(proj==1){ zCats <- terra::extract(zRast, z1$glob1)}
-  if(proj==2){ zCats <- terra::extract(zRast, z2$glob1)}
+  if(proj==0){ zCats <- terra::extract(zRast, z1$glob)[,1]}
+  if(proj==1){ zCats <- terra::extract(zRast, z1$glob1)[,1]}
+  if(proj==2){ zCats <- terra::extract(zRast, z2$glob1)[,1]}
 
   ## add index values to the non-NA cells:
   envVals[!is.na(envVals)] <- zCats
