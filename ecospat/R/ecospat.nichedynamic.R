@@ -335,14 +335,14 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
     col_category<-c("#FFFFFF",col.exp,col.unf,col.stab)[1+(sort(terra::unique(2*z1$w+z2$w)[,1]))]
     
     if (interest == 1) {
-      plot(z1$z.uncor,col=gray(100:0 / 100),legend=F, xlab = name.axis1, 
+      terra::plot(z1$z.uncor,col=gray(100:0 / 100),legend=FALSE, xlab = name.axis1, 
            ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
     }
     if (interest == 2) {
-      plot(z2$z.uncor,col=gray(100:0 / 100),legend=F,xlab = name.axis1, 
+      terra::plot(z2$z.uncor,col=gray(100:0 / 100),legend=FALSE,xlab = name.axis1, 
            ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
     }
-    plot(2*z1$w+z2$w,col=col_category, 
+    terra::plot(2*z1$w+z2$w,col=col_category, 
                  add = TRUE,legend=FALSE)
     
     title(title)
