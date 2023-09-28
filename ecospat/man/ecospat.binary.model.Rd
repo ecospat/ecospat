@@ -9,7 +9,7 @@
 \usage{ecospat.binary.model (Pred, Threshold)}
 
 \arguments{
-  \item{Pred}{\code{SpatRaster} or \code{rasterStack}, or \code{RasterLayer} object predicted suitabilities from a SDM prediction.}
+  \item{Pred}{a \code{SpatRaster} object predicted suitabilities from a SDM prediction.}
   \item{Threshold}{A threshold to convert continous maps into binary maps (e.g. the output of the function \code{ecospat.mpa}() or use the \code{optimal.thresholds} from PresenceAbsence R package.}
 }
 
@@ -39,44 +39,28 @@ Freeman, E.A. and G.G. Moisen. 2008. A comparison of the performance of threshol
 \examples{
 
 \donttest{
-library(raster)
-library(dismo)
+library(terra)
+# coordinates of the plots
+xy <- ecospat.testData[,2:3]
 
-### make a maxent model
+# environmental data
+predictors <- terra::rast(system.file("extdata","ecospat.testEnv.tif",package="ecospat"))
+env <- terra::extract(predictors,xy,ID=F)  
+spData <- cbind.data.frame(occ=ecospat.testData$Veronica_alpina,env)
+mod <- glm(occ~ddeg0+I(ddeg0^2)+srad68+I(srad68^2),data=spData,family = binomial())
 
-# path to maxent.jar file
-path<- paste0(system.file(package="dismo"), "/java/maxent.jar")
-
-if (file.exists(path) & require(rJava)) {
-
-  # get predictor variables
-  fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
-                     pattern='grd', full.names=TRUE )
-  predictors <- stack(fnames)
-  #plot(predictors)
-
-  # file with presence points
-  occurence <- paste(system.file(package="dismo"), '/ex/bradypus.csv', sep='')
-  occ <- read.table(occurence, header=TRUE, sep=',')[,-1]
-  colnames(occ) <- c("x","y")
-  occ <- ecospat.occ.desaggregation(occ,min.dist=1)
-
-  # fit a domain model, biome is a categorical variable
-  me <- maxent(predictors, occ, factors='biome')
-
-  # predict to entire dataset
-  pred <- predict(me, predictors) 
-
-  plot(pred)
-  points(occ)
-}
-
-### convert suitability to binary map
+# predict to entire dataset
+pred <- terra::predict(predictors,mod,type="response") 
+  
+### make binary maps
+# use MPA to convert suitability to binary map
+mpa.cutoff <- ecospat.mpa(pred,xy[spData$occ==1,],perc = 0.9)
+pred.bin.mpa <- ecospat.binary.model(pred,mpa.cutoff)
 
 mpa.cutoff <- ecospat.mpa(pred,occ,perc = 0.9) # 90 percent of the presences encompassed
 pred.bin.mpa <- ecospat.binary.model(pred,mpa.cutoff)
 
 plot(pred.bin.mpa)
-points(occ)
+points(xy[spData$occ==1,])
 }
 }
