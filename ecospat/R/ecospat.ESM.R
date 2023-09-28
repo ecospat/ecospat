@@ -235,7 +235,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
     }
   }
   if (parallel == TRUE) {
-    mymodels <- foreach(k = which.biva, .packages = c("biomod2", 
+    mymodels <- foreach::foreach(k = which.biva, .packages = c("biomod2", 
                                                       "terra")) %dopar% {
                                                         setwd(newwd)
                                                         mydata@data.env.var <- data@data.env.var[, colnames(data@data.env.var) %in% 
@@ -398,7 +398,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
       dir.create(path = paste0("./","ESM.BIOMOD.",g,"/proj_",paste(name.env, "ESM.BIOMOD", g, modeling.id, sep = ".")))
     }
     
-    foreach(k = 1:length(mymodels), .packages = c("biomod2",
+    foreach::foreach(k = 1:length(mymodels), .packages = c("biomod2",
                                                   "terra","base")) %dopar% {
                                                     mymodel <- mymodels[[k]]
                                                     

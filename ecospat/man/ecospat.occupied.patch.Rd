@@ -45,7 +45,7 @@ xy <- ecospat.testData[,2:3]
 
 # environmental data
 predictors <- terra::rast(system.file("extdata","ecospat.testEnv.tif",package="ecospat"))
-env <- terra::extract(predictors,xy,ID=F)  
+env <- terra::extract(predictors,xy,ID=FALSE)  
 spData <- cbind.data.frame(occ=ecospat.testData$Veronica_alpina,env)
 mod <- glm(occ~ddeg0+I(ddeg0^2)+srad68+I(srad68^2),data=spData,family = binomial())
 

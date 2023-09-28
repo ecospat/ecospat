@@ -291,8 +291,7 @@ overlap.sim.gen <- function(repi, z1, z2, rand.type = rand.type, intersection = 
     o.i <- ecospat.niche.overlap(z1.sim, z2.sim, cor = TRUE)
     sim.dyn<- ecospat.niche.dyn.index(z1.sim, z2.sim, intersection = intersection)$dynamic.index.w         
   }
-  if (rand.type == 2)
-  {
+  if (rand.type == 2) {
     o.i <- ecospat.niche.overlap(z1, z2.sim, cor = TRUE)
     sim.dyn<-ecospat.niche.dyn.index(z1, z2.sim, intersection = intersection)$dynamic.index.w
   }  # overlap between random and observed niches

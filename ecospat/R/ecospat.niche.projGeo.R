@@ -30,11 +30,11 @@ ecospat.niche.zProjGeo <- function(z,zproj=NULL,env,cor=FALSE){
   XY <- terra::crds(terra::as.points(env)) #geographical coordinates of each point of the background
   
   if(is.null(zproj)){
-    if(cor==FALSE) Z<-extract(z$z.uncor,z$glob1) # occurrence density (niche) for each point of the background
-    if(cor==TRUE) Z<-extract(z$z.cor,z$glob1)
+    if(cor==FALSE) Z<-terra::extract(z$z.uncor,z$glob1) # occurrence density (niche) for each point of the background
+    if(cor==TRUE) Z<-terra::extract(z$z.cor,z$glob1)
   }else{
-    if(cor==FALSE) Z<-extract(z$z.uncor,zproj$glob1) # occurrence density (niche) for each point of the background
-    if(cor==TRUE) Z<-extract(z$z.cor,zproj$glob1)
+    if(cor==FALSE) Z<-terra::extract(z$z.uncor,zproj$glob1) # occurrence density (niche) for each point of the background
+    if(cor==TRUE) Z<-terra::extract(z$z.cor,zproj$glob1)
   }
   XYZ<-cbind(XY,Z)
   geoz<-terra::rast(XYZ, type="xyz")

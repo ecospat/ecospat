@@ -251,7 +251,7 @@ sim.test <- ecospat.niche.similarity.test(grid.clim.nat, grid.clim.inv,rep=10,
                                           stability.alternative = "higher",
                                           unfilling.alternative = "lower",
                                           intersection = 0.1,
-                                          rand.type=2) 
+                                          rand.type=1) 
 ```
 Niche similarity test H1: the observed overlap between the native and invaded is higher than randomly shifted invasive niches in the invaded study area, the niche expansion of the invaded niche is lower, the niche stability is higher and the niche unfilling is lower than if the two niches are randomized.
 
@@ -425,7 +425,8 @@ myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
                                       resp.name = colnames(sp_occ)[sp])
 
 myBiomodOption <- bm_DefaultModelingOptions()
-
+myBiomodOption@GLM$test = 'none'
+myBiomodOption@GBM$interaction.depth = 2
 ```
 
 ```{r ESM.Modeling}

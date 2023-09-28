@@ -75,7 +75,7 @@ ecospat.rangesize <- function(bin.map = NULL,
   
   if(AOO.circles){
     circ   <- dismo::circles(xy,d=d,lonlat=lonlat)
-    circ.rs <- round(terra::expanse(vect(circ@polygons))) 
+    circ.rs <- round(terra::expanse(terra::vect(circ@polygons))) 
   }else{circ.rs <- circ <- NULL}    
     
   # if(alpha.hull){
@@ -139,7 +139,7 @@ ecospat.rangesize <- function(bin.map = NULL,
       }
         
       if(Model.within.eoo){
-        d <- terra::extract(bin.map[[i]], vect(xy.eoo@polygons), cells = TRUE, ID=FALSE)
+        d <- terra::extract(bin.map[[i]], terra::vect(xy.eoo@polygons), cells = TRUE, ID=FALSE)
         mo.within.eoo <- c(mo.within.eoo,round(sum(d[,1],na.rm = TRUE)*prod(terra::res(bin.map[[i]]))))
         
         cells <- d[d[,1]==1 & !is.na(d[,1]),2]
@@ -218,7 +218,7 @@ ecospat.rangesize <- function(bin.map = NULL,
 ecospat.occupied.patch <- function(bin.map, Sp.occ.xy, buffer = 0){
    if(inherits(bin.map, "SpatRaster")){
     cl <- terra::patches(bin.map,directions=8, zeroAsNA=T) #8 was the default in raster
-    coord <- vect(as.matrix(Sp.occ.xy),type="points",crs=crs(bin.map))
+    coord <- vect(as.matrix(Sp.occ.xy),type="points",crs=terra::crs(bin.map))
     if(buffer>0){
       coord <- terra::buffer(coord,width=buffer)
     }

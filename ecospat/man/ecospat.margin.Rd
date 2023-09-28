@@ -68,11 +68,12 @@ lines(z1.bootstrap.margin$niche.contour, col = 2, lty = "dotted")
 
 par(mfrow=c(1,2))
 plot(z1.bootstrap.margin$niche.envelope, main = "Margin uncertainty", 
-  legend.args=list(text="CI", cex = 0.8)) # shows the uncertainty of the niche margin in SpatRaster mode
+  legend.args=list(text="CI", cex = 0.8)) # shows uncertainty of niche margin in SpatRaster mode
 points(z1$sp) # with species occurences
 # shows the uncertainty of the niche limit in vector mode
 boot<-terra::as.contour(z1.bootstrap.margin$niche.envelope)
 plot(boot, col = gray(10:1 / 10), main = "Margin uncertainty") 
-confInt80 <- terra::as.polygons(z1.bootstrap.margin$niche.envelope >= 50, dissolve = TRUE) # select a customized confidence interval (here for example 80 percent)
+# select a customized confidence interval (here for example 80 percent)
+confInt80 <- terra::as.polygons(z1.bootstrap.margin$niche.envelope >= 50, dissolve = TRUE) 
 lines(confInt80, lty = "dotted", col = 2)
 }}
