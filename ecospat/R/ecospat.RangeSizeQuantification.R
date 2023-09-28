@@ -2,7 +2,7 @@
 ## or binary predictions of Species Distribution Models 
 
 ## FUNCTION'S ARGUMENTS
-## bin.map:             Binary map (single layer, raster stack or SpatRaster) from a Species Distribution Model.
+## bin.map:             Binary map (SpatRaster) from a Species Distribution Model.
 ## ocp:                 logical. Calculate occupied patch models from the binary map (predicted area occupied by the species).
 ## buffer:              numeric. Calculate occupied patch models from the binary map using a buffer (predicted area occupied by the species or within a buffer around the species).  
 ## eoo.around.model:    logical. The EOO around all positive predicted values from the binary map
@@ -59,9 +59,6 @@ ecospat.rangesize <- function(bin.map = NULL,
 
   
   ### IUCN methods:
-  if(inherits(bin.map, "RasterStack") | inherits(bin.map, "RasterLayer")){
-    bin.map <- terra::rast(bin.map)
-  }
   if(Model.within.eoo | EOO){
     xy.eoo<-dismo::convHull(xy)
     eoo <- round(xy.eoo@polygons@polygons[[1]]@area) #quadrat km  
@@ -204,14 +201,14 @@ ecospat.rangesize <- function(bin.map = NULL,
 ## or using Species Distribution Models 
 
 ## FUNCTION'S ARGUMENTS
-## bin.map:             Binary map (single layer, raster stack or SpatRaster) from a Species Distribution Model.
+## bin.map:             Binary map (SpatRaster) from a Species Distribution Model.
 ## Sp.occ.xy:           xy-coordinates of the species presence
 ## buffer:              numeric. Calculate occupied patch models from the binary map using a buffer (predicted area occupied by the species or within a buffer around the species, for details see ?extract).  
 
 ## Details:
 
 ## Value
-# a RasterLayer or SpatRaster with value 1 ()
+# a SpatRaster with value 1 ()
 
 ## Author(s)
 # Frank Breiner with the contributions of Flavien Collart
@@ -219,14 +216,7 @@ ecospat.rangesize <- function(bin.map = NULL,
 
 
 ecospat.occupied.patch <- function(bin.map, Sp.occ.xy, buffer = 0){
-  if(inherits(bin.map, "RasterStack") | inherits(bin.map, "RasterLayer")){
-    cl <- clump(bin.map)
-    d <- raster::extract(cl,Sp.occ.xy,buffer=buffer)
-    d <- unique(na.omit(unlist(d)))
-    b.map <- raster::match(cl,d) + bin.map
-    names(b.map) <- names(bin.map)
-    return(b.map)
-  }else if(inherits(bin.map, "SpatRaster")){
+   if(inherits(bin.map, "SpatRaster")){
     cl <- terra::patches(bin.map,directions=8, zeroAsNA=T) #8 was the default in raster
     coord <- vect(as.matrix(Sp.occ.xy),type="points",crs=crs(bin.map))
     if(buffer>0){
@@ -238,7 +228,7 @@ ecospat.occupied.patch <- function(bin.map, Sp.occ.xy, buffer = 0){
     names(b.map) <- names(bin.map)
     return(b.map)
   }else{
-    stop("bin.map should be a SpatRaster, a RasterLayer or a RasterStack")
+    stop("bin.map should be a SpatRaster")
   }
 }
 
