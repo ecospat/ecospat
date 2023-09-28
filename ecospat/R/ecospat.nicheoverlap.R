@@ -330,12 +330,12 @@ ecospat.niche.similarity.test <- function(z1, z2, rep, intersection = NA, rand.t
   l <- list()
   obs.o <- c(ecospat.niche.overlap(z1, z2, cor = TRUE),  #observed niche overlap
              ecospat.niche.dyn.index(z1, z2, intersection = intersection)$dynamic.index.w) # dynamic indices between random and observed niches
-  z1$z.uncor <- as.matrix(z1$z.uncor)
-  z1$Z <- as.matrix(z1$Z)
-  z1$z <- as.matrix(z1$z)
-  z2$z.uncor <- as.matrix(z2$z.uncor)
-  z2$Z <- as.matrix(z2$Z)
-  z2$z <- as.matrix(z2$z)
+  z1$z.uncor <- as.matrix(z1$z.uncor,wide=TRUE)
+  z1$Z <- as.matrix(z1$Z,wide=TRUE)
+  z1$z <- as.matrix(z1$z,wide=TRUE)
+  z2$z.uncor <- as.matrix(z2$z.uncor,wide=TRUE)
+  z2$Z <- as.matrix(z2$Z,wide=TRUE)
+  z2$z <- as.matrix(z2$z,wide=TRUE)
   
   if (ncores==1) {
     sim.o <- as.data.frame(matrix(unlist(lapply(1:rep, overlap.sim.gen, z1, z2, rand.type = rand.type)),
@@ -380,13 +380,13 @@ ecospat.plot.niche <- function(z, title = "", name.axis1 = "Axis 1", name.axis2 
   }
   if (!is.null(z$y)) {
     if (cor == FALSE)
-      image(x=z$x,y=z$y,z=t(as.matrix(z$z.uncor))[,nrow(as.matrix(z$z.uncor)):1], col = gray(100:0/100), zlim = c(1e-06, cellStats(z$z.uncor,"max")),
+      image(x=z$x,y=z$y,z=t(terra::as.matrix(z$z.uncor,wide=TRUE))[,nrow(terra::as.matrix(z$z.uncor,wide=TRUE)):1], col = gray(100:0/100), zlim = c(1e-06, z$z.uncor@pnt$range_max),
             xlab = name.axis1, ylab = name.axis2)
     if (cor == TRUE)
-      image(x=z$x,y=z$y,z=t(as.matrix(z$z.uncor))[,nrow(as.matrix(z$z.uncor)):1], col = gray(100:0/100), zlim = c(1e-06, cellStats(z$z.cor,"max")), 
+      image(x=z$x,y=z$y,z=t(terra::as.matrix(z$z.cor,wide=TRUE))[,nrow(terra::as.matrix(z$z.cor,wide=TRUE)):1], col = gray(100:0/100), zlim = c(1e-06, z$z.cor@pnt$range_max),
             xlab = name.axis1, ylab = name.axis2)
-    z$Z<-t(as.matrix(z$Z))[,nrow(as.matrix(z$Z)):1]
-    contour(x=z$x,y=z$y,z$Z, add = TRUE, levels = quantile(z$Z[z$Z > 0], c(0, 0.5)), drawlabels = FALSE,
+    Z<-t(as.matrix(z$Z,wide=TRUE))[,ncol(z$z):1]
+    contour(x=z$x,y=z$y,Z, add = TRUE, levels = quantile(z$Z[z$Z > 0], c(0, 0.5)), drawlabels = FALSE,
             lty = c(1, 2))
   }
   title(title)
