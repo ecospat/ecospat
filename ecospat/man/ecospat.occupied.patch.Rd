@@ -59,7 +59,7 @@ points(xy[spData$occ==1,])
 pred.bin.arbitrary <- ecospat.binary.model(pred,0.3)
 names(pred.bin.arbitrary) <- "me.arbitrary"
 # use MPA to convert suitability to binary map
-mpa.cutoff <- ecospat.mpa2(pred,xy[spData$occ==1,])
+mpa.cutoff <- ecospat.mpa(pred,xy[spData$occ==1,])
 pred.bin.mpa <- ecospat.binary.model(pred,mpa.cutoff)
 names(pred.bin.mpa) <- "me.mpa"
 
