@@ -47,7 +47,7 @@ ecospat.rangesize (bin.map = NULL,
     \item{AOO.circles}{logical. AOO calculated by circles around the occurrences instead of using a grid frame.}
     \item{d}{Radius of the AOO.circles around the occurrences.}
     \item{lonlat}{Are these longitude/latidue coordinates? (Default = FALSE).}
-    \item{return.obj}{logical. should the objects created to estimate range size be returned (rasterfiles and spatial polygons). Default: TRUE}
+    \item{return.obj}{logical. should the objects created to estimate range size be returned (SpatRaster and spatial polygons). Default: TRUE}
     \item{save.obj}{logical. should objects be saved on hard drive?}
     \item{save.rangesize}{logical. should range size estimations be saved on hard drive .}
     \item{directory}{directory in which objects should be saved (Default = getwd())}
