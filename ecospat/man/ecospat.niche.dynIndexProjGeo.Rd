@@ -4,7 +4,7 @@
 
 \title{Projection of niche dynamic indices to the Geography}
 
-\description{Creates a raster in geography with each pixel containing a
+\description{Creates a SpatRaster in geography with each pixel containing a
   niche dynamic index (stability, expansion, or unfilling) extracted
   from 2 niches generated with \code{ecospat.grid.clim.dyn}.}
 
@@ -15,19 +15,19 @@
     by \code{ecospat.grid.clim.dyn}.}
   \item{z2}{Species 2 occurrence density grid created
     by \code{ecospat.grid.clim.dyn}.}
-  \item{env}{A RasterStack or RasterBrick of environmental variables
+  \item{env}{A SpatRaster of environmental variables
     corresponding to the background (\code{glob}
     in \code{ecospat.grid.clim.dyn}).}
 }
 
 \details{Extracts the niche dynamic index of objects created
   by \code{ecospat.niche.dyn.index} for each background point
-  (\code{glob}) using \code{extract} from the raster package. The values
+  (\code{glob}) using \code{extract} from the terra package. The values
   are projected to the geographic coordinates of \code{env} and returned
   as a raster layer.
 }
 
-\value{Raster of class RasterLayer, with cell values 0-3. 1: unfilling
+\value{a SpatRaster with cell values 0-3. 1: unfilling
   (habitat occupied by species 1); 2: expansion (habitat occupied only
   by species 2); 3: stability (habitat occupied by both species); and 0
   (unoccupied habitat).}
