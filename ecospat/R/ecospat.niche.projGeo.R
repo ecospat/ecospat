@@ -23,14 +23,10 @@
 ## projects the dynamic indexes ("stability", "unfilling" and "expansion") in space
 ## z1 and z2 are objects created by ecospat.grid.clim.dyn
 ## proj indicate the type of projection: 0 for the global range, 1 for the range of z1, 2 for the range of z2
-## env is a RasterStack of environmental variables corresponding to the background (glob in ecospat.grid.clim.dyn
+## env is a SpatRaster environmental variables corresponding to the background (glob in ecospat.grid.clim.dyn
 ## if proj = 0, glob1 if proj = 1 or proj = 2)
 
 ecospat.niche.zProjGeo <- function(z,zproj=NULL,env,cor=FALSE){
-  if(inherits(env, "RasterStack") | inherits(env, "RasterBrick") |
-     inherits(env, "RasterLayer") ){
-    env <- terra::rast(env)
-  }
   XY <- terra::crds(terra::as.points(env)) #geographical coordinates of each point of the background
   
   if(is.null(zproj)){
@@ -60,10 +56,6 @@ ecospat.niche.dynIndexProjGeo <- function(z1, z2, proj=0, env) {
   ## raster.
 
   ## all env cells:
-  if(inherits(env, "RasterStack") | inherits(env, "RasterBrick") |
-     inherits(env, "RasterLayer") ){
-    env <- terra::rast(env)
-  }
   envVals <- terra::values(env)[,1]
 
   ## index values for the non-NA cells:
