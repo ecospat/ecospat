@@ -27,7 +27,7 @@ A name for the new.env object. If not specified (default) the name of the new.en
     \item{parallel}{
 Logical. If TRUE, the parallel computing is enabled}
     \item{cleanup}{
-\bold{No more available}. Please use terra::TmpFiles instead 
+\bold{No more available}. Please use terra::TmpFiles instead }
 }
 \details{
 The basic idea of ensemble of small models (ESMs) is to model a species distribution based on small, simple models, for example all possible bivariate models (i.e. models that contain only two predictors at a time out of a larger set of predictors), and then combine all possible bivariate models into an ensemble (Lomba et al. 2010; Breiner et al. 2015).
