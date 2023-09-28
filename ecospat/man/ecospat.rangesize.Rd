@@ -34,7 +34,7 @@ ecospat.rangesize (bin.map = NULL,
 
 }
 \arguments{
-    \item{bin.map}{Binary map (single layer, raster stack or SpatRaster) from a Species Distribution Model.}
+    \item{bin.map}{Binary map (a SpatRaster) from a Species Distribution Model.}
     \item{ocp}{logical. Calculate occupied patch models from the binary map (predicted area occupied by the species)}
     \item{buffer}{numeric. Calculate occupied patch models from the binary map using a buffer (predicted area occupied by the species or within a buffer around the species, for details see ?extract).}
     \item{eoo.around.model}{logical. The EOO around all positive predicted values from the binary map.}
@@ -80,7 +80,6 @@ Pateiro-Lopez, B., and A. Rodriguez-Casal. 2010. Generalizing the Convex Hull of
   
 \examples{
 \donttest{
-library(raster)
 library(terra)
 library(dismo)
 
@@ -88,7 +87,7 @@ library(dismo)
 xy <- ecospat.testData[,2:3]
 
 # environmental data
-predictors <- rast(get(load(system.file("extdata", "ecospat.testEnvRaster.Rdata", package="ecospat"))))
+predictors <- terra::rast(system.file("extdata","ecospat.testEnv.tif",package="ecospat"))
 env <- terra::extract(predictors,xy,ID=F)  
 spData <- cbind.data.frame(occ=ecospat.testData$Veronica_alpina,env)
 mod <- glm(occ~ddeg0+I(ddeg0^2)+srad68+I(srad68^2),data=spData,family = binomial())
