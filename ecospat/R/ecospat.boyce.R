@@ -1,5 +1,5 @@
 #### Calculating Boyce index as in Hirzel et al. 2006
-# fit: A vector, Raster-Layer or SpatRaster containing the predicted suitability values 
+# fit: A vector or a SpatRaster containing the predicted suitability values 
 # obs: A vector containing the predicted suitability values or xy-coordinates (if fit is a Raster-Layer) of the validation points (presence records)
 # nclass : number of classes or vector with classes threshold. If nclass=0, Boyce index is calculated with a moving window (see next parameters)
 # windows.w : width of the moving window (by default 1/10 of the suitability range)
@@ -19,13 +19,13 @@ ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100,
     return(round(pi/ei,10))
   }
   
-  if (inherits(fit,"RasterLayer")) {
-    if (is.data.frame(obs) || is.matrix(obs)) {
-      obs <- extract(fit, obs)
-    }
-    fit <- getValues(fit)
-    fit <- fit[!is.na(fit)]
-  }
+  # if (inherits(fit,"RasterLayer")) {
+#   if (is.data.frame(obs) || is.matrix(obs)) {
+#     obs <- extract(fit, obs)
+#   }
+#   fit <- getValues(fit)
+#   fit <- fit[!is.na(fit)]
+# }
   if (inherits(fit, "SpatRaster")) {
     if (is.data.frame(obs) || is.matrix(obs)) {
       obs <- terra::extract(fit, as.data.frame(obs),ID=FALSE)
