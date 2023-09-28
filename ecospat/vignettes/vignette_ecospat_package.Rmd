@@ -425,8 +425,7 @@ myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
                                       resp.name = colnames(sp_occ)[sp])
 
 myBiomodOption <- bm_DefaultModelingOptions()
-myBiomodOption@GLM$test = 'none'
-myBiomodOption@GBM$interaction.depth = 2
+
 ```
 
 ```{r ESM.Modeling}
