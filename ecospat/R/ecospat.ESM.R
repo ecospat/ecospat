@@ -60,9 +60,9 @@
 ## which.biva:          integer. which bivariate combinations should be used for modeling? Default: all
 ## weighting.score:     evaluation score used to weight single models to build ensembles: 'AUC', 'SomersD' (2xAUC-1), 'Kappa', 'TSS' or 'Boyce'
 ## ESM_Projection:      logical. set to FALSE, if no projections should be calculated. Only Evaluation scores based on test and train data will be returned. (Default: TRUE)
-## new.env:             A set of explanatory variables onto which models will be projected . It could be a data.frame, a matrix, or a rasterStack object. Make sure the column names (data.frame or matrix) or layer Names (rasterStack) perfectly match with the names of variables used to build the models in the previous steps.
+## new.env:             A set of explanatory variables onto which models will be projected . It could be a data.frame, a matrix, or a SpatRaster object. Make sure the column names (data.frame or matrix) or layer Names (SpatRaster) perfectly match with the names of variables used to build the models in the previous steps.
 ## parallel:            logical. If TRUE, the parallel computing is enabled (highly recommended)
-## cleanup:             numeric. Calls removeTmpFiles() to delete all files from rasterOptions()$tmpdir which are older than the given time (in hours). This is might be necessary to prevent running over quota. No cleanup is used by default.
+## cleanup:             numeric. Not available. No cleanup is used by default.
 ## Yweights:            response points weights. This argument will only affect models that allow case weights. 
 
 ## Details:
@@ -230,19 +230,20 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                     CV.do.full.models = TRUE, var.import = 0, modeling.id = modeling.id, 
                                                     weights = Yweights))
       if (cleanup != FALSE) {
-        removeTmpFiles(h = cleanup)
+        warning("Unfortunately cleanup is no more available. Please use terra::tmpFiles after this function to remove temporary files.")
       }
     }
   }
   if (parallel == TRUE) {
     mymodels <- foreach(k = which.biva, .packages = c("biomod2", 
-                                                      "raster","terra")) %dopar% {
+                                                      "terra")) %dopar% {
                                                         setwd(newwd)
                                                         mydata@data.env.var <- data@data.env.var[, colnames(data@data.env.var) %in% 
                                                                                                    combinations[, k]]
                                                         mydata@sp.name <- paste("ESM.BIOMOD", k, sep = ".")
                                                         if (cleanup != FALSE) {
-                                                          removeTmpFiles(h = cleanup)
+                                                          warning("Unfortunately cleanup is no more available. Please use terra::tmpFiles after this function to remove temporary files.")
+
                                                         }
                                                         if (tune == TRUE) {
                                                           models.options <- biomod2::BIOMOD_Tuning(bm.format = mydata, 
@@ -275,9 +276,9 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
 
 ## FUNCTION'S ARGUMENTS
 ## ESM.modeling.output:   BIOMOD.formated.data object returned by BIOMOD_FormatingData
-## new.env:               A set of explanatory variables onto which models will be projected . It could be a data.frame, a matrix, a rasterStack, and a SpatRaster object. Make sure the column names (data.frame or matrix) or layer Names (rasterStack, SpatRaster) perfectly match with the names of variables used to build the models in the previous steps.
+## new.env:               A set of explanatory variables onto which models will be projected . It could be a data.frame, a matrix, and a SpatRaster object. Make sure the column names (data.frame or matrix) or layer Names (SpatRaster) perfectly match with the names of variables used to build the models in the previous steps.
 ## parallel:              logical. If TRUE, the parallel computing is enabled
-## cleanup:               numeric. Calls removeTmpFiles() to delete all files from rasterOptions()$tmpdir which are older than the given time (in hours). This might be necessary to prevent running over quota. No cleanup is used by default.
+## cleanup:               numeric. Not available. No cleanup is used by default.
 
 ## Details:
 # The basic idea of ensemble of small models (ESMs) is to model a species distribution based on
@@ -358,9 +359,6 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
         
         }
       }
-      if (inherits(new.env, "RasterStack")){
-        new.env = terra::rast(new.env)
-      }
       if (inherits(new.env, "SpatRaster")) {
         
         newdata=newdata=subset(new.env,combinations[, k])
@@ -392,9 +390,6 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
     }
   if (parallel == TRUE) {
     
-    if (inherits(new.env, "RasterStack")){
-      new.env = terra::rast(new.env)
-    }
     if (inherits(new.env, "SpatRaster")) {
       new.env <- terra::wrap(new.env) ## Allow parallelisation
     }
@@ -403,8 +398,8 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
       dir.create(path = paste0("./","ESM.BIOMOD.",g,"/proj_",paste(name.env, "ESM.BIOMOD", g, modeling.id, sep = ".")))
     }
     
-    foreach(k = 1:length(mymodels), .packages = c("biomod2", 
-                                                  "raster","terra","base")) %dopar% {
+    foreach(k = 1:length(mymodels), .packages = c("biomod2",
+                                                  "terra","base")) %dopar% {
                                                     mymodel <- mymodels[[k]]
                                                     
                                                     if (!(is.character(mymodel))) {
@@ -476,7 +471,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
                                                   
   }
   if (cleanup != FALSE) {
-    removeTmpFiles(h = cleanup)
+    warning("Unfortunately cleanup is no more available. Please use terra::tmpFiles after this function to remove temporary files.")
   }
   output <- list(proj.name = name.env, modeling.id = modeling.id, 
                  models. = grep(modeling.id, gtools::mixedsort(list.files(getwd(), 
@@ -910,7 +905,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
 ## ESM.EnsembleModeling.output:     Object returned by ecospat.ESM.EnsembleModeling
 
 ## Values:
-# ESM.projections:    Returns the projections of ESMs for the selected single models and their ensemble (data frame or raster stack).
+# ESM.projections:    Returns the projections of ESMs for the selected single models and their ensemble (data frame or SpatRaster).
 
 
 ## Authors:
@@ -1044,8 +1039,8 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
 ## This function calculates the Minimal Predicted Area.
 
 ## FUNCTION'S ARGUMENTS
-## Pred:      numeric, RasterLayer or, SpatRaster .predicted suitabilities from a SDM prediction
-## Sp.occ.xy: xy-coordinates of the species (if Pred is a RasterLayer or SpatRaster)
+## Pred:      numeric or, SpatRaster .predicted suitabilities from a SDM prediction
+## Sp.occ.xy: xy-coordinates of the species (if Pred is a  SpatRaster)
 ## perc:      Percentage of Sp.occ.xy that should be encompassed by the binary map.
 
 ## Details:
@@ -1062,10 +1057,6 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
 
 ecospat.mpa <- function(Pred, Sp.occ.xy = NULL, perc = 0.9) {
   perc <- 1 - perc
-  if( inherits(Pred, "RasterLayer")){
-    Pred <- terra::rast(Pred)
-  }
-  
   if (!is.null(Sp.occ.xy)) {
     Pred <- terra::extract(Pred, as.data.frame(Sp.occ.xy),ID=FALSE)
   }
