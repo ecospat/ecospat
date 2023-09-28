@@ -1,5 +1,5 @@
 ### Author: Ruben G Mateo & Flavien Collart
-### Pred}{Predicted suitability values (from 0 to 1000). A SpatRaster, RasterLayer or RasterStack object containing models predictions ( Output from biomod2 in raster format).}
+### Pred}{Predicted suitability values (from 0 to 1000). A SpatRaster object containing models predictions ( Output from biomod2 in SpatRaster format).}
 ### Sp.occ.xy}{Ocurrences of the species. A dataframe object with two columns: longitude and latitude. Coordinate systems other than longitude and latitude can be used, for example "x" and "y".}
 ### Percentage}{The percentage of omission error used to generate the binary model.}
 #ecospat.binary.model <-function(Pred, Sp.occ.xy, Percentage)
@@ -22,7 +22,7 @@
 #}
 
 
-## Pred:{Predicted suitability values (from 0 to 1000 or 0 to 1). A SpatRaster, RasterLayer or RasterStack object containing models predictions.}
+## Pred:{Predicted suitability values (from 0 to 1000 or 0 to 1). A SpatRaster object containing models predictions.}
 ## Threshold:{}
 
 
@@ -30,10 +30,6 @@
 
 ecospat.binary.model <- function (Pred, Threshold)
 {
-  if(class(Pred) == "RasterLayer" | class(Pred) == "RasterStack"){
-    Pred <- terra::rast(Pred)
-    }
-  
   Threshold.Com <- c(0, Threshold, 0, Threshold, Inf, 1)
   Threshold.Com.b <- matrix(Threshold.Com, ncol = 3, byrow = TRUE)
   Pred.binary <- terra::classify(Pred, Threshold.Com.b)
