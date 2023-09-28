@@ -17,7 +17,7 @@
   \item{R}{The resolution of the grid.}
   \item{th.sp}{The quantile used to delimit a threshold to exclude low species density values.}
   \item{th.env}{The quantile used to delimit a threshold to exclude low environmental density values of the study area.}
-  \item{geomask}{A geographical mask to delimit the background extent if the analysis takes place in the geographical space.It can be a SpatialPolygon or a raster object. Note that the CRS should be the same as the one used for the points.}
+  \item{geomask}{A geographical mask to delimit the background extent if the analysis takes place in the geographical space.It can be a SpatialPolygon or a SpatRaster object. Note that the CRS should be the same as the one used for the points.}
   \item{kernel.method}{Method used to estimate the the kernel density. Currently, there are two methods: by default, it is the methode from 'adehabitat'. Method from the library 'ks' is also available.} 
   \item{extend.extent}{Vector with extention values of the window size (see details).}
 }
@@ -30,7 +30,7 @@ If \code{th.env} is set to 0.05, the delineation of the study area in the enviro
 By default, these thresholds are set to 0 but can be modified, depending on the importance of some marginal sites in the delineation of the species niche and/or the study area in the environmnental space. It is recommended to check if the shape of the delineated niche and study area corresponds to the shape of the plot of the PCA scores (or any other ordination techniques used to set the environmental space). 
 Visualisation of the gridded environmental space can be done through the functions \code{\link[ecospat]{ecospat.plot.niche}} or \code{\link[ecospat]{ecospat.plot.niche.dyn}}
 If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in http://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
-The argument \code{geomask} can be a SpatialPolygon or a raster object. 
+The argument \code{geomask} can be a SpatialPolygon or a SpatRaster object. 
 Note that the CRS should be the same as the one used for the points.
 
 The parameter \code{extend.extent} allows modifying the extent of the grid. By default, the window covers from the minimum to the maximum value of the environmental values present in the study area. The vector \code{extend.extent} indicates how much you want to shift the x-minimal, x-maximal, y-minimal and y-maximal values respectively.
@@ -54,7 +54,7 @@ Petitpierre, B., C. Kueffer, O. Broennimann, C. Randin, C. Daehler and A. Guisan
 \donttest{
 
 library(ade4)
-library(raster)
+library(terra)
 
 data(ecospat.testNiche)
 data(ecospat.testData)

@@ -12,7 +12,7 @@
 ## x = environmental  scores (along one or two dimension)
 ## ext = extent along the environmental score. Vector including corresponding to c(xmin, xmax, ymin, ymax). The y component is optional.
 ## th = percentile threshold used to delineate the niche. 0 means that all occurences are included within the niche. 0.05 means that 95 % of the distribution is included within the niche.
-## env.mask = raster of vector containing the environmental background densities
+## env.mask = SpatRaster of vector containing the environmental background densities
 ## method = method used to draw the kernel density distribution. By default, 'adehabitat' uses kernelUD from the library adehabitatHR but you can set it to 'ks' to use the the algorithm from the ks library
 ## extend.extent = vector with extention values of the window size (see details)
 ##
@@ -23,7 +23,7 @@
 ## sp= scores for the occurrences of the species in the ordination, glob = scores for the whole studies areas, glob 1 = scores for the range of sp
 ## R= resolution of the grid, th.sp=quantile of species densitie at species occurences used as a threshold to exclude low species density values,
 ## th.env=The quantile used to delimit a threshold to exclude low environmental density values of the study area.
-## geomask= a geographical mask to delimit the background extent if the analysis takes place in the geographical space. It can be a SpatialPolygon or a raster object. Note that the CRS should be the same as the one used for the points.
+## geomask= a geographical mask to delimit the background extent if the analysis takes place in the geographical space. It can be a SpatialPolygon or a SpatRaster object. Note that the CRS should be the same as the one used for the points.
 ## kernel.method = method used to estimate the the kernel density. The initial and original method is 'adehabitat', while 'ks' has been recently implemented for future developments in multidimensional space
 ##
 ## dynamic.index(z1,z2,intersection=NA)
@@ -65,8 +65,8 @@
 ## bootstrap.rep : number of resamplings if the boostrap is selected. 100 is a minimum, 1000 would be better
 ## bootstrap.ncore = number of cores to use for parallelization if the boostrap estimation is selected
 ## it returns 3 objects
-## niche.density : a raster of the niche density
-## niche.envelope : a raster of the niche envelope in the environmental space. If boostrap is selected, it shows the percentages of confidence of the margin.
+## niche.density : a SpatRaster of the niche density
+## niche.envelope : a SpatRaster of the niche envelope in the environmental space. If boostrap is selected, it shows the percentages of confidence of the margin.
 ## niche.contour : a SpatialLine object delineating the contour of the niche. If bootstrap is selected, it represents the contour if the 95% confidence interval
 
 
@@ -417,7 +417,7 @@ ecospat.niche.dyn.index <- function(z1, z2, intersection = NA) {
   
   dyn <- (-1 * z.exp.cat) + (2 * z.stable.cat) + z.res.cat
   if (ncol(w1) == 2) {
-    dyn <- raster(dyn)
+    dyn <- rast(dyn)
   } # draw matrix with 3 categories of niche dynamic
   expansion.index.w <- sum(obs.exp) / sum(obs.stab + obs.exp) # expansion
   stability.index.w <- sum(obs.stab) / sum(obs.stab + obs.exp) # stability

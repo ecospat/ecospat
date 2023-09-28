@@ -15,7 +15,7 @@
     by \code{ecospat.grid.clim.dyn}.}
   \item{z2}{Species 2 occurrence density grid created
     by \code{ecospat.grid.clim.dyn}.}
-  \itme{proj}{type of projection (0,1 or 2)}
+  \item{proj}{type of projection (0,1 or 2)}
   \item{env}{A SpatRaster of environmental variables
     corresponding to the background (\code{glob}
     in \code{ecospat.grid.clim.dyn}).}
@@ -25,7 +25,7 @@
   by \code{ecospat.niche.dyn.index} for each background point
   (\code{glob}) using \code{extract} from the terra package. The values
   are projected to the geographic coordinates of \code{env} and returned
-  as a raster layer. If proj=0, the common background for z1 and z2 (\code{glob})
+  as a SpatRaster layer. If proj=0, the common background for z1 and z2 (\code{glob})
   is used. If proj=1, the background (\code{glob1}) of z1 is used. If proj=2, 
   the background (\code{glob1}) of z2 is used.
 }

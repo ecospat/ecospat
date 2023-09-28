@@ -22,7 +22,7 @@
 For example, if \code{th.quant} is set to 0.05, the margin of the distribution is drawn by including 95 percent of the species occurrences, removing the more marginal populations. If \code{th.quant} is set to 0, the margin of the distribution is the minimal envelope including 100 percent of the species occurrences.
 The bootstrap estimation of the margin allows representing the uncertainty around this margin. By default it returns a contour covering a 95 percents confidence interval (CI), but you can easily choose a custom CI.}
 
-\value{ a list with $niche.envelope = a raster of the niche envelope including the distribution, $niche.contour = a SpatiaLine object of the margin, $niche.density = a raster of the niche density within the niche envelope.}
+\value{ a list with $niche.envelope = a SpatRaster of the niche envelope including the distribution, $niche.contour = a SpatiaLine object of the margin, $niche.density = a SpatRaster of the niche density within the niche envelope.}
 
 \author{Blaise Petitpierre \email{bpetitpierre@gmail.com}}
 
@@ -68,7 +68,7 @@ lines(z1.bootstrap.margin$niche.contour, col = 2, lty = "dotted")
 
 par(mfrow=c(1,2))
 plot(z1.bootstrap.margin$niche.envelope, main = "Margin uncertainty", 
-  legend.args=list(text="CI", cex = 0.8)) # shows the uncertainty of the niche margin in raster mode
+  legend.args=list(text="CI", cex = 0.8)) # shows the uncertainty of the niche margin in SpatRaster mode
 points(z1$sp) # with species occurences
 # shows the uncertainty of the niche limit in vector mode
 boot<-terra::as.contour(z1.bootstrap.margin$niche.envelope)

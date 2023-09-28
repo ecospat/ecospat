@@ -51,13 +51,13 @@ ecospat.niche.overlap <- function(z1, z2, cor) {
   l <- list()
   
   if (cor == FALSE) {
-    p1 <- raster::as.matrix(z1$z.uncor)/sum(raster::as.matrix(z1$z.uncor))  # rescale occurence densities so that the sum of densities is the same for both species
-    p2 <- raster::as.matrix(z2$z.uncor)/sum(raster::as.matrix(z2$z.uncor))  # rescale occurence densities so that the sum of densities is the same for both species
+    p1 <- terra::as.matrix(z1$z.uncor)/sum(terra::as.matrix(z1$z.uncor))  # rescale occurence densities so that the sum of densities is the same for both species
+    p2 <- terra::as.matrix(z2$z.uncor)/sum(terra::as.matrix(z2$z.uncor))  # rescale occurence densities so that the sum of densities is the same for both species
   }
   
   if (cor == TRUE) {
-    p1 <- raster::as.matrix(z1$z.cor)/sum(raster::as.matrix(z1$z.cor))  # rescale occurence densities so that the sum of densities is the same for both species
-    p2 <- raster::as.matrix(z2$z.cor)/sum(raster::as.matrix(z2$z.cor))  # rescale occurence densities so that the sum of densities is the same for both species
+    p1 <- terra::as.matrix(z1$z.cor)/sum(terra::as.matrix(z1$z.cor))  # rescale occurence densities so that the sum of densities is the same for both species
+    p2 <- terra::as.matrix(z2$z.cor)/sum(terra::as.matrix(z2$z.cor))  # rescale occurence densities so that the sum of densities is the same for both species
   }
   
   D <- 1 - (0.5 * (sum(abs(p1 - p2))))  # overlap metric D
