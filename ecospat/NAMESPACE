@@ -1,7 +1,9 @@
 # Import
-importFrom(ade4,dudi.pca,suprow,as.randtest,s.corcircle)
-importFrom(ape,read.tree,drop.tip,cophenetic.phylo)
-importFrom(biomod2, bm_BinaryTransformation, BIOMOD_LoadModels, BIOMOD_Modeling, BIOMOD_Tuning, BIOMOD_Projection, BIOMOD_FormatingData, BIOMOD_ModelingOptions, get_predictions, get_evaluations, BIOMOD_EnsembleModeling, get_variables_importance, .transform_model.as.col)
+#importFrom(ade4,dudi.pca,suprow,as.randtest,s.corcircle)
+#importFrom(ape,read.tree,drop.tip,cophenetic.phylo)
+#importFrom(gbm,gbm.perf,gbm.more,predict.gbm,)
+importFrom(foreach,"%dopar%",foreach)
+#importFrom(biomod2, bm_BinaryTransformation, BIOMOD_LoadModels, BIOMOD_Modeling, BIOMOD_Tuning, BIOMOD_FormatingData, BIOMOD_ModelingOptions, get_predictions, get_evaluations, BIOMOD_EnsembleModeling, get_variables_importance, .transform_model.as.col)
 importFrom(terra, as.points, as.polygons, buffer, crds, expanse, ext, freq, global, init, match, nlyr, patches, rast, rasterize, res, subset, values, xyFromCell, wrap, writeRaster) 
 importFrom(gtools, mixedsort, mixedorder, combinations)
 importFrom(PresenceAbsence, presence.absence.accuracy, optimal.thresholds, auc)
@@ -16,7 +18,7 @@ importFrom(vegan, permatswap)
 importFrom(ks, kde)
 importFrom(nabor, knn)
 importFrom(Hmisc, wtd.mean, wtd.var)
-importFrom(foreach,"%dopar%",foreach)
+
 
 # Export
 export(ecospat.adj.D2.glm)

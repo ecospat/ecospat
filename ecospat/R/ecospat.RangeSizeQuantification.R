@@ -218,7 +218,7 @@ ecospat.rangesize <- function(bin.map = NULL,
 ecospat.occupied.patch <- function(bin.map, Sp.occ.xy, buffer = 0){
    if(inherits(bin.map, "SpatRaster")){
     cl <- terra::patches(bin.map,directions=8, zeroAsNA=T) #8 was the default in raster
-    coord <- vect(as.matrix(Sp.occ.xy),type="points",crs=terra::crs(bin.map))
+    coord <- terra::vect(as.matrix(Sp.occ.xy),type="points",crs=terra::crs(bin.map))
     if(buffer>0){
       coord <- terra::buffer(coord,width=buffer)
     }

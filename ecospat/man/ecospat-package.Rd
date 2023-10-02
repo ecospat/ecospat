@@ -27,7 +27,7 @@ Collection of methods, utilities and data sets for the support of spatial ecolog
 
 \item Niche Quantification: \code{\link{ecospat.grid.clim.dyn}, \link{ecospat.niche.equivalency.test}, \link{ecospat.niche.similarity.test}, \link{ecospat.plot.niche}, \link{ecospat.plot.niche.dyn}, \link{ecospat.plot.contrib}, \link{ecospat.niche.overlap}, \link{ecospat.plot.overlap.test}, \link{ecospat.niche.dyn.index}, \link{ecospat.shift.centroids}, \link{ecospat.niche.dynIndexProjGeo}, \link{ecospat.niche.zProjGeo}, \link{ecospat.margin}}
 
-\item Data Preparation: \code{\link{ecospat.caleval}, \link{ecospat.cor.plot}, \link{ecospat.makeDataFrame}, \link{ecospat.occ.desaggregation}, \link{ecospat.rand.pseudoabsences}, \link{ecospat.rcls.grd}, \link{ecospat.recstrat_prop}, \link{ecospat.recstrat_regl}, \link{ecospat.sample.envar}}
+\item Data Preparation: \code{\link{ecospat.caleval}, \link{ecospat.cor.plot}, \link{ecospat.occ.desaggregation}, \link{ecospat.rand.pseudoabsences}, \link{ecospat.rcls.grd}, \link{ecospat.recstrat_prop}, \link{ecospat.recstrat_regl}, \link{ecospat.sample.envar}}
 }
 
 \bold{Core Niche Modelling:}

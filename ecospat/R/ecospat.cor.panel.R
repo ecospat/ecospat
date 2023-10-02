@@ -1,8 +1,8 @@
 
 # Adjusted by L. Mathys, 2006, modified by N.E. Zimmermann
-panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor) {
-  usr <- par("usr")
-  on.exit(par(usr))
+ panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor) {
+#   usr <- par("usr")
+#   on.exit(par(usr))
   par(usr = c(0, 1, 0, 1))
   r <- abs(cor(x, y))
   txt <- format(c(r, 0.123456789), digits = digits)[1]
@@ -15,9 +15,9 @@ panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor) {
 
 # Adjusted by L. Mathys, 2006
 panel.hist <- function(x) {
-  usr <- par("usr")
-  on.exit(par(usr))
-  par(usr = c(usr[1:2], 0, 1.5))
+  # usr <- par("usr")
+  # on.exit(par(usr))
+  par(usr = c(0, 1, 0, 1.5))
   h <- hist(x, plot = FALSE)
   breaks <- h$breaks
   nB <- length(breaks)

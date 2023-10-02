@@ -40,12 +40,13 @@ sp1 <- ecospat.testData[ecospat.testData$Bromus_erectus == 1, 1:8] # species occ
 clim <- ecospat.testData[4:8] # environment of the study area
 
 #################################### PCA-ENVIRONMENT ##################################
-pca.cal <- dudi.pca(clim, center = TRUE, scale = TRUE, scannf = FALSE, nf = 2)
+library(ade4)
+pca.cal <- ade4::dudi.pca(clim, center = TRUE, scale = TRUE, scannf = FALSE, nf = 2)
 
 ####### projection of the species distribution into the environmental space ######
 # predict the scores on the axes
 scores.clim <- pca.cal$li # scores for global climate
-scores.sp1 <- suprow(pca.cal, sp1[, 4:8])$li # scores for sp1
+scores.sp1 <- ade4::suprow(pca.cal, sp1[, 4:8])$li # scores for sp1
 
 z1 <- ecospat.grid.clim.dyn(scores.clim, scores.clim, scores.sp1, R = 100, 
   extend.extent = c(0, 1, 0, 0))

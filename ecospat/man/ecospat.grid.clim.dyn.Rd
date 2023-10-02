@@ -93,7 +93,8 @@ R <- 100
 #################################### PCA-ENVIRONMENT ##################################
 data <- rbind(occ.sp[, Xvar + 1], clim[, Xvar])
 w <- c(rep(0, nrow(occ.sp)), rep(1, nrow(clim)))
-pca.cal <- dudi.pca(data, row.w = w, center = TRUE, scale = TRUE, scannf = FALSE, nf = 2)
+library(ade4)
+pca.cal <- ade4::dudi.pca(data, row.w = w, center = TRUE, scale = TRUE, scannf = FALSE, nf = 2)
 
 ####### selection of species ######
 sp.list

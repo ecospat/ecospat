@@ -113,7 +113,7 @@ if(require(alphahull,quietly=TRUE)){
   rangesize2 <- ecospat.rangesize(c(pred.bin.mpa,pred.bin.arbitrary),
                                    xy=xy[spData$occ==1,],
                                    AOO.circles = TRUE,
-                                   lonlat =F)
+                                   lonlat =FALSE)
   rangesize2$RangeSize
     
   names(rangesize2$RangeObjects)

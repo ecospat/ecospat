@@ -126,7 +126,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
     models.eval.meth <- "ROC"
   }
   if (is.null(models.options)) {
-    models.options <- BIOMOD_ModelingOptions()
+    models.options <- biomod2::BIOMOD_ModelingOptions()
     models.options@GBM$n.trees <- 1000
     models.options@GBM$interaction.depth <- 4
     models.options@GBM$shrinkage <- 0.005
@@ -553,9 +553,9 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
     y <- x
     if (weighting.score == "Boyce") {
     ## Possible errors can appear in this section
-      z <- get_predictions(y, model.as.col = TRUE)
+      z <- biomod2::get_predictions(y, model.as.col = TRUE)
       z <- z[, -grep("allRun",colnames(z))]
-      y.eval <- get_evaluations(y)
+      y.eval <- biomod2::get_evaluations(y)
       if("PA.table" %in% slotNames(data)){
         y.eval <- y.eval[y.eval$PA != "allData",] 
         y.eval$run[y.eval$run=="allRun"] = "Full"
@@ -617,7 +617,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
       }
     }
     else {
-      y.eval <- get_evaluations(y)
+      y.eval <- biomod2::get_evaluations(y)
       if("PA.table" %in% slotNames(data)){
         y.eval <- y.eval[y.eval$PA != "allData",] 
         y.eval$run[y.eval$run=="allRun"] = "Full"
@@ -705,7 +705,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
     weights <- weights[which(weights > 0)]
   }
   test.pred <- lapply(mymodel, function(x) {
-    x <- get_predictions(x, model.as.col = TRUE)
+    x <- biomod2::get_predictions(x, model.as.col = TRUE)
     return(x)
   })
   test.ESM <- NULL
@@ -799,7 +799,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
     EVAL <- rbind(EVAL, EVAL1)
   }
   if (length(models) > 1) {
-    weights.double <- aggregate(EVAL[, weighting.score], 
+    weights.double <- stats::aggregate(EVAL[, weighting.score], 
                                 by = list(EVAL$technique), FUN = mean, na.rm = TRUE)
     weights.double <- weights.double[order(weights.double[, 
                                                           1]), ]

@@ -75,13 +75,14 @@ env.bkg <- na.exclude(values(env))
 ## PCA-ENVIRONMENT ##
 #####################
 
-pca.cal <- dudi.pca(env.bkg, center = TRUE, scale = TRUE,
+library(ade4)
+pca.cal <- ade4::dudi.pca(env.bkg, center = TRUE, scale = TRUE,
                     scannf = FALSE, nf = 2)
 
 # predict the scores on the axes
 scores.bkg <- pca.cal$li  #scores for background climate
-scores.sp1 <- suprow(pca.cal,env.sp1)$lisup  #scores for sp1
-scores.sp2 <- suprow(pca.cal,env.sp2)$lisup  #scores for sp2
+scores.sp1 <- ade4::suprow(pca.cal,env.sp1)$lisup  #scores for sp1
+scores.sp2 <- ade4::suprow(pca.cal,env.sp2)$lisup  #scores for sp2
 
 # calculation of occurence density (niche z)
   

@@ -52,15 +52,12 @@ names(ecospat.testNiche.nat)
 
 *ecospat.testTree()*
 ```{r}
-fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
-fpath
-library(ape)
-tree<-read.tree(fpath)
-tree$tip.label
-```
-Plot tree
-```{r tree}
-plot(tree, cex=0.6)
+if(requireNamespace("ape")){
+  fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
+  tree<-ape::read.tree(fpath)
+  tree$tip.label
+  plot(tree, cex=0.6)
+}
 ```
 
 
@@ -115,14 +112,7 @@ ecospat.climan(ref,p)
 x <- ecospat.testData[c(2,3,4:8)]
 proj<- x[1:90,] #A projection dataset.
 cal<- x[91:300,] #A calibration dataset
-```
-
-```{r}
 mess.object<-ecospat.mess (proj, cal, w="default")
-```
-
-### Plot MESS with *ecospat.plot.mess()*
-```{r mess}
 ecospat.plot.mess (mess.object, cex=1, pch=15)
 ```
 
@@ -131,66 +121,43 @@ In the MESS plot pixels in red indicate sites where at least one environmental p
 
 ## Phylogenetic Diversity Measures
 ```{r}
-fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
-library(ape)
-tree <- read.tree(fpath)
-data <- ecospat.testData[9:52]
-```
-
-### Calculate Phylogenetic Diversity Measures *ecospat.calculate.pd*
-```{r}
-pd<- ecospat.calculate.pd(tree, data, method = "spanning", type = "species", root = TRUE, average = FALSE, verbose = TRUE )
-```
-```{r}
-pd
-```
-
-#### Plot the results (correlation of phylogenetic diversity with species richness)
-```{r pd}
-plot(pd)
+if(requireNamespace("ape")){
+  fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
+  tree <- ape::read.tree(fpath)
+  data <- ecospat.testData[9:52]
+  pd<- ecospat.calculate.pd(tree, data, method = "spanning", type = "species", root = TRUE, average = FALSE, verbose = FALSE )
+  plot(pd)
+}
 ```
 
 ## Niche Quantification and Comparison with Ordination techniques
 
-Loading test data for the niche dynamics analysis in the invaded range
-```{r}
-inv <- ecospat.testNiche.inv
-```
-
-Loading test data for the niche dynamics analysis in the native range
-```{r}
-nat <- ecospat.testNiche.nat
-```
-
-### PCA-ENVIRONMENT
-The PCA is calibrated on all the sites of the study area, including both native and invaded ranges (same as PCAenv in Broenniman et al. 2012)
+First we load the test data for the niche dynamics analysis in invaded and native range. A PCA is calibrated on all the sites of the study area, including both native and invaded ranges (same as PCAenv in Broenniman et al. 2012). Finally, we plot the variables Contributions
 ```{r}
 library(ade4)
-pca.env <- dudi.pca(rbind(nat,inv)[,3:10],scannf=F,nf=2) 
-```
-
-Plot Variables Contribution with *ecospat.plot.contrib()*
-```{r}
+inv <- ecospat.testNiche.inv
+nat <- ecospat.testNiche.nat
+pca.env <- ade4::dudi.pca(rbind(nat,inv)[,3:10],scannf=F,nf=2) 
 ecospat.plot.contrib(contrib=pca.env$co, eigen=pca.env$eig)
 ```
 The correlation circle indicate the contribution of original predictors to the PCA axes.
 
-Predict the scores on the axes
+Now we can predict the scores on the axes
 ```{r}
 # PCA scores for the whole study area
 scores.globclim <- pca.env$li
 
 # PCA scores for the species native distribution
-scores.sp.nat <- suprow(pca.env,nat[which(nat[,11]==1),3:10])$li
+scores.sp.nat <- ade4::suprow(pca.env,nat[which(nat[,11]==1),3:10])$li
 
 # PCA scores for the species invasive distribution
-scores.sp.inv <- suprow(pca.env,inv[which(inv[,11]==1),3:10])$li
+scores.sp.inv <- ade4::suprow(pca.env,inv[which(inv[,11]==1),3:10])$li
 
 # PCA scores for the whole native study area
-scores.clim.nat <- suprow(pca.env,nat[,3:10])$li
+scores.clim.nat <- ade4::suprow(pca.env,nat[,3:10])$li
 
 # PCA scores for the whole invaded study area
-scores.clim.inv <- suprow(pca.env,inv[,3:10])$li
+scores.clim.inv <- ade4::suprow(pca.env,inv[,3:10])$li
 ```
 
 
@@ -419,12 +386,12 @@ sp<-1
 ```{r}
 ### Formating the data with the BIOMOD_FormatingData() function form the package biomod2
 
-myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
+myBiomodData <- biomod2::BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
                                       expl.var = current,
                                       resp.xy = xy,
                                       resp.name = colnames(sp_occ)[sp])
 
-myBiomodOption <- bm_DefaultModelingOptions()
+myBiomodOption <- biomod2::bm_DefaultModelingOptions()
 myBiomodOption@GLM$test = 'none'
 myBiomodOption@GBM$interaction.depth = 2
 ```
@@ -496,21 +463,10 @@ pred<-ecospat.testData[c(73:92)]
 ```
 
 
-Define the number of permutations. It is recomended to use at least 10000 permutatiobns for the test. As an example we used nperm = 100, to reduce the computational time.
+Define the number of permutations. It is recommended to use at least 10000 permutations for the test. As an example we used nperm = 100, to reduce the computational time. Then Define the outpath. Then we can run Run the function *ecospat.cons_Cscore*. The function tests for non-random patterns of species co-occurrence in a presence-absence matrix. It calculates the C-score index for the whole community and for each species pair. An environmental constraint is applied during the generation of the null communities.
 ```{r}
 nbpermut <- 100
-```
-Define the outpath
-```{r}
 outpath <- getwd()
-```
-
-
-Run the function *ecospat.cons_Cscore*
-
-The function tests for non-random patterns of species co-occurrence in a presence-absence matrix. It calculates the C-score index for the whole community and for each species pair. An environmental constraint is applied during the generation of the null communities.
-
-```{r cons_Cscore}
 ecospat.cons_Cscore(presence, pred, nbpermut, outpath)
 ```
 The function returns 

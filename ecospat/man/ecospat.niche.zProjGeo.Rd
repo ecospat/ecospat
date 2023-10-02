@@ -41,19 +41,19 @@ data("ecospat.testNiche")
 spp <- ecospat.testNiche
 xy.sp1<-subset(spp,species=="sp1")[2:3] #Bromus_erectus
 
-env<-rast(system.file("extdata","ecospat.testEnv.tif",package="ecospat"))
+env<-terra::rast(system.file("extdata","ecospat.testEnv.tif",package="ecospat"))
 #plot(env)
 
-env.sp1<-extract(env,xy.sp1)[,-1]
-env.bkg<-na.exclude(values(env))
+env.sp1<-terra::extract(env,xy.sp1)[,-1]
+env.bkg<-na.exclude(terra::values(env))
 
 #################################### PCA-ENVIRONMENT ##################################
 
-pca.cal <- dudi.pca(env.bkg, center = TRUE, scale = TRUE, scannf = FALSE, nf = 2)
+pca.cal <- ade4::dudi.pca(env.bkg, center = TRUE, scale = TRUE, scannf = FALSE, nf = 2)
 
 # predict the scores on the axes
 scores.bkg <- pca.cal$li  #scores for background climate
-scores.sp1 <- suprow(pca.cal,env.sp1)$lisup				#scores for sp1
+scores.sp1 <- ade4::suprow(pca.cal,env.sp1)$lisup				#scores for sp1
 
 # calculation of occurence density (niche z)
   

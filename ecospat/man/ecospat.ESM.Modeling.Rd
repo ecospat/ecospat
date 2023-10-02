@@ -120,7 +120,7 @@ current <- inv[3:8]
 
 ### Formating the data with the BIOMOD_FormatingData() function from the package biomod2
 sp <- 1
-myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
+myBiomodData <- biomod2::BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
                                       expl.var = current,
                                       resp.xy = xy,
                                       resp.name = colnames(sp_occ)[sp])

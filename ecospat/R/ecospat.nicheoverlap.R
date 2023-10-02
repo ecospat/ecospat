@@ -402,7 +402,7 @@ ecospat.plot.contrib <- function(contrib, eigen) {
     title(main = "variable contribution")
   }
   if (ncol(contrib) == 2) {
-    s.corcircle(contrib[, 1:2]/max(abs(contrib[, 1:2])), grid = FALSE)
+    ade4::s.corcircle(contrib[, 1:2]/max(abs(contrib[, 1:2])), grid = FALSE)
     title(main = "correlation circle", sub = paste("axis1 = ", round(eigen[1]/sum(eigen) *
                                                                        100, 2), "%", "axis2 = ", round(eigen[2]/sum(eigen) * 100, 2), "%"))
   }
