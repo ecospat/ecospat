@@ -65,11 +65,11 @@ spp <- ecospat.testNiche
 xy.sp1 <- subset(spp, species=="sp1")[2:3] #Bromus_erectus
 xy.sp2 <- subset(spp, species=="sp4")[2:3] #Pritzelago_alpina
 
-env<-rast(system.file("extdata","ecospat.testEnv.tif",package="ecospat"))
+env<-terra::rast(system.file("extdata","ecospat.testEnv.tif",package="ecospat"))
 
-env.sp1 <- extract(env, xy.sp1)[,-1]
-env.sp2 <- extract(env, xy.sp2)[,-1]
-env.bkg <- na.exclude(values(env))
+env.sp1 <- terra::extract(env, xy.sp1)[,-1]
+env.sp2 <- terra::extract(env, xy.sp2)[,-1]
+env.bkg <- na.exclude(terra::values(env))
 
 #####################
 ## PCA-ENVIRONMENT ##

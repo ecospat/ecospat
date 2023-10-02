@@ -1076,7 +1076,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
           PA.MAX.KAPPA.cali[,s] <- NA
           PA.MAX.KAPPA.eval[,s] <- NA
         }else{
-          MAX.KAPPA.threshold <- optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.MAX.KAPPA.cali)[1]),
+          MAX.KAPPA.threshold <- PresenceAbsence::optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.MAX.KAPPA.cali)[1]),
                                                                             t(ccv.modeling.data$speciesData.calibration[,,run])[,s],
                                                                             t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,run])[,s]/1000)), 
                                                     threshold=101, opt.methods=4)[,2]
@@ -1109,7 +1109,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
           PA.MAX.ACCURACY.cali[,s] <- NA
           PA.MAX.ACCURACY.eval[,s] <- NA
         }else{
-          MAX.ACCURACY.threshold <- optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.MAX.ACCURACY.cali)[1]),
+          MAX.ACCURACY.threshold <- PresenceAbsence::optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.MAX.ACCURACY.cali)[1]),
                                                                                t(ccv.modeling.data$speciesData.calibration[,,run])[,s],
                                                                                t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,run])[,s]/1000)), 
                                                        threshold=101, opt.methods=5)[,2]
@@ -1142,7 +1142,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
           PA.MAX.TSS.cali[,s] <- NA
           PA.MAX.TSS.eval[,s] <- NA
         }else{
-          MAX.TSS.threshold <- optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.MAX.TSS.cali)[1]),
+          MAX.TSS.threshold <- PresenceAbsence::optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.MAX.TSS.cali)[1]),
                                                                           t(ccv.modeling.data$speciesData.calibration[,,run])[,s],
                                                                           t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,run])[,s]/1000)), 
                                                   threshold=101, opt.methods=3)[,2]
@@ -1175,7 +1175,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
           PA.SENS_SPEC.cali[,s] <- NA
           PA.SENS_SPEC.eval[,s] <- NA
         }else{
-          SENS_SPEC.threshold <- optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.SENS_SPEC.cali)[1]),
+          SENS_SPEC.threshold <- PresenceAbsence::optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.SENS_SPEC.cali)[1]),
                                                                             t(ccv.modeling.data$speciesData.calibration[,,run])[,s],
                                                                             t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,run])[,s]/1000)), 
                                                     threshold=101, opt.methods=2)[,2]
@@ -1208,7 +1208,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
           PA.MAX.ROC.cali[,s] <- NA
           PA.MAX.ROC.eval[,s] <- NA
         }else{
-          MAX.ROC.threshold <- optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.MAX.ROC.cali)[1]),
+          MAX.ROC.threshold <- PresenceAbsence::optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.MAX.ROC.cali)[1]),
                                                                           t(ccv.modeling.data$speciesData.calibration[,,run])[,s],
                                                                           t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,run])[,s]/1000)), 
                                                   threshold=101, opt.methods=9)[,2]
@@ -1241,7 +1241,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
           PA.OBS.PREVALENCE.cali[,s] <- NA
           PA.OBS.PREVALENCE.eval[,s] <- NA
         }else{
-          OBS.PREVALENCE.threshold <- optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.OBS.PREVALENCE.cali)[1]),
+          OBS.PREVALENCE.threshold <- PresenceAbsence::optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.OBS.PREVALENCE.cali)[1]),
                                                                                  t(ccv.modeling.data$speciesData.calibration[,,run])[,s],
                                                                                  t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,run])[,s]/1000)), 
                                                          threshold=101, opt.methods=6)[,2]
@@ -1274,7 +1274,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
           PA.AVG.PROBABILITY.cali[,s] <- NA
           PA.AVG.PROBABILITY.eval[,s] <- NA
         }else{
-          AVG.PROBABILITY.threshold <- optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.AVG.PROBABILITY.cali)[1]),
+          AVG.PROBABILITY.threshold <- PresenceAbsence::optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.AVG.PROBABILITY.cali)[1]),
                                                                                   t(ccv.modeling.data$speciesData.calibration[,,run])[,s],
                                                                                   t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,run])[,s]/1000)), 
                                                           threshold=101, opt.methods=8)[,2]
@@ -1307,7 +1307,7 @@ ecospat.CCV.communityEvaluation.bin <- function(ccv.modeling.data,
           PA.MCE.cali[,s] <- NA
           PA.MCE.eval[,s] <- NA
         }else{
-          MCE.threshold <- optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.MCE.cali)[1]),
+          MCE.threshold <- PresenceAbsence::optimal.thresholds(DATA=na.omit(data.frame(unlist(dimnames(PA.MCE.cali)[1]),
                                                                       t(ccv.modeling.data$speciesData.calibration[,,run])[,s],
                                                                       t(ccv.modeling.data$singleSpecies.calibrationSites.ensemblePredictions[,,run])[,s]/1000)), 
                                               threshold=101, opt.methods=10, req.sens=(100-MCE)/100)[,2]
@@ -1585,7 +1585,7 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
   SR.prob <- function(data){
     Sj <- as.numeric(data[1])
     pjk <- as.numeric(data[-1][!is.na(data[-1])])
-    return(dpoibin(kk=Sj, pp=pjk))
+    return(poibin::dpoibin(kk=Sj, pp=pjk))
   }
   
   #For SR mean and sd
@@ -1595,9 +1595,9 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
     SR.dev <- SR.mean - data[[1]]
     SR.sd <- sqrt(sum((1-data[-1])*data[-1]))
     if(SR.dev >= 0){
-      SR.prob <- ppoibin(data[[1]], data[-1])
+      SR.prob <- poibin::ppoibin(data[[1]], data[-1])
     }else{
-      SR.prob <- 1-ppoibin(data[[1]]-1, data[-1])
+      SR.prob <- 1-poibin::ppoibin(data[[1]]-1, data[-1])
     }
     return(unlist(c(SR.mean=SR.mean,SR.dev=SR.dev,SR.sd=SR.sd, SR.prob=SR.prob)))
   }
@@ -1616,7 +1616,7 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
       if(sum(obs.data)==0 | sum(obs.data)==length(obs.data)){
         return(1)
       }else{
-        auc.return <- unlist(auc(DATA=data.frame(id=1:length(obs.data),
+        auc.return <- unlist(PresenceAbsence::auc(DATA=data.frame(id=1:length(obs.data),
                                                  obs=obs.data,
                                                  pred=pred.data), na.rm = TRUE))[1]
         return(auc.return)

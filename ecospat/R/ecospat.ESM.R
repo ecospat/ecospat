@@ -841,8 +841,8 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
           sum(is.na(x))
         })] <- 0
       }
-      EVAL1 <- presence.absence.accuracy(DATA1[!calib.lines[, 
-                                                            i], ], threshold = as.vector(optimal.thresholds(DATA1[!calib.lines[, 
+      EVAL1 <- PresenceAbsence::presence.absence.accuracy(DATA1[!calib.lines[, 
+                                                            i], ], threshold = as.vector(PresenceAbsence::optimal.thresholds(DATA1[!calib.lines[, 
                                                                                                                                i], ], opt.methods = "MaxSens+Spec")[-1], mode = "numeric"))
       EVAL1 <- EVAL1[c(1, 2, 4:7, 9:12)]
       EVAL1$TSS <- EVAL1$sensitivity + EVAL1$specificity - 

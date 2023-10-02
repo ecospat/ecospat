@@ -28,7 +28,7 @@
 \dontrun{
 library(terra)
 fpath <- system.file("extdata", "ecospat.testEnv.tif", package="ecospat")
-env<-rast(fpath)
+env<-terra::rast(fpath)
 plot(env)
 }
 

@@ -110,7 +110,7 @@ ecospat.rangesize <- function(bin.map = NULL,
         }else{
         bin.map.ocp  <- c(bin.map.ocp, ecospat.occupied.patch(bin.map[[i]],xy, buffer=buffer))
         }
-        Val <- values(bin.map.ocp[[i]],na.rm=T)
+        Val <- terra::values(bin.map.ocp[[i]],na.rm=T)
         Val <- Val[Val==2]
         bin.map.ocp.rs <- c(bin.map.ocp.rs,
         length(Val)*prod(terra::res(bin.map.ocp)))

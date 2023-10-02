@@ -417,7 +417,7 @@ ecospat.niche.dyn.index <- function(z1, z2, intersection = NA) {
   
   dyn <- (-1 * z.exp.cat) + (2 * z.stable.cat) + z.res.cat
   if (ncol(w1) == 2) {
-    dyn <- rast(dyn)
+    dyn <- terra::rast(dyn)
   } # draw matrix with 3 categories of niche dynamic
   expansion.index.w <- sum(obs.exp) / sum(obs.stab + obs.exp) # expansion
   stability.index.w <- sum(obs.stab) / sum(obs.stab + obs.exp) # stability
