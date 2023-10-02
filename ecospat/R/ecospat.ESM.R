@@ -347,6 +347,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
         }
                              
         for(i in 1:length(models)){ ## Error with BIOMOD_Projection function
+          if(length(grep(models[i],models.chosen))==0){
+            next
+          }
           modelToProject <- get(biomod2::BIOMOD_LoadModels(mymodel,full.name = grep(paste0("_",models[i]),models.chosen,value = TRUE)))
           if(models[i]=="MAXENT"){
             map <- biomod2::predict(modelToProject,newdata=newdata,temp_workdir = modelToProject@model_output_dir,overwrite=T,on_0_1000 = TRUE, omit.na = TRUE)
@@ -374,6 +377,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
         }
         
         for(i in 1:length(models)){
+          if(length(grep(models[i],models.chosen))==0){
+            next
+          }
           modelToProject <- get(biomod2::BIOMOD_LoadModels(mymodel,full.name = grep(paste0("_",models[i]),models.chosen,value = TRUE)))
           if(models[i]=="MAXENT"){
             map <- biomod2::predict(modelToProject,newdata=newdata,temp_workdir = modelToProject@model_output_dir,overwrite=T,on_0_1000 = TRUE, omit.na = TRUE)
@@ -421,6 +427,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
                                                         }
                                                         
                                                         for(i in 1:length(models)){
+                                                          if(length(grep(models[i],models.chosen))==0){
+                                                            next
+                                                          }
                                                           modelToProject <- get(biomod2::BIOMOD_LoadModels(mymodel,full.name = grep(paste0("_",models[i]),models.chosen,value = TRUE)))
                                                           if(models[i]=="MAXENT"){
                                                             map <- biomod2::predict(modelToProject,newdata=newdata,temp_workdir = modelToProject@model_output_dir,overwrite=T,on_0_1000 = TRUE, omit.na = TRUE)
@@ -449,6 +458,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
                                                           }
                                                           
                                                           for(i in 1:length(models)){
+                                                            if(length(grep(models[i],models.chosen))==0){
+                                                              next
+                                                            }
                                                             modelToProject <- get(biomod2::BIOMOD_LoadModels(mymodel,full.name = grep(paste0("_",models[i]),models.chosen,value = TRUE)))
                                                             if(models[i]=="MAXENT"){
                                                               map <- biomod2::predict(modelToProject,newdata=newdata,temp_workdir = modelToProject@model_output_dir,on_0_1000 = TRUE, omit.na = TRUE,overwrite=T)
@@ -563,10 +575,16 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
         y.eval$run[y.eval$run=="allRun"] = "Full"
       }
 
-      x <- matrix(y.eval$validation, nrow = length(unique(y.eval$algo)), 
-                  ncol = NbRunEval + 1, byrow = FALSE)
-      colnames(x) <- unique(y.eval$run)
-      rownames(x) <- unique(y.eval$algo)
+      modGenerated <- unique(y.eval$algo)
+      x <- matrix(0, nrow = length(modGenerated), 
+                  ncol = NbRunEval + 1)
+      x[,]=NA
+      colnames(x) =  c(paste0("RUN",1:NbRunEval),"Full")
+      rownames(x) = unique(y.eval$algo)
+      
+      if(length(modGenerated) != length(models)){
+        warning(cat(paste("All", setdiff(models, modGenerated), "models failed for", b@sp.name,collapse = " ; ")))
+      }
       
       if(anyNA(data@data.species)){
         data@data.species[is.na(data@data.species)] =0
@@ -588,8 +606,8 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
                          grepl(paste("RUN", NbRunEval + 1, sep = ""), 
                                y@models.failed))) {
           for (i in 1:NbRunEval) {
-            if (sum(is.na(z[, grep(paste("RUN", i, "_", 
-                                         model, sep = ""), colnames(z))])) != nrow(z)) {
+            if (length(grep(paste("RUN", i, "_", 
+                                  model, sep = ""), colnames(z)))!=0) {
               if (length(models) > 1) {
                 
                   x[rownames(x) == model, colnames(x) == 
@@ -625,16 +643,26 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
         y.eval$run[y.eval$run=="allRun"] = "Full"
       }
       
-      x <- matrix(y.eval$validation, nrow = length(unique(y.eval$algo)), 
-                  ncol = NbRunEval + 1, byrow = FALSE)
-      x.calib <- matrix(y.eval$calibration, nrow = length(unique(y.eval$algo)), 
-                        ncol = NbRunEval + 1, byrow = FALSE)
-      colnames(x) <- unique(y.eval$run)
-      rownames(x) <- unique(y.eval$algo)
-      colnames(x.calib) <- unique(y.eval$run)
-      rownames(x.calib) <- unique(y.eval$algo)
+     modGenerated <- unique(y.eval$algo)
+      x <- matrix(0, nrow = length(modGenerated), 
+                  ncol = NbRunEval + 1)
+      x[,]=NA
+      colnames(x) =  c(paste0("RUN",1:NbRunEval),"Full")
+      rownames(x) = unique(y.eval$algo)
+      
+      x.calib <- x
+      
+      for(h in 1:length(modGenerated)){
+        inter <- y.eval[y.eval$algo == modGenerated[h],]
+        x[modGenerated[h],inter$run] = inter$validation
+        x.calib[modGenerated[h],inter$run] = inter$calibration
+      }
+      if(length(modGenerated) != length(models)){
+        warning(cat(paste("All", setdiff(models, modGenerated), "models failed for", b@sp.name,collapse = " ; ")))
+      }
+      
       if (length(models) > 1) {
-        for (row in models) {
+        for (row in modGenerated) {
           if (ncol(calib.lines) == NbRunEval + 1) {
             if (is.na(x.calib[row, NbRunEval + 1])) {
               x[row, ] <- NA
