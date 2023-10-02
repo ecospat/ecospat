@@ -63,8 +63,7 @@ Imports: ade4 (>= 1.6-2), gbm (>= 2.1.1), foreach (>=
         matrixStats (>= 0.53.1), ks (>= 1.12.0), nabor (>= 0.5.0),
         Hmisc (>= 4.4-2)
 Suggests: rJava (>= 0.9-6), knitr (>= 1.14),
-        alphahull (>= 2.1), igraph (>= 1.2.1), markdown (>= 1.1), dplyr
-        (>= 0.3.0.1), rmarkdown (>= 2.6), qpdf (>= 1.1), snowfall (>=
+        alphahull (>= 2.1), markdown (>= 1.1), dplyr(>= 0.3.0.1), rmarkdown (>= 2.6), qpdf (>= 1.1), snowfall (>=
         1.61), maps (>= 3.0.0), rms, sp(>= 2.0-0), ape (>= 3.2),randomForest (>= 4.6-7)
 LazyData: true
 URL:

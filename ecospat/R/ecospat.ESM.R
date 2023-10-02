@@ -583,7 +583,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
       rownames(x) = unique(y.eval$algo)
       
       if(length(modGenerated) != length(models)){
-        warning(cat(paste("All", setdiff(models, modGenerated), "models failed for", b@sp.name,collapse = " ; ")))
+        warning(cat(paste("All", setdiff(models, modGenerated), "models failed for", y@sp.name,collapse = " ; ")))
       }
       
       if(anyNA(data@data.species)){
@@ -658,7 +658,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
         x.calib[modGenerated[h],inter$run] = inter$calibration
       }
       if(length(modGenerated) != length(models)){
-        warning(cat(paste("All", setdiff(models, modGenerated), "models failed for", b@sp.name,collapse = " ; ")))
+        warning(cat(paste("All", setdiff(models, modGenerated), "models failed for", y@sp.name,collapse = " ; ")))
       }
       
       if (length(models) > 1) {
