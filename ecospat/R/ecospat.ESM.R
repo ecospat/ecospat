@@ -364,7 +364,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
       }
       if (inherits(new.env, "SpatRaster")) {
         
-        newdata=newdata=subset(new.env,combinations[, k])
+        newdata=newdata=terra::subset(new.env,combinations[, k])
         if("PA.table" %in% slotNames(data)){
           
           models.chosen = grep("allRun", 
