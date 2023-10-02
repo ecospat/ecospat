@@ -252,14 +252,13 @@ ecospat_3.5.1 (23.02.2023)
 FIXES
 * further compatibility fixes for biomod2 v4.2-2 to ESM functions
 
-
-ecospat_4.0.0 (28.09.2023)
+ecospat_4.0.0 (16.010.2023)
 =============
 
-FIXES
-* further compatibility fixes for biomod2 v4.2-3 to ESM functions
-* fix bugs for parallel job in ecospat.ESM.Projection
+CHANGES
+* all dependencies to packages maptools, rgdal, and rgeos have been removed
+* all dependencies to the raster package have been replaced to terra
 
-NEW FEATURES
-* added compatibility with terra package for ecospat.ESM.Projection
-* 
+FIXES
+* compatibility fixes for biomod2 v4.2-3 to ESM functions
+* fix bugs in ecospat.ESM.Modeling and ecospat.ESM.Projection
