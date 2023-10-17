@@ -20,7 +20,7 @@
 # If not provided, the richness value will correspond to the sum of the predicted probabilities of all species (see D`Amen et al., 2015.)
 # In the rare case when several species have the exact same predicted probabilites and the target richness does not allow all of them to be included 
 # within the predicted community, selection between these species is done at random.
-# the function saves in the working directory a dataframe object with the community prediction by the SESAM framework
+# the function saves in the working directory a ".txt" file with the community prediction by the SESAM framework
 
 ################################
 ####Probability Ranking Rule ###
