@@ -27,9 +27,9 @@
 ################################
 
 
-ecospat.SESAM.prr <- function(proba,sr=NA , verbose = FALSE) {
+ecospat.SESAM.prr <- function(proba,sr=NULL , verbose = FALSE) {
   # Get target richness per site, either use input richness, or calculate it using sum of probabilities
-  if (is.na(sr)){
+  if (is.null(sr)){
     row_sums <- round(round(as.vector(rowSums(proba))))
   } else{ 
     row_sums <-round(round(as.vector(sr[[1]])))
