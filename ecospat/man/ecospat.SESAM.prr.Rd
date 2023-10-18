@@ -1,4 +1,4 @@
-\name{ecospat.SESAM.prr}
+ous\name{ecospat.SESAM.prr}
 \alias{ecospat.SESAM.prr}
 
 \title{SESAM Probability Ranking Rule
@@ -22,7 +22,7 @@ The SESAM framework implemented in ecospat is based on 1) probabilities of indiv
 Returns a `.txt` file saved in the working directory that contains the community prediction by the SESAM framework, i.e. binary predictions for all species (columns) for each site (rows).
 }
 \author{
-Valentin Verdon \email{valentin.verdon@unil.ch} and Manuela D`Amen \email{manuela.damen@unil.ch} and Anne Dubuis \email{anne.dubuis@gmail.com}
+Valentin Verdon \email{valentin.verdon@unil.ch} from previous version by Manuela D`Amen \email{manuela.damen@unil.ch} and Anne Dubuis \email{anne.dubuis@gmail.com}
 }
 \references{
 D`Amen, M., A. Dubuis, R.F. Fernandes, J. Pottier, L. Pellissier and A. Guisan. 2015. Using species richness and functional traits predictions to constrain assemblage predictions from stacked species distribution models. \emph{J. Biogeogr.}, \bold{42}, 1255-1266.
