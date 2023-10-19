@@ -9,7 +9,7 @@
 \usage{ecospat.binary.model (Pred, Threshold)}
 
 \arguments{
-  \item{Pred}{RasterLayer predicted suitabilities from a SDM prediction.}
+  \item{Pred}{a \code{SpatRaster} object predicted suitabilities from a SDM prediction.}
   \item{Threshold}{A threshold to convert continous maps into binary maps (e.g. the output of the function \code{ecospat.mpa}() or use the \code{optimal.thresholds} from PresenceAbsence R package.}
 }
 
@@ -34,49 +34,32 @@ Freeman, E.A. and G.G. Moisen. 2008. A comparison of the performance of threshol
    \code{\link{ecospat.mpa}}, \code{\link[PresenceAbsence]{optimal.thresholds}}
 }
 
-\author{Ruben G. Mateo \email{rubeng.mateo@gmail.com} with contributions of Frank Breiner \email{frank.breiner@wsl.ch}}
+\author{Ruben G. Mateo \email{rubeng.mateo@gmail.com} with contributions of Frank Breiner \email{frank.breiner@wsl.ch} and Flavien Collart}
 
 \examples{
 
 \donttest{
-library(raster)
-library(dismo)
+library(terra)
+# coordinates of the plots
+xy <- ecospat.testData[,2:3]
 
-### make a maxent model
+# environmental data
+predictors <- terra::rast(system.file("extdata","ecospat.testEnv.tif",package="ecospat"))
 
-# path to maxent.jar file
-path<- paste0(system.file(package="dismo"), "/java/maxent.jar")
+env <- terra::extract(predictors,xy,ID=FALSE)  
+spData <- cbind.data.frame(occ=ecospat.testData$Veronica_alpina,env)
+mod <- glm(occ~ddeg0+I(ddeg0^2)+srad68+I(srad68^2),data=spData,family = binomial())
 
-if (file.exists(path) & require(rJava)) {
+# predict to entire dataset
+pred <- terra::predict(predictors,mod,type="response") 
+  
+### make binary maps
+# use MPA to convert suitability to binary map
 
-  # get predictor variables
-  fnames <- list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
-                     pattern='grd', full.names=TRUE )
-  predictors <- stack(fnames)
-  #plot(predictors)
-
-  # file with presence points
-  occurence <- paste(system.file(package="dismo"), '/ex/bradypus.csv', sep='')
-  occ <- read.table(occurence, header=TRUE, sep=',')[,-1]
-  colnames(occ) <- c("x","y")
-  occ <- ecospat.occ.desaggregation(occ,min.dist=1)
-
-  # fit a domain model, biome is a categorical variable
-  me <- maxent(predictors, occ, factors='biome')
-
-  # predict to entire dataset
-  pred <- predict(me, predictors) 
-
-  plot(pred)
-  points(occ)
-}
-
-### convert suitability to binary map
-
-mpa.cutoff <- ecospat.mpa(pred,occ,perc = 0.9) # 90 percent of the presences encompassed
+mpa.cutoff <- ecospat.mpa(pred,xy[spData$occ==1,],perc = 0.9) # 90% presences encompassed
 pred.bin.mpa <- ecospat.binary.model(pred,mpa.cutoff)
 
 plot(pred.bin.mpa)
-points(occ)
+points(xy[spData$occ==1,])
 }
 }

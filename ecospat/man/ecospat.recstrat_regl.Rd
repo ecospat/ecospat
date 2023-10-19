@@ -42,7 +42,7 @@
   library(biomod2)
   
   data("bioclim_current")
-  bioclim_current <- rast(bioclim_current)
+  bioclim_current <- terra::rast(bioclim_current)
   bio3 <- bioclim_current[["bio3"]]
   bio12 <- bioclim_current[["bio12"]]
 

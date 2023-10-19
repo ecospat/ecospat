@@ -64,7 +64,7 @@ integer. which bivariate combinations should be used for modeling? Default: all
 logical. If TRUE, the parallel computing is enabled (highly recommended)
     }
     \item{cleanup}{
-numeric. Calls removeTmpFiles() to delete all files from rasterOptions()$tmpdir which are older than the given time (in hours). This might be necessary to prevent running over quota. No cleanup is used by default. 
+\bold{No more available}. Please use terra::TmpFiles instead 
     }
 }
 \details{
@@ -120,7 +120,7 @@ current <- inv[3:8]
 
 ### Formating the data with the BIOMOD_FormatingData() function from the package biomod2
 sp <- 1
-myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
+myBiomodData <- biomod2::BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
                                       expl.var = current,
                                       resp.xy = xy,
                                       resp.name = colnames(sp_occ)[sp])

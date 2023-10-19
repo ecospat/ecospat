@@ -124,7 +124,7 @@ ecospat_3.0 (19.06.2018)
 NEW FEATURES
 
 * Added new funtions "ecospat.niche.zProjGeo" and "ecospat.niche.dynIndexProjGeo" to project niche quantification (calculated with ecospat.grid.clim.dyn) onto the geographical space
-* Added a new dataset ecospat.testEnvRaster including a stack of 5 topoclimatic rasters at 250m resolution for the Western Swiss Alps
+* Added a new dataset ecospat.testEnv including a tif stack of 5 topoclimatic rasters at 250m resolution for the Western Swiss Alps
 * Added new functions "ecospat.CCV.modeling", "ecospat.CCV.createDataSplitTable", "ecospat.CCV.communityEvaluation.bin", and "ecospat.CCV.communityEvaluation.prob" to perform community cross-validation (CCV) as in Scherrer et al. 2018.
 # Added a new function "ecospat.ESM.VarContrib" to calculate the variable contribution of each variable and method in an ESM model
 
@@ -246,19 +246,19 @@ ecospat_3.5 (30.01.2023)
 FIXES
 * various compatibility fixes for biomod2 v4.2-2 provided by rpatin
 
-ecospat_3.5.1 (323.02.2023)
+ecospat_3.5.1 (23.02.2023)
 =============
 
 FIXES
 * further compatibility fixes for biomod2 v4.2-2 to ESM functions
 
-
-ecospat_3.5.2 (323.02.2023)
+ecospat_4.0.0 (16.010.2023)
 =============
 
-FIXES
-* further compatibility fixes for biomod2 v4.2-3 to ESM functions
-* fix bugs for parallel job in ecospat.ESM.Projection
+CHANGES
+* all dependencies to packages maptools, rgdal, and rgeos have been removed
+* all dependencies to the raster package have been replaced to terra
 
-NEW FEATURES
-* added compatibility with terra package for ecospat.ESM.Projection
+FIXES
+* compatibility fixes for biomod2 v4.2-3 to ESM functions
+* fix bugs in ecospat.ESM.Modeling and ecospat.ESM.Projection

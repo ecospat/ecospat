@@ -37,7 +37,7 @@ data('ecospat.testData')
 data.Solalp<- ecospat.testData[c("Soldanella_alpina","ddeg","mind","srad","slp","topo")] 
 
 # gbm model for Soldanella alpina
-gbm.Solalp <- gbm(Soldanella_alpina ~ ., data = data.Solalp,
+gbm.Solalp <- gbm::gbm(Soldanella_alpina ~ ., data = data.Solalp,
                   distribution = "bernoulli", cv.folds = 10, n.cores=2)
 
 # cross-validated predictions

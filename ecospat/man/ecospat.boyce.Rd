@@ -10,8 +10,8 @@
 rm.duplicate = TRUE, method = 'spearman')}
 
 \arguments{
-  \item{fit}{A vector or Raster-Layer containing the predicted suitability values}
-  \item{obs}{A vector containing the predicted suitability values or xy-coordinates (if "fit" is a Raster-Layer) of the validation points (presence records)}
+  \item{fit}{A vector or a SpatRaster containing the predicted suitability values}
+  \item{obs}{A vector containing the predicted suitability values or xy-coordinates (if "fit" is a SpatRaster) of the validation points (presence records)}
   \item{nclass}{The number of classes or vector with class thresholds. If \code{nclass=0}, the Boyce index is calculated with a moving window (see next parameters)}
   \item{window.w}{The width of the moving window (by default 1/10 of the suitability range)}
   \item{res}{The resolution of the moving window (by default 100 focals)}
@@ -31,7 +31,7 @@ In the initial publication on the continuous Boyce index, the correlation was se
 
 \value{The function returns a list that contains a vector F.ratio (the predicted-to-expected ratio for each class-interval) and a numeric Spearman.cor (the Boyce index value)}
 
-\author{Blaise Petitpierre \email{bpetitpierre@gmail.com} and Frank Breiner \email{frank.breiner@unil.ch}}
+\author{Blaise Petitpierre \email{bpetitpierre@gmail.com} and Frank Breiner \email{frank.breiner@unil.ch} with the updates of Flavien Collart}
 
 \references{
 Boyce, M.S., P.R. Vernier, S.E. Nielsen and F.K.A. Schmiegelow. 2002. Evaluating resource selection functions. \emph{Ecol. Model.}, \bold{157}, 281-300.
