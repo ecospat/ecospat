@@ -42,7 +42,7 @@ Options of type:
 
 fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
 library(ape)
-tree <-read.tree(fpath)
+tree <-ape::read.tree(fpath)
 data <- ecospat.testData[9:52] 
 
 pd <- ecospat.calculate.pd(tree, data, method = "spanning", type = "species", root = FALSE, 

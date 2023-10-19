@@ -4,30 +4,33 @@
 
 \title{Projection of niche dynamic indices to the Geography}
 
-\description{Creates a raster in geography with each pixel containing a
+\description{Creates a SpatRaster in geography with each pixel containing a
   niche dynamic index (stability, expansion, or unfilling) extracted
   from 2 niches generated with \code{ecospat.grid.clim.dyn}.}
 
-\usage{ecospat.niche.dynIndexProjGeo(z1, z2, env)}
+\usage{ecospat.niche.dynIndexProjGeo(z1, z2, proj, env)}
 
 \arguments{
   \item{z1}{Species 1 occurrence density grid created
     by \code{ecospat.grid.clim.dyn}.}
   \item{z2}{Species 2 occurrence density grid created
     by \code{ecospat.grid.clim.dyn}.}
-  \item{env}{A RasterStack or RasterBrick of environmental variables
+  \item{proj}{type of projection (0,1 or 2)}
+  \item{env}{A SpatRaster of environmental variables
     corresponding to the background (\code{glob}
     in \code{ecospat.grid.clim.dyn}).}
 }
 
 \details{Extracts the niche dynamic index of objects created
   by \code{ecospat.niche.dyn.index} for each background point
-  (\code{glob}) using \code{extract} from the raster package. The values
+  (\code{glob}) using \code{extract} from the terra package. The values
   are projected to the geographic coordinates of \code{env} and returned
-  as a raster layer.
+  as a SpatRaster layer. If proj=0, the common background for z1 and z2 (\code{glob})
+  is used. If proj=1, the background (\code{glob1}) of z1 is used. If proj=2, 
+  the background (\code{glob1}) of z2 is used.
 }
 
-\value{Raster of class RasterLayer, with cell values 0-3. 1: unfilling
+\value{a SpatRaster with cell values 0-3. 1: unfilling
   (habitat occupied by species 1); 2: expansion (habitat occupied only
   by species 2); 3: stability (habitat occupied by both species); and 0
   (unoccupied habitat).}
@@ -55,31 +58,31 @@
 \donttest{
 
 library(ade4)
-library(raster)
+library(terra)
 
 data(ecospat.testNiche)
 spp <- ecospat.testNiche
 xy.sp1 <- subset(spp, species=="sp1")[2:3] #Bromus_erectus
 xy.sp2 <- subset(spp, species=="sp4")[2:3] #Pritzelago_alpina
 
-load(system.file("extdata", "ecospat.testEnvRaster.Rdata",
-                 package="ecospat"))
+env<-terra::rast(system.file("extdata","ecospat.testEnv.tif",package="ecospat"))
 
-env.sp1 <- extract(env, xy.sp1)
-env.sp2 <- extract(env, xy.sp2)
-env.bkg <- na.exclude(values(env))
+env.sp1 <- terra::extract(env, xy.sp1)[,-1]
+env.sp2 <- terra::extract(env, xy.sp2)[,-1]
+env.bkg <- na.exclude(terra::values(env))
 
 #####################
 ## PCA-ENVIRONMENT ##
 #####################
 
-pca.cal <- dudi.pca(env.bkg, center = TRUE, scale = TRUE,
+library(ade4)
+pca.cal <- ade4::dudi.pca(env.bkg, center = TRUE, scale = TRUE,
                     scannf = FALSE, nf = 2)
 
 # predict the scores on the axes
 scores.bkg <- pca.cal$li  #scores for background climate
-scores.sp1 <- suprow(pca.cal,env.sp1)$lisup  #scores for sp1
-scores.sp2 <- suprow(pca.cal,env.sp2)$lisup  #scores for sp2
+scores.sp1 <- ade4::suprow(pca.cal,env.sp1)$lisup  #scores for sp1
+scores.sp2 <- ade4::suprow(pca.cal,env.sp2)$lisup  #scores for sp2
 
 # calculation of occurence density (niche z)
   
@@ -103,7 +106,7 @@ ecospat.niche.overlap(z1,z2 ,cor = TRUE)
 ## dynamic indices in space ##
 ##############################
 
-geozS <- ecospat.niche.dynIndexProjGeo(z1, z2, env)
+geozS <- ecospat.niche.dynIndexProjGeo(z1, z2, proj=0, env)
 
 plot(geozS, col = c("grey", "green", "red", "blue"),
      legend = FALSE)
