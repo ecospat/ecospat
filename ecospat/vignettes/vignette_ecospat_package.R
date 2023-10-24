@@ -15,14 +15,12 @@ data(ecospat.testNiche.nat)
 names(ecospat.testNiche.nat)
 
 ## -----------------------------------------------------------------------------
-fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
-fpath
-library(ape)
-tree<-read.tree(fpath)
-tree$tip.label
-
-## ----tree---------------------------------------------------------------------
-plot(tree, cex=0.6)
+if(requireNamespace("ape")){
+  fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
+  tree<-ape::read.tree(fpath)
+  tree$tip.label
+  plot(tree, cex=0.6)
+}
 
 ## ----mantel_cor---------------------------------------------------------------
 ecospat.mantel.correlogram(dfvar=ecospat.testData[c(2:16)],colxy=1:2, n=100, 
@@ -49,39 +47,23 @@ ecospat.climan(ref,p)
 x <- ecospat.testData[c(2,3,4:8)]
 proj<- x[1:90,] #A projection dataset.
 cal<- x[91:300,] #A calibration dataset
-
-## -----------------------------------------------------------------------------
 mess.object<-ecospat.mess (proj, cal, w="default")
-
-## ----mess---------------------------------------------------------------------
 ecospat.plot.mess (mess.object, cex=1, pch=15)
 
 ## -----------------------------------------------------------------------------
-fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
-library(ape)
-tree <- read.tree(fpath)
-data <- ecospat.testData[9:52]
-
-## -----------------------------------------------------------------------------
-pd<- ecospat.calculate.pd(tree, data, method = "spanning", type = "species", root = TRUE, average = FALSE, verbose = TRUE )
-
-## -----------------------------------------------------------------------------
-pd
-
-## ----pd-----------------------------------------------------------------------
-plot(pd)
-
-## -----------------------------------------------------------------------------
-inv <- ecospat.testNiche.inv
-
-## -----------------------------------------------------------------------------
-nat <- ecospat.testNiche.nat
+if(requireNamespace("ape")){
+  fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
+  tree <- ape::read.tree(fpath)
+  data <- ecospat.testData[9:52]
+  pd<- ecospat.calculate.pd(tree, data, method = "spanning", type = "species", root = TRUE, average = FALSE, verbose = FALSE )
+  plot(pd)
+}
 
 ## -----------------------------------------------------------------------------
 library(ade4)
-pca.env <- dudi.pca(rbind(nat,inv)[,3:10],scannf=F,nf=2) 
-
-## -----------------------------------------------------------------------------
+inv <- ecospat.testNiche.inv
+nat <- ecospat.testNiche.nat
+pca.env <- ade4::dudi.pca(rbind(nat,inv)[,3:10],scannf=F,nf=2) 
 ecospat.plot.contrib(contrib=pca.env$co, eigen=pca.env$eig)
 
 ## -----------------------------------------------------------------------------
@@ -89,16 +71,16 @@ ecospat.plot.contrib(contrib=pca.env$co, eigen=pca.env$eig)
 scores.globclim <- pca.env$li
 
 # PCA scores for the species native distribution
-scores.sp.nat <- suprow(pca.env,nat[which(nat[,11]==1),3:10])$li
+scores.sp.nat <- ade4::suprow(pca.env,nat[which(nat[,11]==1),3:10])$li
 
 # PCA scores for the species invasive distribution
-scores.sp.inv <- suprow(pca.env,inv[which(inv[,11]==1),3:10])$li
+scores.sp.inv <- ade4::suprow(pca.env,inv[which(inv[,11]==1),3:10])$li
 
 # PCA scores for the whole native study area
-scores.clim.nat <- suprow(pca.env,nat[,3:10])$li
+scores.clim.nat <- ade4::suprow(pca.env,nat[,3:10])$li
 
 # PCA scores for the whole invaded study area
-scores.clim.inv <- suprow(pca.env,inv[,3:10])$li
+scores.clim.inv <- ade4::suprow(pca.env,inv[,3:10])$li
 
 ## -----------------------------------------------------------------------------
 # gridding the native niche
@@ -137,7 +119,7 @@ sim.test <- ecospat.niche.similarity.test(grid.clim.nat, grid.clim.inv,rep=10,
                                           stability.alternative = "higher",
                                           unfilling.alternative = "lower",
                                           intersection = 0.1,
-                                          rand.type=2) 
+                                          rand.type=1) 
 
 ## -----------------------------------------------------------------------------
 ecospat.plot.overlap.test(sim.test, "D", "Similarity")
@@ -239,12 +221,12 @@ sp<-1
 ## -----------------------------------------------------------------------------
 ### Formating the data with the BIOMOD_FormatingData() function form the package biomod2
 
-myBiomodData <- BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
+myBiomodData <- biomod2::BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]),
                                       expl.var = current,
                                       resp.xy = xy,
                                       resp.name = colnames(sp_occ)[sp])
 
-myBiomodOption <- bm_DefaultModelingOptions()
+myBiomodOption <- biomod2::bm_DefaultModelingOptions()
 myBiomodOption@GLM$test = 'none'
 myBiomodOption@GBM$interaction.depth = 2
 
@@ -293,10 +275,6 @@ pred<-ecospat.testData[c(73:92)]
 
 ## -----------------------------------------------------------------------------
 nbpermut <- 100
-
-## -----------------------------------------------------------------------------
 outpath <- getwd()
-
-## ----cons_Cscore--------------------------------------------------------------
 ecospat.cons_Cscore(presence, pred, nbpermut, outpath)
 

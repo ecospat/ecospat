@@ -22,7 +22,7 @@
 For example, if \code{th.quant} is set to 0.05, the margin of the distribution is drawn by including 95 percent of the species occurrences, removing the more marginal populations. If \code{th.quant} is set to 0, the margin of the distribution is the minimal envelope including 100 percent of the species occurrences.
 The bootstrap estimation of the margin allows representing the uncertainty around this margin. By default it returns a contour covering a 95 percents confidence interval (CI), but you can easily choose a custom CI.}
 
-\value{ a list with $niche.envelope = a raster of the niche envelope including the distribution, $niche.contour = a SpatiaLine object of the margin, $niche.density = a raster of the niche density within the niche envelope.}
+\value{ a list with $niche.envelope = a SpatRaster of the niche envelope including the distribution, $niche.contour = a SpatiaLine object of the margin, $niche.density = a SpatRaster of the niche density within the niche envelope.}
 
 \author{Blaise Petitpierre \email{bpetitpierre@gmail.com}}
 
@@ -32,7 +32,7 @@ The bootstrap estimation of the margin allows representing the uncertainty aroun
 \donttest{
 
 library(ade4)
-library(raster)
+library(terra)
 
 data(ecospat.testData)
 
@@ -40,12 +40,13 @@ sp1 <- ecospat.testData[ecospat.testData$Bromus_erectus == 1, 1:8] # species occ
 clim <- ecospat.testData[4:8] # environment of the study area
 
 #################################### PCA-ENVIRONMENT ##################################
-pca.cal <- dudi.pca(clim, center = TRUE, scale = TRUE, scannf = FALSE, nf = 2)
+library(ade4)
+pca.cal <- ade4::dudi.pca(clim, center = TRUE, scale = TRUE, scannf = FALSE, nf = 2)
 
 ####### projection of the species distribution into the environmental space ######
 # predict the scores on the axes
 scores.clim <- pca.cal$li # scores for global climate
-scores.sp1 <- suprow(pca.cal, sp1[, 4:8])$li # scores for sp1
+scores.sp1 <- ade4::suprow(pca.cal, sp1[, 4:8])$li # scores for sp1
 
 z1 <- ecospat.grid.clim.dyn(scores.clim, scores.clim, scores.sp1, R = 100, 
   extend.extent = c(0, 1, 0, 0))
@@ -60,21 +61,20 @@ z1.bootstrap.margin <- ecospat.margin(z1,th.quant = 0,
 ####### plot the margin and its uncertainty ######
 plot(z1.margin$niche.density) # plot of the niche density
 points(z1$sp) # with species occurences
-plot(z1.margin$niche.contour, add = TRUE) # limit of the margin if you include all the distribution
-plot(z1.95margin$niche.contour, col = 2, add = TRUE) # limit of the margin if you exclude the 
+lines(z1.margin$niche.contour) # limit of the margin if you include all the distribution
+lines(z1.95margin$niche.contour, col = 2) # limit of the margin if you exclude the 
                                                   # 5 percents of the most marginal distribution
-plot(z1.bootstrap.margin$niche.contour, col = 2, add = TRUE, lty = "dotted") 
+lines(z1.bootstrap.margin$niche.contour, col = 2, lty = "dotted") 
       # limit of the niche based on the 95 percent CI of the bootstrap
 
 par(mfrow=c(1,2))
 plot(z1.bootstrap.margin$niche.envelope, main = "Margin uncertainty", 
-  legend.args=list(text="CI", cex = 0.8)) # shows the uncertainty of the niche margin in raster mode
+  legend.args=list(text="CI", cex = 0.8)) # shows uncertainty of niche margin in SpatRaster mode
 points(z1$sp) # with species occurences
 # shows the uncertainty of the niche limit in vector mode
-raster::contour(z1.bootstrap.margin$niche.envelope, col = gray(10:1 / 10), 
-  main = "Margin uncertainty") 
-confInt80 <- raster::rasterToPolygons(z1.bootstrap.margin$niche.envelope >= 50, dissolve = TRUE, 
-  fun = function(x) {x == 1}
-  ) # select a customized confidence interval (here for example 80 percent)
-plot(as(confInt80, "SpatialLines"), add = TRUE, lty = "dotted", col = 2)
+boot<-terra::as.contour(z1.bootstrap.margin$niche.envelope)
+plot(boot, col = gray(10:1 / 10), main = "Margin uncertainty") 
+# select a customized confidence interval (here for example 80 percent)
+confInt80 <- terra::as.polygons(z1.bootstrap.margin$niche.envelope >= 50, dissolve = TRUE) 
+lines(confInt80, lty = "dotted", col = 2)
 }}

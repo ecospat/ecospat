@@ -73,8 +73,10 @@
 
 
 \examples{
-fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
-library(ape)
-tree <- read.tree(fpath)
-plot(tree)
+if(require("ape",quietly=TRUE)){
+  fpath <- system.file("extdata", "ecospat.testTree.tre", package="ecospat")
+  tree <- ape::read.tree(fpath)
+  plot(tree)
+}
+
 }

@@ -60,9 +60,9 @@
 ## which.biva:          integer. which bivariate combinations should be used for modeling? Default: all
 ## weighting.score:     evaluation score used to weight single models to build ensembles: 'AUC', 'SomersD' (2xAUC-1), 'Kappa', 'TSS' or 'Boyce'
 ## ESM_Projection:      logical. set to FALSE, if no projections should be calculated. Only Evaluation scores based on test and train data will be returned. (Default: TRUE)
-## new.env:             A set of explanatory variables onto which models will be projected . It could be a data.frame, a matrix, or a rasterStack object. Make sure the column names (data.frame or matrix) or layer Names (rasterStack) perfectly match with the names of variables used to build the models in the previous steps.
+## new.env:             A set of explanatory variables onto which models will be projected . It could be a data.frame, a matrix, or a SpatRaster object. Make sure the column names (data.frame or matrix) or layer Names (SpatRaster) perfectly match with the names of variables used to build the models in the previous steps.
 ## parallel:            logical. If TRUE, the parallel computing is enabled (highly recommended)
-## cleanup:             numeric. Calls removeTmpFiles() to delete all files from rasterOptions()$tmpdir which are older than the given time (in hours). This is might be necessary to prevent running over quota. No cleanup is used by default.
+## cleanup:             numeric. Not available. No cleanup is used by default.
 ## Yweights:            response points weights. This argument will only affect models that allow case weights. 
 
 ## Details:
@@ -126,7 +126,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
     models.eval.meth <- "ROC"
   }
   if (is.null(models.options)) {
-    models.options <- BIOMOD_ModelingOptions()
+    models.options <- biomod2::BIOMOD_ModelingOptions()
     models.options@GBM$n.trees <- 1000
     models.options@GBM$interaction.depth <- 4
     models.options@GBM$shrinkage <- 0.005
@@ -230,19 +230,20 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                     CV.do.full.models = TRUE, var.import = 0, modeling.id = modeling.id, 
                                                     weights = Yweights))
       if (cleanup != FALSE) {
-        removeTmpFiles(h = cleanup)
+        warning("Unfortunately cleanup is no more available. Please use terra::tmpFiles after this function to remove temporary files.")
       }
     }
   }
   if (parallel == TRUE) {
-    mymodels <- foreach(k = which.biva, .packages = c("biomod2", 
-                                                      "raster","terra")) %dopar% {
+    mymodels <- foreach::foreach(k = which.biva, .packages = c("biomod2", 
+                                                      "terra")) %dopar% {
                                                         setwd(newwd)
                                                         mydata@data.env.var <- data@data.env.var[, colnames(data@data.env.var) %in% 
                                                                                                    combinations[, k]]
                                                         mydata@sp.name <- paste("ESM.BIOMOD", k, sep = ".")
                                                         if (cleanup != FALSE) {
-                                                          removeTmpFiles(h = cleanup)
+                                                          warning("Unfortunately cleanup is no more available. Please use terra::tmpFiles after this function to remove temporary files.")
+
                                                         }
                                                         if (tune == TRUE) {
                                                           models.options <- biomod2::BIOMOD_Tuning(bm.format = mydata, 
@@ -275,9 +276,9 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
 
 ## FUNCTION'S ARGUMENTS
 ## ESM.modeling.output:   BIOMOD.formated.data object returned by BIOMOD_FormatingData
-## new.env:               A set of explanatory variables onto which models will be projected . It could be a data.frame, a matrix, a rasterStack, and a SpatRaster object. Make sure the column names (data.frame or matrix) or layer Names (rasterStack, SpatRaster) perfectly match with the names of variables used to build the models in the previous steps.
+## new.env:               A set of explanatory variables onto which models will be projected . It could be a data.frame, a matrix, and a SpatRaster object. Make sure the column names (data.frame or matrix) or layer Names (SpatRaster) perfectly match with the names of variables used to build the models in the previous steps.
 ## parallel:              logical. If TRUE, the parallel computing is enabled
-## cleanup:               numeric. Calls removeTmpFiles() to delete all files from rasterOptions()$tmpdir which are older than the given time (in hours). This might be necessary to prevent running over quota. No cleanup is used by default.
+## cleanup:               numeric. Not available. No cleanup is used by default.
 
 ## Details:
 # The basic idea of ensemble of small models (ESMs) is to model a species distribution based on
@@ -346,6 +347,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
         }
                              
         for(i in 1:length(models)){ ## Error with BIOMOD_Projection function
+          if(length(grep(models[i],models.chosen))==0){
+            next
+          }
           modelToProject <- get(biomod2::BIOMOD_LoadModels(mymodel,full.name = grep(paste0("_",models[i]),models.chosen,value = TRUE)))
           if(models[i]=="MAXENT"){
             map <- biomod2::predict(modelToProject,newdata=newdata,temp_workdir = modelToProject@model_output_dir,overwrite=T,on_0_1000 = TRUE, omit.na = TRUE)
@@ -358,12 +362,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
         
         }
       }
-      if (inherits(new.env, "RasterStack")){
-        new.env = terra::rast(new.env)
-      }
       if (inherits(new.env, "SpatRaster")) {
         
-        newdata=newdata=subset(new.env,combinations[, k])
+        newdata=newdata=terra::subset(new.env,combinations[, k])
         if("PA.table" %in% slotNames(data)){
           
           models.chosen = grep("allRun", 
@@ -376,6 +377,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
         }
         
         for(i in 1:length(models)){
+          if(length(grep(models[i],models.chosen))==0){
+            next
+          }
           modelToProject <- get(biomod2::BIOMOD_LoadModels(mymodel,full.name = grep(paste0("_",models[i]),models.chosen,value = TRUE)))
           if(models[i]=="MAXENT"){
             map <- biomod2::predict(modelToProject,newdata=newdata,temp_workdir = modelToProject@model_output_dir,overwrite=T,on_0_1000 = TRUE, omit.na = TRUE)
@@ -392,9 +396,6 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
     }
   if (parallel == TRUE) {
     
-    if (inherits(new.env, "RasterStack")){
-      new.env = terra::rast(new.env)
-    }
     if (inherits(new.env, "SpatRaster")) {
       new.env <- terra::wrap(new.env) ## Allow parallelisation
     }
@@ -403,8 +404,8 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
       dir.create(path = paste0("./","ESM.BIOMOD.",g,"/proj_",paste(name.env, "ESM.BIOMOD", g, modeling.id, sep = ".")))
     }
     
-    foreach(k = 1:length(mymodels), .packages = c("biomod2", 
-                                                  "raster","terra","base")) %dopar% {
+    foreach::foreach(k = 1:length(mymodels), .packages = c("biomod2",
+                                                  "terra","base")) %dopar% {
                                                     mymodel <- mymodels[[k]]
                                                     
                                                     if (!(is.character(mymodel))) {
@@ -426,6 +427,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
                                                         }
                                                         
                                                         for(i in 1:length(models)){
+                                                          if(length(grep(models[i],models.chosen))==0){
+                                                            next
+                                                          }
                                                           modelToProject <- get(biomod2::BIOMOD_LoadModels(mymodel,full.name = grep(paste0("_",models[i]),models.chosen,value = TRUE)))
                                                           if(models[i]=="MAXENT"){
                                                             map <- biomod2::predict(modelToProject,newdata=newdata,temp_workdir = modelToProject@model_output_dir,overwrite=T,on_0_1000 = TRUE, omit.na = TRUE)
@@ -454,6 +458,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
                                                           }
                                                           
                                                           for(i in 1:length(models)){
+                                                            if(length(grep(models[i],models.chosen))==0){
+                                                              next
+                                                            }
                                                             modelToProject <- get(biomod2::BIOMOD_LoadModels(mymodel,full.name = grep(paste0("_",models[i]),models.chosen,value = TRUE)))
                                                             if(models[i]=="MAXENT"){
                                                               map <- biomod2::predict(modelToProject,newdata=newdata,temp_workdir = modelToProject@model_output_dir,on_0_1000 = TRUE, omit.na = TRUE,overwrite=T)
@@ -476,7 +483,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
                                                   
   }
   if (cleanup != FALSE) {
-    removeTmpFiles(h = cleanup)
+    warning("Unfortunately cleanup is no more available. Please use terra::tmpFiles after this function to remove temporary files.")
   }
   output <- list(proj.name = name.env, modeling.id = modeling.id, 
                  models. = grep(modeling.id, gtools::mixedsort(list.files(getwd(), 
@@ -558,9 +565,9 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
     y <- x
     if (weighting.score == "Boyce") {
     ## Possible errors can appear in this section
-      z <- get_predictions(y, model.as.col = TRUE)
+      z <- biomod2::get_predictions(y, model.as.col = TRUE)
       z <- z[, -grep("allRun",colnames(z))]
-      y.eval <- get_evaluations(y)
+      y.eval <- biomod2::get_evaluations(y)
       if("PA.table" %in% slotNames(data)){
         y.eval <- y.eval[y.eval$PA != "allData",] 
         y.eval$run[y.eval$run=="allRun"] = "Full"
@@ -568,10 +575,16 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
         y.eval$run[y.eval$run=="allRun"] = "Full"
       }
 
-      x <- matrix(y.eval$validation, nrow = length(unique(y.eval$algo)), 
-                  ncol = NbRunEval + 1, byrow = FALSE)
-      colnames(x) <- unique(y.eval$run)
-      rownames(x) <- unique(y.eval$algo)
+      modGenerated <- unique(y.eval$algo)
+      x <- matrix(0, nrow = length(modGenerated), 
+                  ncol = NbRunEval + 1)
+      x[,]=NA
+      colnames(x) =  c(paste0("RUN",1:NbRunEval),"Full")
+      rownames(x) = unique(y.eval$algo)
+      
+      if(length(modGenerated) != length(models)){
+        warning(cat(paste("All", setdiff(models, modGenerated), "models failed for", y@sp.name,collapse = " ; ")))
+      }
       
       if(anyNA(data@data.species)){
         data@data.species[is.na(data@data.species)] =0
@@ -593,8 +606,8 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
                          grepl(paste("RUN", NbRunEval + 1, sep = ""), 
                                y@models.failed))) {
           for (i in 1:NbRunEval) {
-            if (sum(is.na(z[, grep(paste("RUN", i, "_", 
-                                         model, sep = ""), colnames(z))])) != nrow(z)) {
+            if (length(grep(paste("RUN", i, "_", 
+                                  model, sep = ""), colnames(z)))!=0) {
               if (length(models) > 1) {
                 
                   x[rownames(x) == model, colnames(x) == 
@@ -622,7 +635,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
       }
     }
     else {
-      y.eval <- get_evaluations(y)
+      y.eval <- biomod2::get_evaluations(y)
       if("PA.table" %in% slotNames(data)){
         y.eval <- y.eval[y.eval$PA != "allData",] 
         y.eval$run[y.eval$run=="allRun"] = "Full"
@@ -630,16 +643,26 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
         y.eval$run[y.eval$run=="allRun"] = "Full"
       }
       
-      x <- matrix(y.eval$validation, nrow = length(unique(y.eval$algo)), 
-                  ncol = NbRunEval + 1, byrow = FALSE)
-      x.calib <- matrix(y.eval$calibration, nrow = length(unique(y.eval$algo)), 
-                        ncol = NbRunEval + 1, byrow = FALSE)
-      colnames(x) <- unique(y.eval$run)
-      rownames(x) <- unique(y.eval$algo)
-      colnames(x.calib) <- unique(y.eval$run)
-      rownames(x.calib) <- unique(y.eval$algo)
+     modGenerated <- unique(y.eval$algo)
+      x <- matrix(0, nrow = length(modGenerated), 
+                  ncol = NbRunEval + 1)
+      x[,]=NA
+      colnames(x) =  c(paste0("RUN",1:NbRunEval),"Full")
+      rownames(x) = unique(y.eval$algo)
+      
+      x.calib <- x
+      
+      for(h in 1:length(modGenerated)){
+        inter <- y.eval[y.eval$algo == modGenerated[h],]
+        x[modGenerated[h],inter$run] = inter$validation
+        x.calib[modGenerated[h],inter$run] = inter$calibration
+      }
+      if(length(modGenerated) != length(models)){
+        warning(cat(paste("All", setdiff(models, modGenerated), "models failed for", y@sp.name,collapse = " ; ")))
+      }
+      
       if (length(models) > 1) {
-        for (row in models) {
+        for (row in modGenerated) {
           if (ncol(calib.lines) == NbRunEval + 1) {
             if (is.na(x.calib[row, NbRunEval + 1])) {
               x[row, ] <- NA
@@ -710,7 +733,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
     weights <- weights[which(weights > 0)]
   }
   test.pred <- lapply(mymodel, function(x) {
-    x <- get_predictions(x, model.as.col = TRUE)
+    x <- biomod2::get_predictions(x, model.as.col = TRUE)
     return(x)
   })
   test.ESM <- NULL
@@ -804,7 +827,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
     EVAL <- rbind(EVAL, EVAL1)
   }
   if (length(models) > 1) {
-    weights.double <- aggregate(EVAL[, weighting.score], 
+    weights.double <- stats::aggregate(EVAL[, weighting.score], 
                                 by = list(EVAL$technique), FUN = mean, na.rm = TRUE)
     weights.double <- weights.double[order(weights.double[, 
                                                           1]), ]
@@ -846,8 +869,8 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
           sum(is.na(x))
         })] <- 0
       }
-      EVAL1 <- presence.absence.accuracy(DATA1[!calib.lines[, 
-                                                            i], ], threshold = as.vector(optimal.thresholds(DATA1[!calib.lines[, 
+      EVAL1 <- PresenceAbsence::presence.absence.accuracy(DATA1[!calib.lines[, 
+                                                            i], ], threshold = as.vector(PresenceAbsence::optimal.thresholds(DATA1[!calib.lines[, 
                                                                                                                                i], ], opt.methods = "MaxSens+Spec")[-1], mode = "numeric"))
       EVAL1 <- EVAL1[c(1, 2, 4:7, 9:12)]
       EVAL1$TSS <- EVAL1$sensitivity + EVAL1$specificity - 
@@ -910,7 +933,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
 ## ESM.EnsembleModeling.output:     Object returned by ecospat.ESM.EnsembleModeling
 
 ## Values:
-# ESM.projections:    Returns the projections of ESMs for the selected single models and their ensemble (data frame or raster stack).
+# ESM.projections:    Returns the projections of ESMs for the selected single models and their ensemble (data frame or SpatRaster).
 
 
 ## Authors:
@@ -1044,8 +1067,8 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
 ## This function calculates the Minimal Predicted Area.
 
 ## FUNCTION'S ARGUMENTS
-## Pred:      numeric or RasterLayer .predicted suitabilities from a SDM prediction
-## Sp.occ.xy: xy-coordinates of the species (if Pred is a RasterLayer)
+## Pred:      numeric or, SpatRaster .predicted suitabilities from a SDM prediction
+## Sp.occ.xy: xy-coordinates of the species (if Pred is a  SpatRaster)
 ## perc:      Percentage of Sp.occ.xy that should be encompassed by the binary map.
 
 ## Details:
@@ -1054,7 +1077,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
 # Returns the Minimal Predicted Area
 
 ## Author(s)
-# Frank Breiner
+# Frank Breiner with the contribution of Flavien Collart
 
 ## References
 # Engler, R., A. Guisan, and L. Rechsteiner. 2004. An improved approach for predicting the distribution of rare and endangered species from occurrence and pseudo-absence data. Journal of Applied Ecology 41:263-274.
@@ -1063,7 +1086,7 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
 ecospat.mpa <- function(Pred, Sp.occ.xy = NULL, perc = 0.9) {
   perc <- 1 - perc
   if (!is.null(Sp.occ.xy)) {
-    Pred <- extract(Pred, Sp.occ.xy)
+    Pred <- terra::extract(Pred, as.data.frame(Sp.occ.xy),ID=FALSE)
   }
   round(quantile(Pred, probs = perc,na.rm = TRUE), 3)
 }

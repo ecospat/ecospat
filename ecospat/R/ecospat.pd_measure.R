@@ -126,7 +126,7 @@ pairwise.pd <- function(t, taxa, type = "J") {
   }
 
   nsp <- length(t$tip.label)
-  dist <- cophenetic.phylo(t)
+  dist <- ape::cophenetic.phylo(t)
 
   if (type == "J")
     return((sum(dist)/nsp^2))

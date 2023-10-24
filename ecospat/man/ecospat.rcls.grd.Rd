@@ -29,7 +29,7 @@ library(classInt)
 library(biomod2)
 
 data("bioclim_current")
-bioclim_current <- rast(bioclim_current)
+bioclim_current <- terra::rast(bioclim_current)
 bio3 <- bioclim_current[["bio3"]]
 bio12 <- bioclim_current[["bio12"]]
 
@@ -39,7 +39,7 @@ B3B12.comb <- B12.rcl+B3.rcl*10
 
 # Plotting a histogram of the classes
 hist(B3B12.comb,breaks=100,col=heat.colors(88)) 
-# Plotting the new RasterLayer (9x9 classes)
+# Plotting the new SpatRaster (9x9 classes)
 plot(B3B12.comb,col=rev(rainbow(88)),main="Stratified map") 
 
 }
