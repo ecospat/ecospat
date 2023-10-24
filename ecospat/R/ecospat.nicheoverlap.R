@@ -379,18 +379,18 @@ ecospat.plot.niche <- function(z, title = "", name.axis1 = "Axis 1", name.axis2 
   }
   if (!is.null(z$y)) {
     if (cor == FALSE)
-      image(x=z$x,y=z$y,z=t(terra::as.matrix(z$z.uncor,wide=TRUE))[,nrow(terra::as.matrix(z$z.uncor,wide=TRUE)):1], col = gray(100:0/100), zlim = c(1e-06, z$z.uncor@pnt$range_max),
-            xlab = name.axis1, ylab = name.axis2)
+      terra::plot(z$z.uncor,col=gray(100:0 / 100),legend=FALSE, xlab = name.axis1, 
+                  ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
     if (cor == TRUE)
-      image(x=z$x,y=z$y,z=t(terra::as.matrix(z$z.cor,wide=TRUE))[,nrow(terra::as.matrix(z$z.cor,wide=TRUE)):1], col = gray(100:0/100), zlim = c(1e-06, z$z.cor@pnt$range_max),
-            xlab = name.axis1, ylab = name.axis2)
-    Z<-t(as.matrix(z$Z,wide=TRUE))[,ncol(z$z):1]
-    contour(x=z$x,y=z$y,Z, add = TRUE, levels = quantile(z$Z[z$Z > 0], c(0, 0.5)), drawlabels = FALSE,
-            lty = c(1, 2))
+      terra::plot(z$z.cor,col=gray(100:0 / 100),legend=FALSE, xlab = name.axis1, 
+                  ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
+    terra::contour(
+      z$Z, add = TRUE, levels = quantile(z$Z[z$Z > 0], c(0, 0.5)),
+      drawlabels = FALSE, lty = c(1, 2)
+    )
   }
   title(title)
 }
-
 
 
 ecospat.plot.contrib <- function(contrib, eigen) {
