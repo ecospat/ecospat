@@ -409,25 +409,25 @@ ecospat.niche.dyn.index <- function(z1, z2, intersection = NA) {
   z.exp.cat[z.exp.cat != 1] <- 0 # categorizing expansion pixels
   z.stable.cat <- (w1 + 2 * w2) / 3
   z.stable.cat[z.stable.cat != 1] <- 0 # categorizing stable pixels
-  z.res.cat <- w1 + 2 * w2
-  z.res.cat[z.res.cat != 1] <- 0 # categorizing restriction pixels
+  z.unf.cat <- w1 + 2 * w2
+  z.unf.cat[z.unf.cat != 1] <- 0 # categorizing unfilling pixels
   obs.exp <- as.matrix(z2$z.uncor) * as.matrix(z.exp.cat) # density correction
   obs.stab <- as.matrix(z2$z.uncor) * as.matrix(z.stable.cat) # density correction
-  obs.res <- as.matrix(z1$z.uncor) * as.matrix(z.res.cat) # density correction
+  obs.unf <- as.matrix(z1$z.uncor) * as.matrix(z.unf.cat) # density correction
   
-  dyn <- (-1 * z.exp.cat) + (2 * z.stable.cat) + z.res.cat
+  dyn <- (-1 * z.exp.cat) + (2 * z.stable.cat) + z.unf.cat
   if (ncol(w1) == 2) {
     dyn <- terra::rast(dyn)
   } # draw matrix with 3 categories of niche dynamic
   expansion.index.w <- sum(obs.exp) / sum(obs.stab + obs.exp) # expansion
   stability.index.w <- sum(obs.stab) / sum(obs.stab + obs.exp) # stability
-  restriction.index.w <- sum(obs.res) / sum(obs.res + (z.stable.cat *as.matrix(z1$z.uncor))) # unfilling
+  unfilling.index.w <- sum(obs.unf) / sum(obs.unf + (z.stable.cat *as.matrix(z1$z.uncor))) # unfilling
   expansion.index.w[is.nan(expansion.index.w)]<-0 # correction for 0/0
   stability.index.w[is.nan(stability.index.w)]<-0 # correction for 0/0
-  restriction.index.w[is.nan(restriction.index.w)]<-0 # correction for 0/0
+  unfilling.index.w[is.nan(unfilling.index.w)]<-0 # correction for 0/0
   part <- list()
   part$dyn <- rotate(dyn)
-  part$dynamic.index.w <- c(expansion.index.w, stability.index.w, restriction.index.w)
+  part$dynamic.index.w <- c(expansion.index.w, stability.index.w, unfilling.index.w)
   names(part$dynamic.index.w) <- c("expansion", "stability", "unfilling")
   return(part)
 }
