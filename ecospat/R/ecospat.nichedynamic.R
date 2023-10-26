@@ -42,7 +42,7 @@
 ## z2 : gridclim object for the invaded range
 ## quant : quantile of the environmental density used to delimit marginal climates.
 ## title : title of the figure
-## interest : choose which density to plot. If interest=1 plot native density, if interest=2 plot invasive density
+## interest : choose which density to plot. If interest = 0, plot no densitiy, if interest=1 plot native density, if interest=2 plot invasive density
 ## colz1 : color used to depict unfilling area
 ## colz2 : color used to depict expansion area
 ## colinter : color used to depict overlap area
@@ -279,8 +279,8 @@ ecospat.plot.niche.dyn <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25, t
     
     y1 <- z1$z.uncor / max(z1$z.uncor)
     Y1 <- z1$Z / max(z1$Z)
-    if (quant > 0) {
-      Y1.quant <- quantile(z1$Z[which(z1$Z > 0)], probs = seq(0, 1, quant))[2] / max(z1$Z)
+    if (margin.z1 > 0) {
+      Y1.quant <- quantile(z1$Z[which(z1$Z > 0)], probs = seq(0, 1, margin.z1))[2] / max(z1$Z)
     } else {
       Y1.quant <- 0
     }
@@ -291,8 +291,8 @@ ecospat.plot.niche.dyn <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25, t
     
     y2 <- z2$z.uncor / max(z2$z.uncor)
     Y2 <- z2$Z / max(z2$Z)
-    if (quant > 0) {
-      Y2.quant <- quantile(z2$Z[which(z2$Z > 0)], probs = seq(0, 1, quant))[2] / max(z2$Z)
+    if (margin.z2 > 0) {
+      Y2.quant <- quantile(z2$Z[which(z2$Z > 0)], probs = seq(0, 1, margin.z2))[2] / max(z2$Z)
     } else {
       Y2.quant <- 0
     }
@@ -301,7 +301,8 @@ ecospat.plot.niche.dyn <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25, t
     yy2 <- sort(rep(1:length(y2), 2))[-c(1:2, length(y2) * 2)]
     YY2 <- sort(rep(1:length(Y2), 2))[-c(1:2, length(Y2) * 2)]
     
-    plot(x, y1, type = "n", xlab = name.axis1, ylab = "density of occurrence",...)
+    plot(x, y1, type = "n", xlab = name.axis1, ylab = "density of occurrences",
+         main = title)
     polygon(x[xx], c(0, y1[yy1], 0, 0), col = col.unf, border = 0)
     polygon(x[xx], c(0, y2[yy2], 0, 0), col = col.exp, border = 0)
     polygon(x[xx], c(
@@ -312,30 +313,40 @@ ecospat.plot.niche.dyn <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25, t
     lines(x[xx], c(0, Y1.quant[YY1], 0, 0), col = colZ1, lty = "dashed")
     lines(x[xx], c(0, Y2[YY2], 0, 0), col = colZ2)
     lines(x[xx], c(0, Y1[YY1], 0, 0), col = colZ1)
-    segments(x0 = 0, y0 = 0, x1 = max(x[xx]), y1 = 0, col = "white")
-    segments(x0 = 0, y0 = 0, x1 = 0, y1 = 1, col = "white")
-    
-    seg.cat <- function(inter, cat, col.unf, col.exp, col.stab) {
+    segments(x0 = min(x[xx]), y0 = 0, x1 = max(x[xx]), y1 = 0, col = "white")
+
+    seg.cat <- function(inter, cat, col.abn, col.unf, col.stab,
+                        col.exp,col.pio, col.NA) {
       if (inter[3] == 0) {
         my.col <- 0
       }
       if (inter[3] == 1) {
-        my.col <- col.unf
+        my.col <- col.abn
       }
       if (inter[3] == 2) {
-        my.col <- col.stab
+        my.col <- col.unf
       }
-      if (inter[3] == -1) {
+      if (inter[3] == 3) {
+        my.col <- col.stab
+      }      
+      if (inter[3] == 4) {
         my.col <- col.exp
+      }
+      if (inter[3] == 5) {
+        my.col <- col.pio
+      }
+      if (inter[3] == 6) {
+        my.col <- col.NA
       }
       segments(
         x0 = inter[1], y0 = -0.01, y1 = -0.01, x1 = inter[2],
         col = my.col, lwd = 4, lty = 2
       )
     }
-    cat<- cat[length(cat):1]
-    inter <- cbind(z1$x[-length(z1$x)], z1$x[-1], cat[-1])
-    apply(inter, 1, seg.cat, col.unf = col.unf, col.exp = col.exp, col.stab= col.stab)
+    inter <- cbind(z1$x[-length(z1$x)], z1$x[-1], cat[-1][])
+    apply(inter, 1, seg.cat, col.unf = col.unf, col.exp = col.exp, 
+          col.stab= col.stab, col.pio = col.pio, col.abn = col.abn,
+          col.NA = col.NA)
   }
   
   if (!is.null(z1$y)) {
@@ -345,22 +356,28 @@ ecospat.plot.niche.dyn <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25, t
     
     if (interest == 1) {
       terra::plot(z1$z.uncor,col=gray(100:0 / 100),legend=FALSE, xlab = name.axis1, 
-           ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
+           ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))      
     }
     if (interest == 2) {
       terra::plot(z2$z.uncor,col=gray(100:0 / 100),legend=FALSE,xlab = name.axis1, 
            ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
     }
-    terra::plot(cat,col=col_category, 
-                 add = TRUE,legend=FALSE, box = TRUE)
+    if (interest == 0){
+      terra::plot(cat,col=col_category, 
+                  legend=FALSE, box = TRUE,xlab = name.axis1, 
+                  ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
+    }else{
+      terra::plot(cat,col=col_category, 
+                  add = TRUE,legend=FALSE, box = TRUE)
+    }
     
     title(title)
     terra::contour(
-      z1$Z, add = TRUE, levels = quantile(z1$Z[z1$Z > 0], c(0, marginal.z1)),
+      z1$Z, add = TRUE, levels = quantile(z1$Z[z1$Z > 0], c(0, margin.z1)),
       drawlabels = FALSE, lty = c(1, 2), col = colZ1
     )
     terra::contour(
-      z2$Z, add = TRUE, levels = quantile(z2$Z[z2$Z > 0], c(0, marginal.z2)),
+      z2$Z, add = TRUE, levels = quantile(z2$Z[z2$Z > 0], c(0, margin.z2)),
       drawlabels = FALSE, lty = c(1, 2), col = colZ2
     )
   }

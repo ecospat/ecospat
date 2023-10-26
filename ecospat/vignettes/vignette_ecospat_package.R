@@ -153,7 +153,7 @@ grid.clim.t.inv <- ecospat.grid.clim.dyn(glob=as.data.frame(rbind(nat,inv)[,10])
                                          sp=as.data.frame(inv[which(inv[,11]==1),10]), 
                                          R=1000, th.sp=0) 
 t.dyn<-ecospat.niche.dyn.index (grid.clim.t.nat, grid.clim.t.inv,
-                                intersection=0.1)
+                                margin.z1 = 0.1, margin.z2 = 0.1)
 ecospat.plot.niche.dyn(grid.clim.t.nat, grid.clim.t.inv, quant=0, 
                        interest=2, title= "Niche Overlap", 
                        name.axis1="Average temperature")
