@@ -125,10 +125,12 @@ sim.test <- ecospat.niche.similarity.test(grid.clim.nat, grid.clim.inv,rep=10,
 ecospat.plot.overlap.test(sim.test, "D", "Similarity")
 
 ## ----niche.dyn----------------------------------------------------------------
-niche.dyn <- ecospat.niche.dyn.index (grid.clim.nat, grid.clim.inv, intersection = 0.1)
+niche.dyn <- ecospat.niche.dyn.index (grid.clim.nat, grid.clim.inv,  margin.z1 = 0.25,
+                                      margin.z2 = 0)
 
 ## -----------------------------------------------------------------------------
-ecospat.plot.niche.dyn(z1 = grid.clim.nat, z2 = grid.clim.inv, quant=0.25, interest=2,
+ecospat.plot.niche.dyn(z1 = grid.clim.nat, z2 = grid.clim.inv, margin.z1=0.25,
+                       margin.z2 = 0, interest=2,
                        title= "Niche Overlap", name.axis1="PC1",
                        name.axis2="PC2")
 
