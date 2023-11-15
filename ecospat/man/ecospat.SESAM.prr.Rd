@@ -1,4 +1,4 @@
-ous\name{ecospat.SESAM.prr}
+\name{ecospat.SESAM.prr}
 \alias{ecospat.SESAM.prr}
 
 \title{SESAM Probability Ranking Rule
