@@ -583,7 +583,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
       rownames(x) = unique(y.eval$algo)
       
       if(length(modGenerated) != length(models)){
-        warning(cat(paste("All", setdiff(models, modGenerated), "models failed for", y@sp.name,collapse = " ; ")))
+        warning(cat(paste("\nAll", setdiff(models, modGenerated), "models failed for", y@sp.name,collapse = " ; ")))
       }
       
       if(anyNA(data@data.species)){
@@ -597,8 +597,13 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
       }
       else {
         x[] <- NA
-        x <- x[, colnames(x) != "Full" & colnames(x) != 
-                 paste("RUN", NbRunEval + 1, sep = "")]
+        if(length(modGenerated)>1){
+          x <- x[, colnames(x) != "Full" & colnames(x) != 
+                   paste("RUN", NbRunEval + 1, sep = "")]
+        }else{
+          x <- t(as.data.frame(x[, colnames(x) != "Full"]))
+          rownames(x) = modGenerated
+        }
       }
       for (n in 1:(length(models))) {
         model <- models[n]
@@ -658,7 +663,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
         x.calib[modGenerated[h],inter$run] = inter$calibration
       }
       if(length(modGenerated) != length(models)){
-        warning(cat(paste("All", setdiff(models, modGenerated), "models failed for", y@sp.name,collapse = " ; ")))
+        warning(cat(paste("\nAll", setdiff(models, modGenerated), "models failed for", y@sp.name,collapse = " ; ")))
       }
       
       if (length(models) > 1) {
@@ -669,8 +674,13 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
             }
           }
         }
-        x <- x[, colnames(x) != "Full" & colnames(x) != 
-                 paste("RUN", NbRunEval + 1, sep = "")]
+        if(length(modGenerated)>1){
+          x <- x[, colnames(x) != "Full" & colnames(x) != 
+                   paste("RUN", NbRunEval + 1, sep = "")]
+        }else{
+          x <- t(as.data.frame(x[, colnames(x) != "Full"]))
+          rownames(x) = modGenerated
+        }
         if (NbRunEval > 1) {
           x <- round(apply(x, 1, mean, na.rm = TRUE), 
                      4)
@@ -831,6 +841,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
                                 by = list(EVAL$technique), FUN = mean, na.rm = TRUE)
     weights.double <- weights.double[order(weights.double[, 
                                                           1]), ]
+    weights.double[is.na(weights.double[,2]),2] =0
     if (!is.null(threshold)) {
       weights.double[weights.double <= threshold] <- 0
       if (sum(weights.double == 0) > 0) {
