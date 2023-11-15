@@ -592,11 +592,6 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
       
       if (length(models) > 1) {
         x[, ] <- NA
-        x <- x[, colnames(x) != "Full" & colnames(x) != 
-                 paste("RUN", NbRunEval + 1, sep = "")]
-      }
-      else {
-        x[] <- NA
         if(length(modGenerated)>1){
           x <- x[, colnames(x) != "Full" & colnames(x) != 
                    paste("RUN", NbRunEval + 1, sep = "")]
@@ -604,6 +599,11 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
           x <- t(as.data.frame(x[, colnames(x) != "Full"]))
           rownames(x) = modGenerated
         }
+      }
+      else {
+        x[] <- NA
+        x <- x[, colnames(x) != "Full" & colnames(x) != 
+                 paste("RUN", NbRunEval + 1, sep = "")]
       }
       for (n in 1:(length(models))) {
         model <- models[n]
