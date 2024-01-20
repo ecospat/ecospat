@@ -29,8 +29,10 @@ ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100,
   if (inherits(fit, "SpatRaster")) {
     if (is.data.frame(obs) || is.matrix(obs)) {
       obs <- terra::extract(fit, as.data.frame(obs),ID=FALSE)
+      obs <- as.numeric(obs[,1]) ##need to be a vector
     }
     fit <- terra::values(fit,na.rm=T)
+    fit <- as.numeric(fit)##need to be a vector
   }
   
   mini <- min(fit,obs)
