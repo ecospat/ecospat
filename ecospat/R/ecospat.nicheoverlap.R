@@ -88,12 +88,16 @@ overlap.eq.gen <- function(repi,z1, z2,intersection = NA) {
     sp1.sim <- occ.pool[rand.row, ]
     sp2.sim <- occ.pool[-rand.row, ]
   }
-  
+  if(!is.na(intersection)){ ## To works with new version of niche.dyn.index
+    margin.z1 = margin.z2 = intersection
+  }else{
+    margin.z1 = margin.z2 = 0 ## Check if correct
+  }
   z1.sim <- ecospat.grid.clim.dyn(z1$glob, z1$glob1, data.frame(sp1.sim), R = length(z1$x))  # gridding
   z2.sim <- ecospat.grid.clim.dyn(z2$glob, z2$glob1, data.frame(sp2.sim), R = length(z2$x))
   
   o.i <- ecospat.niche.overlap(z1.sim, z2.sim, cor = TRUE)  # overlap between random and observed niches
-  sim.dyn<-ecospat.niche.dyn.index(z1.sim, z2.sim, intersection = intersection)$dynamic.index.w # dynamic indices between random and observed niches
+  sim.dyn<-ecospat.niche.dyn.index(z1.sim, z2.sim, margin.z1=margin.z1, margin.z2=margin.z2)$dynamic.index.w # dynamic indices between random and observed niches
   
   sim.o.D <- o.i$D  # storage of overlaps
   sim.o.I <- o.i$I
@@ -138,12 +142,16 @@ ecospat.niche.equivalency.test <- function(z1, z2, rep,intersection = NA,
   if (isFALSE(stability.alternative %in% c("higher","lower","different"))){
     stop("Please choose an alternative hypothesis (higher,lower or diffrent) for the unfilling")
   }
-  
+  if(!is.na(intersection)){ ## To works with new version of niche.dyn.index
+    margin.z1 = margin.z2 = intersection
+  }else{
+    margin.z1 = margin.z2 = 0 ## Check if correct
+  }
   R <- length(z1$x)
   l <- list()
   
   obs.o <- c(ecospat.niche.overlap(z1, z2, cor = TRUE),  #observed niche overlap
-             ecospat.niche.dyn.index(z1, z2, intersection = intersection)$dynamic.index.w) # dynamic indices between random and observed niches
+             ecospat.niche.dyn.index(z1, z2, margin.z1=margin.z1, margin.z2=margin.z2)$dynamic.index.w) # dynamic indices between random and observed niches
   
   if (ncores == 1){
     sim.o <- as.data.frame(matrix(unlist(lapply(1:rep, overlap.eq.gen, z1, z2,intersection = intersection)), byrow = TRUE,
