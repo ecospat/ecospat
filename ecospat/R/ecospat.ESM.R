@@ -540,7 +540,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
 ## See also
 # ecospat.ESM.Modeling; ecospat.ESM.MergeModels
 
-ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, threshold = NULL, models){
+ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, threshold = NULL, models=NULL){
   if (!weighting.score %in% c("AUC", "TSS", "Boyce", "Kappa", 
                               "SomersD")) {
     stop("weighting score not supported! Choose one of the following: AUC, TSS, Boyce, Kappa or SomersD")
