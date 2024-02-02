@@ -994,6 +994,9 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   new.env.raster <- ESM.prediction.output$new.env.raster
   failed.mod <- grep("allRun", unlist(ESM.EnsembleModeling.output$failed),
                      value = TRUE)
+  if(length(grep("_PA1_",failed.mod))>0){
+    failed.mod <- grep("_PA1_",failed.mod,value = T)
+  }
   if (length(models) == 1) {
     weigths.rm <- NULL
     for (i in 1:length(weights)) {
