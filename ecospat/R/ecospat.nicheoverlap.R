@@ -337,7 +337,7 @@ ecospat.niche.similarity.test <- function(z1, z2, rep, intersection = NA, rand.t
   R <- length(z1$x)
   l <- list()
   obs.o <- c(ecospat.niche.overlap(z1, z2, cor = TRUE),  #observed niche overlap
-             ecospat.niche.dyn.index(z1, z2, intersection = intersection)$dynamic.index.w) # dynamic indices between random and observed niches
+             ecospat.niche.dyn.index(z1, z2, margin.z1 = margin.z1, margin.z2 = margin.z2)$dynamic.index.w) # dynamic indices between random and observed niches
   z1$z.uncor <- as.matrix(z1$z.uncor,wide=TRUE)
   z1$z.cor <- as.matrix(z1$z.cor, wide = TRUE)
   z1$Z <- as.matrix(z1$Z,wide=TRUE)
