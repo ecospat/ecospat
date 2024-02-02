@@ -428,9 +428,9 @@ ecospat.niche.dyn.index <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25) 
   w1 <- w1.full * glob # Environmental native distribution at the intersection
   w2 <- w2.full * glob # Environmental invasive distribution at the intersection
   z.pio.cat <- (((glob2>quant.val.z2) - (glob1>quant.val.z1))==1) * (w2.full * (glob2 > quant.val.z2)) # categorizing pioneering pixels
-  z.exp.cat <- as.numeric(((w1 + 2 * w2) / 2)==1)# categorizing expansion pixels
-  z.stable.cat <- as.numeric((w1 + 2 * w2)==3) # categorizing stable pixels
-  z.unf.cat <- as.numeric((w1 + 2 * w2) == 1)# categorizing unfilling pixels 
+  z.exp.cat <- 1*(((w1 + 2 * w2) / 2)==1)# categorizing expansion pixels ## replace as.numeric with 1* because error with niche similarity test
+  z.stable.cat <- 1*((w1 + 2 * w2)==3) # categorizing stable pixels
+  z.unf.cat <- 1*((w1 + 2 * w2) == 1)# categorizing unfilling pixels 
   z.abn.cat <- (((glob1>quant.val.z1) - (glob2>quant.val.z2))==1) * (w1.full * (glob1 > quant.val.z1))# categorizing abandonment pixels
   z.na.cat<- ((w1.full + w2.full)>0) - 
    ((z.pio.cat + z.exp.cat + z.stable.cat + z.unf.cat + z.abn.cat)>0)# categorizing pixels in non-analog environment
@@ -447,7 +447,7 @@ ecospat.niche.dyn.index <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25) 
   
   if (!is.null(z1$y)) {
     dyn <- terra::rast(matrix(dyn,nrow = dim(z1$w)[1],ncol=dim(z1$w)[2],byrow = TRUE))
-    ext(dyn)<-ext(z2$z.uncor)
+    # ext(dyn)<-ext(z2$z.uncor) ## Create a bug when performing niche.similariy test 
   } # draw matrix with 5 categories of niche dynamic
   expansion.index.w <- sum(obs.exp) / sum(obs.stab + obs.exp) # expansion
   stability.index.w <- sum(obs.stab) / sum(obs.stab + obs.exp) # stability
