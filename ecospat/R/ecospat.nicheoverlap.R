@@ -286,14 +286,19 @@ overlap.sim.gen <- function(repi, z1, z2, rand.type = rand.type, intersection = 
     z2.sim$z.uncor[which(is.na(z2.sim$z.uncor))] <- 0
     z2.sim$w <- (z2.sim$z.uncor>0)*1 # niche envelope
   }
-  
+  if(!is.na(intersection)){ ## To works with new version of niche.dyn.index
+    margin.z1 = margin.z2 = intersection
+  }else{
+    margin.z1 = margin.z2 = 0 ## Check if correct
+  }
   if (rand.type == 1) {
     o.i <- ecospat.niche.overlap(z1.sim, z2.sim, cor = TRUE)
-    sim.dyn<- ecospat.niche.dyn.index(z1.sim, z2.sim, intersection = intersection)$dynamic.index.w         
+    sim.dyn<- ecospat.niche.dyn.index(z1.sim, z2.sim, margin.z1 = margin.z1, margin.z2 = margin.z2)$dynamic.index.w         
   }
   if (rand.type == 2) {
     o.i <- ecospat.niche.overlap(z1, z2.sim, cor = TRUE)
-    sim.dyn<-ecospat.niche.dyn.index(z1, z2.sim, intersection = intersection)$dynamic.index.w
+    z1$w <- as.matrix(z1$w,wide=TRUE) #To avoid the error after
+    sim.dyn<-ecospat.niche.dyn.index(z1, z2.sim, margin.z1 = margin.z1, margin.z2 = margin.z2)$dynamic.index.w
   }  # overlap between random and observed niches
   sim.o.D <- o.i$D  # storage of overlaps
   sim.o.I <- o.i$I  # storage of overlaps
@@ -324,15 +329,21 @@ ecospat.niche.similarity.test <- function(z1, z2, rep, intersection = NA, rand.t
   if (isFALSE(stability.alternative %in% c("higher","lower","different"))){
     stop("Please choose an alternative hypothesis (higher,lower or different) for the unfilling")
   }
-  
+  if(!is.na(intersection)){
+    margin.z1 = margin.z2 = intersection
+  }else{
+    margin.z1 = margin.z2 = 0
+  }
   R <- length(z1$x)
   l <- list()
   obs.o <- c(ecospat.niche.overlap(z1, z2, cor = TRUE),  #observed niche overlap
              ecospat.niche.dyn.index(z1, z2, intersection = intersection)$dynamic.index.w) # dynamic indices between random and observed niches
   z1$z.uncor <- as.matrix(z1$z.uncor,wide=TRUE)
+  z1$z.cor <- as.matrix(z1$z.cor, wide = TRUE)
   z1$Z <- as.matrix(z1$Z,wide=TRUE)
   z1$z <- as.matrix(z1$z,wide=TRUE)
   z2$z.uncor <- as.matrix(z2$z.uncor,wide=TRUE)
+  z2$z.cor <- as.matrix(z2$z.cor, wide = TRUE)
   z2$Z <- as.matrix(z2$Z,wide=TRUE)
   z2$z <- as.matrix(z2$z,wide=TRUE)
   
