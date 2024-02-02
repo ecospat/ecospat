@@ -11,6 +11,7 @@ This function projects simple bivariate models on new.env
     ecospat.ESM.Projection(ESM.modeling.output, 
                            new.env,
                            name.env,
+                           models,
                            parallel,
                            cleanup)
 }
@@ -23,6 +24,11 @@ A set of explanatory variables onto which models will be projected. It could be 
     }
     \item{name.env}{
 A name for the new.env object. If not specified (default) the name of the new.env object will be used. It is necessary to specify a unique name when projecting various new.env objects in a loop. 
+    }
+    \item{models}{
+vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT', "MAXNET" (same as in \code{biomod2})
+
+#a character vector (either 'all' or a sub-selection of model names) that defines the models kept for building the ensemble models (might be useful for removing some non-preferred models)
     }
     \item{parallel}{
 Logical. If TRUE, the parallel computing is enabled}
