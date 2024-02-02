@@ -305,11 +305,17 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
 # ecospat.ESM.Modeling; ecospat.ESM.EnsembleModeling; ecospat.ESM.EnsembleProjection
 
 
-ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL, parallel = FALSE, cleanup = FALSE) {
+ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL, models = NULL, parallel = FALSE, cleanup = FALSE) {
   iniwd <- getwd()
   on.exit(setwd(iniwd))
   setwd(ESM.modeling.output$wd)
-  models <- ESM.modeling.output$models
+  if(!is.null(models)){
+    if(!(all(models %in% ESM.modeling.output$models))){
+      stop("models should be NULL or a subset of the modelling techniques used in ecospat.ESM.Modeling")
+    }
+  }else{
+    models <- ESM.modeling.output$models
+  }
   models. <- ESM.modeling.output$models.
   mymodels <- ESM.modeling.output$mymodels
   data <- ESM.modeling.output$data
@@ -545,7 +551,13 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
   data <- ESM.modeling.output$data
   models. <- ESM.modeling.output$models.
   NbRunEval <- ESM.modeling.output$NbRunEval
-  models <- ESM.modeling.output$models
+  if(!is.null(models)){
+    if(!(all(models %in% ESM.modeling.output$models))){
+      stop("models should be NULL or a subset of the modelling techniques used in ecospat.ESM.Modeling")
+    }
+  }else{
+    models <- ESM.modeling.output$models
+  }
   calib.lines <- as.data.frame(ESM.modeling.output$calib.lines)
   ESM_Projection <- ESM.modeling.output$ESM_Projection
   new.env <- ESM.modeling.output$new.env
@@ -752,6 +764,13 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
     for (run in 1:(ncol(calib.lines)-1)) {
       Model.biva.prediction <- biva.st2[, grep(paste("RUN", 
                                                      run, "_", models[i], sep = ""), colnames(biva.st2))]
+      if(ncol(Model.biva.prediction)==0){
+        test.ESM1 <- NA
+        test.ESM <- cbind(test.ESM, test.ESM1)
+        colnames(test.ESM)[ncol(test.ESM)] <- paste("RUN", 
+                                                    run, "_", models[i], sep = "")
+        next
+      }
       ModelToWeight <- paste(models[i], sub("_.*", "", 
                                             colnames(Model.biva.prediction)), sep = ".")
       weights2 <- weights[ModelToWeight]
@@ -761,9 +780,13 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
       colnames(test.ESM)[ncol(test.ESM)] <- paste("RUN", 
                                                   run, "_", models[i], sep = "")
     }
-    
+    ToKeep <- grep(paste("allRun_", 
+                         models[i], sep = ""), colnames(biva.st2),value=TRUE)
+    if ("PA.table" %in% slotNames(data)) {
+      ToKeep <- setdiff(ToKeep,grep("_allData_",ToKeep,value=TRUE))
+    }
     ## FullModel
-    Model.biva.prediction <- biva.st2[, grep(paste("allRun_", models[i], sep = ""), colnames(biva.st2))]
+    Model.biva.prediction <- biva.st2[,ToKeep ]
     ModelToWeight <- paste(models[i], sub("_.*", "", 
                                           colnames(Model.biva.prediction)), sep = ".")
     weights2 <- weights[ModelToWeight]
@@ -780,10 +803,12 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
   }
   EVAL <- NULL
   for (i in 1:NbRunEval) {
-    DATA1 <- cbind(DATA[, 1:2], DATA[, grep(paste("RUN", 
-                                                  i, "_", sep = ""), colnames(DATA))])
-    colnames(DATA1)[3] <- colnames(DATA)[2 + i]
-    if (length(models) > 1) {
+    ToKeep <- grep(paste("RUN", 
+                         i, "_", sep = ""),colnames(DATA))
+    DATA1 <- cbind(DATA[, 1:2], DATA[,ToKeep])
+    colnames(DATA1) = c(colnames(DATA[1:2]),colnames(DATA)[ToKeep])
+    failed <- c()
+    if (length(ToKeep) > 1) {
       if (nrow(DATA1) %in% apply(DATA1[, 3:ncol(DATA1)], 
                                  2, function(x) {
                                    sum(is.na(x))
@@ -809,16 +834,12 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
     EVAL1 <- EVAL1[c(1, 2, 4:7, 9:12)]
     EVAL1$TSS <- EVAL1$sensitivity + EVAL1$specificity - 
       1
-    if (length(models) > 1) {
-      if (nrow(DATA1) %in% apply(DATA1[, 3:ncol(DATA1)], 
-                                 2, function(x) {
-                                   sum(is.na(x))
-                                 })) {
+    if (length(ToKeep) > 1) {
+      if (length(failed)>0) {
         EVAL1[EVAL1$model == names(failed), 2:11] <- NA
       }
-    }
-    else {
-      if (nrow(DATA1) == sum(is.na(DATA1[, 3]))) {
+    }else {
+      if (length(failed)>0) {
         EVAL1[EVAL1$model == names(failed), 2:11] <- NA
       }
     }
@@ -868,6 +889,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
     for (i in 1:NbRunEval) {
       DATA1 <- cbind(DATA[, 1:2], DATA[, grep(paste("RUN", 
                                                     i, "_", sep = ""), colnames(DATA))])
+      failed <- c()
       if (nrow(DATA1) %in% apply(as.data.frame(DATA1[, 3:ncol(DATA1)]), 
                                  2, function(x) {
                                    sum(is.na(x))
@@ -884,12 +906,8 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
                                                             i], ], threshold = as.vector(PresenceAbsence::optimal.thresholds(DATA1[!calib.lines[, 
                                                                                                                                i], ], opt.methods = "MaxSens+Spec")[-1], mode = "numeric"))
       EVAL1 <- EVAL1[c(1, 2, 4:7, 9:12)]
-      EVAL1$TSS <- EVAL1$sensitivity + EVAL1$specificity - 
-        1
-      if (nrow(DATA1) %in% apply(as.data.frame(DATA1[, 3:ncol(DATA1)]), 
-                                 2, function(x) {
-                                   sum(is.na(x))
-                                 })) {
+      EVAL1$TSS <- EVAL1$sensitivity + EVAL1$specificity - 1
+      if (length(failed)>0) {
         EVAL1[EVAL1$model == names(failed), 2:11] <- NA
       }
       EVAL1$SomersD <- EVAL1$AUC * 2 - 1
@@ -1044,6 +1062,12 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
                                      paste(models[i], ".", sub("_.*", "", failed.mod[grepl(models[i], 
                                                                                            failed.mod)]), sep = "")]
       }
+      if(sum(weights.mod)==0){
+        ToPutNA <- terra::subset(model.maps,1)
+        terra::values(ToPutNA) = NA
+        assign(models[i],ToPutNA )
+        next
+      }
       model.maps <- model.maps[[weights.mod!=0]] 
       weights.mod <- weights.mod[weights.mod>0]
       assign(models[i], round(terra::weighted.mean(model.maps,
@@ -1054,8 +1078,10 @@ ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleMo
   }
   if (length(models) > 1) {
     if (new.env.raster) {
-      ESM.EF <- round(terra::weighted.mean(pred.ESM[[names(pred.ESM)]], 
-                                            weights.EF[order(weights.EF[, 1]), 2], na.rm = TRUE))
+      weights.EF <- weights.EF[order(weights.EF[, 1]), 2]
+      pred.ESM2 <- terra::subset(pred.ESM[[names(pred.ESM)]], weights.EF >0)
+      ESM.EF <- round(terra::weighted.mean(pred.ESM2, 
+                                           weights.EF[weights.EF>0], na.rm = TRUE))
       pred.ESM <- c(pred.ESM, ESM.EF)
       names(pred.ESM) <- c(names(pred.ESM)[1:(terra::nlyr(pred.ESM) - 
                                                 1)], "EF")
