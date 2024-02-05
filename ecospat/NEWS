@@ -268,3 +268,4 @@ ecospat_4.0.1
 
 FIXES
 * vectorized ecospat.SESAM.prr to reduce computing time with large datasets
+* test
