@@ -88,7 +88,7 @@ ecospat.kd <- function(x, ext, R = 100, th = 0, env.mask = c(),
                                        kern = "bivnorm"
       ) # calculate the density of occurrences in a grid of RxR pixels along the score gradients
       x.dens <- terra::rast(
-        matrix(x.dens$ud,nrow = 100)
+        matrix(x.dens$ud,nrow = R)
       )
       terra::ext(x.dens)<-c(
         xmin = ext[1], 
