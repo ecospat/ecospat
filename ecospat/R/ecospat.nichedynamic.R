@@ -352,7 +352,7 @@ ecospat.plot.niche.dyn <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25, t
   if (!is.null(z1$y)) {
     # assign the correct color to each category of the niche
     col_category<-c("#FFFFFF", col.abn, col.unf, 
-                    col.stab,col.exp, col.pio, col.NA)[sort(1+(unique(values(cat))))]
+                    col.stab,col.exp, col.pio, col.NA)[1+(sort(terra::unique(2*z1$w+z2$w)[,1]))] # [sort(1+(unique(values(cat))))]
     
     if (interest == 1) {
       terra::plot(z1$z.uncor,col=gray(100:0 / 100),legend=FALSE, xlab = name.axis1, 
