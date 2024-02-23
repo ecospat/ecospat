@@ -447,7 +447,7 @@ ecospat.niche.dyn.index <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25) 
   
   if (!is.null(z1$y)) {
     dyn <- terra::rast(matrix(dyn,nrow = dim(z1$w)[1],ncol=dim(z1$w)[2],byrow = TRUE))
-    ext(dyn)<-ext(z2$z.uncor)
+    terra::ext(dyn)<- terra::ext(z2$z.uncor)
   } # draw matrix with 5 categories of niche dynamic
   expansion.index.w <- sum(obs.exp) / sum(obs.stab + obs.exp) # expansion
   stability.index.w <- sum(obs.stab) / sum(obs.stab + obs.exp) # stability
