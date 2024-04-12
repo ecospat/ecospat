@@ -16,7 +16,6 @@
 # Adjusted by L. Mathys, 2006
 panel.hist <- function(x) {
   usr <- par("usr")
-  on.exit(par(usr))
   par(usr = c(usr[1:2], 0, 1.5))
   # par(usr = c(0, 1, 0, 1.5))
   h <- hist(x, plot = FALSE)
