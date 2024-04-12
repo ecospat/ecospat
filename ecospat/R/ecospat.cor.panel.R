@@ -4,8 +4,9 @@
 #   usr <- par("usr")
 #   on.exit(par(usr))
   par(usr = c(0, 1, 0, 1))
-  r <- abs(cor(x, y))
-  txt <- format(c(r, 0.123456789), digits = digits)[1]
+  corl <- cor(x, y)
+  r <- abs(corl)
+  txt <- format(c(corl, 0.123456789), digits = digits)[1]
   txt <- paste(prefix, txt, sep = "")
   if (missing(cex.cor)) 
     cex <- 0.8/strwidth(txt)
