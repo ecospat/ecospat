@@ -41,8 +41,8 @@ ecospat.CCV.modeling(sp.data,
   \item{validation.method}{either "cross-validation" or "split-sample" used to validate the communtiy predictions (only needed if no \code{DataSplitTable} provided)}
   \item{models.sdm}{modeling techniques used for the normal SDMs. Vector of models names choosen among \code{'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF', 'MAXENT' and 'MAXNET'}}
   \item{models.esm}{modeling techniques used for the ESMs. Vector of models names choosen among \code{'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF', 'MAXENT' and 'MAXNET'}}
-  \item{modeling.options.sdm}{modeling options for the normal SDMs. \code{"BIOMOD.models.options"}" object returned by \code{\link[biomod2]{BIOMOD_ModelingOptions}}}
-  \item{modeling.options.esm}{modeling options for the ESMs. \code{"BIOMOD.models.options"} object returned by \code{\link[biomod2]{BIOMOD_ModelingOptions}}}
+  \item{modeling.options.sdm}{modeling options for the normal SDMs. \code{"BIOMOD.models.options"}" object returned by \code{\link[biomod2]{bm_ModelingOptions}}}
+  \item{modeling.options.esm}{modeling options for the ESMs. \code{"BIOMOD.models.options"} object returned by \code{\link[biomod2]{bm_ModelingOptions}}}
   \item{ensemble.metric}{evaluation score used to weight single models to build ensembles: \code{'AUC', 'Kappa' or 'TSS'}}
   \item{ESM}{either \code{'YES'} (ESMs allowed), \code{'NO'} (ESMs not allowed) or \code{'ALL'} (ESMs used in any case)}
   \item{parallel}{should parallel computing be allowed (\code{TRUE/FALSE})}

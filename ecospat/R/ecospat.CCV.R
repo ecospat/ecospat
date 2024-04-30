@@ -198,8 +198,8 @@ ecospat.CCV.createDataSplitTable <- function(NbRunEval,
 #validation.method    either "cross-validation" or "split-sample" used to validate the communtiy predictions (only needed if no DataSplitTable provided)
 #models.sdm           modeling techniques used for the normal SDMs. Vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF', 'MAXENT' and 'MAXNET'
 #models.esm           modeling techniques used for the ESMs
-#modeling.options.sdm BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in biomod2) for normal SDMs
-#modeling.options.esm BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in biomod2) for esm SDMs
+#modeling.options.sdm BIOMOD.models.options object returned by bm_ModelingOptions (same as in biomod2) for normal SDMs
+#modeling.options.esm BIOMOD.models.options object returned by bm_ModelingOptions (same as in biomod2) for esm SDMs
 #ensemble.metric      metrics used to create the ensemble models
 #ESM                  either YES (ESMs allowed), NO (ESMs not allowed) or "ALL" (ESMs used in any case)
 #parallel             should parallel computing be allowed
@@ -349,18 +349,24 @@ ecospat.CCV.modeling <- function(sp.data,
     
     #Setting model parameters
     if(is.null(models.options)){
-      MyBiomodOptions <- biomod2::BIOMOD_ModelingOptions()
+      MyBiomodOptions <- biomod2::bm_ModelingOptions(data.type = "binary",
+                                                     models = models,
+                                                     strategy = "bigboss")
     }else{
-      MyBiomodOptions <- biomod2::BIOMOD_ModelingOptions(models.options) #NOT WORKING YET!!!!
+      MyBiomodOptions <- biomod2::bm_ModelingOptions(data.type = "binary",
+                                                     models = models,
+                                                     strategy = "user.defined",
+                                                     user.val = models.options,
+                                                     user.base = "bigboss")
     }
     
     #Running the models
     MyBiomodModelOut <- biomod2::BIOMOD_Modeling(bm.format = MyBiomodData,
                                         models = models,
-                                        bm.options = MyBiomodOptions,
                                         metric.eval = eval.metrics,
                                         CV.strategy = "user.defined",
                                         CV.user.table = DataSplitTable,
+                                        OPT.user = MyBiomodOptions,
                                         prevalence = NULL,
                                         modeling.id = "ccv")
     
@@ -396,9 +402,15 @@ ecospat.CCV.modeling <- function(sp.data,
     
     #Setting model parameters
     if(is.null(models.options)){
-      MyBiomodOptions <- biomod2::BIOMOD_ModelingOptions()
+      MyBiomodOptions <- biomod2::bm_ModelingOptions(data.type = "binary",
+                                                     models = models,
+                                                     strategy = "bigboss")
     }else{
-      MyBiomodOptions <- biomod2::BIOMOD_ModelingOptions(models.options) #NOT WORKING YET!!!!
+      MyBiomodOptions <- biomod2::bm_ModelingOptions(data.type = "binary",
+                                                     models = models,
+                                                     strategy = "user.defined",
+                                                     user.val = models.options,
+                                                     user.base = "bigboss")
     }
     
     #Running the ESM
@@ -406,7 +418,7 @@ ecospat.CCV.modeling <- function(sp.data,
                                           DataSplitTable = DataSplitTable, 
                                           weighting.score = ensemble.metric,
                                           models = models,
-                                          Prevalence=NULL,
+                                          Prevalence = NULL,
                                           modeling.id = "ccv", 
                                           models.options = MyBiomodOptions, 
                                           parallel = FALSE)
