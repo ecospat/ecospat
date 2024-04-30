@@ -55,7 +55,7 @@
 ## Prevalence:          either NULL or a 0-1 numeric used to build 'weighted response weights'. In contrast to Biomod the default is 0.5 (weighting presences equally to the absences). If NULL each observation (presence or absence) has the same weight (independent of the number of presences and absences).
 ## models:              vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF','MAXENT', "MAXNET" (same as in Biomod)
 ## modeling.id:	        character, the ID (=name) of modeling procedure. A random number by default.
-## models.options:      BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in Biomod). If none is provided standard ESM tuning parameterswill be used.
+## models.options:      BIOMOD.models.options object returned by bm_ModelingOptions (same as in Biomod). If none is provided standard ESM tuning parameterswill be used.
 ## tune:                logical. if true model tuning will be used to estimate optimal parameters for the models (Default: False).
 ## which.biva:          integer. which bivariate combinations should be used for modeling? Default: all
 ## weighting.score:     evaluation score used to weight single models to build ensembles: 'AUC', 'SomersD' (2xAUC-1), 'Kappa', 'TSS' or 'Boyce'
@@ -126,23 +126,25 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
     models.eval.meth <- "ROC"
   }
   if (is.null(models.options)) {
-    models.options <- biomod2::BIOMOD_ModelingOptions()
-    models.options@GBM$n.trees <- 1000
-    models.options@GBM$interaction.depth <- 4
-    models.options@GBM$shrinkage <- 0.005
-    models.options@GAM$select <- TRUE
-    models.options@CTA$control$cp <- 0
-    models.options@ANN$size <- 8
-    models.options@ANN$decay <- 0.001
-    models.options@MARS$interaction.level <- 0
-    models.options@MARS$nprune <- 2
-    models.options@MAXENT$product <- FALSE
-    models.options@MAXENT$threshold <- FALSE
-    models.options@MAXENT$betamultiplier <- 0.5
-    models.options@GLM$test <- "none"
+    ANN.options <- list('_allData_allRun' = list(size = 8, decay = 4, shrinkage = 0.001))
+    CTA.options <- list('_allData_allRun' = list(control = list(xval = 5, minbucket = 5, minsplit = 5, cp = 0, maxdepth = 25)))
+    GBM.options <- list('_allData_allRun' = list(n.trees = 1000, interaction.depth = 4, shrinkage = 0.005))
+    MARS.options <- list('_allData_allRun' = list(nprune = 2))
+    MAXENT.options <- list('_allData_allRun' = list(product = FALSE, threshold = FALSE, betamultiplier = 0.5))
+    user.options <- list(ANN.binary.nnet.nnet = ANN.options,
+                         CTA.binary.rpart.rpart = CTA.options,
+                         GBM.binary.gbm.gbm = GBM.options,
+                         MARS.binary.earth.earth = MARS.options,
+                         MAXENT.binary.MAXENT.MAXENT = MAXENT.options)
+    
+    models.options <- biomod2::bm_ModelingOptions(data.type = "binary",
+                                                  models = models,
+                                                  strategy = "user.defined",
+                                                  user.val = user.options,
+                                                  user.base = "bigboss")
   }
   if ("MAXENT" %in% models) {
-    if (!file.exists(paste(models.options@MAXENT$path_to_maxent.jar, 
+    if (!file.exists(paste(models.options@options$MAXENT.binary.MAXENT.MAXENT@args.values$`_allData_allRun`$path_to_maxent.jar, 
                            "maxent.jar", sep = "/"))) {
       stop("maxent.jar file not found!")
     }
@@ -217,17 +219,32 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                  combinations[, k]]
       mydata@sp.name <- paste("ESM.BIOMOD", k, sep = ".")
       if (tune == TRUE) {
-        models.options <- biomod2::BIOMOD_Tuning(bm.format = mydata, 
-                                                 models = models[models != "RF"], bm.options = models.options, 
-                                                 weights = Yweights)$models.options
+        ## Possible to do by model to be sure to use Yweights
+        # tuned.rf <- bm_Tuning(model = 'RF',
+        #                       tuning.fun = 'rf', ## see in ModelsTable
+        #                       do.formula = TRUE,
+        #                       bm.options = opt.d@options$RF.binary.randomForest.randomForest,
+        #                       bm.format = mydata,
+        #                       weights = Yweights)
+        
+        models.options <- biomod2::bm_ModelingOptions(data.type = "binary",
+                                                      models = models,
+                                                      strategy = "tuned",
+                                                      user.base = "bigboss", 
+                                                      bm.format = mydata)
       }
       mymodels[[k]] <- "failed"
       try(mymodels[[k]] <- biomod2::BIOMOD_Modeling(bm.format = mydata, 
-                                                    models = models, bm.options = models.options, 
-                                                    CV.strategy="user.defined",
-                                                    CV.nb.rep = NbRunEval, metric.eval = models.eval.meth, 
-                                                    CV.user.table = as.matrix(calib.lines[,-ncol(calib.lines)]), prevalence = Prevalence, 
-                                                    CV.do.full.models = TRUE, var.import = 0, modeling.id = modeling.id, 
+                                                    models = models,
+                                                    CV.strategy = "user.defined",
+                                                    CV.nb.rep = NbRunEval,
+                                                    CV.user.table = as.matrix(calib.lines[,-ncol(calib.lines)]),
+                                                    CV.do.full.models = TRUE,
+                                                    OPT.user = models.options,
+                                                    metric.eval = models.eval.meth, 
+                                                    prevalence = Prevalence, 
+                                                    var.import = 0,
+                                                    modeling.id = modeling.id, 
                                                     weights = Yweights))
       if (cleanup != FALSE) {
         warning("Unfortunately cleanup is no more available. Please use terra::tmpFiles after this function to remove temporary files.")
@@ -246,16 +263,32 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
 
                                                         }
                                                         if (tune == TRUE) {
-                                                          models.options <- biomod2::BIOMOD_Tuning(bm.format = mydata, 
-                                                                                                   models = models[models != "RF"], bm.options = models.options, 
-                                                                                                   weights = Yweights)$models.options
+                                                          ## Possible to do by model to be sure to use Yweights
+                                                          # tuned.rf <- bm_Tuning(model = 'RF',
+                                                          #                       tuning.fun = 'rf', ## see in ModelsTable
+                                                          #                       do.formula = TRUE,
+                                                          #                       bm.options = opt.d@options$RF.binary.randomForest.randomForest,
+                                                          #                       bm.format = mydata,
+                                                          #                       weights = Yweights)
+                                                          
+                                                          models.options <- biomod2::bm_ModelingOptions(data.type = "binary",
+                                                                                                        models = models,
+                                                                                                        strategy = "tuned",
+                                                                                                        user.base = "bigboss", 
+                                                                                                        bm.format = mydata)
                                                         }
                                                         biomod2::BIOMOD_Modeling(bm.format = mydata, 
-                                                                                 models = models, bm.options = models.options, 
-                                                                                 CV.strategy="user.defined",
-                                                                                 CV.nb.rep = NbRunEval, metric.eval = models.eval.meth, 
-                                                                                 CV.user.table = as.matrix(calib.lines[,-ncol(calib.lines)]), prevalence = Prevalence, 
-                                                                                 CV.do.full.models = TRUE, var.import = 0, modeling.id = modeling.id, 
+                                                                                 models = models,
+                                                                                 bm.options = models.options, 
+                                                                                 CV.strategy = "user.defined",
+                                                                                 CV.nb.rep = NbRunEval,
+                                                                                 CV.user.table = as.matrix(calib.lines[,-ncol(calib.lines)]),
+                                                                                 CV.do.full.models = TRUE,
+                                                                                 OPT.user = models.options,
+                                                                                 prevalence = Prevalence, 
+                                                                                 metric.eval = models.eval.meth, 
+                                                                                 var.import = 0,
+                                                                                 modeling.id = modeling.id, 
                                                                                  weights = Yweights)
                                                       }
   }

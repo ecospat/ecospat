@@ -226,9 +226,9 @@ myBiomodData <- biomod2::BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]
                                       resp.xy = xy,
                                       resp.name = colnames(sp_occ)[sp])
 
-myBiomodOption <- biomod2::bm_DefaultModelingOptions()
-myBiomodOption@GLM$test = 'none'
-myBiomodOption@GBM$interaction.depth = 2
+myBiomodOption <- biomod2::bm_ModelingOptions(data.type = "binary",
+                                              models = models,
+                                              strategy = "bigboss")
 
 ## ----ESM.Modeling-------------------------------------------------------------
 ### Calibration of simple bivariate models
