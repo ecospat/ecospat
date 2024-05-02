@@ -62,18 +62,22 @@ ecospat.max.kappa <- function(Pred, Sp.occ) # Pred: vector of predicted probabil
 
 
 ############### MAX-TSS ## Function originally from L. Maiorano (Unil-ECOSPAT, Switzerland)
-############### modyfying MAX-KAPPA from A. Guisan (Unil-ECOSPAT, Switzerland), modified by Olivier Broennimann
+############### modyfying MAX-KAPPA from A. Guisan (Unil-ECOSPAT, Switzerland), modified by Olivier Broennimann and Flavien Collart
 ecospat.max.tss <- function(Pred, Sp.occ) # Pred: vector of predicted probabilities Sp.occ: vector of binary observations
 {
   FUN<-function(thresh){
     xtab<-table(Pred >= thresh, Sp.occ)
-    a <- xtab[4]
-    b <- xtab[2]
-    c <- xtab[3]
-    d <- xtab[1]
-    se <- a/(a + c)
-    sp <- d/(b + d)
-    return(se + sp - 1)
+    if(nrow(xtab)!=2){ ## if the model is bad the Pred values are not changing across the whole dataset
+      return(0)
+    }else{
+      a <- xtab[4]
+      b <- xtab[2]
+      c <- xtab[3]
+      d <- xtab[1]
+      se <- a/(a + c)
+      sp <- d/(b + d)
+      return(se + sp - 1)
+    }
   }
   threshold<-(1:100)/100
   tss<-sapply(threshold,FUN)
