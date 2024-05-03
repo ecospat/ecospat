@@ -2,7 +2,7 @@
 #importFrom(ade4,dudi.pca,suprow,as.randtest,s.corcircle)
 #importFrom(ape,read.tree,drop.tip,cophenetic.phylo)
 #importFrom(gbm,gbm.perf,gbm.more,predict.gbm,)
-#importFrom(biomod2, bm_BinaryTransformation, BIOMOD_LoadModels, BIOMOD_Modeling, BIOMOD_Tuning, BIOMOD_FormatingData, BIOMOD_ModelingOptions, get_predictions, get_evaluations, BIOMOD_EnsembleModeling, get_variables_importance, .transform_model.as.col)
+#importFrom(biomod2, bm_BinaryTransformation, BIOMOD_LoadModels, BIOMOD_Modeling, BIOMOD_FormatingData, bm_Tuning, bm_ModelingOptions , get_predictions, get_evaluations, BIOMOD_EnsembleModeling, get_variables_importance, .transform_model.as.col)
 #importFrom(terra, as.points, as.polygons, buffer, crds, expanse, freq, match, nlyr, patches, rast, rasterize, res, subset, values, xyFromCell, wrap, writeRaster) 
 #importFrom(gtools, mixedsort, mixedorder)
 #importFrom(PresenceAbsence, presence.absence.accuracy, optimal.thresholds, auc)
