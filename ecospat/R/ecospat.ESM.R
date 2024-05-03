@@ -132,7 +132,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
   if (is.null(DataSplit) & is.null(DataSplitTable)) {
     stop("Need to give a value for DataSplit  when DataSplitTable is null")
   }
-  if(is.null(models.options){
+  if(is.null(models.options)){
     options.provided = FALSE
   }else{
     options.provided = TRUE
