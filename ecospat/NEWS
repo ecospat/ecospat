@@ -266,8 +266,12 @@ FIXES
 ecospat_4.1.0
 =============
 
+CHANGES
+* added in ecospat.plot.niche.dyn, ecospat.niche.dyn.index, ecospat.niche.equivalency.test, ecospat.niche.similarity.test the possibility to have different margin for z1, z2 (replace the argument "intersection")
+
 FIXES
 * vectorized ecospat.SESAM.prr to reduce computing time with large datasets
 * compatibility fixes for biomod2 v4.2-5 to ESM and CCV functions
 * fix bugs in ecospat.ESM.Modeling, ecospat.ESM.Projection, ecospat.ESM.ensembleModeling and ecospat.ESM.ensembleProjection
 * corrected ecospat.cor.plot, which now creates histograms for each predictor and provide real correlation values instead of absolute values 
+* corrected ecospat.kd where the R argument was hard coded
