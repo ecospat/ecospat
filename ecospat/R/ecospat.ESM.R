@@ -148,9 +148,9 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
   if (is.null(which.biva)) {
     which.biva <- 1:ncol(combinations)
   }
-  mydata <- data
+  
   if (is.null(DataSplitTable)) {
-    calib.lines <- .CreatingDataSplitTable(bm.format = mydata, 
+    calib.lines <- .CreatingDataSplitTable(bm.format = data, 
                                                      NbRunEval = NbRunEval, DataSplit = DataSplit)
     if ("PA.table" %in% slotNames(data)){
       
@@ -171,7 +171,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
       colnames(calib.lines)[ncol(calib.lines)]<- "_allData_allRun" #test if ok
       
     }else{
-      colnames(calib.lines)[ncol(calib.lines)]<-"_allData_allRun"
+      colnames(calib.lines)[ncol(calib.lines)]<- "_allData_allRun"
       
     }
   }
@@ -197,6 +197,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
   mymodels <- list()
   if (parallel == FALSE) {
     for (k in which.biva) {
+      mydata <- data
       mydata@data.env.var <- data@data.env.var[, colnames(data@data.env.var) %in% 
                                                  combinations[, k]]
       mydata@sp.name <- paste("ESM.BIOMOD", k, sep = ".")
@@ -262,6 +263,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
     mymodels <- foreach::foreach(k = which.biva, .packages = c("biomod2", 
                                                       "terra")) %dopar% {
                                                         setwd(newwd)
+                                                        mydata <- data
                                                         mydata@data.env.var <- data@data.env.var[, colnames(data@data.env.var) %in% 
                                                                                                    combinations[, k]]
                                                         mydata@sp.name <- paste("ESM.BIOMOD", k, sep = ".")
