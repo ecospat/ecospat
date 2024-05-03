@@ -125,30 +125,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
   if (weighting.score == "Boyce") {
     models.eval.meth <- "ROC"
   }
-  if (is.null(models.options)) {
-    ANN.options <- list('_allData_allRun' = list(size = 8, decay = 4, shrinkage = 0.001))
-    CTA.options <- list('_allData_allRun' = list(control = list(xval = 5, minbucket = 5, minsplit = 5, cp = 0, maxdepth = 25)))
-    GBM.options <- list('_allData_allRun' = list(n.trees = 1000, interaction.depth = 4, shrinkage = 0.005))
-    MARS.options <- list('_allData_allRun' = list(nprune = 2))
-    MAXENT.options <- list('_allData_allRun' = list(product = FALSE, threshold = FALSE, betamultiplier = 0.5))
-    user.options <- list(ANN.binary.nnet.nnet = ANN.options,
-                         CTA.binary.rpart.rpart = CTA.options,
-                         GBM.binary.gbm.gbm = GBM.options,
-                         MARS.binary.earth.earth = MARS.options,
-                         MAXENT.binary.MAXENT.MAXENT = MAXENT.options)
 
-    models.options <- biomod2::bm_ModelingOptions(data.type = "binary",
-                                                  models = models,
-                                                  strategy = "user.defined",
-                                                  user.val = user.options,
-                                                  user.base = "bigboss")
-  }
-  if ("MAXENT" %in% models) {
-    if (!file.exists(paste(models.options@options$MAXENT.binary.MAXENT.MAXENT@args.values$`_allData_allRun`$path_to_maxent.jar, 
-                           "maxent.jar", sep = "/"))){
-      stop("maxent.jar file not found!")
-    }
-  }
   if (is.null(NbRunEval) & is.null(DataSplitTable)) {
     stop("Need to give a value for NbRunEval  yhen DataSplitTable is null")
   }
@@ -224,7 +201,39 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                       strategy = "tuned",
                                                       user.base = "bigboss", 
                                                       bm.format = mydata)
+          if ("MAXENT" %in% models) {
+              if (!file.exists(paste(models.options@options$MAXENT.binary.MAXENT.MAXENT@args.values$`_allData_allRun`$path_to_maxent.jar, 
+                           "maxent.jar", sep = "/"))){
+                stop("maxent.jar file not found!")
+            }
+          }
         
+      }else{
+          if (is.null(models.options)) {
+    ANN.options <- list('_allData_allRun' = list(size = 8, decay = 4, shrinkage = 0.001))
+    CTA.options <- list('_allData_allRun' = list(control = list(xval = 5, minbucket = 5, minsplit = 5, cp = 0, maxdepth = 25)))
+    GBM.options <- list('_allData_allRun' = list(n.trees = 1000, interaction.depth = 4, shrinkage = 0.005))
+    MARS.options <- list('_allData_allRun' = list(nprune = 2))
+    MAXENT.options <- list('_allData_allRun' = list(product = FALSE, threshold = FALSE, betamultiplier = 0.5))
+    user.options <- list(ANN.binary.nnet.nnet = ANN.options,
+                         CTA.binary.rpart.rpart = CTA.options,
+                         GBM.binary.gbm.gbm = GBM.options,
+                         MARS.binary.earth.earth = MARS.options,
+                         MAXENT.binary.MAXENT.MAXENT = MAXENT.options)
+
+    models.options <- biomod2::bm_ModelingOptions(data.type = "binary",
+                                                  models = models,
+                                                  strategy = "user.defined",
+                                                  user.val = user.options,
+                                                  user.base = "bigboss", 
+                                                      bm.format = mydata)
+  }
+  if ("MAXENT" %in% models) {
+    if (!file.exists(paste(models.options@options$MAXENT.binary.MAXENT.MAXENT@args.values$`_allData_allRun`$path_to_maxent.jar, 
+                           "maxent.jar", sep = "/"))){
+      stop("maxent.jar file not found!")
+    }
+  }
       }
       mymodels[[k]] <- "failed"
       try(mymodels[[k]] <- biomod2::BIOMOD_Modeling(bm.format = mydata, 
@@ -261,6 +270,38 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                                                                         strategy = "tuned",
                                                                                                         user.base = "bigboss", 
                                                                                                         bm.format = mydata)
+                                                          if ("MAXENT" %in% models) {
+                                                            if (!file.exists(paste(models.options@options$MAXENT.binary.MAXENT.MAXENT@args.values$`_allData_allRun`$path_to_maxent.jar, 
+                                                                                   "maxent.jar", sep = "/"))){
+                                                              stop("maxent.jar file not found!")
+                                                            }
+                                                          }
+                                                        }else{
+                                                          if (is.null(models.options)) {
+                                                            ANN.options <- list('_allData_allRun' = list(size = 8, decay = 4, shrinkage = 0.001))
+                                                            CTA.options <- list('_allData_allRun' = list(control = list(xval = 5, minbucket = 5, minsplit = 5, cp = 0, maxdepth = 25)))
+                                                            GBM.options <- list('_allData_allRun' = list(n.trees = 1000, interaction.depth = 4, shrinkage = 0.005))
+                                                            MARS.options <- list('_allData_allRun' = list(nprune = 2))
+                                                            MAXENT.options <- list('_allData_allRun' = list(product = FALSE, threshold = FALSE, betamultiplier = 0.5))
+                                                            user.options <- list(ANN.binary.nnet.nnet = ANN.options,
+                                                                                 CTA.binary.rpart.rpart = CTA.options,
+                                                                                 GBM.binary.gbm.gbm = GBM.options,
+                                                                                 MARS.binary.earth.earth = MARS.options,
+                                                                                 MAXENT.binary.MAXENT.MAXENT = MAXENT.options)
+                                                            
+                                                            models.options <- biomod2::bm_ModelingOptions(data.type = "binary",
+                                                                                                          models = models,
+                                                                                                          strategy = "user.defined",
+                                                                                                          user.val = user.options,
+                                                                                                          user.base = "bigboss", 
+                                                                                                          bm.format = mydata)
+                                                          }
+                                                          if ("MAXENT" %in% models) {
+                                                            if (!file.exists(paste(models.options@options$MAXENT.binary.MAXENT.MAXENT@args.values$`_allData_allRun`$path_to_maxent.jar, 
+                                                                                   "maxent.jar", sep = "/"))){
+                                                              stop("maxent.jar file not found!")
+                                                            }
+                                                          }
                                                         }
                                                         biomod2::BIOMOD_Modeling(bm.format = mydata, 
                                                                                  models = models,
