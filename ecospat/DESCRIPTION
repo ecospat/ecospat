@@ -58,7 +58,7 @@ VignetteBuilder: knitr
 Depends: R (>= 4.0.0)
 Imports: ade4 (>= 1.6-2), gbm (>= 2.1.1), foreach (>=
         1.4.3),adehabitatHR (>= 0.4.11), adehabitatMA (>= 0.3.8),
-        biomod2 (>= 4.2-3), dismo (>= 0.9-3), ecodist (>= 1.2.9),
+        biomod2 (>= 4.2-5), dismo (>= 0.9-3), ecodist (>= 1.2.9),
         terra (>= 1.2-5), gtools (>= 3.4.1),
         PresenceAbsence (>= 1.1.9), methods (>= 3.1.1), parallel,
         classInt (>= 0.1-23), vegan (>= 2.4-1), poibin (>= 1.3),
