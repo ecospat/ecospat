@@ -407,16 +407,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
       if (is.data.frame(new.env)) {
         
         newdata=new.env[, colnames(new.env) %in% combinations[, k]]
-        if("PA.table" %in% slotNames(data)){
-          
-        models.chosen = grep("allRun", 
-                             mymodel@models.computed[-grep("allData",mymodel@models.computed)], 
-                             value = TRUE)}
-        else{
-          models.chosen = grep("allRun",
+        models.chosen = grep("allRun",
                                mymodel@models.computed, 
                                                     value = TRUE)
-        }
                              
         for(i in 1:length(models)){ ## Error with BIOMOD_Projection function
           if(length(grep(models[i],models.chosen))==0){
@@ -437,16 +430,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
       if (inherits(new.env, "SpatRaster")) {
         
         newdata=newdata=terra::subset(new.env,combinations[, k])
-        if("PA.table" %in% slotNames(data)){
-          
-          models.chosen = grep("allRun", 
-                               mymodel@models.computed[-grep("allData",mymodel@models.computed)], 
-                               value = TRUE)}
-        else{
-          models.chosen = grep("allRun",
+        models.chosen = grep("allRun",
                                mymodel@models.computed, 
-                               value = TRUE)
-        }
+                                                    value = TRUE)
         
         for(i in 1:length(models)){
           if(length(grep(models[i],models.chosen))==0){
@@ -487,16 +473,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
                                                       if (is.data.frame(new.env)) {
                                                         
                                                         newdata=new.env[, colnames(new.env) %in% combinations[, k]]
-                                                        if("PA.table" %in% slotNames(data)){
-                                                          
-                                                          models.chosen = grep("allRun", 
-                                                                               mymodel@models.computed[-grep("allData",mymodel@models.computed)], 
-                                                                               value = TRUE)}
-                                                        else{
-                                                          models.chosen = grep("allRun",
-                                                                               mymodel@models.computed, 
-                                                                               value = TRUE)
-                                                        }
+                                                        models.chosen = grep("allRun",
+                                                                             mymodel@models.computed, 
+                                                                             value = TRUE)
                                                         
                                                         for(i in 1:length(models)){
                                                           if(length(grep(models[i],models.chosen))==0){
@@ -518,16 +497,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
                                                           
                                                           newdata <- terra::subset(new.env, combinations[, k])
                                                           new.env <- terra::wrap(new.env)
-                                                          if("PA.table" %in% slotNames(data)){
-                                                            
-                                                            models.chosen = grep("allRun", 
-                                                                                 mymodel@models.computed[-grep("allData",mymodel@models.computed)], 
-                                                                                 value = TRUE)}
-                                                          else{
-                                                            models.chosen = grep("allRun",
-                                                                                 mymodel@models.computed, 
-                                                                                 value = TRUE)
-                                                          }
+                                                          models.chosen = grep("allRun",
+                                                                               mymodel@models.computed,
+                                                                               value = TRUE)
                                                           
                                                           for(i in 1:length(models)){
                                                             if(length(grep(models[i],models.chosen))==0){
@@ -646,12 +618,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
       z <- biomod2::get_predictions(y, model.as.col = TRUE)
       z <- z[, -grep("allRun",colnames(z))]
       y.eval <- biomod2::get_evaluations(y)
-      if("PA.table" %in% slotNames(data)){
-        y.eval <- y.eval[y.eval$PA != "allData",] 
-        y.eval$run[y.eval$run=="allRun"] = "Full"
-      }else{
-        y.eval$run[y.eval$run=="allRun"] = "Full"
-      }
+      y.eval$run[y.eval$run=="allRun"] = "Full"
 
       modGenerated <- unique(y.eval$algo)
       x <- matrix(0, nrow = length(modGenerated), 
@@ -719,12 +686,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
     }
     else {
       y.eval <- biomod2::get_evaluations(y)
-      if("PA.table" %in% slotNames(data)){
-        y.eval <- y.eval[y.eval$PA != "allData",] 
-        y.eval$run[y.eval$run=="allRun"] = "Full"
-      }else{
-        y.eval$run[y.eval$run=="allRun"] = "Full"
-      }
+      y.eval$run[y.eval$run=="allRun"] = "Full"
       
      modGenerated <- unique(y.eval$algo)
       x <- matrix(0, nrow = length(modGenerated), 
@@ -848,9 +810,6 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
     }
     ToKeep <- grep(paste("allRun_", 
                          models[i], sep = ""), colnames(biva.st2),value=TRUE)
-    if ("PA.table" %in% slotNames(data)) {
-      ToKeep <- setdiff(ToKeep,grep("_allData_",ToKeep,value=TRUE))
-    }
     ## FullModel
     Model.biva.prediction <- biva.st2[,ToKeep ]
     ModelToWeight <- paste(models[i], sub("_.*", "", 
@@ -864,9 +823,7 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
   test.ESM <- as.data.frame(test.ESM)
   DATA <- cbind(1:length(data@data.species), resp.var = data@data.species, 
                 test.ESM/1000)
-  if ("PA.table" %in% slotNames(data)) {
-    DATA$resp.var[is.na(DATA$resp.var)] <- 0
-  }
+  DATA$resp.var[is.na(DATA$resp.var)] <- 0
   EVAL <- NULL
   for (i in 1:NbRunEval) {
     ToKeep <- grep(paste("RUN", 
