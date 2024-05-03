@@ -132,6 +132,11 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
   if (is.null(DataSplit) & is.null(DataSplitTable)) {
     stop("Need to give a value for DataSplit  when DataSplitTable is null")
   }
+  if(is.null(models.options){
+    options.provided = FALSE
+  }else{
+    options.provided = TRUE
+  }
   models <- sort(models)
   iniwd <- getwd()
   on.exit(setwd(iniwd))
@@ -209,7 +214,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
           }
         
       }else{
-          if (is.null(models.options)) {
+          if (!(options.provided)) {
     ANN.options <- list('_allData_allRun' = list(size = 8, decay = 4, shrinkage = 0.001))
     CTA.options <- list('_allData_allRun' = list(control = list(xval = 5, minbucket = 5, minsplit = 5, cp = 0, maxdepth = 25)))
     GBM.options <- list('_allData_allRun' = list(n.trees = 1000, interaction.depth = 4, shrinkage = 0.005))
@@ -277,7 +282,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                             }
                                                           }
                                                         }else{
-                                                          if (is.null(models.options)) {
+                                                          if (!(options.provided)) {
                                                             ANN.options <- list('_allData_allRun' = list(size = 8, decay = 4, shrinkage = 0.001))
                                                             CTA.options <- list('_allData_allRun' = list(control = list(xval = 5, minbucket = 5, minsplit = 5, cp = 0, maxdepth = 25)))
                                                             GBM.options <- list('_allData_allRun' = list(n.trees = 1000, interaction.depth = 4, shrinkage = 0.005))
