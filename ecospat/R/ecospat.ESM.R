@@ -172,7 +172,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                      NbRunEval = NbRunEval, DataSplit = DataSplit)
     if ("PA.table" %in% slotNames(data)){
       
-      colnames(calib.lines) = paste0("_PA1",colnames(calib.lines))
+      colnames(calib.lines) = paste0("_PA1",colnames(calib.lines)) #test if ok 
       
     }else{
       colnames(calib.lines) = paste0("_allData",colnames(calib.lines))
@@ -186,10 +186,10 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
     calib.lines <- cbind(calib.lines,TRUE)
     if ("PA.table" %in% slotNames(data)){
       
-      colnames(calib.lines)[ncol(calib.lines)]<- "_PA1_Full"
+      colnames(calib.lines)[ncol(calib.lines)]<- "_allData_allRun" #test if ok
       
     }else{
-      colnames(calib.lines)[ncol(calib.lines)]<-"_allData_Full"
+      colnames(calib.lines)[ncol(calib.lines)]<-"_allData_allRun"
       
     }
   }
@@ -1343,7 +1343,7 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
     calib.Lines[sample(abs,size = round(length(abs)*DataSplit/100)),i] = TRUE
   }
   calib.Lines <- cbind(calib.Lines,TRUE)
-  colnames(calib.Lines) = c(paste0("_RUN",1:NbRunEval),"_Full")
+  colnames(calib.Lines) = c(paste0("_RUN",1:NbRunEval),"_allRun")
   if ("PA.table" %in% slotNames(bm.format)) {
     calib.Lines[!(bm.format@PA.table[,1]),] = NA
   }
