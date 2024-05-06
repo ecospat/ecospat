@@ -275,3 +275,4 @@ FIXES
 * fix bugs in ecospat.ESM.Modeling, ecospat.ESM.Projection, ecospat.ESM.ensembleModeling and ecospat.ESM.ensembleProjection
 * corrected ecospat.cor.plot, which now creates histograms for each predictor and provide real correlation values instead of absolute values 
 * corrected ecospat.kd where the R argument was hard coded
+* corrected ecospat.max.tss which now return 0 when the observations (0/1) have the same probabilities.
