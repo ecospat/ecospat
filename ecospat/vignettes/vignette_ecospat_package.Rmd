@@ -230,7 +230,7 @@ ecospat.plot.overlap.test(sim.test, "D", "Similarity")
 
 ### Delimiting niche categories and quantifying niche dynamics in analogue climates with *ecospat.niche.dyn.index()*
 ```{r niche.dyn}
-niche.dyn <- ecospat.niche.dyn.index (grid.clim.nat, grid.clim.inv, intersection = 0.1)
+niche.dyn <- ecospat.niche.dyn.index (grid.clim.nat, grid.clim.inv)
 ```
 
 #### Visualizing niche categories, niche dynamics and climate analogy between ranges with *ecospat.plot.niche.dyn()*
