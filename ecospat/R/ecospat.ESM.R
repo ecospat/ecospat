@@ -207,12 +207,6 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                       strategy = "tuned",
                                                       user.base = "bigboss", 
                                                       bm.format = mydata)
-          if ("MAXENT" %in% models) {
-              if (!file.exists(paste(models.options@options$MAXENT.binary.MAXENT.MAXENT@args.values$`_allData_allRun`$path_to_maxent.jar, 
-                           "maxent.jar", sep = "/"))){
-                stop("maxent.jar file not found!")
-            }
-          }
         
       }else{
           if (!(options.provided)) {
@@ -233,12 +227,6 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                   user.val = user.options,
                                                   user.base = "bigboss", 
                                                       bm.format = mydata)
-  }
-  if ("MAXENT" %in% models) {
-    if (!file.exists(paste(models.options@options$MAXENT.binary.MAXENT.MAXENT@args.values$`_allData_allRun`$path_to_maxent.jar, 
-                           "maxent.jar", sep = "/"))){
-      stop("maxent.jar file not found!")
-    }
   }
       }
       mymodels[[k]] <- "failed"
@@ -277,12 +265,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                                                                         strategy = "tuned",
                                                                                                         user.base = "bigboss", 
                                                                                                         bm.format = mydata)
-                                                          if ("MAXENT" %in% models) {
-                                                            if (!file.exists(paste(models.options@options$MAXENT.binary.MAXENT.MAXENT@args.values$`_allData_allRun`$path_to_maxent.jar, 
-                                                                                   "maxent.jar", sep = "/"))){
-                                                              stop("maxent.jar file not found!")
-                                                            }
-                                                          }
+                                                          
                                                         }else{
                                                           if (!(options.provided)) {
                                                             ANN.options <- list('_allData_allRun' = list(size = 8, decay = 4, shrinkage = 0.001))
@@ -303,12 +286,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                                                                           user.base = "bigboss", 
                                                                                                           bm.format = mydata)
                                                           }
-                                                          if ("MAXENT" %in% models) {
-                                                            if (!file.exists(paste(models.options@options$MAXENT.binary.MAXENT.MAXENT@args.values$`_allData_allRun`$path_to_maxent.jar, 
-                                                                                   "maxent.jar", sep = "/"))){
-                                                              stop("maxent.jar file not found!")
-                                                            }
-                                                          }
+                                                          
                                                         }
                                                         biomod2::BIOMOD_Modeling(bm.format = mydata, 
                                                                                  models = models,
