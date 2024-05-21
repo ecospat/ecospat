@@ -339,7 +339,7 @@ ecospat.CCV.modeling <- function(sp.data,
                        eval.metrics, 
                        ensemble.metric,
                        VarImport){
-    
+    require(biomod2)
     #Preparing the data
     MyBiomodData <- biomod2::BIOMOD_FormatingData(resp.var = as.numeric(sp.data[,sp.name]),
                                          expl.var = env.data,
@@ -392,7 +392,7 @@ ecospat.CCV.modeling <- function(sp.data,
                     models, 
                     models.options, 
                     ensemble.metric){
-    
+    require(biomod2)
     #Preparing the data
     MyESMData <- biomod2::BIOMOD_FormatingData(resp.var = as.numeric(sp.data[,sp.name]),
                                       expl.var = env.data,
