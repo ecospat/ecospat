@@ -545,6 +545,7 @@ ecospat.CCV.modeling <- function(sp.data,
       }
     
   }
+}
   
   #Running the stuff with ONLY ESMs #################################################################################################
   if(ESM=="ALL"){
