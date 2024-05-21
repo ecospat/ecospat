@@ -351,13 +351,15 @@ ecospat.CCV.modeling <- function(sp.data,
         if(is.null(models.options)){
       MyBiomodOptions <- biomod2::bm_ModelingOptions(data.type = "binary",
                                                      models = models,
-                                                     strategy = "bigboss")
+                                                     strategy = "bigboss",
+                                                    bm.format = MyBiomodData)
       }else{
         MyBiomodOptions <- biomod2::bm_ModelingOptions(data.type = "binary",
                                                        models = models,
                                                        strategy = "user.defined",
                                                        user.val = models.options,
-                                                       user.base = "bigboss")
+                                                       user.base = "bigboss",
+                                                    bm.format = MyBiomodData)
       }
     
     #Running the models
@@ -401,17 +403,6 @@ ecospat.CCV.modeling <- function(sp.data,
                                       na.rm = FALSE)
     
     #Setting model parameters
-        if(is.null(models.options)){
-      MyBiomodOptions <- biomod2::bm_ModelingOptions(data.type = "binary",
-                                                     models = models,
-                                                     strategy = "bigboss")
-      }else{
-        MyBiomodOptions <- biomod2::bm_ModelingOptions(data.type = "binary",
-                                                       models = models,
-                                                       strategy = "user.defined",
-                                                       user.val = models.options,
-                                                       user.base = "bigboss")
-      }
     
     #Running the ESM
     MyESMModelOut <- ecospat.ESM.Modeling(data = MyESMData, 
@@ -420,7 +411,7 @@ ecospat.CCV.modeling <- function(sp.data,
                                           models = models,
                                           Prevalence = NULL,
                                           modeling.id = "ccv", 
-                                          models.options = MyBiomodOptions, 
+                                          models.options = models.options, 
                                           parallel = FALSE)
     
     #Ensemble the ESMs
