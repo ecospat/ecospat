@@ -513,26 +513,36 @@ ecospat.CCV.modeling <- function(sp.data,
     
     #For the SDMs
     for(i in sp.names.ok){
-      load(paste(i,"/",i,".ccvensemble.models.out", sep=""))
-      
-      #Single model evaluation
-      temp.evaluations <- biomod2::get_evaluations(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
-      for(l in 1:length(temp.evaluations)){
-        singleSpecies.ensembleEvaluationScore[,i,l] <- temp.evaluations[[l]][,1]
+       load(paste(i, "/", i, ".ccv.ensemble.models.out", 
+                 sep = ""))
+      temp.evaluations <- biomod2::get_evaluations(eval(parse(text = paste(i, 
+                                                                           ".ccv.ensemble.models.out", sep = ""))))
+      tmp.model.list <- unique(temp.evaluations$full.name)
+      tmp.model.list <- tmp.model.list[grep(tmp.model.list, 
+                                            pattern = "allRun", invert = TRUE)]
+      for (l in seq_along(tmp.model.list)) {
+        singleSpecies.ensembleEvaluationScore[, i, l] <- temp.evaluations$validation[which(temp.evaluations$full.name == 
+                                                                                             tmp.model.list[l])]
       }
-      #Single model variable importance
-      temp.variableimprtance <- biomod2::get_variables_importance(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
-      temp.varimp.mean <- stats::aggregate(data = temp.variableimprtance, var.imp ~ full.name + expl.var, FUN = 'mean', simplify = TRUE, na.rm = TRUE)
-      # singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
-      singleSpecies.ensembleVariableImportance[,i,] <-  round(as.matrix(reshape(temp.varimp.mean, idvar = "expl.var", timevar = "full.name", direction = "wide")[,-1]),2)
-      
-      #Single model predictions
-      temp.predictions <- biomod2::get_predictions(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))), model.as.col = TRUE)
-      for(l in 1:dim(temp.predictions)[2]){
-        singleSpecies.calibrationSites.ensemblePredictions[i,1:sum(DataSplitTable[,l]),l] <- temp.predictions[which(DataSplitTable[,l]),l]
-        singleSpecies.evaluationSites.ensemblePredictions[i,1:sum(!DataSplitTable[,l]),l] <- temp.predictions[which(!DataSplitTable[,l]),l]
+      temp.variableimprtance <- biomod2::get_variables_importance(eval(parse(text = paste(i, 
+                                                                                          ".ccv.ensemble.models.out", sep = ""))), full.name = tmp.model.list)
+      temp.varimp.mean <- stats::aggregate(data = temp.variableimprtance, 
+                                           var.imp ~ full.name + expl.var, FUN = "mean", 
+                                           simplify = TRUE, na.rm = TRUE)
+      singleSpecies.ensembleVariableImportance[, i, ] <- round(as.matrix(reshape(temp.varimp.mean, 
+                                                                                 idvar = "expl.var", timevar = "full.name", direction = "wide")[, 
+                                                                                                                                                -1]), 2)
+      temp.predictions <- biomod2::get_predictions(eval(parse(text = paste(i, 
+                                                                           ".ccv.ensemble.models.out", sep = ""))), model.as.col = TRUE, 
+                                                   full.name = tmp.model.list)
+      for (l in 1:dim(temp.predictions)[2]) {
+        singleSpecies.calibrationSites.ensemblePredictions[i, 
+                                                           1:sum(DataSplitTable[, l]), l] <- temp.predictions[which(DataSplitTable[, 
+                                                                                                                                   l]), l]
+        singleSpecies.evaluationSites.ensemblePredictions[i, 
+                                                          1:sum(!DataSplitTable[, l]), l] <- temp.predictions[which(!DataSplitTable[, 
+                                                                                                                                    l]), l]
       }
-    }
     
   }
   
