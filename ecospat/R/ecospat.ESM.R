@@ -202,10 +202,14 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                  combinations[, k]]
       mydata@sp.name <- paste("ESM.BIOMOD", k, sep = ".")
       if (tune == TRUE) {
+        MAXENT.options <- list(`_allData_allRun` = list(path_to_maxent.jar = iniwd)) ## not possible to change the maxent location when tuned
+        ##still creating the error after the tuning
+        user.options <- list(MAXENT.binary.MAXENT.MAXENT = MAXENT.options)
         models.options <- biomod2::bm_ModelingOptions(data.type = "binary",
                                                       models = models,
                                                       strategy = "tuned",
                                                       user.base = "bigboss", 
+                                                      user.val = user.options,
                                                       bm.format = mydata)
         
       }else{
@@ -214,7 +218,8 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
     CTA.options <- list('_allData_allRun' = list(control = list(xval = 5, minbucket = 5, minsplit = 5, cp = 0, maxdepth = 25)))
     GBM.options <- list('_allData_allRun' = list(n.trees = 1000, interaction.depth = 4, shrinkage = 0.005))
     MARS.options <- list('_allData_allRun' = list(nprune = 2))
-    MAXENT.options <- list('_allData_allRun' = list(product = FALSE, threshold = FALSE, betamultiplier = 0.5))
+    MAXENT.options <- list('_allData_allRun' = list(product = FALSE, threshold = FALSE, betamultiplier = 0.5,
+                                                          path_to_maxent.jar = iniwd))
     user.options <- list(ANN.binary.nnet.nnet = ANN.options,
                          CTA.binary.rpart.rpart = CTA.options,
                          GBM.binary.gbm.gbm = GBM.options,
