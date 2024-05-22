@@ -194,6 +194,14 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
       }
     }
   }
+  if("MAXENT" %in% models){
+    if(!file.exists(paste0(iniwd,"/maxent.jar"))){
+      stop("maxent.jar should be in the working directory")
+    }else{
+      cat("\nmaxent.jar has been duplicated in the ESM folder")
+      file.copy(from = paste0(iniwd,"/maxent.jar"), to = "maxent.jar" )
+    }
+  }
   mymodels <- list()
   if (parallel == FALSE) {
     for (k in which.biva) {
@@ -202,9 +210,6 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
                                                  combinations[, k]]
       mydata@sp.name <- paste("ESM.BIOMOD", k, sep = ".")
       if (tune == TRUE) {
-        MAXENT.options <- list(`_allData_allRun` = list(path_to_maxent.jar = iniwd)) ## not possible to change the maxent location when tuned
-        ##still creating the error after the tuning
-        user.options <- list(MAXENT.binary.MAXENT.MAXENT = MAXENT.options)
         models.options <- biomod2::bm_ModelingOptions(data.type = "binary",
                                                       models = models,
                                                       strategy = "tuned",
@@ -218,8 +223,7 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
     CTA.options <- list('_allData_allRun' = list(control = list(xval = 5, minbucket = 5, minsplit = 5, cp = 0, maxdepth = 25)))
     GBM.options <- list('_allData_allRun' = list(n.trees = 1000, interaction.depth = 4, shrinkage = 0.005))
     MARS.options <- list('_allData_allRun' = list(nprune = 2))
-    MAXENT.options <- list('_allData_allRun' = list(product = FALSE, threshold = FALSE, betamultiplier = 0.5,
-                                                          path_to_maxent.jar = iniwd))
+    MAXENT.options <- list('_allData_allRun' = list(product = FALSE, threshold = FALSE, betamultiplier = 0.5))
     user.options <- list(ANN.binary.nnet.nnet = ANN.options,
                          CTA.binary.rpart.rpart = CTA.options,
                          GBM.binary.gbm.gbm = GBM.options,
