@@ -269,6 +269,8 @@ ecospat.CCV.modeling <- function(sp.data,
   #require(gtools)
   #require(PresenceAbsence)
   
+  attachNamespace("biomod2",include.only = "OptionsBigboss")
+  
   #Checking all the input data
   stopifnot(dim(sp.data)[1]==dim(xy)[1])
   stopifnot(dim(env.data)[1]==dim(xy)[1] | 
@@ -339,7 +341,7 @@ ecospat.CCV.modeling <- function(sp.data,
                        eval.metrics, 
                        ensemble.metric,
                        VarImport){
-    require(biomod2)
+    #require(biomod2)
     #Preparing the data
     MyBiomodData <- biomod2::BIOMOD_FormatingData(resp.var = as.numeric(sp.data[,sp.name]),
                                          expl.var = env.data,
@@ -394,7 +396,7 @@ ecospat.CCV.modeling <- function(sp.data,
                     models, 
                     models.options, 
                     ensemble.metric){
-    require(biomod2)
+    #require(biomod2)
     #Preparing the data
     MyESMData <- biomod2::BIOMOD_FormatingData(resp.var = as.numeric(sp.data[,sp.name]),
                                       expl.var = env.data,
@@ -819,6 +821,7 @@ ecospat.CCV.modeling <- function(sp.data,
                             allSites.averagePredictions.eval=allSites.averagePredictions.eval)
   save(ccv.modeling.data, file=paste("../",modeling.id,".ccv.modeling.RData", sep=""))
   setwd("../")
+  detach("package:biomod2")
   return(ccv.modeling.data)
 }
 

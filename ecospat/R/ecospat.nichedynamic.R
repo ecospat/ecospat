@@ -244,7 +244,7 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
 }
 ##################################################################################################
 
-ecospat.plot.niche.dyn <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25, title = "", name.axis1 = "Axis 1",
+ecospat.plot.niche.dyn <- function(z1, z2, intersection=0, title = "", name.axis1 = "Axis 1",
                                    name.axis2 = "Axis 2", interest = 1, 
                                    col.abn = "lightgreen", col.unf = "green",
                                    col.exp = "red", col.stab = "blue", 
@@ -269,8 +269,7 @@ ecospat.plot.niche.dyn <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25, t
   col.pio = t_col(col.pio,transparency)
   col.NA = t_col(col.NA,transparency)
   
-  cat <- ecospat.niche.dyn.index(z1, z2, 
-                                 margin.z1 = margin.z1, margin.z2 = margin.z2)$dyn
+  cat <- ecospat.niche.dyn.index(z1, z2, intersection)$dyn
 
   if (is.null(z1$y)) {
     R <- length(z1$x)
@@ -279,8 +278,8 @@ ecospat.plot.niche.dyn <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25, t
     
     y1 <- z1$z.uncor / max(z1$z.uncor)
     Y1 <- z1$Z / max(z1$Z)
-    if (margin.z1 > 0) {
-      Y1.quant <- quantile(z1$Z[which(z1$Z > 0)], probs = seq(0, 1, margin.z1))[2] / max(z1$Z)
+    if (intersection > 0) {
+      Y1.quant <- quantile(as.matrix(z1$Z)[which(as.matrix(z1$Z) > 0)], probs = seq(0, 1, intersection))[2] / max(as.matrix(z1$Z))
     } else {
       Y1.quant <- 0
     }
@@ -291,8 +290,8 @@ ecospat.plot.niche.dyn <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25, t
     
     y2 <- z2$z.uncor / max(z2$z.uncor)
     Y2 <- z2$Z / max(z2$Z)
-    if (margin.z2 > 0) {
-      Y2.quant <- quantile(z2$Z[which(z2$Z > 0)], probs = seq(0, 1, margin.z2))[2] / max(z2$Z)
+    if (intersection > 0) {
+      Y2.quant <- quantile(as.matrix(z2$Z)[which(as.matrix(z2$Z) > 0)], probs = seq(0, 1, intersection))[2] / max(as.matrix(z2$Z))
     } else {
       Y2.quant <- 0
     }
@@ -352,7 +351,7 @@ ecospat.plot.niche.dyn <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25, t
   if (!is.null(z1$y)) {
     # assign the correct color to each category of the niche
     col_category<-c("#FFFFFF", col.abn, col.unf, 
-                    col.stab,col.exp, col.pio, col.NA)[sort(1+(unique(values(cat))))]
+                    col.stab,col.exp, col.pio, col.NA)[sort(1+(unique(terra::values(cat))))]
     
     if (interest == 1) {
       terra::plot(z1$z.uncor,col=gray(100:0 / 100),legend=FALSE, xlab = name.axis1, 
@@ -373,11 +372,11 @@ ecospat.plot.niche.dyn <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25, t
     
     title(title)
     terra::contour(
-      z1$Z, add = TRUE, levels = quantile(z1$Z[z1$Z > 0], c(0, margin.z1)),
+      z1$Z, add = TRUE, levels = quantile(z1$Z[z1$Z > 0], c(0, intersection)),
       drawlabels = FALSE, lty = c(1, 2), col = colZ1
     )
     terra::contour(
-      z2$Z, add = TRUE, levels = quantile(z2$Z[z2$Z > 0], c(0, margin.z2)),
+      z2$Z, add = TRUE, levels = quantile(z2$Z[z2$Z > 0], c(0, intersection)),
       drawlabels = FALSE, lty = c(1, 2), col = colZ2
     )
   }
@@ -409,24 +408,26 @@ ecospat.shift.centroids <- function(sp1, sp2, clim1, clim2, col = "red") {
 
 ##################################################################################################
 
-ecospat.niche.dyn.index <- function(z1, z2, margin.z1 = 0.25, margin.z2 = 0.25) {
+ecospat.niche.dyn.index <- function(z1, z2, intersection = 0) {
   w1.full <- as.matrix(z1$w) # native environmental distribution mask
   w2.full <- as.matrix(z2$w) # invaded environmental distribution mask
   glob1 <- as.matrix(z1$Z) # Native environmental extent densities
   glob2 <- as.matrix(z2$Z) # Invaded environmental extent densities
-  if (margin.z1 !=0){
-    quant.val.z1 <- quantile(glob1[glob1 > 0], probs = seq(0, 1, margin.z1))[2] # threshold do delimit native environmental mask
-  }else {
-    quant.val.z1 <- 0
+  
+  if (intersection >0){
+    quant.val.z1 <- quantile(glob1[glob1 > 0], probs = seq(0, 1, intersection))[2] # threshold do delimit native environmental mask
+    quant.val.z2 <- quantile(glob2[glob2 > 0], probs = seq(0, 1, intersection))[2] # threshold do delimit native environmental mask
   }
-  if (margin.z2 != 0){
-    quant.val.z2 <- quantile(glob2[glob2 > 0], probs = seq(0, 1, margin.z2))[2] # threshold do delimit native environmental mask
-  }else {
+  
+  if (intersection == 0){
+    quant.val.z1 <- 0
     quant.val.z2 <- 0
   }
+
   glob<- (glob1 > quant.val.z1) * (glob2 > quant.val.z2) # delimitation of the intersection between the native and invaded extents
   w1 <- w1.full * glob # Environmental native distribution at the intersection
   w2 <- w2.full * glob # Environmental invasive distribution at the intersection
+  
   z.pio.cat <- (((glob2>quant.val.z2) - (glob1>quant.val.z1))==1) * (w2.full * (glob2 > quant.val.z2)) # categorizing pioneering pixels
   z.exp.cat <- 1*(((w1 + 2 * w2) / 2)==1)# categorizing expansion pixels ## replace as.numeric with 1* because error with niche similarity test
   z.stable.cat <- 1*((w1 + 2 * w2)==3) # categorizing stable pixels

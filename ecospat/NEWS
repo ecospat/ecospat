@@ -263,11 +263,13 @@ FIXES
 * compatibility fixes for biomod2 v4.2-3 to ESM functions
 * fix bugs in ecospat.ESM.Modeling and ecospat.ESM.Projection
 
-ecospat_4.1.0
+ecospat_4.1.0 (25.02.2024)
 =============
 
-CHANGES
-* added in ecospat.plot.niche.dyn, ecospat.niche.dyn.index, ecospat.niche.equivalency.test, ecospat.niche.similarity.test the possibility to have different margin for z1, z2 (replace the argument "intersection")
+NEW FEATURES
+
+* ecospat.niche.dyn.index now allows to assess the Abandonment and Pioneering Niche 
+* ecospat.plot.niche.dyn now allows to plot the Abandonment and Pioneering Niche 
 
 FIXES
 * vectorized ecospat.SESAM.prr to reduce computing time with large datasets

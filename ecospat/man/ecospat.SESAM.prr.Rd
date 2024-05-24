@@ -6,7 +6,7 @@
 \description{
 Implement the SESAM framework to predict community composition using a `probability ranking` rule.
 }
-\usage{ecospat.SESAM.prr(proba, sr=NA, verbose = FALSE)
+\usage{ecospat.SESAM.prr(proba, sr=NULL, verbose = FALSE)
 }
 \arguments{
     \item{proba}{A data frame object of SDMs probabilities (or other sources) for all species. Column names (species names SDM) and row name (sampling sites) (need to have defined row names).}

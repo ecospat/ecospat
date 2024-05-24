@@ -29,7 +29,7 @@ Similarly, \code{th.env} is the quantile of the distribution of the environmenta
 If \code{th.env} is set to 0.05, the delineation of the study area in the environmental space includes 95 percent  of the study area, removing the more marginal sites of the study area. 
 By default, these thresholds are set to 0 but can be modified, depending on the importance of some marginal sites in the delineation of the species niche and/or the study area in the environmnental space. It is recommended to check if the shape of the delineated niche and study area corresponds to the shape of the plot of the PCA scores (or any other ordination techniques used to set the environmental space). 
 Visualisation of the gridded environmental space can be done through the functions \code{\link[ecospat]{ecospat.plot.niche}} or \code{\link[ecospat]{ecospat.plot.niche.dyn}}
-If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in http://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
+If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in https://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
 The argument \code{geomask} can be a SpatialPolygon or a SpatRaster object. 
 Note that the CRS should be the same as the one used for the points.
 
