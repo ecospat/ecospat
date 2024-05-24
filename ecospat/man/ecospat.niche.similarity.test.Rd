@@ -6,7 +6,7 @@
 
 \description{Run a niche similarity test (see Warren et al 2008) based on two species occurrence density grids.}
 
-\usage{ecospat.niche.similarity.test (z1, z2, rep, intersection = NA, 
+\usage{ecospat.niche.similarity.test (z1, z2, rep, intersection = 0, 
   rand.type = 1, ncores= 1, overlap.alternative = "higher", 
   expansion.alternative = "lower", stability.alternative = "higher", 
   unfilling.alternative = "lower")
