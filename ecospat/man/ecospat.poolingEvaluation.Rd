@@ -44,7 +44,7 @@
   }
 
 \details{
-Because a minimum sample size is needed to evaluate models (see Jiménez-Valverde, 2020), this function uses the approach from Collart et al.(2021), which consists to pool the suitability values of the hold-out data (evaluation dataset) across replicates. As the same data point (presence or absence or background point) is presumably sampled in several replicates, the suitability values for each data point is consequently averaged across replicates where they were sampled. This procedure generates a series of independent suitability values with a size approximately equal (as some data points may not have been sampled by chance in any of the \emph{n} replicates) to that of the number of data point.
+Because a minimum sample size is needed to evaluate models (see Collart & Guisan,2023; Jiménez-Valverde, 2020), this function uses the approach from Collart et al.(2021), which consists to pool the suitability values of the hold-out data (evaluation dataset) across replicates. As the same data point (presence or absence or background point) is presumably sampled in several replicates, the suitability values for each data point is consequently averaged across replicates where they were sampled. This procedure generates a series of independent suitability values with a size approximately equal (as some data points may not have been sampled by chance in any of the \emph{n} replicates) to that of the number of data point.
 }
 \value{
   a list containing:
@@ -56,6 +56,8 @@ Because a minimum sample size is needed to evaluate models (see Jiménez-Valverd
   }
 }
 \references{
+Collart, F., & Guisan, A. (2023). Small to train, small to test: Dealing with low sample size in model evaluation. \emph{Ecological Informatics}. \bold{75}, 102106. \doi{10.1016/j.ecoinf.2023.102106}
+
 Collart, F., Hedenäs, L., Broennimann, O., Guisan, A. and Vanderpoorten, A. 2021. Intraspecific differentiation: Implications for niche and distribution modelling. \emph{Journal of Biogeography}. \bold{48}, 415-426. \doi{10.1111/jbi.14009}
 
 Jiménez-Valverde, A. 2020. Sample size for the evaluation of presence-absence models. \emph{Ecological Indicators}. \bold{114}, 106289. \doi{10.1016/j.ecolind.2020.106289}

@@ -252,7 +252,7 @@ ecospat_3.5.1 (23.02.2023)
 FIXES
 * further compatibility fixes for biomod2 v4.2-2 to ESM functions
 
-ecospat_4.0.0 (16.010.2023)
+ecospat_4.0.0 (16.10.2023)
 =============
 
 CHANGES
@@ -262,3 +262,19 @@ CHANGES
 FIXES
 * compatibility fixes for biomod2 v4.2-3 to ESM functions
 * fix bugs in ecospat.ESM.Modeling and ecospat.ESM.Projection
+
+ecospat_4.1.0 (25.02.2024)
+=============
+
+NEW FEATURES
+
+* ecospat.niche.dyn.index now allows to assess the Abandonment and Pioneering Niche 
+* ecospat.plot.niche.dyn now allows to plot the Abandonment and Pioneering Niche 
+
+FIXES
+* vectorized ecospat.SESAM.prr to reduce computing time with large datasets
+* compatibility fixes for biomod2 v4.2-5 to ESM and CCV functions
+* fix bugs in ecospat.ESM.Modeling, ecospat.ESM.Projection, ecospat.ESM.ensembleModeling and ecospat.ESM.ensembleProjection
+* corrected ecospat.cor.plot, which now creates histograms for each predictor and provide real correlation values instead of absolute values 
+* corrected ecospat.kd where the R argument was hard coded
+* corrected ecospat.max.tss which now return 0 when the observations (0/1) have the same probabilities.

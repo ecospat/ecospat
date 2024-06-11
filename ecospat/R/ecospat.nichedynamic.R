@@ -42,7 +42,7 @@
 ## z2 : gridclim object for the invaded range
 ## quant : quantile of the environmental density used to delimit marginal climates.
 ## title : title of the figure
-## interest : choose which density to plot. If interest=1 plot native density, if interest=2 plot invasive density
+## interest : choose which density to plot. If interest = 0, plot no densitiy, if interest=1 plot native density, if interest=2 plot invasive density
 ## colz1 : color used to depict unfilling area
 ## colz2 : color used to depict expansion area
 ## colinter : color used to depict overlap area
@@ -88,7 +88,7 @@ ecospat.kd <- function(x, ext, R = 100, th = 0, env.mask = c(),
                                        kern = "bivnorm"
       ) # calculate the density of occurrences in a grid of RxR pixels along the score gradients
       x.dens <- terra::rast(
-        matrix(x.dens$ud,nrow = 100)
+        matrix(x.dens$ud,nrow = R)
       )
       terra::ext(x.dens)<-c(
         xmin = ext[1], 
@@ -244,9 +244,12 @@ ecospat.grid.clim.dyn <- function(glob, glob1, sp, R = 100, th.sp = 0,
 }
 ##################################################################################################
 
-ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "Axis 1",
-                                   name.axis2 = "Axis 2", interest = 1, col.unf = "green", col.exp = "red",
-                                   col.stab = "blue", colZ1 = "green3", colZ2 = "red3", transparency = 70,...) {
+ecospat.plot.niche.dyn <- function(z1, z2, intersection=0, title = "", name.axis1 = "Axis 1",
+                                   name.axis2 = "Axis 2", interest = 1, 
+                                   col.abn = "lightgreen", col.unf = "green",
+                                   col.exp = "red", col.stab = "blue", 
+                                   col.pio = "pink", col.NA = "grey",
+                                   colZ1 = "green3", colZ2 = "red3", transparency = 70,...) {
   
   t_col <- function(color, percent = 50, name = NULL) {
     ## Get RGB values for named color
@@ -259,10 +262,15 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
                  maxColorValue = 255)
   }
   
+  col.abn = t_col(col.abn,transparency)
   col.unf = t_col(col.unf,transparency)
   col.exp = t_col(col.exp,transparency)
   col.stab = t_col(col.stab,transparency)
+  col.pio = t_col(col.pio,transparency)
+  col.NA = t_col(col.NA,transparency)
   
+  cat <- ecospat.niche.dyn.index(z1, z2, intersection)$dyn
+
   if (is.null(z1$y)) {
     R <- length(z1$x)
     x <- z1$x
@@ -270,8 +278,8 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
     
     y1 <- z1$z.uncor / max(z1$z.uncor)
     Y1 <- z1$Z / max(z1$Z)
-    if (quant > 0) {
-      Y1.quant <- quantile(z1$Z[which(z1$Z > 0)], probs = seq(0, 1, quant))[2] / max(z1$Z)
+    if (intersection > 0) {
+      Y1.quant <- quantile(as.matrix(z1$Z)[which(as.matrix(z1$Z) > 0)], probs = seq(0, 1, intersection))[2] / max(as.matrix(z1$Z))
     } else {
       Y1.quant <- 0
     }
@@ -282,8 +290,8 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
     
     y2 <- z2$z.uncor / max(z2$z.uncor)
     Y2 <- z2$Z / max(z2$Z)
-    if (quant > 0) {
-      Y2.quant <- quantile(z2$Z[which(z2$Z > 0)], probs = seq(0, 1, quant))[2] / max(z2$Z)
+    if (intersection > 0) {
+      Y2.quant <- quantile(as.matrix(z2$Z)[which(as.matrix(z2$Z) > 0)], probs = seq(0, 1, intersection))[2] / max(as.matrix(z2$Z))
     } else {
       Y2.quant <- 0
     }
@@ -292,7 +300,8 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
     yy2 <- sort(rep(1:length(y2), 2))[-c(1:2, length(y2) * 2)]
     YY2 <- sort(rep(1:length(Y2), 2))[-c(1:2, length(Y2) * 2)]
     
-    plot(x, y1, type = "n", xlab = name.axis1, ylab = "density of occurrence",...)
+    plot(x, y1, type = "n", xlab = name.axis1, ylab = "density of occurrences",
+         main = title)
     polygon(x[xx], c(0, y1[yy1], 0, 0), col = col.unf, border = 0)
     polygon(x[xx], c(0, y2[yy2], 0, 0), col = col.exp, border = 0)
     polygon(x[xx], c(
@@ -303,55 +312,71 @@ ecospat.plot.niche.dyn <- function(z1, z2, quant = 0, title = "", name.axis1 = "
     lines(x[xx], c(0, Y1.quant[YY1], 0, 0), col = colZ1, lty = "dashed")
     lines(x[xx], c(0, Y2[YY2], 0, 0), col = colZ2)
     lines(x[xx], c(0, Y1[YY1], 0, 0), col = colZ1)
-    segments(x0 = 0, y0 = 0, x1 = max(x[xx]), y1 = 0, col = "white")
-    segments(x0 = 0, y0 = 0, x1 = 0, y1 = 1, col = "white")
-    
-    seg.cat <- function(inter, cat, col.unf, col.exp, col.stab) {
+    segments(x0 = min(x[xx]), y0 = 0, x1 = max(x[xx]), y1 = 0, col = "white")
+
+    seg.cat <- function(inter, cat, col.abn, col.unf, col.stab,
+                        col.exp,col.pio, col.NA) {
       if (inter[3] == 0) {
         my.col <- 0
       }
       if (inter[3] == 1) {
-        my.col <- col.unf
+        my.col <- col.abn
       }
       if (inter[3] == 2) {
-        my.col <- col.stab
+        my.col <- col.unf
       }
-      if (inter[3] == -1) {
+      if (inter[3] == 3) {
+        my.col <- col.stab
+      }      
+      if (inter[3] == 4) {
         my.col <- col.exp
+      }
+      if (inter[3] == 5) {
+        my.col <- col.pio
+      }
+      if (inter[3] == 6) {
+        my.col <- col.NA
       }
       segments(
         x0 = inter[1], y0 = -0.01, y1 = -0.01, x1 = inter[2],
         col = my.col, lwd = 4, lty = 2
       )
     }
-    cat <- ecospat.niche.dyn.index(z1, z2, intersection = quant)$dyn
-    cat<- cat[length(cat):1]
-    inter <- cbind(z1$x[-length(z1$x)], z1$x[-1], cat[-1])
-    apply(inter, 1, seg.cat, col.unf = col.unf, col.exp = col.exp, col.stab= col.stab)
+    inter <- cbind(z1$x[-length(z1$x)], z1$x[-1], cat[-1][])
+    apply(inter, 1, seg.cat, col.unf = col.unf, col.exp = col.exp, 
+          col.stab= col.stab, col.pio = col.pio, col.abn = col.abn,
+          col.NA = col.NA)
   }
   
   if (!is.null(z1$y)) {
     # assign the correct color to each category of the niche
-    col_category<-c("#FFFFFF",col.exp,col.unf,col.stab)[1+(sort(terra::unique(2*z1$w+z2$w)[,1]))]
+    col_category<-c("#FFFFFF", col.abn, col.unf, 
+                    col.stab,col.exp, col.pio, col.NA)[sort(1+(unique(terra::values(cat))))]
     
     if (interest == 1) {
       terra::plot(z1$z.uncor,col=gray(100:0 / 100),legend=FALSE, xlab = name.axis1, 
-           ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
+           ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))      
     }
     if (interest == 2) {
       terra::plot(z2$z.uncor,col=gray(100:0 / 100),legend=FALSE,xlab = name.axis1, 
            ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
     }
-    terra::plot(2*z1$w+z2$w,col=col_category, 
-                 add = TRUE,legend=FALSE)
+    if (interest == 0){
+      terra::plot(cat,col=col_category, 
+                  legend=FALSE, box = TRUE,xlab = name.axis1, 
+                  ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
+    }else{
+      terra::plot(cat,col=col_category, 
+                  add = TRUE,legend=FALSE, box = TRUE)
+    }
     
     title(title)
     terra::contour(
-      z1$Z, add = TRUE, levels = quantile(z1$Z[z1$Z > 0], c(0, quant)),
+      z1$Z, add = TRUE, levels = quantile(z1$Z[z1$Z > 0], c(0, intersection)),
       drawlabels = FALSE, lty = c(1, 2), col = colZ1
     )
     terra::contour(
-      z2$Z, add = TRUE, levels = quantile(z2$Z[z2$Z > 0], c(0, quant)),
+      z2$Z, add = TRUE, levels = quantile(z2$Z[z2$Z > 0], c(0, intersection)),
       drawlabels = FALSE, lty = c(1, 2), col = colZ2
     )
   }
@@ -383,52 +408,75 @@ ecospat.shift.centroids <- function(sp1, sp2, clim1, clim2, col = "red") {
 
 ##################################################################################################
 
-ecospat.niche.dyn.index <- function(z1, z2, intersection = NA) {
-  rotate <- function(x) t(apply(x, 2, rev))
-  w1 <- as.matrix(z1$w) # native environmental distribution mask
-  w2 <- as.matrix(z2$w) # invaded environmental distribution mask
+ecospat.niche.dyn.index <- function(z1, z2, intersection = 0) {
+  w1.full <- as.matrix(z1$w) # native environmental distribution mask
+  w2.full <- as.matrix(z2$w) # invaded environmental distribution mask
   glob1 <- as.matrix(z1$Z) # Native environmental extent densities
   glob2 <- as.matrix(z2$Z) # Invaded environmental extent densities
-  if (!is.na(intersection)) {
-    if (intersection == 0) {
-      glob1[glob1 > 0] <- 1 # Native environmental extent mask
-      glob2[glob2 > 0] <- 1 # Invaded environmental extent mask
-    } else {
-      quant.val <- quantile(glob1[glob1 > 0], probs = seq(0, 1, intersection))[2] # threshold do delimit native environmental mask
-      glob1[glob1[] <= quant.val] <- 0
-      glob1[glob1[] > quant.val] <- 1 #  native environmental mask
-      quant.val <- quantile(glob2[glob2 > 0], probs = seq(0, 1, intersection))[2] # threshold do delimit invaded environmental mask
-      glob2[glob2[] <= quant.val] <- 0
-      glob2[glob2[] > quant.val] <- 1 #  invaded environmental mask
-    }
-    glob <- glob1 * glob2 # delimitation of the intersection between the native and invaded extents
-    w1 <- w1 * glob # Environmental native distribution at the intersection
-    w2 <- w2 * glob # Environmental invasive distribution at the intersection
+  
+  if (intersection >0){
+    quant.val.z1 <- quantile(glob1[glob1 > 0], probs = seq(0, 1, intersection))[2] # threshold do delimit native environmental mask
+    quant.val.z2 <- quantile(glob2[glob2 > 0], probs = seq(0, 1, intersection))[2] # threshold do delimit native environmental mask
   }
-  z.exp.cat <- (w1 + 2 * w2) / 2
-  z.exp.cat[z.exp.cat != 1] <- 0 # categorizing expansion pixels
-  z.stable.cat <- (w1 + 2 * w2) / 3
-  z.stable.cat[z.stable.cat != 1] <- 0 # categorizing stable pixels
-  z.res.cat <- w1 + 2 * w2
-  z.res.cat[z.res.cat != 1] <- 0 # categorizing restriction pixels
+  
+  if (intersection == 0){
+    quant.val.z1 <- 0
+    quant.val.z2 <- 0
+  }
+
+  glob<- (glob1 > quant.val.z1) * (glob2 > quant.val.z2) # delimitation of the intersection between the native and invaded extents
+  w1 <- w1.full * glob # Environmental native distribution at the intersection
+  w2 <- w2.full * glob # Environmental invasive distribution at the intersection
+  
+  z.pio.cat <- (((glob2>quant.val.z2) - (glob1>quant.val.z1))==1) * (w2.full * (glob2 > quant.val.z2)) # categorizing pioneering pixels
+  z.exp.cat <- 1*(((w1 + 2 * w2) / 2)==1)# categorizing expansion pixels ## replace as.numeric with 1* because error with niche similarity test
+  z.stable.cat <- 1*((w1 + 2 * w2)==3) # categorizing stable pixels
+  z.unf.cat <- 1*((w1 + 2 * w2) == 1)# categorizing unfilling pixels 
+  z.abn.cat <- (((glob1>quant.val.z1) - (glob2>quant.val.z2))==1) * (w1.full * (glob1 > quant.val.z1))# categorizing abandonment pixels
+  z.na.cat<- ((w1.full + w2.full)>0) - 
+   ((z.pio.cat + z.exp.cat + z.stable.cat + z.unf.cat + z.abn.cat)>0)# categorizing pixels in non-analog environment
+
+  obs.pio <- as.matrix(z2$z.uncor) * as.matrix(z.pio.cat) # density correction
   obs.exp <- as.matrix(z2$z.uncor) * as.matrix(z.exp.cat) # density correction
   obs.stab <- as.matrix(z2$z.uncor) * as.matrix(z.stable.cat) # density correction
-  obs.res <- as.matrix(z1$z.uncor) * as.matrix(z.res.cat) # density correction
+  obs.unf <- as.matrix(z1$z.uncor) * as.matrix(z.unf.cat) # density correction
+  obs.abn <- as.matrix(z1$z.uncor) * as.matrix(z.abn.cat) # density correction
   
-  dyn <- (-1 * z.exp.cat) + (2 * z.stable.cat) + z.res.cat
-  if (ncol(w1) == 2) {
-    dyn <- terra::rast(dyn)
-  } # draw matrix with 3 categories of niche dynamic
+  dyn <- z.abn.cat+ (2 * z.unf.cat) + (3 * z.stable.cat) + (4 * z.exp.cat) +
+    (5 * z.pio.cat) 
+  dyn[z.na.cat[]==1] <- 6
+  
+  if (!is.null(z1$y)) {
+    dyn <- terra::rast(matrix(dyn,nrow = dim(z1$w)[1],ncol=dim(z1$w)[2],byrow = TRUE))
+    terra::ext(dyn) <- terra::ext(c(
+      min(z2$x),
+      max(z2$x),
+      min(z2$y),
+      max(z2$y)
+    ))
+  } # draw matrix with 5 categories of niche dynamic
   expansion.index.w <- sum(obs.exp) / sum(obs.stab + obs.exp) # expansion
   stability.index.w <- sum(obs.stab) / sum(obs.stab + obs.exp) # stability
-  restriction.index.w <- sum(obs.res) / sum(obs.res + (z.stable.cat *as.matrix(z1$z.uncor))) # unfilling
+  unfilling.index.w <- sum(obs.unf) / sum(obs.unf + (z.stable.cat *as.matrix(z1$z.uncor))) # unfilling
   expansion.index.w[is.nan(expansion.index.w)]<-0 # correction for 0/0
   stability.index.w[is.nan(stability.index.w)]<-0 # correction for 0/0
-  restriction.index.w[is.nan(restriction.index.w)]<-0 # correction for 0/0
+  unfilling.index.w[is.nan(unfilling.index.w)]<-0 # correction for 0/0
+  # quantify niche categories
+  z2_only_NA<-sum(obs.pio)
+  z2_only_A<-sum(obs.exp)
+  z2_z1<-sum(obs.stab)
+  z1_only_NA<-sum(obs.abn)
+  z1_only_A<-sum(obs.unf)
+  z1_z2<-sum(as.matrix(z1$z.uncor) * as.matrix(z.stable.cat))
+  #fill the list of objects
   part <- list()
-  part$dyn <- rotate(dyn)
-  part$dynamic.index.w <- c(expansion.index.w, stability.index.w, restriction.index.w)
+  part$dyn <- dyn
+  part$dynamic.index.w <- c(expansion.index.w, stability.index.w, unfilling.index.w)
   names(part$dynamic.index.w) <- c("expansion", "stability", "unfilling")
+  part$category_quantity <- c(z2_only_NA, z2_only_A, z2_z1,
+                              z1_only_NA, z1_only_A, z1_z2)
+  names(part$category_quantity) <- c("z2_only_NA", "z2_only_A", "z2_z1",
+                                     "z1_only_NA", "z1_only_A","z1_z2")
   return(part)
 }
 

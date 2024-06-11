@@ -25,7 +25,7 @@ Collection of methods, utilities and data sets for the support of spatial ecolog
 
 \item Minimum Dispersal routes: \code{\link{ecospat.mdr}}
 
-\item Niche Quantification: \code{\link{ecospat.grid.clim.dyn}, \link{ecospat.niche.equivalency.test}, \link{ecospat.niche.similarity.test}, \link{ecospat.plot.niche}, \link{ecospat.plot.niche.dyn}, \link{ecospat.plot.contrib}, \link{ecospat.niche.overlap}, \link{ecospat.plot.overlap.test}, \link{ecospat.niche.dyn.index}, \link{ecospat.shift.centroids}, \link{ecospat.niche.dynIndexProjGeo}, \link{ecospat.niche.zProjGeo}, \link{ecospat.margin}}
+\item Niche Quantification: \code{\link{ecospat.grid.clim.dyn}, \link{ecospat.niche.equivalency.test}, \link{ecospat.niche.similarity.test}, \link{ecospat.plot.niche}, \link{ecospat.plot.niche.dyn}, \link{ecospat.plot.contrib}, \link{ecospat.niche.overlap}, \link{ecospat.plot.overlap.test}, \link{ecospat.niche.dyn.index}, \link{ecospat.shift.centroids}, \link{ecospat.niche.dynIndexProjGeo}, \link{ecospat.niche.zProjGeo}, \link{ecospat.margin},\link{ecospat.nichePOSNB},\link{ecospat.nicheNBmean}}
 
 \item Data Preparation: \code{\link{ecospat.caleval}, \link{ecospat.cor.plot}, \link{ecospat.occ.desaggregation}, \link{ecospat.rand.pseudoabsences}, \link{ecospat.rcls.grd}, \link{ecospat.recstrat_prop}, \link{ecospat.recstrat_regl}, \link{ecospat.sample.envar}}
 }
@@ -34,7 +34,7 @@ Collection of methods, utilities and data sets for the support of spatial ecolog
 
 \itemize{
 
-\item Model evaluation: \code{\link{ecospat.cv.glm}, \link{ecospat.permut.glm}, \link{ecospat.cv.gbm}, \link{ecospat.cv.me}, \link{ecospat.cv.rf}, \link{ecospat.boyce}, \link{ecospat.CommunityEval}, \link{ecospat.cohen.kappa}, \link{ecospat.max.kappa}, \link{ecospat.max.tss}, \link{ecospat.meva.table}, \link{ecospat.plot.kappa}, \link{ecospat.plot.tss}, \link{ecospat.adj.D2.glm}, \link{ecospat.CCV.createDataSplitTable}, \link{ecospat.CCV.modeling}, \link{ecospat.CCV.communityEvaluation.bin}, \link{ecospat.CCV.communityEvaluation.prob}}
+\item Model evaluation: \code{\link{ecospat.cv.glm}, \link{ecospat.permut.glm}, \link{ecospat.cv.gbm}, \link{ecospat.cv.me}, \link{ecospat.cv.rf}, \link{ecospat.boyce}, \link{ecospat.CommunityEval}, \link{ecospat.cohen.kappa}, \link{ecospat.max.kappa}, \link{ecospat.max.tss}, \link{ecospat.meva.table}, \link{ecospat.plot.kappa}, \link{ecospat.plot.tss}, \link{ecospat.adj.D2.glm}, \link{ecospat.CCV.createDataSplitTable}, \link{ecospat.CCV.modeling}, \link{ecospat.CCV.communityEvaluation.bin}, \link{ecospat.CCV.communityEvaluation.prob},\link{ecospat.ESM.EnsembleEvaluation},\link{ecospat.poolingEvaluation}}
 
 \item Spatial predictions and projections: \code{\link{ecospat.ESM.Modeling}, \link{ecospat.ESM.EnsembleModeling}, \link{ecospat.ESM.Projection}, \link{ecospat.ESM.EnsembleProjection}, \link{ecospat.SESAM.prr}, \link{ecospat.binary.model}, \link{ecospat.Epred}, \link{ecospat.mpa}}
 

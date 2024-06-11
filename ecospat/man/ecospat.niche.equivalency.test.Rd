@@ -6,7 +6,7 @@
 
 \description{Run a niche equivalency test (see Warren et al 2008) based on two species occurrence density grids.}
 
-\usage{ecospat.niche.equivalency.test (z1, z2, rep, intersection = NA, 
+\usage{ecospat.niche.equivalency.test (z1, z2, rep, intersection = 0, 
 overlap.alternative = "higher", expansion.alternative = "lower", 
 stability.alternative = "higher", unfilling.alternative = "lower", ncores = 1)}
 
@@ -28,7 +28,7 @@ stability.alternative = "higher", unfilling.alternative = "lower", ncores = 1)}
 
 \code{overlap.alternative} specifies if you want to test for niche conservatism (\code{overlap.alternative = "higher"}, i.e. the niche overlap is more equivalent/similar than random) or for niche divergence (\code{overlap.alternative = "lower"}, i.e. the niche overlap is less equivalent/similar than random). You can also specifiy if you want to test if you have more, less or different observed niche dynamics than random niches(with \code{expansion.alternative}, \code{stability.alternative} and \code{unfilling.alternative}). If you want to test for niche conservatism, we recommande to set these niche dynamic hypotheses to \code{"lower"}, \code{"higher"} and \code{"lower"} respectively for expansion, stability and unfilling.
 
-If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in \url{http://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html}
+If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in \url{https://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html}
 
 The arguments \code{ncores} allows choosing the number of cores used to parallelize the computation.  The default value is 1. On multicore computers, the optimal would be \code{ncores = detectCores() - 1}.
 }

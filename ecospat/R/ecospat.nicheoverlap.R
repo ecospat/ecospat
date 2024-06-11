@@ -69,7 +69,7 @@ ecospat.niche.overlap <- function(z1, z2, cor) {
 }
 
 ################################################################################################## internal function to generate random distribution followint the niche equivalency approach
-overlap.eq.gen <- function(repi,z1, z2,intersection = NA) {
+overlap.eq.gen <- function(repi,z1, z2,intersection = 0) {
   if (is.null(z1$y)) {
     # overlap on one axis
     
@@ -88,12 +88,11 @@ overlap.eq.gen <- function(repi,z1, z2,intersection = NA) {
     sp1.sim <- occ.pool[rand.row, ]
     sp2.sim <- occ.pool[-rand.row, ]
   }
-  
   z1.sim <- ecospat.grid.clim.dyn(z1$glob, z1$glob1, data.frame(sp1.sim), R = length(z1$x))  # gridding
   z2.sim <- ecospat.grid.clim.dyn(z2$glob, z2$glob1, data.frame(sp2.sim), R = length(z2$x))
   
   o.i <- ecospat.niche.overlap(z1.sim, z2.sim, cor = TRUE)  # overlap between random and observed niches
-  sim.dyn<-ecospat.niche.dyn.index(z1.sim, z2.sim, intersection = intersection)$dynamic.index.w # dynamic indices between random and observed niches
+  sim.dyn<-ecospat.niche.dyn.index(z1.sim, z2.sim, intersection = 0)$dynamic.index.w # dynamic indices between random and observed niches
   
   sim.o.D <- o.i$D  # storage of overlaps
   sim.o.I <- o.i$I
@@ -120,7 +119,7 @@ p.val.gen<-function(sim,obs,alt){
 
 
 
-ecospat.niche.equivalency.test <- function(z1, z2, rep,intersection = NA,
+ecospat.niche.equivalency.test <- function(z1, z2, rep,intersection = 0,
                                            overlap.alternative = "higher",
                                            expansion.alternative = "lower",
                                            stability.alternative = "higher",
@@ -138,12 +137,11 @@ ecospat.niche.equivalency.test <- function(z1, z2, rep,intersection = NA,
   if (isFALSE(stability.alternative %in% c("higher","lower","different"))){
     stop("Please choose an alternative hypothesis (higher,lower or diffrent) for the unfilling")
   }
-  
   R <- length(z1$x)
   l <- list()
   
   obs.o <- c(ecospat.niche.overlap(z1, z2, cor = TRUE),  #observed niche overlap
-             ecospat.niche.dyn.index(z1, z2, intersection = intersection)$dynamic.index.w) # dynamic indices between random and observed niches
+             ecospat.niche.dyn.index(z1, z2, intersection)$dynamic.index.w) # dynamic indices between random and observed niches
   
   if (ncores == 1){
     sim.o <- as.data.frame(matrix(unlist(lapply(1:rep, overlap.eq.gen, z1, z2,intersection = intersection)), byrow = TRUE,
@@ -175,7 +173,7 @@ ecospat.niche.equivalency.test <- function(z1, z2, rep,intersection = NA,
 ##################################################################################################
 
 #### internal function to generate random distribution following the niche similarity approach
-overlap.sim.gen <- function(repi, z1, z2, rand.type = rand.type, intersection = NA) {
+overlap.sim.gen <- function(repi, z1, z2, rand.type = rand.type, intersection = 0) {
   R1 <- length(z1$x)
   R2 <- length(z2$x)
   if (is.null(z1$y) & is.null(z2$y)) {
@@ -286,14 +284,14 @@ overlap.sim.gen <- function(repi, z1, z2, rand.type = rand.type, intersection = 
     z2.sim$z.uncor[which(is.na(z2.sim$z.uncor))] <- 0
     z2.sim$w <- (z2.sim$z.uncor>0)*1 # niche envelope
   }
-  
   if (rand.type == 1) {
     o.i <- ecospat.niche.overlap(z1.sim, z2.sim, cor = TRUE)
-    sim.dyn<- ecospat.niche.dyn.index(z1.sim, z2.sim, intersection = intersection)$dynamic.index.w         
+    sim.dyn<- ecospat.niche.dyn.index(z1.sim, z2.sim, intersection)$dynamic.index.w         
   }
   if (rand.type == 2) {
     o.i <- ecospat.niche.overlap(z1, z2.sim, cor = TRUE)
-    sim.dyn<-ecospat.niche.dyn.index(z1, z2.sim, intersection = intersection)$dynamic.index.w
+    z1$w <- as.matrix(z1$w,wide=TRUE) #To avoid the error after
+    sim.dyn<-ecospat.niche.dyn.index(z1, z2.sim, intersection)$dynamic.index.w
   }  # overlap between random and observed niches
   sim.o.D <- o.i$D  # storage of overlaps
   sim.o.I <- o.i$I  # storage of overlaps
@@ -306,7 +304,7 @@ overlap.sim.gen <- function(repi, z1, z2, rand.type = rand.type, intersection = 
 
 
 ########
-ecospat.niche.similarity.test <- function(z1, z2, rep, intersection = NA, rand.type = 1, ncores = 1,
+ecospat.niche.similarity.test <- function(z1, z2, rep, intersection = 0, rand.type = 1, ncores = 1,
                                           overlap.alternative = "higher",
                                           expansion.alternative = "lower",
                                           stability.alternative = "higher",
@@ -328,11 +326,13 @@ ecospat.niche.similarity.test <- function(z1, z2, rep, intersection = NA, rand.t
   R <- length(z1$x)
   l <- list()
   obs.o <- c(ecospat.niche.overlap(z1, z2, cor = TRUE),  #observed niche overlap
-             ecospat.niche.dyn.index(z1, z2, intersection = intersection)$dynamic.index.w) # dynamic indices between random and observed niches
+             ecospat.niche.dyn.index(z1, z2, intersection)$dynamic.index.w) # dynamic indices between random and observed niches
   z1$z.uncor <- as.matrix(z1$z.uncor,wide=TRUE)
+  z1$z.cor <- as.matrix(z1$z.cor, wide = TRUE)
   z1$Z <- as.matrix(z1$Z,wide=TRUE)
   z1$z <- as.matrix(z1$z,wide=TRUE)
   z2$z.uncor <- as.matrix(z2$z.uncor,wide=TRUE)
+  z2$z.cor <- as.matrix(z2$z.cor, wide = TRUE)
   z2$Z <- as.matrix(z2$Z,wide=TRUE)
   z2$z <- as.matrix(z2$z,wide=TRUE)
   
@@ -379,18 +379,18 @@ ecospat.plot.niche <- function(z, title = "", name.axis1 = "Axis 1", name.axis2 
   }
   if (!is.null(z$y)) {
     if (cor == FALSE)
-      image(x=z$x,y=z$y,z=t(terra::as.matrix(z$z.uncor,wide=TRUE))[,nrow(terra::as.matrix(z$z.uncor,wide=TRUE)):1], col = gray(100:0/100), zlim = c(1e-06, z$z.uncor@pnt$range_max),
-            xlab = name.axis1, ylab = name.axis2)
+      terra::plot(z$z.uncor,col=gray(100:0 / 100),legend=FALSE, xlab = name.axis1, 
+                  ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
     if (cor == TRUE)
-      image(x=z$x,y=z$y,z=t(terra::as.matrix(z$z.cor,wide=TRUE))[,nrow(terra::as.matrix(z$z.cor,wide=TRUE)):1], col = gray(100:0/100), zlim = c(1e-06, z$z.cor@pnt$range_max),
-            xlab = name.axis1, ylab = name.axis2)
-    Z<-t(as.matrix(z$Z,wide=TRUE))[,ncol(z$z):1]
-    contour(x=z$x,y=z$y,Z, add = TRUE, levels = quantile(z$Z[z$Z > 0], c(0, 0.5)), drawlabels = FALSE,
-            lty = c(1, 2))
+      terra::plot(z$z.cor,col=gray(100:0 / 100),legend=FALSE, xlab = name.axis1, 
+                  ylab = name.axis2,mar = c(3.1,3.1,2.1,3.1))
+    terra::contour(
+      z$Z, add = TRUE, levels = quantile(z$Z[z$Z > 0], c(0, 0.5)),
+      drawlabels = FALSE, lty = c(1, 2)
+    )
   }
   title(title)
 }
-
 
 
 ecospat.plot.contrib <- function(contrib, eigen) {

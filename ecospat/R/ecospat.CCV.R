@@ -198,8 +198,8 @@ ecospat.CCV.createDataSplitTable <- function(NbRunEval,
 #validation.method    either "cross-validation" or "split-sample" used to validate the communtiy predictions (only needed if no DataSplitTable provided)
 #models.sdm           modeling techniques used for the normal SDMs. Vector of models names choosen among 'GLM', 'GBM', 'GAM', 'CTA', 'ANN', 'SRE', 'FDA', 'MARS', 'RF', 'MAXENT' and 'MAXNET'
 #models.esm           modeling techniques used for the ESMs
-#modeling.options.sdm BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in biomod2) for normal SDMs
-#modeling.options.esm BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in biomod2) for esm SDMs
+#modeling.options.sdm BIOMOD.models.options object returned by bm_ModelingOptions (same as in biomod2) for normal SDMs
+#modeling.options.esm BIOMOD.models.options object returned by bm_ModelingOptions (same as in biomod2) for esm SDMs
 #ensemble.metric      metrics used to create the ensemble models
 #ESM                  either YES (ESMs allowed), NO (ESMs not allowed) or "ALL" (ESMs used in any case)
 #parallel             should parallel computing be allowed
@@ -268,6 +268,8 @@ ecospat.CCV.modeling <- function(sp.data,
   #require(snowfall)
   #require(gtools)
   #require(PresenceAbsence)
+  
+  attachNamespace("biomod2",include.only = "OptionsBigboss")
   
   #Checking all the input data
   stopifnot(dim(sp.data)[1]==dim(xy)[1])
@@ -339,7 +341,7 @@ ecospat.CCV.modeling <- function(sp.data,
                        eval.metrics, 
                        ensemble.metric,
                        VarImport){
-    
+    #require(biomod2)
     #Preparing the data
     MyBiomodData <- biomod2::BIOMOD_FormatingData(resp.var = as.numeric(sp.data[,sp.name]),
                                          expl.var = env.data,
@@ -348,21 +350,29 @@ ecospat.CCV.modeling <- function(sp.data,
                                          na.rm = FALSE)
     
     #Setting model parameters
-    if(is.null(models.options)){
-      MyBiomodOptions <- biomod2::BIOMOD_ModelingOptions()
-    }else{
-      MyBiomodOptions <- biomod2::BIOMOD_ModelingOptions(models.options) #NOT WORKING YET!!!!
-    }
+        if(is.null(models.options)){
+      MyBiomodOptions <- biomod2::bm_ModelingOptions(data.type = "binary",
+                                                     models = models,
+                                                     strategy = "bigboss",
+                                                    bm.format = MyBiomodData)
+      }else{
+        MyBiomodOptions <- biomod2::bm_ModelingOptions(data.type = "binary",
+                                                       models = models,
+                                                       strategy = "user.defined",
+                                                       user.val = models.options,
+                                                       user.base = "bigboss",
+                                                    bm.format = MyBiomodData)
+      }
     
     #Running the models
     MyBiomodModelOut <- biomod2::BIOMOD_Modeling(bm.format = MyBiomodData,
-                                        models = models,
-                                        bm.options = MyBiomodOptions,
-                                        metric.eval = eval.metrics,
-                                        CV.strategy = "user.defined",
-                                        CV.user.table = DataSplitTable,
-                                        prevalence = NULL,
-                                        modeling.id = "ccv")
+                                                 models = models,
+                                                 metric.eval = eval.metrics,
+                                                 CV.strategy = "user.defined",
+                                                 CV.user.table = DataSplitTable,
+                                                 OPT.user = MyBiomodOptions,
+                                                 prevalence = NULL,
+                                                 modeling.id = "ccv")
     
     #Creating the ensemble Model
     MyBiomodEnsemble <- biomod2::BIOMOD_EnsembleModeling(bm.mod = MyBiomodModelOut,
@@ -386,7 +396,7 @@ ecospat.CCV.modeling <- function(sp.data,
                     models, 
                     models.options, 
                     ensemble.metric){
-    
+    #require(biomod2)
     #Preparing the data
     MyESMData <- biomod2::BIOMOD_FormatingData(resp.var = as.numeric(sp.data[,sp.name]),
                                       expl.var = env.data,
@@ -395,20 +405,15 @@ ecospat.CCV.modeling <- function(sp.data,
                                       na.rm = FALSE)
     
     #Setting model parameters
-    if(is.null(models.options)){
-      MyBiomodOptions <- biomod2::BIOMOD_ModelingOptions()
-    }else{
-      MyBiomodOptions <- biomod2::BIOMOD_ModelingOptions(models.options) #NOT WORKING YET!!!!
-    }
     
     #Running the ESM
     MyESMModelOut <- ecospat.ESM.Modeling(data = MyESMData, 
                                           DataSplitTable = DataSplitTable, 
                                           weighting.score = ensemble.metric,
                                           models = models,
-                                          Prevalence=NULL,
+                                          Prevalence = NULL,
                                           modeling.id = "ccv", 
-                                          models.options = MyBiomodOptions, 
+                                          models.options = models.options, 
                                           parallel = FALSE)
     
     #Ensemble the ESMs
@@ -510,28 +515,39 @@ ecospat.CCV.modeling <- function(sp.data,
     
     #For the SDMs
     for(i in sp.names.ok){
-      load(paste(i,"/",i,".ccvensemble.models.out", sep=""))
-      
-      #Single model evaluation
-      temp.evaluations <- biomod2::get_evaluations(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
-      for(l in 1:length(temp.evaluations)){
-        singleSpecies.ensembleEvaluationScore[,i,l] <- temp.evaluations[[l]][,1]
+       load(paste(i, "/", i, ".ccv.ensemble.models.out", 
+                 sep = ""))
+      temp.evaluations <- biomod2::get_evaluations(eval(parse(text = paste(i, 
+                                                                           ".ccv.ensemble.models.out", sep = ""))))
+      tmp.model.list <- unique(temp.evaluations$full.name)
+      tmp.model.list <- tmp.model.list[grep(tmp.model.list, 
+                                            pattern = "allRun", invert = TRUE)]
+      for (l in seq_along(tmp.model.list)) {
+        singleSpecies.ensembleEvaluationScore[, i, l] <- temp.evaluations$validation[which(temp.evaluations$full.name == 
+                                                                                             tmp.model.list[l])]
       }
-      #Single model variable importance
-      temp.variableimprtance <- biomod2::get_variables_importance(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))))
-      temp.varimp.mean <- stats::aggregate(data = temp.variableimprtance, var.imp ~ full.name + expl.var, FUN = 'mean', simplify = TRUE, na.rm = TRUE)
-      # singleSpecies.ensembleVariableImportance[,i,] <- round(apply(temp.variableimprtance,c(1,3), mean, na.rm = TRUE),2)
-      singleSpecies.ensembleVariableImportance[,i,] <-  round(as.matrix(reshape(temp.varimp.mean, idvar = "expl.var", timevar = "full.name", direction = "wide")[,-1]),2)
-      
-      #Single model predictions
-      temp.predictions <- biomod2::get_predictions(eval(parse(text=paste(i,".ccvensemble.models.out",sep=""))), model.as.col = TRUE)
-      for(l in 1:dim(temp.predictions)[2]){
-        singleSpecies.calibrationSites.ensemblePredictions[i,1:sum(DataSplitTable[,l]),l] <- temp.predictions[which(DataSplitTable[,l]),l]
-        singleSpecies.evaluationSites.ensemblePredictions[i,1:sum(!DataSplitTable[,l]),l] <- temp.predictions[which(!DataSplitTable[,l]),l]
+      temp.variableimprtance <- biomod2::get_variables_importance(eval(parse(text = paste(i, 
+                                                                                          ".ccv.ensemble.models.out", sep = ""))), full.name = tmp.model.list)
+      temp.varimp.mean <- stats::aggregate(data = temp.variableimprtance, 
+                                           var.imp ~ full.name + expl.var, FUN = "mean", 
+                                           simplify = TRUE, na.rm = TRUE)
+      singleSpecies.ensembleVariableImportance[, i, ] <- round(as.matrix(reshape(temp.varimp.mean, 
+                                                                                 idvar = "expl.var", timevar = "full.name", direction = "wide")[, 
+                                                                                                                                                -1]), 2)
+      temp.predictions <- biomod2::get_predictions(eval(parse(text = paste(i, 
+                                                                           ".ccv.ensemble.models.out", sep = ""))), model.as.col = TRUE, 
+                                                   full.name = tmp.model.list)
+      for (l in 1:dim(temp.predictions)[2]) {
+        singleSpecies.calibrationSites.ensemblePredictions[i, 
+                                                           1:sum(DataSplitTable[, l]), l] <- temp.predictions[which(DataSplitTable[, 
+                                                                                                                                   l]), l]
+        singleSpecies.evaluationSites.ensemblePredictions[i, 
+                                                          1:sum(!DataSplitTable[, l]), l] <- temp.predictions[which(!DataSplitTable[, 
+                                                                                                                                    l]), l]
       }
-    }
     
   }
+}
   
   #Running the stuff with ONLY ESMs #################################################################################################
   if(ESM=="ALL"){
@@ -805,6 +821,7 @@ ecospat.CCV.modeling <- function(sp.data,
                             allSites.averagePredictions.eval=allSites.averagePredictions.eval)
   save(ccv.modeling.data, file=paste("../",modeling.id,".ccv.modeling.RData", sep=""))
   setwd("../")
+  detach("package:biomod2")
   return(ccv.modeling.data)
 }
 

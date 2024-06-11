@@ -230,7 +230,7 @@ ecospat.plot.overlap.test(sim.test, "D", "Similarity")
 
 ### Delimiting niche categories and quantifying niche dynamics in analogue climates with *ecospat.niche.dyn.index()*
 ```{r niche.dyn}
-niche.dyn <- ecospat.niche.dyn.index (grid.clim.nat, grid.clim.inv, intersection = 0.1)
+niche.dyn <- ecospat.niche.dyn.index (grid.clim.nat, grid.clim.inv)
 ```
 
 #### Visualizing niche categories, niche dynamics and climate analogy between ranges with *ecospat.plot.niche.dyn()*
@@ -264,8 +264,7 @@ grid.clim.t.inv <- ecospat.grid.clim.dyn(glob=as.data.frame(rbind(nat,inv)[,10])
                                          glob1=as.data.frame(inv[,10]),
                                          sp=as.data.frame(inv[which(inv[,11]==1),10]), 
                                          R=1000, th.sp=0) 
-t.dyn<-ecospat.niche.dyn.index (grid.clim.t.nat, grid.clim.t.inv,
-                                intersection=0.1)
+t.dyn<-ecospat.niche.dyn.index (grid.clim.t.nat, grid.clim.t.inv)
 ecospat.plot.niche.dyn(grid.clim.t.nat, grid.clim.t.inv, quant=0, 
                        interest=2, title= "Niche Overlap", 
                        name.axis1="Average temperature")
@@ -390,10 +389,6 @@ myBiomodData <- biomod2::BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]
                                       expl.var = current,
                                       resp.xy = xy,
                                       resp.name = colnames(sp_occ)[sp])
-
-myBiomodOption <- biomod2::bm_DefaultModelingOptions()
-myBiomodOption@GLM$test = 'none'
-myBiomodOption@GBM$interaction.depth = 2
 ```
 
 ```{r ESM.Modeling}
@@ -403,7 +398,6 @@ myBiomodOption@GBM$interaction.depth = 2
 # this is just to keep the vignette short
 invisible(capture.output(my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
                                 models=c('GLM'),
-                                models.options=myBiomodOption,
                                 NbRunEval=2,
                                 DataSplit=70,
                                 weighting.score=c("AUC"),

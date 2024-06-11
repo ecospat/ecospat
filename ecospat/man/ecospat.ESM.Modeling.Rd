@@ -52,7 +52,7 @@ logical. if true model tuning will be used to estimate optimal parameters for th
 character, the ID (=name) of modeling procedure. A random number by default.
     }
     \item{models.options}{
-BIOMOD.models.options object returned by BIOMOD_ModelingOptions (same as in \code{biomod2})
+BIOMOD.models.options object returned by bm_ModelingOptions (same as in \code{biomod2})
     }
     \item{Yweights}{
 response points weights. This argument will only affect models that allow case weights. 
@@ -99,7 +99,7 @@ Breiner F.T., Nobis M.P., Bergamini A., Guisan A. 2018. Optimizing ensembles of 
 \code{\link[ecospat]{ecospat.ESM.threshold}},\code{\link[ecospat]{ecospat.ESM.VarContrib}},
 \code{\link[ecospat]{ecospat.ESM.responsePlot}}
 
-\code{\link[biomod2]{BIOMOD_FormatingData}}, \code{\link[biomod2]{BIOMOD_ModelingOptions}}, \code{\link[biomod2]{BIOMOD_Modeling}},\code{\link[biomod2]{BIOMOD_Projection}}
+\code{\link[biomod2]{BIOMOD_FormatingData}}, \code{\link[biomod2]{bm_ModelingOptions}}, \code{\link[biomod2]{BIOMOD_Modeling}},\code{\link[biomod2]{BIOMOD_Projection}}
 
 }
 \examples{
