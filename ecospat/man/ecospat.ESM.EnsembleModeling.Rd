@@ -19,9 +19,9 @@ This function evaluates and averages simple bivariate models by weighted means t
     
     \item{weighting.score}{an evaluation score used to weight single models to build ensembles:"AUC","TSS",
     
-    "Boyce","Kappa","SomersD" #the evaluation methods used to evaluate ensemble models 
+    "Boyce","Kappa","SomersD"
     
-    ( see \code{"\link[=BIOMOD_Modeling]{BIOMOD_Modeling}"}  \bold{models.eval.meth} section for more detailed informations )
+    ( see \code{\link[biomod2]{BIOMOD_Modeling}},  \bold{metric.eval} section for more detailed informations )
 }
     \item{threshold}{
 threshold value of an evaluation score to select the bivariate model(s) included for building the ESMs
@@ -50,7 +50,7 @@ weights.EF:       weighting scores used to weight the single ESM to build the en
 failed:           bivariate models which failed because they could not be calibrated.
 
 
-A \code{"\link[=BIOMOD.ensemble.models.out-class]{BIOMOD.ensemble.models.out}"} object. This object will be later given to \code{\link[ecospat]{ecospat.ESM.EnsembleProjection}} if you want to make some projections of this ensemble-models.
+A \code{\link[biomod2]{BIOMOD.ensemble.models.out-class}} object. This object will be later given to \code{\link[ecospat]{ecospat.ESM.EnsembleProjection}} if you want to make some projections of this ensemble-models.
 
 }
 \author{

@@ -125,12 +125,10 @@ sim.test <- ecospat.niche.similarity.test(grid.clim.nat, grid.clim.inv,rep=10,
 ecospat.plot.overlap.test(sim.test, "D", "Similarity")
 
 ## ----niche.dyn----------------------------------------------------------------
-niche.dyn <- ecospat.niche.dyn.index (grid.clim.nat, grid.clim.inv,  margin.z1 = 0.25,
-                                      margin.z2 = 0)
+niche.dyn <- ecospat.niche.dyn.index (grid.clim.nat, grid.clim.inv)
 
 ## -----------------------------------------------------------------------------
-ecospat.plot.niche.dyn(z1 = grid.clim.nat, z2 = grid.clim.inv, margin.z1=0.25,
-                       margin.z2 = 0, interest=2,
+ecospat.plot.niche.dyn(grid.clim.nat, grid.clim.inv, quant=0.25, interest=2,
                        title= "Niche Overlap", name.axis1="PC1",
                        name.axis2="PC2")
 
@@ -152,8 +150,7 @@ grid.clim.t.inv <- ecospat.grid.clim.dyn(glob=as.data.frame(rbind(nat,inv)[,10])
                                          glob1=as.data.frame(inv[,10]),
                                          sp=as.data.frame(inv[which(inv[,11]==1),10]), 
                                          R=1000, th.sp=0) 
-t.dyn<-ecospat.niche.dyn.index (grid.clim.t.nat, grid.clim.t.inv,
-                                margin.z1 = 0.1, margin.z2 = 0.1)
+t.dyn<-ecospat.niche.dyn.index (grid.clim.t.nat, grid.clim.t.inv)
 ecospat.plot.niche.dyn(grid.clim.t.nat, grid.clim.t.inv, quant=0, 
                        interest=2, title= "Niche Overlap", 
                        name.axis1="Average temperature")
@@ -228,12 +225,6 @@ myBiomodData <- biomod2::BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]
                                       resp.xy = xy,
                                       resp.name = colnames(sp_occ)[sp])
 
-myBiomodOption <- biomod2::bm_ModelingOptions(data.type = "binary",
-                                              models = models,
-                                              strategy = "bigboss")
-myBiomodOption@GLM$test = 'none'
-myBiomodOption@GBM$interaction.depth = 2
-
 ## ----ESM.Modeling-------------------------------------------------------------
 ### Calibration of simple bivariate models
 
@@ -241,7 +232,6 @@ myBiomodOption@GBM$interaction.depth = 2
 # this is just to keep the vignette short
 invisible(capture.output(my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
                                 models=c('GLM'),
-                                models.options=myBiomodOption,
                                 NbRunEval=2,
                                 DataSplit=70,
                                 weighting.score=c("AUC"),

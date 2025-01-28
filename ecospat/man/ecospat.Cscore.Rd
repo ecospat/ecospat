@@ -8,7 +8,7 @@ Pairwise co-occurrence Analysis with calculation of the C-score index.
 The function tests for nonrandom patterns of species co-occurrence in a presence-absence matrix. It calculates the C-score index for the whole community and for each species pair. Null communities have column sum fixed.
 }
 \usage{
-ecospat.Cscore (data, nperm, outpath, verbose = FALSE)
+ecospat.Cscore (data, nperm, outpath = NULL, verbose = FALSE)
 }
 \arguments{
     \item{data}{A presence-absence dataframe for each species (columns) in each location or grid cell (rows). Column names (species names) and row names (sampling plots).}
@@ -23,7 +23,7 @@ NOTE: a SES that is greater than 2 or less than -2 is statistically significant 
 
 }
 \value{
-The function returns the C-score index for the observed community (ObsCscoreTot), p.value (PValTot) and standardized effect size (SES.Tot). It saves also a table in the working directory where the same metrics are calculated for each species pair (only the table with species pairs with significant p-values is saved in this version)
+The function returns the C-score index for the observed community (ObsCscoreTot), p.value (PValTot) and standardized effect size (SES.Tot). If outpath is not NULL, it saves also a table in the working directory where the same metrics are calculated for each species pair (only the table with species pairs with significant p-values is saved in this version)
 }
 \author{
 Christophe Randin \email{	christophe.randin@wsl.ch} and Manuela D'Amen <manuela.damen@msn.com>
@@ -46,6 +46,6 @@ Stone, L. and A. Roberts, A. 1990. The checkerboard score and species distributi
 data<- ecospat.testData[c(53,62,58,70,61,66,65,71,69,43,63,56,68,57,55,60,54,67,59,64)]
 nperm <- 10000
 outpath <- getwd()
-Cscore<-ecospat.Cscore(data, nperm, outpath)
+Cscore<-ecospat.Cscore(data, nperm)
 
 }}

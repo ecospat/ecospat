@@ -44,7 +44,7 @@ The name of \code{new.env} must be a regular expression (see ?regex)
 }
 \value{
 Returns the projections for all selected models (same as in \code{biomod2})
-See \code{"\link[=BIOMOD.projection.out-class]{BIOMOD.projection.out}"} for details.
+See \code{\link[biomod2]{BIOMOD.projection.out-class}} for details.
 
 }
 \author{ Frank Breiner \email{frank.breiner@wsl.ch} 

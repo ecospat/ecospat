@@ -4,7 +4,7 @@
 \description{
 Co-occurrence Analysis & Environmentally Constrained Null Models. The function tests for non-random patterns of species co-occurrence in a presence-absence matrix. It calculates the C-score index for the whole community and for each species pair. An environmental constraint is applied during the generation of the null communities.
 }
-\usage{ecospat.cons_Cscore(presence,pred,nperm,outpath,verbose = FALSE)}
+\usage{ecospat.cons_Cscore(presence,pred,nperm,outpath = NULL,verbose = FALSE)}
 \arguments{
     \item{presence}{A presence-absence dataframe for each species (columns) in each location or grid cell (rows) Column names (species names) and row names (sampling plots).}
     \item{pred}{A dataframe object with SDM predictions. Column names (species names SDM) and row names (sampling plots).}
@@ -16,7 +16,7 @@ Co-occurrence Analysis & Environmentally Constrained Null Models. The function t
 The format required for input databases: a plots (rows) x species (columns) matrix. Input matrices should have column names (species names) and row names (sampling plots).
 NOTE: a SES that is greater than 2 or less than -2 is statistically significant with a tail probability of less than 0.05 (Gotelli & McCabe 2002 - Ecology)}
 
-\value{Returns the C-score index for the observed community (ObsCscoreTot), the mean of C-score for the simulated communities (SimCscoreTot), p.value (PValTot) and standardized effect size (SES.Tot). It also saves a table in the specified path where the same 
+\value{Returns the C-score index for the observed community (ObsCscoreTot), the mean of C-score for the simulated communities (SimCscoreTot), p.value (PValTot) and standardized effect size (SES.Tot). If outpath is not NULL, it also saves a table in the specified path where the same 
 metrics are calculated for each species pair (only the table with species pairs with significant p.values is saved in this version). }
 
 \author{Anne Dubuis \email{anne.dubuis@gmail.com} and Manuela D`Amen \email{manuela.damen@unil.ch}}
@@ -30,7 +30,7 @@ metrics are calculated for each species pair (only the table with species pairs 
 \donttest{
 presence <- ecospat.testData[c(53,62,58,70,61,66,65,71,69,43,63,56,68,57,55,60,54,67,59,64)]
 pred <- ecospat.testData[c(73:92)]
-nperm <- 10000
+nperm <- 1000
 outpath <- getwd()
-cons_Cscore<-ecospat.cons_Cscore(presence, pred, nperm, outpath)
+cons_Cscore<-ecospat.cons_Cscore(presence, pred, nperm)
 }}

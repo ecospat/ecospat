@@ -30,7 +30,7 @@ Draws a plot with distance vs. the mantel r  value. Black circles indicate that 
 \references{
 Legendre, P. and M.J. Fortin. 1989. Spatial pattern and ecological analysis. \emph{Vegetatio}, \bold{80}, 107-138.}
 
-\seealso{\code{\link{mgram}}}
+\seealso{\code{\link[ecodist]{mgram}}}
 
 \examples{
 ecospat.mantel.correlogram(dfvar=ecospat.testData[c(2:16)],colxy=1:2, n=100, colvar=3:7, 

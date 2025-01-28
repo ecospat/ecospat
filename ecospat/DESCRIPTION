@@ -1,6 +1,6 @@
 Package: ecospat
-Version: 4.1.0
-Date: 2024-05-06
+Version: 4.1.1
+Date: 2024-07-04
 Title: Spatial Ecology Miscellaneous Methods
 Authors@R: c(
 	person("Olivier", "Broennimann", role = c("cre","aut","ctb"), email = "olivier.broennimann@unil.ch"),
