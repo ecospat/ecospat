@@ -114,6 +114,10 @@ Daniel Scherrer <daniel.j.a.scherrer@gmail.com> with the updates from Flavien Co
         community.metrics= c('SR.deviation','Sorensen'),
         parallel = FALSE,
         cpus = 4)
+        
+  #removing files on disk
+  unlink(list.files(pattern=myCCV.Models$modeling.id))
+  unlink(myCCV.Models$modeling.id,recursive=TRUE)
           
 }
 }

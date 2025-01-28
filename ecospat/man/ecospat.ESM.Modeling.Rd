@@ -79,7 +79,7 @@ NOTE: Make sure to give each of your biva runs a unique \code{modeling.id}. Plea
 
 \value{
 A BIOMOD.models.out object (same as in \code{biomod2})
-See \code{"\link[=BIOMOD.models.out-class]{BIOMOD.models.out}"} for details.
+See \code{\link[biomod2]{BIOMOD.models.out-class}} for details.
 
 }
 \author{
@@ -164,5 +164,9 @@ ecospat.ESM.VarContrib(my.ESM,my.ESM_EF)
 
 ## get the response plots of ESMs
 my.ESM_responsePlot<-ecospat.ESM.responsePlot(my.ESM_EF,my.ESM,fixed.var.metric = 'mean')
+
+
+#removing files on disk
+  unlink("ESM.BIOMOD.output_species.occ",recursive=TRUE)
 }
 }

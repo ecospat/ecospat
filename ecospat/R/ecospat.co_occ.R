@@ -69,7 +69,7 @@ ecospat.co_occurrences <- function (data)
 # library(vegan); library(ade4) ;dependencies: permatswap::vegan; randtest::ade4
 
 
-ecospat.Cscore <- function(data, nperm, outpath, verbose = FALSE)
+ecospat.Cscore <- function(data, nperm, outpath = NULL, verbose = FALSE)
 {
   
   # C-coef Observed matrix
@@ -202,8 +202,10 @@ ecospat.Cscore <- function(data, nperm, outpath, verbose = FALSE)
                                                                                            4:6])
   names(mat.pval.names2)[3] <- "obs.C-score"
   names(mat.pval.names2)[4] <- "exp.C-score"
-  write.table(mat.pval.names2, file = paste(outpath, "/Cscores.txt", sep = ""),
+  if(!is.null(outpath)){
+    write.table(mat.pval.names2, file = paste(outpath, "/Cscores.txt", sep = ""),
               sep = "\t", append = FALSE, row.names = FALSE, col.names = TRUE, quote = FALSE)
+  }
   
   tab <- mat.pval.names2
   v <- c(0)
@@ -341,7 +343,7 @@ SpeciesCooccurrenceStats <- function(presence) {
 
 ################# Null models ##
 
-ecospat.cons_Cscore <- function(presence, pred, nperm, outpath, verbose = FALSE) {
+ecospat.cons_Cscore <- function(presence, pred, nperm, outpath = NULL, verbose = FALSE) {
   
   if(verbose){
     cat("Computing observed co-occurence matrix", "\n", append = FALSE)
@@ -462,8 +464,11 @@ ecospat.cons_Cscore <- function(presence, pred, nperm, outpath, verbose = FALSE)
   
   m1 <- na.omit(m)
   
-  write.table(m1, file = paste(outpath, "/Signific_const_Cscores.txt", sep = ""), 
-              sep = "\t", append = FALSE, row.names = FALSE, col.names = TRUE, quote = FALSE)
+  if(!is.null(outpath)){
+    write.table(m1, file = paste(outpath, "/Signific_const_Cscores.txt", sep = ""), 
+                sep = "\t", append = FALSE, row.names = FALSE, col.names = TRUE, quote = FALSE)
+  }
+
   
   l <- list(ObsCscoreTot = CscoreTot, SimCscoreTot = SimulatedCscore, PVal.less = pval.less, 
             PVal.greater = pval.greater, SES.Tot = ses)

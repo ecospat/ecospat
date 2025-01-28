@@ -278,3 +278,16 @@ FIXES
 * corrected ecospat.cor.plot, which now creates histograms for each predictor and provide real correlation values instead of absolute values 
 * corrected ecospat.kd where the R argument was hard coded
 * corrected ecospat.max.tss which now return 0 when the observations (0/1) have the same probabilities.
+
+ecospat_4.1.1 (02.07.2024)
+=============
+
+FIXES
+* remove files created on disk by ESM, CCV and co-occurrence functions
+
+ecospat_4.1.2 (30.01.2025)
+=============
+
+FIXES
+* compatibility fixes for biomod2 biomod2 4.2-6-2 to ESM functions
+
