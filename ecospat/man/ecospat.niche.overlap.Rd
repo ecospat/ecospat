@@ -16,7 +16,7 @@
 
 \details{if cor=FALSE, the z$uncor objects created by \code{ecospat.grid.clim} are used to calculate the overlap. if cor=TRUE, the z$cor objects are used.
 
-If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in https://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
+If you encounter a problem during your analyses, please first read the FAQ document in the \bold{Niche overlap} section in the "Tools" tab at \href{https://www.unil.ch/ecospat/home/menuguid/ecospat-resources.html}{https://www.unil.ch/ecospat/home/menuguid/ecospat-resources.html}.
 }
 
 \value{Overlap values D and I. D is Schoener's overlap metric (Schoener 1970). I is a modified Hellinger metric(Warren et al. 2008)}
