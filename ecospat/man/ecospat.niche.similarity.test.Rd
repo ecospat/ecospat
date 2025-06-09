@@ -25,14 +25,14 @@
   \item{unfilling.alternative}{Alternative hypothesis of the unfilling test. See Details.}
 }
 
-\details{Compares the observed niche overlap between z1 and z2 to overlaps between z1 and random niches (z2.sim) as available in the range of z2 (z2$Z). z2.sim has the same pattern as z2 but the center is randomly translatated in the availabe z2$Z space and weighted by z2$Z densities.
+\details{Compares the observed niche overlap between z1 and z2 to overlaps between z1 and random niches (z2.sim) as available in the range of z2 (z2$Z). z2.sim has the same pattern as z2 but the center is randomly translated in the available z2$Z space and weighted by z2$Z densities.
 
-\code{intersection} allows setting if the niche dynamic indices (expansion, stability and unfilling) are measured across the full extent pooling the two study areas or not. If \code{intersection = NA}, the analysis is performed on the whole environmental extent (native and invaded). If \code{instersection = 0}, the analysis is performed at the intersection between native and invaded range. If \code{instersection = 0.05}, the analysis is performed at the intersection of the 5th quantile of both native and invaded environmental densities. Etc...
+\code{intersection} allows setting if the niche dynamic indices (expansion, stability and unfilling) are measured across the full extent pooling the two study areas or not. If \code{intersection = NA}, the analysis is performed on the whole environmental extent (native and invaded). If \code{intersection = 0}, the analysis is performed at the intersection between native and invaded range. If \code{intersection = 0.05}, the analysis is performed at the intersection of the 5th quantile of both native and invaded environmental densities. Etc...
 
 
 If \code{rand.type = 1}, both z1 and z2 are randomly shifted, if \code{rand.type = 2}, only z2 is randomly shifted.
 
-\code{overlap.alternative} specifies if you want to test for niche conservatism (\code{overlap.alternative = "higher"}, i.e. the niche overlap is more equivalent/similar than random) or for niche divergence (\code{overlap.alternative = "lower"}, i.e. the niche overlap is less equivalent/similar than random). You can also specifiy if you want to test if you have more, less or different observed niche dynamics than random niches(with \code{expansion.alternative}, \code{stabilty.alternative} and \code{unfilling.alternative}). If you want to test for niche conservatism, we recommande to set these niche dynamic hypotheses to \code{"lower"}, \code{"higher"} and \code{"lower"} respectively for expansion, stability and unfilling.
+\code{overlap.alternative} specifies if you want to test for niche conservatism (\code{overlap.alternative = "higher"}, i.e. the niche overlap is more equivalent/similar than random) or for niche divergence (\code{overlap.alternative = "lower"}, i.e. the niche overlap is less equivalent/similar than random). You can also specifiy if you want to test if you have more, less or different observed niche dynamics than random niches (with \code{expansion.alternative}, \code{stabilty.alternative} and \code{unfilling.alternative}). If you want to test for niche conservatism, we recommend to set these niche dynamic hypotheses to \code{"lower"}, \code{"higher"} and \code{"lower"} respectively for expansion, stability and unfilling.
 
 If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in https://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
 

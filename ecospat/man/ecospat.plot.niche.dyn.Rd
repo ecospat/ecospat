@@ -37,7 +37,7 @@
 \details{
 Using the default colors, the plot will show the niche stability in blue, niche expansion in red, and niche unfilling in green. 
 The solid contour line indicates the extent of environmental conditions that exists in the native and invaded ranges; 
-the dotted contour line indicates the quantile indicated by the \code{quant} argument.
+the dotted contour line indicates the quantile indicated by the \code{intersection} argument.
 The densities of occurrences are displayed using gray shading. This shading shows occurences in the native or
 invaded range only, as determined by the value of the \code{interest} argument. 
 }

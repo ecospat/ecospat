@@ -19,7 +19,7 @@
 If you encounter a problem during your analyses, please first read the FAQ section of "Niche overlap" in https://www.unil.ch/ecospat/home/menuguid/ecospat-resources/tools.html
 }
 
-\value{Overlap values D and I. D is Schoener's overlap metric (Schoener 1970). I is a modified Hellinger metric(Warren et al. 2008)}
+\value{Overlap values D and I. D is Schoener's overlap metric (Schoener 1968). I is a modified Hellinger metric (Warren et al. 2008).}
 
 \references{Broennimann, O., M.C. Fitzpatrick, P.B. Pearman, B. Petitpierre, L. Pellissier, N.G. Yoccoz, W. Thuiller, M.J. Fortin, C. Randin, N.E. Zimmermann, C.H. Graham and A. Guisan. 2012. Measuring ecological niche overlap from occurrence and spatial environmental data. \emph{Global Ecology and Biogeography}, \bold{21}, 481-497.
 
