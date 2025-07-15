@@ -19,13 +19,6 @@ ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100,
     return(round(pi/ei,10))
   }
   
-  # if (inherits(fit,"RasterLayer")) {
-#   if (is.data.frame(obs) || is.matrix(obs)) {
-#     obs <- extract(fit, obs)
-#   }
-#   fit <- getValues(fit)
-#   fit <- fit[!is.na(fit)]
-# }
   if (inherits(fit, "SpatRaster")) {
     if (is.data.frame(obs) || is.matrix(obs)) {
       obs <- terra::extract(fit, as.data.frame(obs),ID=FALSE)
@@ -41,15 +34,14 @@ ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100,
   if(length(nclass)==1){
     if (nclass == 0) { #moving window
       if (window.w == "default") {window.w <- (max(fit) - min(fit))/10}
-      vec.mov <- seq(from = mini, to = maxi - window.w, by = (maxi - mini - window.w)/res)
-      vec.mov[res + 1] <- vec.mov[res + 1] + 1  #Trick to avoid error with closed interval in R
+      vec.mov <- seq(from = mini, to = maxi - window.w, length.out = res)
       interval <- cbind(vec.mov, vec.mov + window.w)
     } else{ #window based on nb of class
-      vec.mov <- seq(from = mini, to = maxi, by = (maxi - mini)/nclass)
+      vec.mov <- seq(from = mini, to = maxi, length.out = nclass)
       interval <- cbind(vec.mov, c(vec.mov[-1], maxi))
     }
   } else{ #user defined window
-    vec.mov <- c(mini, sort(nclass[!nclass>maxi|nclass<mini]))
+    vec.mov <- c(mini, sort(nclass[!nclass > maxi | nclass < mini]))
     interval <- cbind(vec.mov, c(vec.mov[-1], maxi))
   }
   
@@ -66,13 +58,12 @@ ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100,
     b <- cor(f[r], vec.mov[to.keep][r], method = method)  # calculation of the correlation (i.e. Boyce index) after removing successive duplicated values
   }
   HS <- apply(interval, 1, sum)/2  # mean habitat suitability in the moving window
-  if(length(nclass)==1 & nclass == 0) {
-    HS[length(HS)] <- HS[length(HS)] - 1  #Correction of the 'trick' to deal with closed interval
-  }
   HS <- HS[to.keep]  #exclude the NaN
   if (PEplot == TRUE) {
-    plot(HS, f, xlab = "Habitat suitability", ylab = "Predicted/Expected ratio", col = "grey", cex = 0.75)
+    plot(HS, f, xlab = "Habitat suitability",
+         ylab = "Predicted/Expected ratio", col = "grey", cex = 0.75)
     points(HS[r], f[r], pch = 19, cex = 0.75)
   }
   return(list(F.ratio = f, cor = round(b, 3), HS = HS))
 }
+
