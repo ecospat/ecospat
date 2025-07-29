@@ -1712,7 +1712,7 @@ ecospat.CCV.communityEvaluation.prob <- function(ccv.modeling.data,
     temp.df <- data.frame(obs=as.numeric(data[1:(length(data)/2)]),pred=as.numeric(data[((length(data)/2)+1):length(data)]))
     temp.df <- temp.df[order(-temp.df$pred),]
     AnB <- 2* sum(temp.df$pred[temp.df$obs==1])
-    AuB <- sum(temp.df$pred[temp.df$pred>=min(temp.df$pred[temp.df$obs==1])]) + sum(temp.df$pred[temp.df$obs==1])
+    AuB <- sum(temp.df$pred[temp.df$pred>=min(temp.df$pred[temp.df$obs==1])]) + 2* sum(temp.df$pred[temp.df$obs==1])
     return(AnB/AuB)
   }
   
