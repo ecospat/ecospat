@@ -4,7 +4,7 @@
 
 \title{Plot Overlap Test}
 
-\description{Plot a histogram of observed and randomly simulated overlaps, with p-values of equivalency or similarity tests.}
+\description{Plot a histogram of randomly simulated overlap values (grey bars) and the observed overlap value (red vertical line with a diamond marker), with p-values of equivalency or similarity tests.}
 
 \usage{ecospat.plot.overlap.test (x, type, title)}
 
