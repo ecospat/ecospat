@@ -126,16 +126,16 @@ ecospat.niche.equivalency.test <- function(z1, z2, rep,intersection = 0,
                                            unfilling.alternative = "lower",
                                            ncores=1) {
   if (isFALSE(overlap.alternative %in% c("higher","lower","different"))){
-    stop("Please choose an alternative hypothesis (higher,lower or diffrent) for the overlap")
+    stop("Please choose an alternative hypothesis (higher,lower or different) for the overlap")
   }
   if (isFALSE(expansion.alternative %in% c("higher","lower","different"))){
-    stop("Please choose an alternative hypothesis (higher,lower or diffrent) for the expansion")
+    stop("Please choose an alternative hypothesis (higher,lower or different) for the expansion")
   }
   if (isFALSE(stability.alternative %in% c("higher","lower","different"))){
-    stop("Please choose an alternative hypothesis (higher,lower or diffrent) for the stability")
+    stop("Please choose an alternative hypothesis (higher,lower or different) for the stability")
   }
-  if (isFALSE(stability.alternative %in% c("higher","lower","different"))){
-    stop("Please choose an alternative hypothesis (higher,lower or diffrent) for the unfilling")
+  if (isFALSE(unfilling.alternative %in% c("higher","lower","different"))){
+    stop("Please choose an alternative hypothesis (higher,lower or different) for the unfilling")
   }
   R <- length(z1$x)
   l <- list()
@@ -317,9 +317,9 @@ ecospat.niche.similarity.test <- function(z1, z2, rep, intersection = 0, rand.ty
     stop("Please choose an alternative hypothesis (higher,lower or different) for the expansion")
   }
   if (isFALSE(stability.alternative %in% c("higher","lower","different"))){
-    stop("Please choose an alternative hypothesis (higher,lower or difefrent) for the stability")
+    stop("Please choose an alternative hypothesis (higher,lower or different) for the stability")
   }
-  if (isFALSE(stability.alternative %in% c("higher","lower","different"))){
+  if (isFALSE(unfilling.alternative %in% c("higher","lower","different"))){
     stop("Please choose an alternative hypothesis (higher,lower or different) for the unfilling")
   }
   
