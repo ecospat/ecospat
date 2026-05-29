@@ -66,7 +66,7 @@ ecospat.boyce <- function(fit, obs, nclass = 0, window.w = "default", res = 100,
     b <- cor(f[r], vec.mov[to.keep][r], method = method)  # calculation of the correlation (i.e. Boyce index) after removing successive duplicated values
   }
   HS <- apply(interval, 1, sum)/2  # mean habitat suitability in the moving window
-  if(length(nclass)==1 & nclass == 0) {
+  if(length(nclass)==1 && nclass == 0) {
     HS[length(HS)] <- HS[length(HS)] - 1  #Correction of the 'trick' to deal with closed interval
   }
   HS <- HS[to.keep]  #exclude the NaN
