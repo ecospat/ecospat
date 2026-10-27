@@ -297,3 +297,10 @@ ecospat_4.1.3 (23.01.2026)
 FIXES
 * compatibility fixes for biomod2 4.3-4-3 to ESM functions (path to ESM folders modified in BIOMOD.formated.data)
 * compatibility fixes for terra 1.8-93
+
+ecospat_4.1.4 (17.06.2026)
+=============
+
+FIXES
+* compatibility fixes for biomod2 4.3-4-6 to ESM functions
+* CCV functions were removed from the package

@@ -34,7 +34,7 @@ Collection of methods, utilities and data sets for the support of spatial ecolog
 
 \itemize{
 
-\item Model evaluation: \code{\link{ecospat.cv.glm}, \link{ecospat.permut.glm}, \link{ecospat.cv.gbm}, \link{ecospat.cv.me}, \link{ecospat.cv.rf}, \link{ecospat.boyce}, \link{ecospat.CommunityEval}, \link{ecospat.cohen.kappa}, \link{ecospat.max.kappa}, \link{ecospat.max.tss}, \link{ecospat.meva.table}, \link{ecospat.plot.kappa}, \link{ecospat.plot.tss}, \link{ecospat.adj.D2.glm}, \link{ecospat.CCV.createDataSplitTable}, \link{ecospat.CCV.modeling}, \link{ecospat.CCV.communityEvaluation.bin}, \link{ecospat.CCV.communityEvaluation.prob},\link{ecospat.ESM.EnsembleEvaluation},\link{ecospat.poolingEvaluation}}
+\item Model evaluation: \code{\link{ecospat.cv.glm}, \link{ecospat.permut.glm}, \link{ecospat.cv.gbm}, \link{ecospat.cv.me}, \link{ecospat.cv.rf}, \link{ecospat.boyce}, \link{ecospat.CommunityEval}, \link{ecospat.cohen.kappa}, \link{ecospat.max.kappa}, \link{ecospat.max.tss}, \link{ecospat.meva.table}, \link{ecospat.plot.kappa}, \link{ecospat.plot.tss}, \link{ecospat.adj.D2.glm} ,\link{ecospat.ESM.EnsembleEvaluation},\link{ecospat.poolingEvaluation}}
 
 \item Spatial predictions and projections: \code{\link{ecospat.ESM.Modeling}, \link{ecospat.ESM.EnsembleModeling}, \link{ecospat.ESM.Projection}, \link{ecospat.ESM.EnsembleProjection}, \link{ecospat.SESAM.prr}, \link{ecospat.binary.model}, \link{ecospat.Epred}, \link{ecospat.mpa}}
 

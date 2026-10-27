@@ -10,10 +10,10 @@ This function projects simple bivariate models on new.env
 \usage{
     ecospat.ESM.Projection(ESM.modeling.output, 
                            new.env,
-                           name.env,
-                           models,
-                           parallel,
-                           cleanup)
+                           name.env = NULL,
+                           models = NULL,
+                           parallel = FALSE,
+                           cleanup = FALSE)
 }
 \arguments{
     \item{ESM.modeling.output}{

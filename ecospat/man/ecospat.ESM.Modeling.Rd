@@ -9,19 +9,20 @@ This function calibrates simple bivariate models as in Lomba et al. 2010 and Bre
 }
 \usage{
     ecospat.ESM.Modeling( data, 
-                          NbRunEval, 
-                          DataSplit, 
-                          DataSplitTable, 
-                          Prevalence,
+                          NbRunEval = NULL, 
+                          DataSplit = NULL, 
+                          DataSplitTable = NULL, 
+                          Prevalence = 0.5,
                           weighting.score, 
                           models, 
-                          tune,
-                          modeling.id, 
-                          models.options, 
-                          which.biva, 
-                          parallel, 
-                          cleanup,
-                          Yweights)
+                          tune = FALSE,
+                          modeling.id,
+                          models.options = NULL, 
+                          which.biva = NULL, 
+                          parallel = FALSE, 
+                          cleanup = FALSE,
+                          Yweights = NULL, 
+                          outdir = NULL)
 }
 
 \arguments{
@@ -66,6 +67,9 @@ logical. If TRUE, the parallel computing is enabled (highly recommended)
     \item{cleanup}{
 \bold{No more available}. Please use terra::TmpFiles instead 
     }
+    \item{outdir}{
+path for the directory where biomod2 outputs will be stored
+    }
 }
 \details{
 The basic idea of ensemble of small models (ESMs) is to model a species distribution based on small, simple models, for example all possible bivariate models (i.e. models that contain only two predictors at a time out of a larger set of predictors), and then combine all possible bivariate models into an ensemble (Lomba et al. 2010; Breiner et al. 2015).
@@ -76,11 +80,9 @@ The argument \code{which.biva} allows to split model runs, e.g. if \code{which.b
 Default: running all biva models. 
 NOTE: Make sure to give each of your biva runs a unique \code{modeling.id}. Please avoid space characters in your working directory path if you are using MAXENT because this can cause an error.
 }
-
 \value{
 A BIOMOD.models.out object (same as in \code{biomod2})
 See \code{\link[biomod2]{BIOMOD.models.out-class}} for details.
-
 }
 \author{
 Frank Breiner \email{frank.breiner@wsl.ch} and Mirko Di Febbraro \email{mirkodifebbraro@gmail.com} with contributions of Olivier Broennimann \email{olivier.broennimann@unil.ch} and Flavien Collart
@@ -127,7 +129,7 @@ myBiomodData <- biomod2::BIOMOD_FormatingData( resp.var = as.numeric(sp_occ[,sp]
 
 ### Calibration of simple bivariate models
 my.ESM <- ecospat.ESM.Modeling( data=myBiomodData,
-                                models=c('GLM'),
+                                models=c('GLM','RF'),
                                 NbRunEval=2,
                                 DataSplit=70,
                                 weighting.score=c("AUC"),

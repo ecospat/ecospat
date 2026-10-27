@@ -595,132 +595,133 @@ ecospat.cv.gbm <- function(gbm.obj, data.cv, K = 10, cv.lim = 10, jack.knife = F
 ############### CV-MaxEnt ##
 
 
-ecospat.cv.me <- function(data.cv.me, name.sp, names.pred, K = 10, cv.lim = 10, jack.knife = FALSE, verbose = FALSE) {
+ecospat.cv.me <- function(data.cv.me, name.sp, names.pred,
+                          K = 10, cv.lim = 10,
+                          jack.knife = FALSE, verbose = FALSE) {
   
   jar <- paste(system.file(package = "dismo"), "/java/maxent.jar", sep = "")
   Sys.setenv(NOAWT = TRUE)
-
+  
   rownames(data.cv.me) <- 1:nrow(data.cv.me)
-
-  # best.itr.temp <- me.perf(me.obj, method='cv', plot.it=FALSE)
-
-  # CONTROL IF THE NUMBER OF OBSERVATIONS IS SUFFICIENT
-
+  
+  # ---- CONTROL ----
   n <- nrow(data.cv.me)
   if ((K > n) || (K <= 1))
     stop("K outside allowable range")
-
+  
   n.0 <- nrow(data.cv.me[data.cv.me[, name.sp] == 0, ])
-  n.1 <- nrow(data.cv.me[data.cv.me[, name.sp] == 0, ])
-
-
-  if (jack.knife == FALSE && n.1 < cv.lim || jack.knife == FALSE && n.1 < K ||jack.knife == TRUE) {
+  n.1 <- nrow(data.cv.me[data.cv.me[, name.sp] == 1, ])
+  
+  # ===============================
+  # ---- JACKKNIFE ----
+  # ===============================
+  if ((jack.knife == FALSE && n.1 < cv.lim) ||
+      (jack.knife == FALSE && n.1 < K) ||
+      jack.knife == TRUE) {
+    
     df.res <- data.frame(id = NA, predicted = NA)
     K <- nrow(data.cv.me)
-    if(verbose) cat("K has been set to ", K, " -> Jack-Knife Cross-validation enabled!","\n", append = FALSE)
-
+    
+    if (verbose)
+      cat("K has been set to ", K,
+          " -> Jack-Knife Cross-validation enabled!\n")
+    
     for (i in 1:K) {
-
-      me.cal.jk <- dismo::maxent(data.cv.me[-i, names.pred], as.vector(data.cv.me[-i,
-        name.sp]))
-
+      
+      me.cal.jk <- dismo::maxent(
+        data.cv.me[-i, names.pred],
+        as.vector(data.cv.me[-i, name.sp]),
+        args = c("threads=1") # forces maxent to use only one core, CRAN requirement
+      )
+      
+      pred_val <- round(
+        dismo::predict(me.cal.jk, data.cv.me[i, names.pred]),
+        3
+      )
+      
       if (i == 1) {
         vect.id <- i
-        vect.predicted <- round(dismo::predict(me.cal.jk, data.cv.me[i, names.pred]),
-          3)
-      } else if (i > 1) {
-        vect.id <- append(vect.id, i, after = length(vect.id))
-        vect.predicted <- append(vect.predicted, round(predict(me.cal.jk,
-          data.cv.me[i, names.pred]), 3), after = length(vect.predicted))
+        vect.predicted <- pred_val
+      } else {
+        vect.id <- append(vect.id, i)
+        vect.predicted <- append(vect.predicted, pred_val)
       }
     }
     
-    df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0),predictions = as.numeric(vect.predicted))[order(vect.id), ])
-
-    # To correct
-    df.res <- data.frame(id = df.tmp.res[, 1], obs = as.vector(data.cv.me[, name.sp]),predictions = df.tmp.res[, 2])
-
+    df.tmp.res <- data.frame(
+      cbind(
+        id = round(as.numeric(vect.id), digits = 0),
+        predictions = as.numeric(vect.predicted)
+      )[order(vect.id), ]
+    )
+    
+    df.res <- data.frame(
+      id = df.tmp.res[, 1],
+      obs = as.vector(data.cv.me[, name.sp]),
+      predictions = df.tmp.res[, 2]
+    )
+    
   } else {
-
-    id.0 <- as.vector(row.names(data.cv.me)[data.cv.me[, name.sp] == 0], mode = "numeric")
-    K.0 <- K
-    K.lst.0 <- round(K)
-    kvals.0 <- unique(round(n.0/(1:floor(n.0/2))))
-    temp.0 <- abs(kvals.0 - K.lst.0)
-    if (!any(temp.0 == 0)) {
-      K.lst.0 <- kvals.0[temp.0 == min(temp.0)][1]
-    }
-    if (K.lst.0 != K.0) {
-      if(verbose) cat("K.0 has been set to", K.lst.0, "\n", append = FALSE)
-    }
-
-    id.1 <- as.vector(row.names(data.cv.me)[data.cv.me[, name.sp] == 1], mode = "numeric")
-    K.1 <- K
-    K.lst.1 <- round(K)
-    kvals.1 <- unique(round(n.1/(1:floor(n.1/2))))
-    temp.1 <- abs(kvals.1 - K.lst.1)
-    if (!any(temp.1 == 0)) {
-      K.lst.1 <- kvals.1[temp.1 == min(temp.1)][1]
-    }
-    if (K.lst.1 != K.1) {
-      if(verbose) cat("K.1 has been set to", K.lst.1, "\n", append = FALSE)
-    }
-    if (K.lst.0 != K.lst.1) {
-      if(verbose) cat("P/A stratifications have not the same values", "\n", append = FALSE)
-      min.K <- min(K.lst.0, K.lst.1)
-      K.lst.0 <- min.K
-      K.lst.1 <- min.K
-    }
-
-    if(verbose) cat("K has been finally set to", K.lst.0, "\n", append = FALSE)
-    K.lst <- K.lst.0
-
-    # P/A STRATIFICATION
-
-    # ABSENCE STRATIFICATION
-    f.0 <- ceiling(n.0/K.lst.0)
-    s.0 <- sample(rep(1:K.lst.0, f.0), n.0)
-    n.s.0 <- table(s.0)
-    ms.0 <- max(s.0)
-
-    # PRESENCE STRATIFICATION
-    f.1 <- ceiling(n.1/K.lst.1)
-    s.1 <- sample(rep(1:K.lst.1, f.1), n.1)
-    n.s.1 <- table(s.1)
-    ms.1 <- max(s.1)
-
-    # RESPONSE PREDICTION
+    
+    # ===============================
+    # ---- STRATIFIED CV ----
+    # ===============================
+    
+    id.0 <- as.numeric(rownames(data.cv.me)[data.cv.me[, name.sp] == 0])
+    id.1 <- as.numeric(rownames(data.cv.me)[data.cv.me[, name.sp] == 1])
+    
+    K.lst <- K
+    
+    # ---- Stratification ----
+    s.0 <- sample(rep(1:K.lst, length.out = length(id.0)))
+    s.1 <- sample(rep(1:K.lst, length.out = length(id.1)))
+    
     df.res <- data.frame(id = NA, predicted = NA)
+    
     for (i in 1:K.lst) {
-      j.out <- id.0[(s.0 == i)]
-      j.out <- append(j.out, id.1[(s.1 == i)], after = length(j.out))
-      j.out <- sort(j.out)
-      j.in <- id.0[(s.0 != i)]
-      j.in <- append(j.in, id.1[(s.1 != i)], after = length(j.in))
-      j.in <- sort(j.in)
-
-
-      me.cal.cv <- dismo::maxent(data.cv.me[j.in, names.pred], as.vector(data.cv.me[j.in,name.sp]))
-      me.val <- round(dismo::predict(me.cal.cv, data.cv.me[j.out, names.pred]), 3)
-
+      
+      j.out <- sort(c(id.0[s.0 == i], id.1[s.1 == i]))
+      j.in  <- sort(c(id.0[s.0 != i], id.1[s.1 != i]))
+      
+      me.cal.cv <- dismo::maxent(
+        data.cv.me[j.in, names.pred],
+        as.vector(data.cv.me[j.in, name.sp]),
+        args = c("threads=1")  # forces maxent to use only one core, CRAN requirement
+      )
+      
+      me.val <- round(
+        dismo::predict(me.cal.cv, data.cv.me[j.out, names.pred]),
+        3
+      )
+      
       if (i == 1) {
         vect.id <- j.out
-        vect.predicted <- as.vector(me.val, mode = "numeric")
-      } else if (i > 1) {
-        vect.id <- append(vect.id, j.out, after = length(vect.id))
-        vect.predicted <- append(vect.predicted, as.vector(me.val), after = length(vect.predicted))
+        vect.predicted <- as.numeric(me.val)
+      } else {
+        vect.id <- append(vect.id, j.out)
+        vect.predicted <- append(vect.predicted, as.numeric(me.val))
       }
     }
     
-    df.tmp.res <- data.frame(cbind(id = round(as.numeric(vect.id), digits = 0),predictions = as.numeric(vect.predicted))[order(vect.id), ])
-    df.res <- data.frame(id = df.tmp.res[, 1], obs = as.vector(data.cv.me[, name.sp]),predictions = df.tmp.res[, 2])
+    df.tmp.res <- data.frame(
+      cbind(
+        id = round(as.numeric(vect.id), digits = 0),
+        predictions = as.numeric(vect.predicted)
+      )[order(vect.id), ]
+    )
+    
+    df.res <- data.frame(
+      id = df.tmp.res[, 1],
+      obs = as.vector(data.cv.me[, name.sp]),
+      predictions = df.tmp.res[, 2]
+    )
   }
   
+  # ---- Clamp predictions ----
   df.res[df.res[, 3] > 1, 3] <- 1
   df.res[df.res[, 3] < 0, 3] <- 0
-
+  
   return(df.res)
-
 }
 
 ##################################################################################################################################

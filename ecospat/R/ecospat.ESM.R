@@ -95,234 +95,178 @@
 ##See Also
 #ecospat.ESM.EnsembleModeling; ecospat.ESM.MergeModels
 
-ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataSplitTable = NULL, Prevalence = 0.5, weighting.score,
-                                 models, tune = FALSE, modeling.id = as.character(format(Sys.time(), "%s")), models.options = NULL, which.biva = NULL,
-                                 parallel = FALSE, cleanup = FALSE, Yweights = NULL) {
-  if (!weighting.score %in% c("AUC", "TSS", "Boyce", "Kappa", 
-                              "SomersD")) {
-    stop("weighting score not supported! Choose one of the following: AUC, TSS, Boyce, Kappa or SomersD")
-  }
-  if (data@has.data.eval) {
-    stop("Evaluation with independant data is not supported yet!")
-  }
-  if ("PA.table" %in% slotNames(data)) {
-    if (ncol(data@PA.table) > 1) {
-      stop("It is not possible to use more than one Pseudo Absences dataset")
-    }
-    if (sum(data@PA.table[, 1]) != length(data@data.species)) {
-      stop("The number of Pseudo Absences given in the argument resp.var of BIOMOD_FormatingData should be exactly the same as the in PA.nb.absences")
-    }
-  }
-  if (weighting.score == "AUC" | weighting.score == "SomersD") {
-    models.eval.meth <- "ROC"
-  }
-  if (weighting.score == "Kappa") {
-    models.eval.meth <- "KAPPA"
-  }
-  if (weighting.score == "TSS") {
-    models.eval.meth <- "TSS"
-  }
-  if (weighting.score == "Boyce") {
-    models.eval.meth <- "ROC"
-  }
-
-  if (is.null(NbRunEval) & is.null(DataSplitTable)) {
-    stop("Need to give a value for NbRunEval  yhen DataSplitTable is null")
-  }
-  if (is.null(DataSplit) & is.null(DataSplitTable)) {
-    stop("Need to give a value for DataSplit  when DataSplitTable is null")
-  }
-  if(is.null(models.options)){
-    options.provided = FALSE
-  }else{
-    options.provided = TRUE
-  }
-  models <- sort(models)
+ecospat.ESM.Modeling <- function(
+    data,
+    NbRunEval = NULL,
+    DataSplit = NULL,
+    DataSplitTable = NULL,
+    Prevalence = 0.5,
+    weighting.score,
+    models,
+    tune = FALSE,
+    modeling.id = as.character(format(Sys.time(), "%s")),
+    models.options = NULL,
+    which.biva = NULL,
+    parallel = FALSE,
+    cleanup = FALSE,
+    Yweights = NULL,
+    outdir = NULL
+) {
+  
+  # ---- Setup safe working directory ----
   iniwd <- getwd()
-  on.exit(setwd(iniwd))
-  dir.create(paste("./ESM.BIOMOD.output", data@sp.name, sep = "_"))
-  newwd <- paste(getwd(), "/ESM.BIOMOD.output_", data@sp.name,
-                 sep = "")
-  setwd(newwd)
-  combinations <- combn(colnames(data@data.env.var), 2)
-  if (is.null(which.biva)) {
-    which.biva <- 1:ncol(combinations)
+  on.exit(setwd(iniwd), add = TRUE)
+  
+  if (is.null(outdir)) {
+    outdir <- file.path(tempdir(), "ecospat_ESM")
   }
   
+  dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
+  
+  main_dir <- file.path(outdir, paste0("ESM.BIOMOD.output_", data@sp.name))
+  dir.create(main_dir, recursive = TRUE, showWarnings = FALSE)
+  
+  setwd(main_dir)
+  
+  # ---- Checks ----
+  if (!weighting.score %in% c("AUC", "TSS", "Boyce", "Kappa", "SomersD")) {
+    stop("weighting score not supported!")
+  }
+  
+  if (data@has.data.eval) {
+    stop("Evaluation with independent data is not supported yet!")
+  }
+  
+  if ("PA.table" %in% slotNames(data)) {
+    if (ncol(data@PA.table) > 1) {
+      stop("Only one pseudo-absence dataset allowed")
+    }
+    if (sum(data@PA.table[,1]) != length(data@data.species)) {
+      stop("Mismatch between PA.table and resp.var")
+    }
+  }
+  
+  # ---- Metric mapping ----
+  models.eval.meth <- switch(weighting.score,
+                             AUC = "AUCroc",
+                             SomersD = "AUCroc",
+                             Kappa = "KAPPA",
+                             TSS = "TSS",
+                             Boyce = "BOYCE"
+  )
+  
+  if (is.null(NbRunEval) && is.null(DataSplitTable)) {
+    stop("Need NbRunEval or DataSplitTable")
+  }
+  if (is.null(DataSplit) && is.null(DataSplitTable)) {
+    stop("Need DataSplit or DataSplitTable")
+  }
+  
+  models <- sort(models)
+  
+  # ---- Bivariate combinations ----
+  combinations <- combn(colnames(data@data.env.var), 2)
+  
+  if (is.null(which.biva)) {
+    which.biva <- seq_len(ncol(combinations))
+  }
+  
+  # ---- Data split ----
   if (is.null(DataSplitTable)) {
-    calib.lines <- .CreatingDataSplitTable(bm.format = data, 
-                                                     NbRunEval = NbRunEval, DataSplit = DataSplit)
-    if ("PA.table" %in% slotNames(data)){
-      
-      colnames(calib.lines) = paste0("_PA1",colnames(calib.lines)) #test if ok 
-      
-    }else{
-      colnames(calib.lines) = paste0("_allData",colnames(calib.lines))
-      
-    }
     
+    calib.lines <- .CreatingDataSplitTable(
+      bm.format = data,
+      NbRunEval = NbRunEval,
+      DataSplit = DataSplit
+    )
     
-  }
-  else {
-    calib.lines <- DataSplitTable
-    calib.lines <- cbind(calib.lines,TRUE)
-    if ("PA.table" %in% slotNames(data)){
-      
-      colnames(calib.lines)[ncol(calib.lines)]<- "_allData_allRun" #test if ok
-      
-    }else{
-      colnames(calib.lines)[ncol(calib.lines)]<- "_allData_allRun"
-      
+  } else {
+    
+    calib.lines <- cbind(DataSplitTable, TRUE)
+    
+    if (is.null(colnames(calib.lines))) {
+      colnames(calib.lines) <- c(
+        paste0("_RUN", seq_len(ncol(calib.lines) - 1)),
+        "_allRun"
+      )
     }
   }
+  
   if (is.null(NbRunEval)) {
-    if (ncol(calib.lines) > 1) {
-      if (sum(!as.data.frame(calib.lines)[, ncol(calib.lines)]) == 
-          0) {
-        NbRunEval <- ncol(calib.lines) - 1
-      }
-      else {
-        NbRunEval <- ncol(calib.lines)
-      }
-    }
-    else {
-      if (sum(!calib.lines) == 0) {
-        NbRunEval <- ncol(calib.lines) - 1
-      }
-      else {
-        NbRunEval <- ncol(calib.lines)
-      }
-    }
+    NbRunEval <- ncol(calib.lines) - 1
   }
-  if("MAXENT" %in% models){
-    if(!file.exists(paste0(iniwd,"/maxent.jar"))){
-      stop("maxent.jar should be in the working directory")
-    }else{
-      cat("\nmaxent.jar has been duplicated in the ESM folder")
-      file.copy(from = paste0(iniwd,"/maxent.jar"), to = "maxent.jar" )
+  
+  if ("PA.table" %in% slotNames(data)) {
+    colnames(calib.lines) <- paste0("_PA1", colnames(calib.lines))
+  } else {
+    colnames(calib.lines) <- paste0("_allData", colnames(calib.lines))
+  }
+  
+  # ---- MAXENT ----
+  if ("MAXENT" %in% models) {
+    maxent_path <- file.path(iniwd, "maxent.jar")
+    if (!file.exists(maxent_path)) {
+      stop("maxent.jar should be in working directory")
     }
+    file.copy(maxent_path, file.path(main_dir, "maxent.jar"), overwrite = TRUE)
   }
-  mymodels <- list()
-  if (parallel == FALSE) {
-    for (k in which.biva) {
-      mydata <- data
-      mydata@dir.name<-getwd()
-      mydata@data.env.var <- data@data.env.var[, colnames(data@data.env.var) %in% 
-                                                 combinations[, k]]
-      mydata@sp.name <- paste("ESM.BIOMOD", k, sep = ".")
-      if (tune == TRUE) {
-        models.options <- biomod2::bm_ModelingOptions(data.type = "binary",
-                                                      models = models,
-                                                      strategy = "tuned",
-                                                      user.base = "bigboss", 
-                                                      user.val = user.options,
-                                                      bm.format = mydata)
-        
-      }else{
-          if (!(options.provided)) {
-    ANN.options <- list('_allData_allRun' = list(size = 8, decay = 4, shrinkage = 0.001))
-    CTA.options <- list('_allData_allRun' = list(control = list(xval = 5, minbucket = 5, minsplit = 5, cp = 0, maxdepth = 25)))
-    GBM.options <- list('_allData_allRun' = list(n.trees = 1000, interaction.depth = 4, shrinkage = 0.005))
-    MARS.options <- list('_allData_allRun' = list(nprune = 2))
-    MAXENT.options <- list('_allData_allRun' = list(product = FALSE, threshold = FALSE, betamultiplier = 0.5))
-    user.options <- list(ANN.binary.nnet.nnet = ANN.options,
-                         CTA.binary.rpart.rpart = CTA.options,
-                         GBM.binary.gbm.gbm = GBM.options,
-                         MARS.binary.earth.earth = MARS.options,
-                         MAXENT.binary.MAXENT.MAXENT = MAXENT.options)
-
-    models.options <- biomod2::bm_ModelingOptions(data.type = "binary",
-                                                  models = models,
-                                                  strategy = "user.defined",
-                                                  user.val = user.options,
-                                                  user.base = "bigboss", 
-                                                      bm.format = mydata)
-  }
-      }
-      mymodels[[k]] <- "failed"
-      try(mymodels[[k]] <- biomod2::BIOMOD_Modeling(bm.format = mydata, 
-                                                    models = models,
-                                                    CV.strategy = "user.defined",
-                                                    CV.nb.rep = NbRunEval,
-                                                    CV.user.table = calib.lines,
-                                                    CV.do.full.models = TRUE,
-                                                    OPT.user = models.options,
-                                                    metric.eval = models.eval.meth, 
-                                                    prevalence = Prevalence, 
-                                                    var.import = 0,
-                                                    modeling.id = modeling.id, 
-                                                    weights = Yweights))
-      if (cleanup != FALSE) {
-        warning("Unfortunately cleanup is no more available. Please use terra::tmpFiles after this function to remove temporary files.")
-      }
+  
+  mymodels <- vector("list", length(which_biva <- which.biva))
+  
+  # ---- Modeling loop ----
+  for (i in seq_along(which_biva)) {
+    k <- which_biva[i]
+    
+    mydata <- data
+    mydata@dir.name <- getwd()
+    mydata@data.env.var <- data@data.env.var[, combinations[, k], drop = FALSE]
+    mydata@sp.name <- paste("ESM.BIOMOD", k, sep = ".")
+    
+    mymodels[[i]] <- "failed"
+    
+    try(
+      mymodels[[i]] <- biomod2::BIOMOD_Modeling(
+        bm.format = mydata,
+        models = models,
+        CV.strategy = "user.defined",
+        CV.nb.rep = NbRunEval,
+        CV.user.table = calib.lines,
+        CV.do.full.models = TRUE,
+        OPT.strategy = "bigboss",
+        metric.eval = models.eval.meth,
+        prevalence = Prevalence,
+        var.import = 0,
+        modeling.id = modeling.id,
+        weights = Yweights
+      ),
+      silent = TRUE
+    )
+    
+    if (cleanup != FALSE) {
+      warning("cleanup is deprecated; use terra::tmpFiles()")
     }
   }
-  if (parallel == TRUE) {
-    mymodels <- foreach::foreach(k = which.biva, .packages = c("biomod2", 
-                                                      "terra")) %dopar% {
-                                                        setwd(newwd)
-                                                        mydata <- data
-                                                        mydata@data.env.var <- data@data.env.var[, colnames(data@data.env.var) %in% 
-                                                                                                   combinations[, k]]
-                                                        mydata@sp.name <- paste("ESM.BIOMOD", k, sep = ".")
-                                                        if (cleanup != FALSE) {
-                                                          warning("Unfortunately cleanup is no more available. Please use terra::tmpFiles after this function to remove temporary files.")
-
-                                                        }
-                                                        if (tune == TRUE) {
-                                                          models.options <- biomod2::bm_ModelingOptions(data.type = "binary",
-                                                                                                        models = models,
-                                                                                                        strategy = "tuned",
-                                                                                                        user.base = "bigboss", 
-                                                                                                        bm.format = mydata)
-                                                          
-                                                        }else{
-                                                          if (!(options.provided)) {
-                                                            ANN.options <- list('_allData_allRun' = list(size = 8, decay = 4, shrinkage = 0.001))
-                                                            CTA.options <- list('_allData_allRun' = list(control = list(xval = 5, minbucket = 5, minsplit = 5, cp = 0, maxdepth = 25)))
-                                                            GBM.options <- list('_allData_allRun' = list(n.trees = 1000, interaction.depth = 4, shrinkage = 0.005))
-                                                            MARS.options <- list('_allData_allRun' = list(nprune = 2))
-                                                            MAXENT.options <- list('_allData_allRun' = list(product = FALSE, threshold = FALSE, betamultiplier = 0.5))
-                                                            user.options <- list(ANN.binary.nnet.nnet = ANN.options,
-                                                                                 CTA.binary.rpart.rpart = CTA.options,
-                                                                                 GBM.binary.gbm.gbm = GBM.options,
-                                                                                 MARS.binary.earth.earth = MARS.options,
-                                                                                 MAXENT.binary.MAXENT.MAXENT = MAXENT.options)
-                                                            
-                                                            models.options <- biomod2::bm_ModelingOptions(data.type = "binary",
-                                                                                                          models = models,
-                                                                                                          strategy = "user.defined",
-                                                                                                          user.val = user.options,
-                                                                                                          user.base = "bigboss", 
-                                                                                                          bm.format = mydata)
-                                                          }
-                                                          
-                                                        }
-                                                        biomod2::BIOMOD_Modeling(bm.format = mydata, 
-                                                                                 models = models,
-                                                                                 bm.options = models.options, 
-                                                                                 CV.strategy = "user.defined",
-                                                                                 CV.nb.rep = NbRunEval,
-                                                                                 CV.user.table = calib.lines,
-                                                                                 CV.do.full.models = TRUE,
-                                                                                 OPT.user = models.options,
-                                                                                 prevalence = Prevalence, 
-                                                                                 metric.eval = models.eval.meth, 
-                                                                                 var.import = 0,
-                                                                                 modeling.id = modeling.id,
-                                                                                 weights = Yweights)
-                                                      }
-  }
-  output <- list(modeling.id = modeling.id, 
-                 models. = grep(modeling.id, 
-                                gtools::mixedsort(list.files(getwd(), "models.out", recursive = TRUE, full.names = TRUE)), 
-                                value = TRUE), 
-                 models = models, 
-                 calib.lines = calib.lines, NbRunEval = NbRunEval, data = data, 
-                 wd = getwd(), which.biva = which.biva, mymodels = mymodels)
-  save(output, file = paste("ESM_Modeling..models", modeling.id, 
-                            "out", sep = "."))
-  setwd(iniwd)
+  
+  # ---- Output ----
+  output <- list(
+    modeling.id = modeling.id,
+    models. = grep(modeling.id,
+                   gtools::mixedsort(list.files(getwd(), "models.out",
+                                                recursive = TRUE,
+                                                full.names = TRUE)),
+                   value = TRUE),
+    models = models,
+    calib.lines = calib.lines,
+    NbRunEval = NbRunEval,
+    data = data,
+    wd = getwd(),
+    which.biva = which.biva,
+    mymodels = mymodels
+  )
+  
+  save(output,
+       file = paste("ESM_Modeling..models", modeling.id, "out", sep = "."))
+  
   return(output)
 }
 
@@ -359,7 +303,6 @@ ecospat.ESM.Modeling <- function(data, NbRunEval = NULL, DataSplit = NULL, DataS
 
 ##See Also
 # ecospat.ESM.Modeling; ecospat.ESM.EnsembleModeling; ecospat.ESM.EnsembleProjection
-
 
 ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL, models = NULL, parallel = FALSE, cleanup = FALSE) {
   iniwd <- getwd()
@@ -398,9 +341,9 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
         
         newdata=new.env[, colnames(new.env) %in% combinations[, k]]
         models.chosen = grep("allRun",
-                               mymodel@models.computed, 
-                                                    value = TRUE)
-                             
+                             mymodel@models.computed, 
+                             value = TRUE)
+        
         for(i in 1:length(models)){ ## Error with BIOMOD_Projection function
           if(length(grep(models[i],models.chosen))==0){
             next
@@ -414,15 +357,15 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
           
           save(map,file=file.path(paste0("./","ESM.BIOMOD.",k,"/proj_",paste(name.env, "ESM.BIOMOD", k, modeling.id, sep = "."),"/proj_",paste(name.env,models[i] ,"ESM.BIOMOD", k, modeling.id, sep = "."),".RData")))
           
-        
+          
         }
       }
       if (inherits(new.env, "SpatRaster")) {
         
         newdata=newdata=terra::subset(new.env,combinations[, k])
         models.chosen = grep("allRun",
-                               mymodel@models.computed, 
-                                                    value = TRUE)
+                             mymodel@models.computed, 
+                             value = TRUE)
         
         for(i in 1:length(models)){
           if(length(grep(models[i],models.chosen))==0){
@@ -440,8 +383,8 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
         
         
       }      
-      }
     }
+  }
   if (parallel == TRUE) {
     
     if (inherits(new.env, "SpatRaster")) {
@@ -453,68 +396,68 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
     }
     
     foreach::foreach(k = 1:length(mymodels), .packages = c("biomod2",
-                                                  "terra","base")) %dopar% {
-                                                    mymodel <- mymodels[[k]]
-                                                    
-                                                    if (!(is.character(mymodel))) {
-                                                      i=0
-                                                      setwd(ESM.modeling.output$wd)
-
-                                                      if (is.data.frame(new.env)) {
-                                                        
-                                                        newdata=new.env[, colnames(new.env) %in% combinations[, k]]
-                                                        models.chosen = grep("allRun",
-                                                                             mymodel@models.computed, 
-                                                                             value = TRUE)
-                                                        
-                                                        for(i in 1:length(models)){
-                                                          if(length(grep(models[i],models.chosen))==0){
-                                                            next
-                                                          }
-                                                          modelToProject <- get(biomod2::BIOMOD_LoadModels(mymodel,full.name = grep(paste0("_",models[i]),models.chosen,value = TRUE)))
-                                                          if(models[i]=="MAXENT"){
-                                                            map <- biomod2::predict(modelToProject,newdata=newdata,temp_workdir = modelToProject@model_output_dir,overwrite=T,on_0_1000 = TRUE, omit.na = TRUE)
-                                                          }else{
-                                                            map <- biomod2::predict(modelToProject,newdata=newdata,overwrite=T,on_0_1000 = TRUE, omit.na = TRUE)
-                                                          }
-                                                          
-                                                          save(map,file=file.path(paste0("./","ESM.BIOMOD.",k,"/proj_",paste(name.env, "ESM.BIOMOD", k, modeling.id, sep = "."),"/proj_",paste(name.env,models[i] ,"ESM.BIOMOD", k, modeling.id, sep = "."),".RData")))
-                                                          
-                                                          
-                                                        }
-                                                      }else{
-                                                          new.env <- terra::rast(new.env)
-                                                          
-                                                          newdata <- terra::subset(new.env, combinations[, k])
-                                                          new.env <- terra::wrap(new.env)
-                                                          models.chosen = grep("allRun",
-                                                                               mymodel@models.computed,
-                                                                               value = TRUE)
-                                                          
-                                                          for(i in 1:length(models)){
-                                                            if(length(grep(models[i],models.chosen))==0){
-                                                              next
-                                                            }
-                                                            modelToProject <- get(biomod2::BIOMOD_LoadModels(mymodel,full.name = grep(paste0("_",models[i]),models.chosen,value = TRUE)))
-                                                            if(models[i]=="MAXENT"){
-                                                              map <- biomod2::predict(modelToProject,newdata=newdata,temp_workdir = modelToProject@model_output_dir,on_0_1000 = TRUE, omit.na = TRUE,overwrite=T)
-                                                            }else{
-                                                              map <- biomod2::predict(modelToProject,newdata=newdata,on_0_1000 = TRUE, omit.na = TRUE,overwrite=T)
-                                                            }
-                                                            
-                                                            terra::writeRaster(map,file=file.path(paste0(ESM.modeling.output$wd,"/","ESM.BIOMOD.",k,"/proj_",paste(name.env, "ESM.BIOMOD", k, modeling.id, sep = "."),"/proj_",paste(name.env,models[i] ,"ESM.BIOMOD", k, modeling.id, sep = "."),".tif")),overwrite=T)
-                                                            
-                                                            
-                                                          }
-                                                        
-                                                        }
-    
-                                                    }
-                                                  }
+                                                           "terra","base")) %dopar% {
+                                                             mymodel <- mymodels[[k]]
+                                                             
+                                                             if (!(is.character(mymodel))) {
+                                                               i=0
+                                                               setwd(ESM.modeling.output$wd)
+                                                               
+                                                               if (is.data.frame(new.env)) {
+                                                                 
+                                                                 newdata=new.env[, colnames(new.env) %in% combinations[, k]]
+                                                                 models.chosen = grep("allRun",
+                                                                                      mymodel@models.computed, 
+                                                                                      value = TRUE)
+                                                                 
+                                                                 for(i in 1:length(models)){
+                                                                   if(length(grep(models[i],models.chosen))==0){
+                                                                     next
+                                                                   }
+                                                                   modelToProject <- get(biomod2::BIOMOD_LoadModels(mymodel,full.name = grep(paste0("_",models[i]),models.chosen,value = TRUE)))
+                                                                   if(models[i]=="MAXENT"){
+                                                                     map <- biomod2::predict(modelToProject,newdata=newdata,temp_workdir = modelToProject@model_output_dir,overwrite=T,on_0_1000 = TRUE, omit.na = TRUE)
+                                                                   }else{
+                                                                     map <- biomod2::predict(modelToProject,newdata=newdata,overwrite=T,on_0_1000 = TRUE, omit.na = TRUE)
+                                                                   }
+                                                                   
+                                                                   save(map,file=file.path(paste0("./","ESM.BIOMOD.",k,"/proj_",paste(name.env, "ESM.BIOMOD", k, modeling.id, sep = "."),"/proj_",paste(name.env,models[i] ,"ESM.BIOMOD", k, modeling.id, sep = "."),".RData")))
+                                                                   
+                                                                   
+                                                                 }
+                                                               }else{
+                                                                 new.env <- terra::rast(new.env)
+                                                                 
+                                                                 newdata <- terra::subset(new.env, combinations[, k])
+                                                                 new.env <- terra::wrap(new.env)
+                                                                 models.chosen = grep("allRun",
+                                                                                      mymodel@models.computed,
+                                                                                      value = TRUE)
+                                                                 
+                                                                 for(i in 1:length(models)){
+                                                                   if(length(grep(models[i],models.chosen))==0){
+                                                                     next
+                                                                   }
+                                                                   modelToProject <- get(biomod2::BIOMOD_LoadModels(mymodel,full.name = grep(paste0("_",models[i]),models.chosen,value = TRUE)))
+                                                                   if(models[i]=="MAXENT"){
+                                                                     map <- biomod2::predict(modelToProject,newdata=newdata,temp_workdir = modelToProject@model_output_dir,on_0_1000 = TRUE, omit.na = TRUE,overwrite=T)
+                                                                   }else{
+                                                                     map <- biomod2::predict(modelToProject,newdata=newdata,on_0_1000 = TRUE, omit.na = TRUE,overwrite=T)
+                                                                   }
+                                                                   
+                                                                   terra::writeRaster(map,file=file.path(paste0(ESM.modeling.output$wd,"/","ESM.BIOMOD.",k,"/proj_",paste(name.env, "ESM.BIOMOD", k, modeling.id, sep = "."),"/proj_",paste(name.env,models[i] ,"ESM.BIOMOD", k, modeling.id, sep = "."),".tif")),overwrite=T)
+                                                                   
+                                                                   
+                                                                 }
+                                                                 
+                                                               }
+                                                               
+                                                             }
+                                                           }
     if(!is.data.frame(new.env)){
       new.env <- terra::rast(new.env)
     }
-                                                  
+    
   }
   if (cleanup != FALSE) {
     warning("Unfortunately cleanup is no more available. Please use terra::tmpFiles after this function to remove temporary files.")
@@ -533,8 +476,7 @@ ecospat.ESM.Projection <- function(ESM.modeling.output, new.env, name.env = NULL
   setwd(iniwd)
   return(output)
 }
-
-
+      
 
 ############################
 # c)  ecospat.ESM.EnsembleModeling		Evaluates and averages simple bivariate models to	ESMs
@@ -589,7 +531,19 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
   calib.lines <- as.data.frame(ESM.modeling.output$calib.lines)
   ESM_Projection <- ESM.modeling.output$ESM_Projection
   new.env <- ESM.modeling.output$new.env
-  for (i in 1:length(models.)) load(models.[i])
+  
+  for (i in seq_along(models.)) {
+    
+    file_i <- models.[i]
+    
+    if (!file.exists(file_i)) {
+      warning(paste("Skipping missing model file:", file_i))
+      next
+    }
+    
+    load(file_i)
+  }
+  
   models. <- NULL
   for (n in 1:length(ESM.modeling.output$modeling.id)) {
     tmp.list.files <- grep(ESM.modeling.output$modeling.id[n], 
@@ -600,7 +554,23 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
                                                          "_", tmp.list.files, fixed = TRUE))])
   }
   mymodel <- list()
-  for (i in 1:length(models.)) mymodel[[i]] <- get(models.[i])
+  
+  valid_models <- models.[!is.na(models.) & nzchar(models.)]
+  
+  mymodel <- vector("list", length(valid_models))
+  
+  for (i in seq_along(valid_models)) {
+    
+    obj_name <- valid_models[i]
+    
+    if (!exists(obj_name)) {
+      warning(paste("Skipping missing object:", obj_name))
+      next
+    }
+    
+    mymodel[[i]] <- get(obj_name)
+  }
+  
   weights <- unlist(lapply(mymodel, function(x) {
     y <- x
     if (weighting.score == "Boyce") {
@@ -990,128 +960,184 @@ ecospat.ESM.EnsembleModeling <- function(ESM.modeling.output, weighting.score, t
 ## See also
 # ecospat.ESM.Modeling; ecospat.ESM.MergeModels; ecospat.ESM.EnsembleModeling
 
-ecospat.ESM.EnsembleProjection <- function(ESM.prediction.output, ESM.EnsembleModeling.output, chosen.models = 'all') {
+ecospat.ESM.EnsembleProjection <- function(
+    ESM.prediction.output,
+    ESM.EnsembleModeling.output,
+    chosen.models = "all"
+) {
+  
+  # ---- Extract inputs ----
   models <- ESM.prediction.output$models
   weights <- ESM.EnsembleModeling.output$weights
   weights.EF <- ESM.EnsembleModeling.output$weights.EF
-  if (chosen.models[1] != "all") {
-    if (any(!chosen.models %in% models)) {
-      stop("chosen.models must be a subset of the models selected in ecospat.ESM.Modeling()")
-    }
-    models <- chosen.models
-    weights.EF <- weights.EF[weights.EF$Group.1 %in% chosen.models, 
-    ]
-  }
-  NbRunEval <- ESM.prediction.output$NbRunEval
   pred.biva <- ESM.prediction.output$pred.biva
   new.env.raster <- ESM.prediction.output$new.env.raster
-  failed.mod <- grep("allRun", unlist(ESM.EnsembleModeling.output$failed),
-                     value = TRUE)
-  if(length(grep("_PA1_",failed.mod))>0){
-    failed.mod <- grep("_PA1_",failed.mod,value = T)
-  }
-  if (length(models) == 1) {
-    weigths.rm <- NULL
-    for (i in 1:length(weights)) {
-      weigths.rm <- c(weigths.rm, which(grepl(paste(names(weights), 
-                                                    ".", sep = "")[i], pred.biva, fixed = TRUE)))
+  
+  # ---- Model selection ----
+  if (chosen.models[1] != "all") {
+    if (any(!chosen.models %in% models)) {
+      stop("chosen.models must be a subset of the models used in ecospat.ESM.Modeling()")
     }
-    pred.biva <- pred.biva[weigths.rm]
-    pred.biva <- sort(pred.biva)
+    models <- chosen.models
+    
+    if (!is.null(weights.EF)) {
+      weights.EF <- weights.EF[weights.EF[,1] %in% models, , drop = FALSE]
+    }
   }
-  if (new.env.raster) {
-    pred.biva <- grep("\\.tif\\b", pred.biva, value = TRUE)
-    pred.biva <- pred.biva[gtools::mixedorder(gsub(".", "_", pred.biva, 
-                                           fixed = TRUE))]
+  
+  # ---- Keep valid files only ----
+  pred.biva <- pred.biva[file.exists(pred.biva)]
+  if (length(pred.biva) == 0) {
+    warning("No valid projection files found.")
+    return(NULL)
   }
-  if (!new.env.raster) {
-    string_pred <- grep("RData", pred.biva, value = TRUE)
-    pred.biva <- string_pred[gtools::mixedorder(gsub(".", "_", string_pred, 
-                                             fixed = TRUE))]
+  
+  # ---- Sort for reproducibility ----
+  pred.biva <- sort(pred.biva)
+  
+  # ---- Helper: extract model ID (CRUCIAL FIX) ----
+  extract_id <- function(x) {
+    sub("^.*?((GLM|GAM|RF|GBM|ANN|CTA|FDA|MARS|MAXENT|MAXNET)\\.ESM\\.BIOMOD\\.[0-9]+).*", 
+        "\\1", x)
   }
+  
+  # ---- LOAD PROJECTIONS ----
   biva.proj <- list()
-  for (i in 1:length(pred.biva)) {
+  
+  for (i in seq_along(pred.biva)) {
+    
     if (!new.env.raster) {
       
-      aa <- as.data.frame(get(load(pred.biva[i])))
-      nameMap <- gsub(".*proj_","",pred.biva[i])
-      nameMap <- sub(paste0(ESM.prediction.output$name.env,"."),"",nameMap,fixed = T)
-      nameMap <- sub(paste0(".",ESM.prediction.output$modeling.id,".RData"),"",nameMap,fixed = T)
-      colnames(aa) = nameMap
+      env <- new.env()
+      load(pred.biva[i], envir = env)
+      
+      obj <- ls(env)
+      if (length(obj) == 0) next
+      
+      aa <- as.data.frame(env[[obj[1]]])
+      
+      nameMap <- basename(pred.biva[i])
+      nameMap <- sub("^proj_", "", nameMap)
+      nameMap <- sub("\\.RData$", "", nameMap)
+      
+      colnames(aa) <- nameMap
       biva.proj[[i]] <- aa
       
-    }
-    if (new.env.raster) {
-      biva.proj[[i]] <- terra::rast(pred.biva[i])
-      nameMap <- gsub(".*proj_","",pred.biva[i])
-      nameMap <- sub(paste0(ESM.prediction.output$name.env,"."),"",nameMap,fixed = T)
-      nameMap <- sub(paste0(".",ESM.prediction.output$modeling.id,".tif"),"",nameMap,fixed = T)
-      names(biva.proj[[i]]) = nameMap
-    }
-  }
-  if (!new.env.raster) {
-    pred.ESM <- list()
-    biva.st <- do.call(cbind, biva.proj)
-    for (i in 1:length(models)) {
-      Model.biva.prediction <- biva.st[, grep(models[i], 
-                                              colnames(biva.st))]
+    } else {
       
-      weights2 <- weights[colnames(Model.biva.prediction)]
-      pred.ESM[[i]] <- apply(Model.biva.prediction, 1, 
-                             function(x) stats::weighted.mean(x, weights2, 
-                                                              na.rm = TRUE))
+      rast <- terra::rast(pred.biva[i])
+      
+      nameMap <- basename(pred.biva[i])
+      nameMap <- sub("^proj_", "", nameMap)
+      nameMap <- sub("\\.tif$", "", nameMap)
+      
+      names(rast) <- nameMap
+      biva.proj[[i]] <- rast
     }
-    rm(biva.st)
-    pred.ESM <- round(as.data.frame(do.call(cbind, pred.ESM)))
-    colnames(pred.ESM) <- models
   }
-  # if (length(models) == 1) {
-  #   names(weights) <- paste0(models, names(weights))
-  # }
-  if (new.env.raster) {
-    pred.ESM <- terra::rast(biva.proj)
-    for (i in 1:length(models)) {
-      model.maps<- pred.ESM[[grep(models[i], names(pred.ESM))]]
-      weights.mod <- weights[grep(models[i], names(weights))]
-      if (any(grepl(models[i], failed.mod))) {
-        weights.mod <- weights.mod[!names(weights.mod) %in% 
-                                     paste(models[i], ".", sub("_.*", "", failed.mod[grepl(models[i], 
-                                                                                           failed.mod)]), sep = "")]
-      }
-      if(sum(weights.mod)==0){
-        ToPutNA <- terra::subset(model.maps,1)
-        terra::values(ToPutNA) = NA
-        assign(models[i],ToPutNA )
+  
+  if (length(biva.proj) == 0) {
+    stop("No projections could be loaded.")
+  }
+  
+  # ===============================
+  # ---- DATA FRAME CASE ----
+  # ===============================
+  if (!new.env.raster) {
+    
+    biva.st <- do.call(cbind, biva.proj)
+    pred.ESM <- list()
+    
+    for (m in models) {
+      
+      cols <- grep(m, colnames(biva.st))
+      if (length(cols) == 0) next
+      
+      Model.biva.prediction <- biva.st[, cols, drop = FALSE]
+      
+      # ---- FIX: align weights with projections ----
+      col_ids <- extract_id(colnames(Model.biva.prediction))
+      weights2 <- weights[col_ids]
+      
+      valid <- !is.na(weights2) & weights2 > 0
+      weights2 <- weights2[valid]
+      Model.biva.prediction <- Model.biva.prediction[, valid, drop = FALSE]
+      
+      if (length(weights2) == 0) {
+        warning(paste("All weights zero for model:", m))
         next
       }
-      model.maps <- model.maps[[weights.mod!=0]] 
-      weights.mod <- weights.mod[weights.mod>0]
-      assign(models[i], round(terra::weighted.mean(model.maps,
-                                                   weights.mod, na.rm = TRUE)))
+      
+      pred.ESM[[m]] <- apply(Model.biva.prediction, 1,
+                             function(x) stats::weighted.mean(x, weights2, na.rm = TRUE))
     }
-    pred.ESM <- terra::rast(mget(models))[[order(models)]]
-    do.call("rm", as.list(models))
-  }
-  if (length(models) > 1) {
-    if (new.env.raster) {
-      weights.EF <- weights.EF[order(weights.EF[, 1]), 2]
-      pred.ESM2 <- terra::subset(pred.ESM[[names(pred.ESM)]], weights.EF >0)
-      ESM.EF <- round(terra::weighted.mean(pred.ESM2, 
-                                           weights.EF[weights.EF>0], na.rm = TRUE))
-      pred.ESM <- c(pred.ESM, ESM.EF)
-      names(pred.ESM) <- c(names(pred.ESM)[1:(terra::nlyr(pred.ESM) - 
-                                                1)], "EF")
-      rm(ESM.EF)
-    }
-    if (!new.env.raster) {
-      pred.ESM$EF <- apply(pred.ESM, 1, function(x) stats::weighted.mean(x, 
-                                                                         weights.EF[order(weights.EF[, 1]), 2], na.rm = TRUE))
-    }
-    if (!new.env.raster) {
-      pred.ESM <- round(pred.ESM)
+    
+    pred.ESM <- as.data.frame(pred.ESM)
+    
+    # ---- Final ensemble (EF) ----
+    if (length(models) > 1 && !is.null(weights.EF)) {
+      
+      weights.EF <- weights.EF[order(weights.EF[,1]), 2]
+      
+      pred.ESM$EF <- apply(pred.ESM, 1,
+                           function(x) stats::weighted.mean(x, weights.EF, na.rm = TRUE))
     }
   }
-  return(ESM.projections = pred.ESM)
+  
+  # ===============================
+  # ---- RASTER CASE ----
+  # ===============================
+  if (new.env.raster) {
+    
+    pred_stack <- terra::rast(biva.proj)
+    pred.ESM <- list()
+    
+    for (m in models) {
+      
+      idx <- grep(m, names(pred_stack))
+      if (length(idx) == 0) next
+      
+      model_maps <- pred_stack[[idx]]
+      
+      # ---- FIX: align weights with layers ----
+      layer_ids <- extract_id(names(model_maps))
+      weights.mod <- weights[layer_ids]
+      
+      valid <- !is.na(weights.mod) & weights.mod > 0
+      weights.mod <- weights.mod[valid]
+      model_maps <- model_maps[[valid]]
+      
+      if (length(weights.mod) == 0) {
+        warning(paste("All weights zero for model:", m))
+        next
+      }
+      
+      pred.ESM[[m]] <- terra::weighted.mean(model_maps, weights.mod, na.rm = TRUE)
+    }
+    
+    pred.ESM <- terra::rast(pred.ESM)
+    
+    # ---- Final EF ensemble ----
+    if (length(models) > 1 && !is.null(weights.EF)) {
+      
+      weights.EF <- weights.EF[order(weights.EF[,1]), 2]
+      
+      valid <- weights.EF > 0
+      if (any(valid)) {
+        
+        ESM.EF <- terra::weighted.mean(
+          pred.ESM[[valid]],
+          weights.EF[valid],
+          na.rm = TRUE
+        )
+        
+        pred.ESM <- c(pred.ESM, ESM.EF)
+        names(pred.ESM)[terra::nlyr(pred.ESM)] <- "EF"
+      }
+    }
+  }
+  
+  return(pred.ESM)
 }
 ############################
 # e)  ecospat.mpa
@@ -1286,7 +1312,6 @@ ecospat.ESM.VarContrib <- function(ESM.modeling.output,ESM_EF.output) {
   contrib<-data.frame(matrix(nrow=length(var),ncol=length(models),dimnames=list(var,c(models))))
   weights<-ESM_EF.output$weights
   if(length(models)==1){
-    names(weights) <- paste0(models,names(weights))
     order_weights <- order(as.numeric(sub("GLM.ESM.BIOMOD.","",names(weights))))
   }
   
